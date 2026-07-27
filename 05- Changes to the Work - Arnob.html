@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BECM 3107 — Changes to the Work | Q&A Study Guide</title>
+<style>
+  :root{
+    --teal:#0d6e6e;
+    --teal-dark:#094e4e;
+    --amber:#e08e2b;
+    --slate:#37424f;
+    --paper:#ffffff;
+    --ink:#26211d;
+    --muted:#6b6258;
+    --blue-accent:#1a5fa8;
+    --red-accent:#b8322f;
+    --shadow: 0 6px 20px rgba(10,60,60,0.12);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Georgia','Segoe UI',Tahoma,sans-serif;
+    background: linear-gradient(180deg,#eaf3f2 0%, #dcece9 100%);
+    color:var(--ink);
+    min-height:100vh;
+    padding-bottom:60px;
+  }
+  header{
+    background: linear-gradient(120deg, var(--teal) 0%, var(--teal-dark) 100%);
+    color:#f2fbf9;
+    padding:38px 20px 46px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.25);
+  }
+  header::after{
+    content:"";
+    position:absolute;
+    bottom:-40px; right:-40px;
+    width:220px;height:220px;
+    border-radius:50%;
+    background: radial-gradient(circle, rgba(224,142,43,0.30) 0%, transparent 70%);
+  }
+  header::before{
+    content:"";
+    position:absolute;
+    top:-40px; left:-30px;
+    width:140px;height:140px;
+    border-radius:50%;
+    background: rgba(224,142,43,0.22);
+  }
+  header .inner{ position:relative; z-index:2; }
+  header .tag{
+    font-size:13px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    color:#ffd9a0;
+    font-weight:600;
+    margin-bottom:8px;
+  }
+  header h1{
+    margin:0;
+    font-size:clamp(24px,4vw,38px);
+    font-weight:700;
+    letter-spacing:0.5px;
+  }
+  header p.sub{
+    margin:10px auto 0;
+    max-width:640px;
+    font-size:15px;
+    color:#dff3ef;
+    line-height:1.6;
+  }
+  .container{
+    max-width:900px;
+    margin:-24px auto 0;
+    padding:0 18px;
+  }
+  .toolbar{
+    background:var(--paper);
+    border-radius:14px;
+    box-shadow:var(--shadow);
+    padding:16px 20px;
+    display:flex;
+    gap:14px;
+    align-items:center;
+    flex-wrap:wrap;
+    margin-bottom:26px;
+    border:1px solid #cde7e2;
+  }
+  .toolbar input[type="text"]{
+    flex:1;
+    min-width:180px;
+    padding:11px 16px;
+    border-radius:10px;
+    border:1.5px solid #b9dcd5;
+    font-size:15px;
+    outline:none;
+    transition: border-color .2s, box-shadow .2s;
+    font-family:inherit;
+  }
+  .toolbar input[type="text"]:focus{
+    border-color:var(--teal);
+    box-shadow:0 0 0 3px rgba(13,110,110,0.14);
+  }
+  .toolbar button{
+    background:var(--slate);
+    color:#fff;
+    border:none;
+    padding:11px 18px;
+    border-radius:10px;
+    font-size:14px;
+    font-weight:600;
+    cursor:pointer;
+    transition: background .2s, transform .15s;
+    white-space:nowrap;
+  }
+  .toolbar button:hover{ background:#232a33; transform:translateY(-1px);}
+  .stats{
+    text-align:center;
+    color:var(--muted);
+    font-size:13px;
+    margin-bottom:18px;
+    letter-spacing:0.3px;
+  }
+  .stats b{color:var(--teal-dark);}
+
+  .card{
+    background:var(--paper);
+    border-radius:14px;
+    margin-bottom:14px;
+    box-shadow:var(--shadow);
+    overflow:hidden;
+    border:1px solid #d5ebe6;
+    transition: box-shadow .25s ease, transform .2s ease;
+  }
+  .card:hover{ box-shadow: 0 10px 26px rgba(10,60,60,0.20); }
+  .q-btn{
+    width:100%;
+    background:linear-gradient(90deg, #f3fbfa, #e9f6f3);
+    border:none;
+    text-align:left;
+    padding:18px 20px;
+    cursor:pointer;
+    display:flex;
+    align-items:flex-start;
+    gap:14px;
+    font-family:inherit;
+    transition: background .2s;
+  }
+  .q-btn:hover{ background:linear-gradient(90deg, #e4f5f1, #daf0ea);}
+  .q-btn.active{
+    background: linear-gradient(90deg, #cdeae3, #bfe4db);
+  }
+  .q-number{
+    flex-shrink:0;
+    width:34px;height:34px;
+    border-radius:50%;
+    background:var(--teal);
+    color:#fff;
+    font-weight:700;
+    font-size:14px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 2px 6px rgba(13,110,110,0.4);
+  }
+  .q-text{
+    flex:1;
+  }
+  .q-en{
+    font-size:16.5px;
+    font-weight:700;
+    color:var(--ink);
+    line-height:1.45;
+  }
+  .q-bn{
+    font-size:14.5px;
+    color:var(--slate);
+    margin-top:4px;
+    line-height:1.5;
+    font-weight:500;
+  }
+  .page-tag{
+    font-size:11.5px;
+    color:var(--muted);
+    background:#dcf0ec;
+    padding:3px 9px;
+    border-radius:20px;
+    margin-top:8px;
+    display:inline-block;
+    font-weight:600;
+  }
+  .chevron{
+    flex-shrink:0;
+    width:22px;height:22px;
+    margin-top:6px;
+    transition: transform .3s ease;
+    color:var(--teal);
+  }
+  .q-btn.active .chevron{ transform:rotate(180deg); }
+
+  .answer-wrap{
+    max-height:0;
+    overflow:hidden;
+    transition: max-height .45s cubic-bezier(.4,0,.2,1);
+    background: #fbfffe;
+  }
+  .answer-inner{
+    padding:0 22px 22px 68px;
+    border-top:1px dashed #cfe9e2;
+  }
+  .answer-block{
+    margin-top:16px;
+    animation: fadeIn .4s ease;
+  }
+  @keyframes fadeIn{
+    from{opacity:0; transform:translateY(-6px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+  .ans-label{
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+    font-weight:700;
+    color:#e7fffb;
+    background:var(--teal);
+    display:inline-block;
+    padding:3px 10px;
+    border-radius:6px;
+    margin-bottom:10px;
+  }
+  .ans-en, .ans-bn{
+    font-size:15px;
+    line-height:1.75;
+    color:#3a332c;
+  }
+  .ans-bn{
+    margin-top:10px;
+    color:#1f3d4d;
+    font-size:14.5px;
+    border-top:1px solid #e0f0eb;
+    padding-top:10px;
+  }
+  .ans-en ul, .ans-bn ul{
+    margin:6px 0 6px 0;
+    padding-left:22px;
+  }
+  .ans-en li, .ans-bn li{
+    margin-bottom:5px;
+  }
+  .kw{ font-weight:700; }
+  .kw-red{ color:var(--red-accent); font-weight:700; }
+  .kw-blue{ color:var(--blue-accent); font-weight:700; }
+  .case-box{
+    background:#fef4e7;
+    border-left:4px solid var(--amber);
+    padding:10px 14px;
+    border-radius:6px;
+    margin-top:8px;
+    font-size:14.5px;
+  }
+
+  .no-results{
+    text-align:center;
+    color:var(--muted);
+    padding:40px 0;
+    font-style:italic;
+    display:none;
+  }
+
+  footer{
+    text-align:center;
+    color:#5c766e;
+    font-size:12.5px;
+    margin-top:30px;
+    padding:0 20px;
+  }
+
+  @media (max-width:520px){
+    .answer-inner{ padding-left:22px; }
+    .q-en{ font-size:15px; }
+    .q-bn{ font-size:13.5px; }
+    header{ padding:30px 14px 40px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="inner">
+    <div class="tag">BECM 3107 · Construction Contract and Law</div>
+    <h1>Changes to the Work — Q&amp;A Study Guide</h1>
+    <p class="sub">Sanjida Afrin Sworna, Lecturer (Adjunct), Dept. of Building Engineering and Construction Management, KUET &nbsp;|&nbsp; কাজের পরিবর্তন বিষয়ক প্রশ্নোত্তর অধ্যয়ন সহায়িকা</p>
+  </div>
+</header>
+
+<div class="container">
+  <div class="toolbar">
+    <input type="text" id="searchBox" placeholder="Search questions... / প্রশ্ন খুঁজুন...">
+    <button id="expandAllBtn">Expand All</button>
+    <button id="collapseAllBtn">Collapse All</button>
+  </div>
+  <div class="stats">Showing <b id="visibleCount">38</b> of <b>38</b> questions</div>
+
+  <div id="cardsContainer"></div>
+  <div class="no-results" id="noResults">No matching questions found. / কোনো মিল পাওয়া যায়নি।</div>
+</div>
+
+<footer>
+  Prepared for revision purposes · BECM, Khulna University of Engineering &amp; Technology (KUET), Khulna-9203, Bangladesh
+</footer>
+
+<script>
+const data = [
+{
+  qEn: "What are common reasons changes may become necessary in a construction project?",
+  qBn: "নির্মাণ প্রকল্পে পরিবর্তন প্রয়োজন হওয়ার সাধারণ কারণগুলো কী কী?",
+  page: "Page 2",
+  ansEn: `<ul>
+    <li><span class="kw-red">Errors or omissions</span> in the plans or specifications</li>
+    <li><span class="kw">Unforeseen site conditions</span></li>
+    <li>A change in the <span class="kw">owner's needs</span></li>
+    <li><span class="kw-blue">Cost savings</span> proposed by the contractor</li>
+    <li>New <span class="kw-blue">government regulations</span></li>
+  </ul>`,
+  ansBn: `<ul>
+    <li>পরিকল্পনা বা স্পেসিফিকেশনে <span class="kw-red">ত্রুটি বা বাদ পড়া</span></li>
+    <li><span class="kw">অপ্রত্যাশিত সাইট পরিস্থিতি</span></li>
+    <li><span class="kw">মালিকের প্রয়োজনীয়তায়</span> পরিবর্তন</li>
+    <li>ঠিকাদার কর্তৃক প্রস্তাবিত <span class="kw-blue">খরচ সাশ্রয়</span></li>
+    <li>নতুন <span class="kw-blue">সরকারি নিয়মকানুন</span></li>
+  </ul>`
+},
+{
+  qEn: "What is a constructive change and when might a contractor file such a claim?",
+  qBn: "কনস্ট্রাক্টিভ চেঞ্জ কী এবং কখন একজন ঠিকাদার এই ধরনের দাবি করতে পারে?",
+  page: "Page 3",
+  ansEn: `<ul>
+    <li>Budget may need revision due to owner's <span class="kw">financial setback</span></li>
+    <li>Owner may change mind for <span class="kw-blue">aesthetic or functional reasons</span></li>
+    <li>Even without an explicit change request, if the contractor believes it's being asked to do work <span class="kw-red">outside the scope of its contract</span>, it may file a claim for a <span class="kw-red">constructive change</span></li>
+  </ul>`,
+  ansBn: `<ul>
+    <li>মালিকের <span class="kw">আর্থিক ধাক্কার</span> কারণে বাজেট সংশোধনের প্রয়োজন হতে পারে</li>
+    <li>মালিক <span class="kw-blue">নান্দনিক বা কার্যকরী কারণে</span> মত পরিবর্তন করতে পারেন</li>
+    <li>স্পষ্ট পরিবর্তনের অনুরোধ ছাড়াই, ঠিকাদার যদি মনে করে তাকে <span class="kw-red">চুক্তির পরিধির বাইরে</span> কাজ করতে বলা হচ্ছে, তবে সে <span class="kw-red">কনস্ট্রাক্টিভ চেঞ্জের</span> দাবি করতে পারে</li>
+  </ul>`
+},
+{
+  qEn: "What is a Contemplated Change Notice (CCN) and why is it used?",
+  qBn: "কনটেমপ্লেটেড চেঞ্জ নোটিশ (CCN) কী এবং এটি কেন ব্যবহার করা হয়?",
+  page: "Page 4",
+  ansEn: `When a <span class="kw-red">substantial change</span> is contemplated, the owner may ask the contractor for a <span class="kw">CCN</span>, which allows the owner to <span class="kw-blue">evaluate cost and schedule impacts</span> of a potential change before making any commitment.`,
+  ansBn: `যখন একটি <span class="kw-red">উল্লেখযোগ্য পরিবর্তন</span> বিবেচনা করা হয়, মালিক ঠিকাদারের কাছে <span class="kw">CCN</span> চাইতে পারেন, যা মালিককে কোনো প্রতিশ্রুতি দেওয়ার আগে সম্ভাব্য পরিবর্তনের <span class="kw-blue">খরচ ও সময়সূচির প্রভাব</span> মূল্যায়ন করতে দেয়।`
+},
+{
+  qEn: "What does the 'changes clause' of a contract typically establish?",
+  qBn: "চুক্তির \"পরিবর্তন ধারা\" সাধারণত কী প্রতিষ্ঠিত করে?",
+  page: "Page 4",
+  ansEn: `It establishes the <span class="kw-red">owner's right to make a change</span> and sets the <span class="kw">parameters for pricing work</span> and <span class="kw">adjusting the completion</span> date.`,
+  ansBn: `এটি <span class="kw-red">মালিকের পরিবর্তন করার অধিকার</span> প্রতিষ্ঠা করে এবং কাজের <span class="kw">মূল্য নির্ধারণ</span> ও সম্পন্ন হওয়ার তারিখ <span class="kw">সমন্বয়ের মানদণ্ড</span> নির্ধারণ করে।`
+},
+{
+  qEn: "Define a 'change order' and state what parties must sign it.",
+  qBn: "\"চেঞ্জ অর্ডার\" সংজ্ঞায়িত করুন এবং কোন পক্ষগুলো এতে স্বাক্ষর করতে হবে তা বলুন।",
+  page: "Page 5",
+  ansEn: `A <span class="kw-red">written modification</span>, signed by the <span class="kw">contractor and the owner</span>, that defines the <span class="kw-blue">scope of the work, its price, and its effect on the schedule</span>.`,
+  ansBn: `একটি <span class="kw-red">লিখিত পরিবর্তন</span>, যা <span class="kw">ঠিকাদার ও মালিক</span> কর্তৃক স্বাক্ষরিত এবং যা কাজের <span class="kw-blue">পরিধি, মূল্য এবং সময়সূচির উপর প্রভাব</span> নির্ধারণ করে।`
+},
+{
+  qEn: "Why do many contracts require A/E review and signature of change orders?",
+  qBn: "অনেক চুক্তিতে কেন চেঞ্জ অর্ডারে A/E-এর পর্যালোচনা ও স্বাক্ষরের প্রয়োজন হয়?",
+  page: "Page 5",
+  ansEn: `To <span class="kw-red">ensure that the change does not negatively affect the design</span>.`,
+  ansBn: `যাতে <span class="kw-red">নিশ্চিত করা যায় যে পরিবর্তনটি নকশাকে নেতিবাচকভাবে প্রভাবিত করছে না</span>।`
+},
+{
+  qEn: "What is a Construction Change Directive (CCD)?",
+  qBn: "কনস্ট্রাকশন চেঞ্জ ডাইরেক্টিভ (CCD) কী?",
+  page: "Page 6",
+  ansEn: `A <span class="kw-red">written order signed by the owner</span> (and often the A/E) that directs a change in the work and states that <span class="kw">adjustments to contract price and time will be negotiated</span> according to the contract terms.`,
+  ansBn: `<span class="kw-red">মালিক দ্বারা স্বাক্ষরিত একটি লিখিত আদেশ</span> (এবং প্রায়ই A/E) যা কাজে পরিবর্তন নির্দেশ করে এবং বলে যে <span class="kw">চুক্তি মূল্য ও সময়ের সমন্বয় আলোচনা করা হবে</span> চুক্তির শর্ত অনুযায়ী।`
+},
+{
+  qEn: "Under what conditions can an owner order changes via a CCD?",
+  qBn: "কোন শর্তে একজন মালিক CCD-এর মাধ্যমে পরিবর্তনের আদেশ দিতে পারেন?",
+  page: "Page 6",
+  ansEn: `The owner can order <span class="kw">additions, deletions, or other revisions</span> to the work as long as the changes are <span class="kw-red">within the general scope of the contract</span>.`,
+  ansBn: `মালিক কাজে <span class="kw">সংযোজন, বিয়োজন বা অন্যান্য পরিবর্তনের</span> আদেশ দিতে পারেন যতক্ষণ পরিবর্তনগুলো চুক্তির <span class="kw-red">সাধারণ পরিধির মধ্যে</span> থাকে।`
+},
+{
+  qEn: "What rule governs unilateral changes under a changes clause?",
+  qBn: "পরিবর্তন ধারার অধীনে একতরফা পরিবর্তন কোন নিয়ম দ্বারা নিয়ন্ত্রিত হয়?",
+  page: "Page 7",
+  ansEn: `<ul>
+    <li>Both parties must generally <span class="kw">agree to the terms</span> of a modification</li>
+    <li>However, if the changes clause gives the owner the right to make <span class="kw-red">unilateral changes</span>, this right will be <span class="kw-blue">upheld in court</span> because by signing the contract, the contractor already agreed to it</li>
+  </ul>`,
+  ansBn: `<ul>
+    <li>উভয় পক্ষকে সাধারণত পরিবর্তনের শর্তে <span class="kw">সম্মত হতে হবে</span></li>
+    <li>তবে, পরিবর্তন ধারা যদি মালিককে <span class="kw-red">একতরফা পরিবর্তন</span> করার অধিকার দেয়, তবে এই অধিকার <span class="kw-blue">আদালতে বহাল</span> থাকবে কারণ চুক্তিতে স্বাক্ষর করে ঠিকাদার ইতিমধ্যে এতে সম্মত হয়েছে</li>
+  </ul>`
+},
+{
+  qEn: "What happens if there is no changes clause and the owner issues a unilateral directive?",
+  qBn: "যদি কোনো পরিবর্তন ধারা না থাকে এবং মালিক একতরফা নির্দেশনা জারি করেন, তবে কী ঘটে?",
+  page: "Page 7",
+  ansEn: `Absent a changes clause, such unilateral directives could be considered a <span class="kw-red">breach of contract</span>, particularly if the change involves <span class="kw">deleting work</span>.`,
+  ansBn: `পরিবর্তন ধারা না থাকলে, এই ধরনের একতরফা নির্দেশনা <span class="kw-red">চুক্তি লঙ্ঘন</span> হিসেবে বিবেচিত হতে পারে, বিশেষত যদি পরিবর্তনে <span class="kw">কাজ বাদ দেওয়া</span> জড়িত থাকে।`
+},
+{
+  qEn: "How is a change order typically priced when the parties cannot agree, and what basis is used?",
+  qBn: "পক্ষগুলো একমত না হলে চেঞ্জ অর্ডারের মূল্য সাধারণত কীভাবে নির্ধারণ করা হয় এবং কোন ভিত্তিতে?",
+  page: "Page 8",
+  ansEn: `The work is often done on a <span class="kw-red">Time and Materials (T&M)</span> basis, much like a <span class="kw">cost-plus contract</span> — the contractor is reimbursed for costs incurred plus an <span class="kw-blue">agreed-upon amount for overhead and profit</span>.`,
+  ansBn: `কাজ প্রায়ই <span class="kw-red">টাইম অ্যান্ড ম্যাটেরিয়ালস (T&M)</span> ভিত্তিতে করা হয়, যা <span class="kw">কস্ট-প্লাস চুক্তির</span> মতো — ঠিকাদারকে খরচ ও <span class="kw-blue">ওভারহেড ও মুনাফার সম্মত পরিমাণ</span> পরিশোধ করা হয়।`
+},
+{
+  qEn: "What costs are reimbursed under Time and Materials (T&M) pricing?",
+  qBn: "টাইম অ্যান্ড ম্যাটেরিয়ালস (T&M) মূল্য নির্ধারণের অধীনে কোন খরচগুলো পরিশোধ করা হয়?",
+  page: "Page 8",
+  ansEn: `<ul>
+    <li><span class="kw">Labor</span>, including taxes and benefits</li>
+    <li><span class="kw">Materials, supplies, and machinery</span></li>
+    <li><span class="kw">Equipment rental or use</span></li>
+    <li>Bond premiums, insurance, permit fees, or taxes related to the change</li>
+    <li><span class="kw-blue">Supervision and field office personnel</span> directly attributable to the change</li>
+  </ul>`,
+  ansBn: `<ul>
+    <li>কর ও সুবিধাসহ <span class="kw">শ্রম</span></li>
+    <li><span class="kw">উপকরণ, সরবরাহ ও যন্ত্রপাতি</span></li>
+    <li><span class="kw">সরঞ্জাম ভাড়া বা ব্যবহার</span></li>
+    <li>পরিবর্তন সংক্রান্ত বন্ড প্রিমিয়াম, বীমা, পারমিট ফি বা কর</li>
+    <li>পরিবর্তনের সাথে সরাসরি সম্পর্কিত <span class="kw-blue">তদারকি ও ফিল্ড অফিস কর্মী</span></li>
+  </ul>`
+},
+{
+  qEn: "How is price determined by a third party, and what risk does this involve?",
+  qBn: "তৃতীয় পক্ষ দ্বারা মূল্য কীভাবে নির্ধারিত হয় এবং এতে কী ঝুঁকি জড়িত?",
+  page: "Page 9",
+  ansEn: `<ul>
+    <li>If parties cannot agree on a <span class="kw">lump-sum price</span>, the contract may state the price will be determined by a <span class="kw-red">third party</span>, such as the A/E</li>
+    <li>This involves the risk of <span class="kw-red">favoritism or ignorance</span></li>
+  </ul>`,
+  ansBn: `<ul>
+    <li>পক্ষগুলো যদি <span class="kw">লাম্প-সাম মূল্যে</span> একমত না হয়, তবে চুক্তিতে বলা থাকতে পারে যে মূল্য একটি <span class="kw-red">তৃতীয় পক্ষ</span> দ্বারা নির্ধারিত হবে, যেমন A/E</li>
+    <li>এতে <span class="kw-red">পক্ষপাত বা অজ্ঞতার</span> ঝুঁকি জড়িত থাকে</li>
+  </ul>`
+},
+{
+  qEn: "Why are third-party price determinations rarely challenged on small change orders?",
+  qBn: "ছোট চেঞ্জ অর্ডারে তৃতীয় পক্ষের মূল্য নির্ধারণ কেন খুব কমই চ্যালেঞ্জ করা হয়?",
+  page: "Page 9",
+  ansEn: `On small change orders, <span class="kw-red">transaction costs</span> (attorney's fees, arbitration or litigation costs) to dispute the price are likely to <span class="kw">far outweigh any potential price change</span>.`,
+  ansBn: `ছোট চেঞ্জ অর্ডারে, মূল্য নিয়ে বিরোধ করার <span class="kw-red">লেনদেন খরচ</span> (আইনজীবীর ফি, সালিশি বা মামলার খরচ) সম্ভাব্য মূল্য পরিবর্তনের চেয়ে <span class="kw">অনেক বেশি হয়ে যায়</span>।`
+},
+{
+  qEn: "How are schedule adjustments for changed work typically handled?",
+  qBn: "পরিবর্তিত কাজের সময়সূচি সমন্বয় সাধারণত কীভাবে পরিচালিত হয়?",
+  page: "Page 10",
+  ansEn: `<ul>
+    <li>Under most industry standard forms, schedule adjustments are handled the <span class="kw-blue">same way as price adjustments</span></li>
+    <li>If parties agree, the change order includes an <span class="kw">adjustment to the completion date</span>; otherwise a third party (like the A/E) determines it</li>
+  </ul>`,
+  ansBn: `<ul>
+    <li>বেশিরভাগ শিল্প মানক ফর্মের অধীনে, সময়সূচি সমন্বয় <span class="kw-blue">মূল্য সমন্বয়ের মতোই</span> পরিচালিত হয়</li>
+    <li>পক্ষগুলো একমত হলে, চেঞ্জ অর্ডারে <span class="kw">সম্পন্ন হওয়ার তারিখের সমন্বয়</span> অন্তর্ভুক্ত থাকে; নাহলে একটি তৃতীয় পক্ষ (যেমন A/E) এটি নির্ধারণ করে</li>
+  </ul>`
+},
+{
+  qEn: "Why can determining an appropriate schedule adjustment be difficult?",
+  qBn: "যথাযথ সময়সূচি সমন্বয় নির্ধারণ কেন কঠিন হতে পারে?",
+  page: "Page 10",
+  ansEn: `Even if the contract time is increased for the change itself, the adjustment <span class="kw-red">may not account for all the impacts</span> resulting from the change.`,
+  ansBn: `পরিবর্তনের জন্য চুক্তির সময় বাড়ানো হলেও, সমন্বয়টি পরিবর্তনের ফলে সৃষ্ট <span class="kw-red">সকল প্রভাব হিসাব করতে না-ও পারে</span>।`
+},
+{
+  qEn: "What is a constructive change and what is its most common source?",
+  qBn: "কনস্ট্রাক্টিভ চেঞ্জ কী এবং এর সবচেয়ে সাধারণ উৎস কী?",
+  page: "Page 11",
+  ansEn: `A constructive change occurs when the contractor believes it is being required to perform work <span class="kw-red">outside the scope of its contract</span>, but the owner <span class="kw">refuses to acknowledge</span> the work is a change. Most common source: <span class="kw-blue">errors or ambiguities in the plans and specifications</span>.`,
+  ansBn: `একটি কনস্ট্রাক্টিভ চেঞ্জ ঘটে যখন ঠিকাদার মনে করে তাকে চুক্তির <span class="kw-red">পরিধির বাইরে</span> কাজ করতে বলা হচ্ছে, কিন্তু মালিক এটি একটি পরিবর্তন বলে <span class="kw">স্বীকার করতে অস্বীকার</span> করেন। সবচেয়ে সাধারণ উৎস: পরিকল্পনা ও স্পেসিফিকেশনে <span class="kw-blue">ত্রুটি বা অস্পষ্টতা</span>।`
+},
+{
+  qEn: "Explain the principle of 'contra proferentem' in relation to constructive changes.",
+  qBn: "কনস্ট্রাক্টিভ চেঞ্জের সাথে সম্পর্কিত \"কনট্রা প্রোফারেন্টেম\" নীতি ব্যাখ্যা করুন।",
+  page: "Page 12",
+  ansEn: `<ul>
+    <li>Under this principle, <span class="kw-red">latent ambiguities</span> in contract documents are construed <span class="kw">against the drafter</span></li>
+    <li>Where a contractor adopts a <span class="kw-blue">reasonable interpretation</span> of such ambiguity, any subsequent owner directive requiring work beyond that interpretation constitutes a <span class="kw">constructive change</span>, entitling the contractor to additional compensation</li>
+  </ul>`,
+  ansBn: `<ul>
+    <li>এই নীতির অধীনে, চুক্তি দলিলের <span class="kw-red">সুপ্ত অস্পষ্টতা</span> <span class="kw">খসড়া প্রণয়নকারীর বিরুদ্ধে</span> ব্যাখ্যা করা হয়</li>
+    <li>ঠিকাদার যদি এমন অস্পষ্টতার <span class="kw-blue">যুক্তিসঙ্গত ব্যাখ্যা</span> গ্রহণ করে, তবে সেই ব্যাখ্যার বাইরে কাজ দাবি করা যেকোনো পরবর্তী মালিকের নির্দেশনা <span class="kw">কনস্ট্রাক্টিভ চেঞ্জ</span> গঠন করে, যা ঠিকাদারকে অতিরিক্ত ক্ষতিপূরণের অধিকার দেয়</li>
+  </ul>`
+},
+{
+  qEn: "Give two other situations, besides ambiguities, that can create a constructive change.",
+  qBn: "অস্পষ্টতা ছাড়া আরও দুটি পরিস্থিতি দিন যা কনস্ট্রাক্টিভ চেঞ্জ তৈরি করতে পারে।",
+  page: "Page 13",
+  ansEn: `<ul>
+    <li>Owner requires work performed a certain way due to <span class="kw-red">environmental regulations</span> or to meet <span class="kw">higher standard specifications</span> that increase the contractor's costs</li>
+    <li><span class="kw-blue">Improper rejection of work</span> — constitutes a constructive change even when done by mistake; contractor can recover costs of the unnecessary corrective work</li>
+  </ul>`,
+  ansBn: `<ul>
+    <li>মালিক <span class="kw-red">পরিবেশগত নিয়মকানুনের</span> কারণে বা খরচ বাড়ানো <span class="kw">উচ্চতর মানের স্পেসিফিকেশন</span> পূরণে নির্দিষ্ট উপায়ে কাজ করতে বলেন</li>
+    <li><span class="kw-blue">কাজের ভুল প্রত্যাখ্যান</span> — ভুলবশত করা হলেও একটি কনস্ট্রাক্টিভ চেঞ্জ গঠন করে; ঠিকাদার অপ্রয়োজনীয় সংশোধনমূলক কাজের খরচ পুনরুদ্ধার করতে পারে</li>
+  </ul>`
+},
+{
+  qEn: "What must be true for a contractor to claim additional costs due to owner's new restrictions or improper rejection of work?",
+  qBn: "মালিকের নতুন বিধিনিষেধ বা কাজের ভুল প্রত্যাখ্যানের কারণে ঠিকাদার অতিরিক্ত খরচ দাবি করতে কী সত্য হতে হবে?",
+  page: "Page 14",
+  ansEn: `A constructive change occurs when the contractor is required to do <span class="kw-red">extra work or incur additional costs without a formal change order</span> — such as new environmental/inspection restrictions, demanding a higher standard than specified, or wrongly rejecting acceptable work. Most common in <span class="kw-blue">fixed-price and cost-plus with GMP contracts</span>, but can occur in unit-price contracts too.`,
+  ansBn: `একটি কনস্ট্রাক্টিভ চেঞ্জ ঘটে যখন ঠিকাদারকে <span class="kw-red">আনুষ্ঠানিক চেঞ্জ অর্ডার ছাড়াই অতিরিক্ত কাজ বা খরচ বহন করতে হয়</span> — যেমন নতুন পরিবেশগত/পরিদর্শন বিধিনিষেধ, নির্দিষ্টের চেয়ে উচ্চতর মান দাবি করা, বা গ্রহণযোগ্য কাজ ভুলভাবে প্রত্যাখ্যান করা। এটি <span class="kw-blue">ফিক্সড-প্রাইস এবং GMP সহ কস্ট-প্লাস চুক্তিতে</span> সবচেয়ে সাধারণ, কিন্তু ইউনিট-প্রাইস চুক্তিতেও ঘটতে পারে।`
+},
+{
+  qEn: "What are the notice requirements for a constructive change claim?",
+  qBn: "কনস্ট্রাক্টিভ চেঞ্জ দাবির জন্য নোটিশের প্রয়োজনীয়তা কী?",
+  page: "Page 15",
+  ansEn: `<ul>
+    <li>The contractor must give the owner <span class="kw-red">written notice before doing work</span> that it claims is a constructive change</li>
+    <li>Timely notification lets the owner explore <span class="kw">less costly options</span>, request documentation of costs, and adjust its budget</li>
+    <li>Whether failure to give notice bars a claim depends on <span class="kw-blue">contract language and the state</span> where litigated</li>
+  </ul>`,
+  ansBn: `<ul>
+    <li>ঠিকাদারকে যে কাজকে সে কনস্ট্রাক্টিভ চেঞ্জ বলে দাবি করে, তা করার <span class="kw-red">আগে মালিককে লিখিত নোটিশ</span> দিতে হবে</li>
+    <li>সময়মতো বিজ্ঞপ্তি মালিককে <span class="kw">কম খরচের বিকল্প</span> খুঁজতে, খরচের নথিপত্র চাইতে এবং বাজেট সমন্বয় করতে দেয়</li>
+    <li>নোটিশ দিতে ব্যর্থতা দাবি বাধাগ্রস্ত করে কিনা তা নির্ভর করে <span class="kw-blue">চুক্তির ভাষা এবং যে রাজ্যে মামলা করা হয়</span> তার উপর</li>
+  </ul>`
+},
+{
+  qEn: "What is 'waiver of notice requirement' and how does it apply differently in public vs. private contracts?",
+  qBn: "\"নোটিশ প্রয়োজনীয়তার ছাড়\" কী এবং সরকারি বনাম বেসরকারি চুক্তিতে এটি কীভাবে ভিন্নভাবে প্রযোজ্য?",
+  page: "Page 16",
+  ansEn: `Waiver means a contractor may still recover costs even without formal notice, in some situations.
+  <ul>
+    <li><span class="kw-red">Public contracts</span>: courts usually require <span class="kw">strict compliance</span> with notice rules to protect public funds, but may relax it if the government already knew and wasn't harmed</li>
+    <li><span class="kw-blue">Private contracts</span>: courts are more flexible — contractors may recover if the owner directly ordered extra work, verbally agreed to pay, or has a history of accepting claims without strict notice</li>
+  </ul>`,
+  ansBn: `ছাড় মানে হলো কিছু পরিস্থিতিতে আনুষ্ঠানিক নোটিশ ছাড়াই ঠিকাদার খরচ পুনরুদ্ধার করতে পারে।
+  <ul>
+    <li><span class="kw-red">সরকারি চুক্তি</span>: আদালত সাধারণত সরকারি তহবিল রক্ষা করতে নোটিশ নিয়ম <span class="kw">কঠোরভাবে মেনে চলা</span> দাবি করে, তবে সরকার আগেই জানত এবং ক্ষতিগ্রস্ত হয়নি এমন হলে শিথিল করতে পারে</li>
+    <li><span class="kw-blue">বেসরকারি চুক্তি</span>: আদালত বেশি নমনীয় — মালিক সরাসরি অতিরিক্ত কাজের আদেশ দিলে, মৌখিকভাবে অর্থপ্রদানে সম্মত হলে, বা কঠোর নোটিশ ছাড়াই দাবি গ্রহণের ইতিহাস থাকলে ঠিকাদার পুনরুদ্ধার করতে পারে</li>
+  </ul>`
+},
+{
+  qEn: "Differentiate between 'extra work' and 'additional work.'",
+  qBn: "\"এক্সট্রা ওয়ার্ক\" এবং \"অ্যাডিশনাল ওয়ার্ক\"-এর মধ্যে পার্থক্য করুন।",
+  page: "Page 17",
+  ansEn: `<ul>
+    <li><span class="kw-red">Extra work</span> = work <span class="kw">completely outside the contract</span></li>
+    <li><span class="kw-blue">Additional work</span> = work <span class="kw">not explicitly stated</span>, but necessary to complete the required work</li>
+  </ul>
+  Some courts allow contractors to recover costs for additional work even without proper notice, since it was essential and the owner was not negatively affected.`,
+  ansBn: `<ul>
+    <li><span class="kw-red">এক্সট্রা ওয়ার্ক</span> = <span class="kw">চুক্তির সম্পূর্ণ বাইরের</span> কাজ</li>
+    <li><span class="kw-blue">অ্যাডিশনাল ওয়ার্ক</span> = <span class="kw">স্পষ্টভাবে উল্লেখ করা হয়নি</span> এমন কাজ, কিন্তু প্রয়োজনীয় কাজ সম্পন্ন করতে অপরিহার্য</li>
+  </ul>
+  কিছু আদালত ঠিকাদারদের সঠিক নোটিশ ছাড়াই অ্যাডিশনাল ওয়ার্কের খরচ পুনরুদ্ধারের অনুমতি দেয়, কারণ এটি অপরিহার্য ছিল এবং মালিক নেতিবাচকভাবে প্রভাবিত হয়নি।`
+},
+{
+  qEn: "How does a change order work differently in federal government contracts versus private construction?",
+  qBn: "ফেডারেল সরকারি চুক্তি বনাম বেসরকারি নির্মাণে চেঞ্জ অর্ডার কীভাবে ভিন্নভাবে কাজ করে?",
+  page: "Page 18",
+  ansEn: `<ul>
+    <li><span class="kw-blue">Private construction</span>: a change order is a <span class="kw">mutual agreement</span> between owner and contractor</li>
+    <li><span class="kw-red">Federal government contracts</span>: a change order is <span class="kw">unilateral</span> — issued by the government (through the Contracting Officer) and must be followed by the contractor, <span class="kw">even without prior agreement</span></li>
+  </ul>`,
+  ansBn: `<ul>
+    <li><span class="kw-blue">বেসরকারি নির্মাণ</span>: চেঞ্জ অর্ডার মালিক ও ঠিকাদারের মধ্যে একটি <span class="kw">পারস্পরিক চুক্তি</span></li>
+    <li><span class="kw-red">ফেডারেল সরকারি চুক্তি</span>: চেঞ্জ অর্ডার <span class="kw">একতরফা</span> — সরকার (চুক্তি কর্মকর্তার মাধ্যমে) জারি করে এবং ঠিকাদারকে <span class="kw">পূর্ব সম্মতি ছাড়াই</span> তা মানতে হয়</li>
+  </ul>`
+},
+{
+  qEn: "Under FAR (Federal Acquisition Regulation), what types of changes can the government order within the general scope of the contract?",
+  qBn: "FAR (ফেডারেল অ্যাকুইজিশন রেগুলেশন)-এর অধীনে, সরকার চুক্তির সাধারণ পরিধির মধ্যে কোন ধরনের পরিবর্তনের আদেশ দিতে পারে?",
+  page: "Page 18",
+  ansEn: `<ul>
+    <li>Changes in <span class="kw">specifications</span> (drawings/designs)</li>
+    <li>Changes in <span class="kw">how the work is performed</span></li>
+    <li>Changes in <span class="kw">government-provided resources or site conditions</span></li>
+    <li><span class="kw-blue">Acceleration</span> of the work</li>
+  </ul>`,
+  ansBn: `<ul>
+    <li><span class="kw">স্পেসিফিকেশনে</span> পরিবর্তন (অঙ্কন/নকশা)</li>
+    <li>কাজ <span class="kw">কীভাবে সম্পাদিত হয়</span> তাতে পরিবর্তন</li>
+    <li><span class="kw">সরকার-প্রদত্ত সম্পদ বা সাইট পরিস্থিতিতে</span> পরিবর্তন</li>
+    <li>কাজের <span class="kw-blue">ত্বরান্বিতকরণ</span></li>
+  </ul>`
+},
+{
+  qEn: "What is an 'equitable adjustment' and when must the contracting officer make one?",
+  qBn: "\"ন্যায্য সমন্বয়\" কী এবং চুক্তি কর্মকর্তাকে কখন এটি করতে হবে?",
+  page: "Page 19",
+  ansEn: `<ul>
+    <li>When a change order causes an <span class="kw-red">increase or decrease</span> in cost or time required, the contracting officer must make an <span class="kw">equitable adjustment</span> and modify the contract in writing</li>
+    <li>If the contractor wants an adjustment, it must submit a <span class="kw-blue">written statement with a proposed amount within 30 days</span></li>
+  </ul>`,
+  ansBn: `<ul>
+    <li>চেঞ্জ অর্ডার যদি খরচ বা প্রয়োজনীয় সময়ে <span class="kw-red">বৃদ্ধি বা হ্রাস</span> ঘটায়, তবে চুক্তি কর্মকর্তাকে একটি <span class="kw">ন্যায্য সমন্বয়</span> করতে হবে এবং লিখিতভাবে চুক্তি সংশোধন করতে হবে</li>
+    <li>ঠিকাদার যদি সমন্বয় চায়, তবে তাকে <span class="kw-blue">৩০ দিনের মধ্যে প্রস্তাবিত পরিমাণসহ একটি লিখিত বিবৃতি</span> জমা দিতে হবে</li>
+  </ul>`
+},
+{
+  qEn: "What is the preferred method for determining the equitable adjustment amount, and what documentation supports it?",
+  qBn: "ন্যায্য সমন্বয়ের পরিমাণ নির্ধারণের পছন্দনীয় পদ্ধতি কী এবং এর সমর্থনে কোন নথিপত্র ব্যবহৃত হয়?",
+  page: "Page 20",
+  ansEn: `<ul>
+    <li>Although determinable after the work is done, the <span class="kw-red">preferred method is before the work begins</span></li>
+    <li>The adjustment is based on the <span class="kw">amount proposed by the contractor</span>, along with backup documentation such as <span class="kw-blue">subcontractor or supplier pricing</span></li>
+  </ul>`,
+  ansBn: `<ul>
+    <li>কাজ শেষ হওয়ার পরেও নির্ধারণ করা সম্ভব হলেও, <span class="kw-red">পছন্দনীয় পদ্ধতি হলো কাজ শুরু হওয়ার আগে</span></li>
+    <li>সমন্বয়টি <span class="kw">ঠিকাদার কর্তৃক প্রস্তাবিত পরিমাণের</span> উপর ভিত্তি করে হয়, সাথে <span class="kw-blue">উপঠিকাদার বা সরবরাহকারীর মূল্য নির্ধারণের</span> মতো সহায়ক নথিপত্র</li>
+  </ul>`
+},
+{
+  qEn: "What is 'Escrow of Bid Documents' and why is it required?",
+  qBn: "\"এসক্রো অফ বিড ডকুমেন্টস\" কী এবং এটি কেন প্রয়োজন?",
+  page: "Page 21",
+  ansEn: `<ul>
+    <li>Contractors may be required to submit bid documents (takeoffs, cost data) to the owner to be <span class="kw-red">kept securely</span></li>
+    <li>Used later to <span class="kw">evaluate change orders</span> and determine fair adjustments</li>
+    <li>Common on <span class="kw-blue">government and large projects</span>, usually only from the lowest bidder after bid opening</li>
+  </ul>`,
+  ansBn: `<ul>
+    <li>ঠিকাদারদের বিড দলিল (টেকঅফ, খরচের তথ্য) মালিকের কাছে <span class="kw-red">নিরাপদে রাখার</span> জন্য জমা দিতে বলা হতে পারে</li>
+    <li>পরে <span class="kw">চেঞ্জ অর্ডার মূল্যায়ন</span> ও ন্যায্য সমন্বয় নির্ধারণে ব্যবহৃত হয়</li>
+    <li><span class="kw-blue">সরকারি ও বড় প্রকল্পে</span> সাধারণ, সাধারণত শুধুমাত্র বিড খোলার পর সর্বনিম্ন দরদাতার কাছ থেকে</li>
+  </ul>`
+},
+{
+  qEn: "Who has authority to issue changes in government construction contracts?",
+  qBn: "সরকারি নির্মাণ চুক্তিতে পরিবর্তনের আদেশ দেওয়ার কর্তৃত্ব কার আছে?",
+  page: "Page 22",
+  ansEn: `Only the <span class="kw-red">contracting officer</span> or an <span class="kw">authorized representative</span> has the authority to order changes to the work.`,
+  ansBn: `শুধুমাত্র <span class="kw-red">চুক্তি কর্মকর্তা</span> বা একজন <span class="kw">অনুমোদিত প্রতিনিধির</span> কাজে পরিবর্তনের আদেশ দেওয়ার কর্তৃত্ব আছে।`
+},
+{
+  qEn: "Differentiate between express authority and implied authority of project representatives.",
+  qBn: "প্রকল্প প্রতিনিধিদের সুস্পষ্ট কর্তৃত্ব ও অন্তর্নিহিত কর্তৃত্বের মধ্যে পার্থক্য করুন।",
+  page: "Page 22",
+  ansEn: `<ul>
+    <li><span class="kw-blue">Express authority</span>: clearly assigned duties</li>
+    <li><span class="kw-blue">Implied authority</span>: powers necessary to perform their duties (e.g., <span class="kw">rejecting defective materials</span>)</li>
+  </ul>
+  A contractor can rely on both, but disputes may arise if the person giving instructions <span class="kw-red">lacks proper authority</span>.`,
+  ansBn: `<ul>
+    <li><span class="kw-blue">সুস্পষ্ট কর্তৃত্ব</span>: স্পষ্টভাবে নির্ধারিত দায়িত্ব</li>
+    <li><span class="kw-blue">অন্তর্নিহিত কর্তৃত্ব</span>: দায়িত্ব পালনের জন্য প্রয়োজনীয় ক্ষমতা (যেমন <span class="kw">ত্রুটিপূর্ণ উপকরণ প্রত্যাখ্যান করা</span>)</li>
+  </ul>
+  ঠিকাদার উভয়ের উপর নির্ভর করতে পারে, তবে নির্দেশ প্রদানকারী ব্যক্তির <span class="kw-red">যথাযথ কর্তৃত্ব না থাকলে</span> বিরোধ দেখা দিতে পারে।`
+},
+{
+  qEn: "What is 'apparent authority' and how does it differ between private and government contracts?",
+  qBn: "\"আপাত কর্তৃত্ব\" কী এবং বেসরকারি ও সরকারি চুক্তির মধ্যে এটি কীভাবে ভিন্ন?",
+  page: "Page 23",
+  ansEn: `<ul>
+    <li><span class="kw-blue">Private construction</span>: contractors can rely on a representative's <span class="kw">apparent authority</span> — if owner's actions make it reasonable to believe the representative has authority</li>
+    <li><span class="kw-red">Government contracts</span>: apparent authority is <span class="kw">not recognized</span> — contractors must confirm actual (express or implied) authority, or risk not being paid</li>
+  </ul>`,
+  ansBn: `<ul>
+    <li><span class="kw-blue">বেসরকারি নির্মাণ</span>: ঠিকাদাররা একজন প্রতিনিধির <span class="kw">আপাত কর্তৃত্বের</span> উপর নির্ভর করতে পারে — যদি মালিকের কার্যক্রম যুক্তিসঙ্গতভাবে বিশ্বাস করায় যে প্রতিনিধির কর্তৃত্ব আছে</li>
+    <li><span class="kw-red">সরকারি চুক্তি</span>: আপাত কর্তৃত্ব <span class="kw">স্বীকৃত নয়</span> — ঠিকাদারদের প্রকৃত (সুস্পষ্ট বা অন্তর্নিহিত) কর্তৃত্ব নিশ্চিত করতে হবে, নাহলে অর্থপ্রদান না পাওয়ার ঝুঁকি থাকে</li>
+  </ul>`
+},
+{
+  qEn: "What is 'ratification' in the context of unauthorized work in government contracts?",
+  qBn: "সরকারি চুক্তিতে অননুমোদিত কাজের প্রেক্ষাপটে \"অনুসমর্থন (Ratification)\" কী?",
+  page: "Page 23",
+  ansEn: `If the government <span class="kw-red">knows about the unauthorized work</span>, <span class="kw">benefits from it</span>, and <span class="kw-blue">does not stop it</span>, the action is treated as approved — allowing the contractor to still be paid.`,
+  ansBn: `সরকার যদি <span class="kw-red">অননুমোদিত কাজ সম্পর্কে জানে</span>, এটি থেকে <span class="kw">উপকৃত হয়</span>, এবং এটি <span class="kw-blue">বন্ধ না করে</span>, তবে কাজটি অনুমোদিত বলে বিবেচিত হয় — যা ঠিকাদারকে তখনও অর্থপ্রদান পাওয়ার সুযোগ দেয়।`
+},
+{
+  qEn: "What is the contractor's duty when the owner requests a change, and what limits this duty?",
+  qBn: "মালিক যখন একটি পরিবর্তনের অনুরোধ করেন তখন ঠিকাদারের দায়িত্ব কী এবং এই দায়িত্বের সীমাবদ্ধতা কী?",
+  page: "Page 24",
+  ansEn: `<ul>
+    <li>The contractor has a <span class="kw-red">duty to perform the work</span> without knowing how much, or even whether, it will be compensated</li>
+    <li>The owner's right is <span class="kw">not without limits</span> — if a court finds the work is <span class="kw-blue">not within the scope of the contract</span>, the contractor cannot be terminated for refusing to comply</li>
+  </ul>`,
+  ansBn: `<ul>
+    <li>ঠিকাদারের কতটুকু, বা আদৌ ক্ষতিপূরণ দেওয়া হবে কিনা তা না জেনেই <span class="kw-red">কাজ সম্পাদনের দায়িত্ব</span> আছে</li>
+    <li>মালিকের অধিকার <span class="kw">সীমাহীন নয়</span> — আদালত যদি দেখে কাজটি চুক্তির <span class="kw-blue">পরিধির মধ্যে নেই</span>, তবে নির্দেশনা মানতে অস্বীকার করার জন্য ঠিকাদারকে বরখাস্ত করা যাবে না</li>
+  </ul>`
+},
+{
+  qEn: "What is 'reservation of rights' and why do contractors include it in a change order?",
+  qBn: "\"অধিকার সংরক্ষণ\" কী এবং ঠিকাদাররা এটি কেন চেঞ্জ অর্ডারে অন্তর্ভুক্ত করে?",
+  page: "Page 25",
+  ansEn: `<ul>
+    <li>Owners often include clauses stating payment is <span class="kw-red">full and final</span> ("accord and satisfaction"), covering all direct/indirect costs and delays — this can prevent future claims</li>
+    <li>To protect themselves, contractors include a <span class="kw">reservation of rights</span>, allowing them to: claim additional costs later; avoid waiving rights to compensation not known at the time</li>
+    <li>Courts generally support such claims if the reservation is <span class="kw-blue">clearly included</span></li>
+  </ul>`,
+  ansBn: `<ul>
+    <li>মালিকরা প্রায়ই এমন ধারা অন্তর্ভুক্ত করে যে অর্থপ্রদান <span class="kw-red">সম্পূর্ণ ও চূড়ান্ত</span> ("অ্যাকর্ড অ্যান্ড স্যাটিসফ্যাকশন"), যা সকল প্রত্যক্ষ/পরোক্ষ খরচ ও বিলম্ব কভার করে — এটি ভবিষ্যতের দাবি প্রতিরোধ করতে পারে</li>
+    <li>নিজেদের রক্ষা করতে, ঠিকাদাররা <span class="kw">অধিকার সংরক্ষণ</span> অন্তর্ভুক্ত করে, যা তাদের অনুমতি দেয়: পরে অতিরিক্ত খরচ দাবি করতে; সেই সময়ে অজানা ক্ষতিপূরণের অধিকার ত্যাগ না করতে</li>
+    <li>সংরক্ষণটি <span class="kw-blue">স্পষ্টভাবে অন্তর্ভুক্ত</span> থাকলে আদালত সাধারণত এই ধরনের দাবিকে সমর্থন করে</li>
+  </ul>`
+},
+{
+  qEn: "Summarize the Bechtel National, Inc. v. Roche case study on accord and satisfaction.",
+  qBn: "\"বেকটেল ন্যাশনাল, ইনক. বনাম রোশ\" মামলাটি অ্যাকর্ড অ্যান্ড স্যাটিসফ্যাকশন সম্পর্কে সংক্ষিপ্ত করুন।",
+  page: "Page 26",
+  ansEn: `<div class="case-box">
+  <ul>
+    <li>Bid documents for underground storage facilities at air force bases contained <span class="kw-red">errors and ambiguities</span> causing delays and cost overruns</li>
+    <li>Parties agreed to a <span class="kw">change order increasing the contract sum by $535,000</span>, including a release of all claims related to the errors</li>
+    <li>The contractor later requested an <span class="kw-blue">equitable adjustment of $4,707,922</span> for delay costs, claiming the change order only addressed construction costs</li>
+    <li>The <span class="kw-red">court denied the request</span>, holding the change order constituted a full <span class="kw">accord and satisfaction</span> — the release language clearly discharged all claims through the $535,000 payment</li>
+  </ul></div>
+  <span class="page-tag" style="margin-top:10px;">Case: Bechtel National, Inc. v. Roche, 65 Fed.Appx. 277 (Fed. Cir. 2003)</span>`,
+  ansBn: `<div class="case-box">
+  <ul>
+    <li>বিমান বাহিনীর ঘাঁটিতে ভূগর্ভস্থ স্টোরেজ সুবিধার বিড দলিলে <span class="kw-red">ত্রুটি ও অস্পষ্টতা</span> ছিল যা বিলম্ব ও খরচ বৃদ্ধি ঘটায়</li>
+    <li>পক্ষগুলো <span class="kw">চুক্তি মূল্য $৫৩৫,০০০ বৃদ্ধি করা চেঞ্জ অর্ডারে</span> সম্মত হয়, যাতে ত্রুটি সম্পর্কিত সকল দাবির মুক্তি অন্তর্ভুক্ত ছিল</li>
+    <li>ঠিকাদার পরে বিলম্বজনিত খরচের জন্য <span class="kw-blue">$৪,৭০৭,৯২২ ন্যায্য সমন্বয়</span> অনুরোধ করে, দাবি করে যে চেঞ্জ অর্ডারটি শুধু নির্মাণ খরচ কভার করেছিল</li>
+    <li><span class="kw-red">আদালত অনুরোধ প্রত্যাখ্যান করে</span>, বলে যে চেঞ্জ অর্ডারটি একটি সম্পূর্ণ <span class="kw">অ্যাকর্ড অ্যান্ড স্যাটিসফ্যাকশন</span> গঠন করেছিল — মুক্তির ভাষা স্পষ্টভাবে $৫৩৫,০০০ অর্থপ্রদানের মাধ্যমে সকল দাবি নিষ্পত্তি করেছিল</li>
+  </ul></div>
+  <span class="page-tag" style="margin-top:10px;">মামলা: বেকটেল ন্যাশনাল, ইনক. বনাম রোশ, ৬৫ Fed.Appx. ২৭৭ (Fed. Cir. ২০০৩)</span>`
+},
+{
+  qEn: "What key lesson does the Bechtel case teach construction professionals about release clauses in change orders?",
+  qBn: "চেঞ্জ অর্ডারে মুক্তির ধারা সম্পর্কে বেকটেল মামলাটি নির্মাণ পেশাজীবীদের কী মূল শিক্ষা দেয়?",
+  page: "Page 27",
+  ansEn: `<ul>
+    <li>If a change order's release language <span class="kw-red">clearly shows intent to fully settle all claims</span>, courts will treat the payment as <span class="kw">complete and final</span></li>
+    <li><span class="kw-blue">No further compensation</span> will be allowed later, even if actual costs turn out much higher — reinforcing why contractors should use a <span class="kw">reservation of rights</span> if the full impact is not yet known</li>
+  </ul>`,
+  ansBn: `<ul>
+    <li>চেঞ্জ অর্ডারের মুক্তির ভাষা যদি <span class="kw-red">সকল দাবি সম্পূর্ণভাবে নিষ্পত্তির উদ্দেশ্য স্পষ্টভাবে দেখায়</span>, তবে আদালত অর্থপ্রদানকে <span class="kw">সম্পূর্ণ ও চূড়ান্ত</span> হিসেবে বিবেচনা করবে</li>
+    <li>পরে <span class="kw-blue">আর কোনো ক্ষতিপূরণ অনুমোদিত হবে না</span>, প্রকৃত খরচ অনেক বেশি হলেও — এটি জোর দেয় কেন ঠিকাদারদের সম্পূর্ণ প্রভাব অজানা থাকলে <span class="kw">অধিকার সংরক্ষণ</span> ব্যবহার করা উচিত</li>
+  </ul>`
+},
+{
+  qEn: "How do changes clauses in subcontracts typically operate relative to the prime contract?",
+  qBn: "উপচুক্তিতে পরিবর্তন ধারা প্রধান চুক্তির সাপেক্ষে সাধারণত কীভাবে কাজ করে?",
+  page: "Page 28",
+  ansEn: `<ul>
+    <li>Subcontractors do most actual construction work, so are <span class="kw-red">heavily affected by changes</span></li>
+    <li>Subcontracts usually <span class="kw">mirror the main (prime) contract</span> — subcontractors must follow change directives just like the general contractor</li>
+    <li>They must also perform <span class="kw-blue">constructive changes</span> (extra work without formal orders) and then seek payment</li>
+  </ul>`,
+  ansBn: `<ul>
+    <li>উপঠিকাদাররা প্রকৃত নির্মাণ কাজের বেশিরভাগ করে, তাই <span class="kw-red">পরিবর্তনের দ্বারা ব্যাপকভাবে প্রভাবিত হয়</span></li>
+    <li>উপচুক্তি সাধারণত <span class="kw">প্রধান চুক্তির প্রতিফলন</span> — উপঠিকাদারদের সাধারণ ঠিকাদারের মতোই পরিবর্তন নির্দেশনা মানতে হয়</li>
+    <li>তাদের <span class="kw-blue">কনস্ট্রাক্টিভ চেঞ্জও</span> (আনুষ্ঠানিক আদেশ ছাড়া অতিরিক্ত কাজ) সম্পাদন করতে হয় এবং তারপর অর্থপ্রদান চাইতে হয়</li>
+  </ul>`
+},
+{
+  qEn: "What payment mechanisms affect subcontractor payment for changes, and how do they work?",
+  qBn: "পরিবর্তনের জন্য উপঠিকাদারের অর্থপ্রদানে কোন প্রক্রিয়া প্রভাব ফেলে এবং এগুলো কীভাবে কাজ করে?",
+  page: "Page 28",
+  ansEn: `Subcontractors typically recover costs through the <span class="kw-red">general contractor</span>, but payment may depend on clauses like:
+  <ul>
+    <li><span class="kw">Pay-if-paid</span></li>
+    <li><span class="kw">Pay-when-paid</span></li>
+  </ul>
+  These tie the subcontractor's payment to whether the <span class="kw-blue">contractor gets paid by the owner</span>.`,
+  ansBn: `উপঠিকাদাররা সাধারণত <span class="kw-red">সাধারণ ঠিকাদারের</span> মাধ্যমে খরচ পুনরুদ্ধার করে, তবে অর্থপ্রদান এই ধরনের ধারার উপর নির্ভর করতে পারে:
+  <ul>
+    <li><span class="kw">পে-ইফ-পেইড</span></li>
+    <li><span class="kw">পে-হোয়েন-পেইড</span></li>
+  </ul>
+  এগুলো উপঠিকাদারের অর্থপ্রদানকে <span class="kw-blue">মালিক ঠিকাদারকে অর্থ পরিশোধ করছেন কিনা</span> তার সাথে যুক্ত করে।`
+},
+{
+  qEn: "Why is documentation of costs important when performing constructive changes or extra work?",
+  qBn: "কনস্ট্রাক্টিভ চেঞ্জ বা অতিরিক্ত কাজ সম্পাদনের সময় খরচের নথিপত্র কেন গুরুত্বপূর্ণ?",
+  page: "Page 29",
+  ansEn: `<ul>
+    <li>Many contracts require <span class="kw-red">daily or weekly records</span> of time and materials, especially if pricing isn't agreed in advance</li>
+    <li>If the contractor fails to keep proper records, it may <span class="kw">lose the right to claim compensation</span></li>
+    <li>Courts prefer <span class="kw-blue">documented actual costs over estimates</span></li>
+  </ul>`,
+  ansBn: `<ul>
+    <li>অনেক চুক্তিতে সময় ও উপকরণের <span class="kw-red">দৈনিক বা সাপ্তাহিক রেকর্ড</span> প্রয়োজন, বিশেষত যদি আগে থেকে মূল্য নির্ধারণে সম্মত না হয়</li>
+    <li>ঠিকাদার যদি সঠিক রেকর্ড না রাখে, তবে <span class="kw">ক্ষতিপূরণ দাবি করার অধিকার হারাতে পারে</span></li>
+    <li>আদালত অনুমানের চেয়ে <span class="kw-blue">নথিভুক্ত প্রকৃত খরচকে</span> পছন্দ করে</li>
+  </ul>`
+},
+{
+  qEn: "How is compensation determined in government contracts regarding cost documentation?",
+  qBn: "খরচের নথিপত্র সম্পর্কে সরকারি চুক্তিতে ক্ষতিপূরণ কীভাবে নির্ধারিত হয়?",
+  page: "Page 29",
+  ansEn: `In government contracts, compensation (<span class="kw-red">equitable adjustment</span>) is based on <span class="kw">reasonable actual costs</span>; owners may require proof that expenses charged to the change are <span class="kw-blue">separate from original contract work</span>, especially under time-and-material arrangements.`,
+  ansBn: `সরকারি চুক্তিতে, ক্ষতিপূরণ (<span class="kw-red">ন্যায্য সমন্বয়</span>) <span class="kw">যুক্তিসঙ্গত প্রকৃত খরচের</span> উপর ভিত্তি করে হয়; মালিকরা প্রমাণ চাইতে পারেন যে পরিবর্তনে ধার্যকৃত খরচ <span class="kw-blue">মূল চুক্তির কাজ থেকে আলাদা</span>, বিশেষত টাইম-অ্যান্ড-ম্যাটেরিয়াল ব্যবস্থার অধীনে।`
+},
+{
+  qEn: "What is a 'cardinal change' and what does the owner's imposition of it constitute legally?",
+  qBn: "\"কার্ডিনাল চেঞ্জ\" কী এবং মালিক কর্তৃক এটি আরোপ করা আইনগতভাবে কী গঠন করে?",
+  page: "Page 30",
+  ansEn: `<ul>
+    <li>A cardinal change is a change that goes so far <span class="kw-red">beyond the scope of the original contract</span> that the project becomes a <span class="kw">materially different undertaking</span></li>
+    <li>The owner's imposition of a cardinal change amounts to a <span class="kw-blue">breach of contract</span></li>
+    <li>Can result from one isolated but extremely significant change, or a <span class="kw">series of changes</span>, related or unrelated</li>
+  </ul>`,
+  ansBn: `<ul>
+    <li>একটি কার্ডিনাল চেঞ্জ এমন পরিবর্তন যা মূল চুক্তির <span class="kw-red">পরিধির এতটাই বাইরে</span> চলে যায় যে প্রকল্পটি একটি <span class="kw">উপাদানগতভাবে ভিন্ন কাজে</span> পরিণত হয়</li>
+    <li>মালিক কর্তৃক কার্ডিনাল চেঞ্জ আরোপ করা <span class="kw-blue">চুক্তি লঙ্ঘন</span> হিসেবে গণ্য হয়</li>
+    <li>একটি বিচ্ছিন্ন কিন্তু অত্যন্ত গুরুত্বপূর্ণ পরিবর্তন থেকে, অথবা সম্পর্কিত বা অসম্পর্কিত <span class="kw">একাধিক পরিবর্তনের</span> ধারাবাহিকতা থেকে হতে পারে</li>
+  </ul>`
+},
+{
+  qEn: "What options does a contractor have if it believes a change order constitutes a cardinal change, and what risk does this carry?",
+  qBn: "একজন ঠিকাদার যদি মনে করে একটি চেঞ্জ অর্ডার কার্ডিনাল চেঞ্জ গঠন করছে, তবে তার কী বিকল্প আছে এবং এতে কী ঝুঁকি জড়িত?",
+  page: "Page 31",
+  ansEn: `<ul>
+    <li>The contractor can <span class="kw-red">refuse to perform the work</span> and treat the contract as <span class="kw">terminated</span></li>
+    <li>Contractors are unlikely to do so, except in <span class="kw-blue">very extreme cases</span></li>
+    <li><span class="kw-red">Risk</span>: if a court rules it was <span class="kw">not</span> a cardinal change and the termination was unjustified, the contractor will be held in <span class="kw-blue">default of its contract</span></li>
+  </ul>`,
+  ansBn: `<ul>
+    <li>ঠিকাদার <span class="kw-red">কাজ সম্পাদন করতে অস্বীকার</span> করতে পারে এবং চুক্তিকে <span class="kw">সমাপ্ত</span> হিসেবে গণ্য করতে পারে</li>
+    <li><span class="kw-blue">অত্যন্ত চরম ক্ষেত্রে</span> ছাড়া ঠিকাদাররা সাধারণত এটি করে না</li>
+    <li><span class="kw-red">ঝুঁকি</span>: আদালত যদি রায় দেয় যে এটি কার্ডিনাল চেঞ্জ <span class="kw">ছিল না</span> এবং সমাপ্তি অন্যায্য ছিল, তবে ঠিকাদারকে চুক্তির <span class="kw-blue">খেলাপি</span> হিসেবে গণ্য করা হবে</li>
+  </ul>`
+}
+];
+
+const container = document.getElementById('cardsContainer');
+const noResults = document.getElementById('noResults');
+const visibleCountEl = document.getElementById('visibleCount');
+
+function buildCards(){
+  container.innerHTML = '';
+  data.forEach((item, idx) => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.dataset.idx = idx;
+
+    const searchText = (item.qEn + ' ' + item.qBn + ' ' + item.page).toLowerCase();
+    card.dataset.search = searchText;
+
+    card.innerHTML = `
+      <button class="q-btn" data-target="ans-${idx}">
+        <div class="q-number">${idx+1}</div>
+        <div class="q-text">
+          <div class="q-en">${item.qEn}</div>
+          <div class="q-bn">${item.qBn}</div>
+          <span class="page-tag">${item.page}</span>
+        </div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </button>
+      <div class="answer-wrap" id="ans-${idx}">
+        <div class="answer-inner">
+          <div class="answer-block">
+            <span class="ans-label">Answer</span>
+            <div class="ans-en">${item.ansEn}</div>
+            <div class="ans-bn">${item.ansBn}</div>
+          </div>
+        </div>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+
+  document.querySelectorAll('.q-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const wrap = document.getElementById(btn.dataset.target);
+      const isOpen = btn.classList.contains('active');
+      if(isOpen){
+        btn.classList.remove('active');
+        wrap.style.maxHeight = null;
+      } else {
+        btn.classList.add('active');
+        wrap.style.maxHeight = wrap.scrollHeight + 'px';
+      }
+    });
+  });
+}
+
+buildCards();
+
+document.getElementById('searchBox').addEventListener('input', function(){
+  const term = this.value.trim().toLowerCase();
+  let visible = 0;
+  document.querySelectorAll('.card').forEach(card => {
+    const match = card.dataset.search.includes(term);
+    card.style.display = match ? '' : 'none';
+    if(match) visible++;
+  });
+  visibleCountEl.textContent = visible;
+  noResults.style.display = visible === 0 ? 'block' : 'none';
+});
+
+document.getElementById('expandAllBtn').addEventListener('click', () => {
+  document.querySelectorAll('.q-btn').forEach(btn => {
+    const wrap = document.getElementById(btn.dataset.target);
+    btn.classList.add('active');
+    wrap.style.maxHeight = wrap.scrollHeight + 'px';
+  });
+});
+
+document.getElementById('collapseAllBtn').addEventListener('click', () => {
+  document.querySelectorAll('.q-btn').forEach(btn => {
+    const wrap = document.getElementById(btn.dataset.target);
+    btn.classList.remove('active');
+    wrap.style.maxHeight = null;
+  });
+});
+</script>
+</body>
+</html>

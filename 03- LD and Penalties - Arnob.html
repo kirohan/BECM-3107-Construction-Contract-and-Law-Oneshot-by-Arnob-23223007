@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BECM 3107 — LD &amp; Penalties | Contract Clause Casebook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#173a3a;
+    --ink-soft:#2c5555;
+    --parchment:#f2efe4;
+    --parchment-deep:#e5e2d1;
+    --brass:#b07a2e;
+    --brass-bright:#d19a45;
+    --crimson:#8a2f2f;
+    --charcoal:#242220;
+    --paper-line:#d3cdb2;
+    --shadow:rgba(23,58,58,0.18);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(circle at 12% 6%, rgba(176,122,46,0.10), transparent 40%),
+      radial-gradient(circle at 92% 88%, rgba(23,58,58,0.09), transparent 45%),
+      var(--parchment);
+    background-attachment:fixed;
+    font-family:'Inter', sans-serif;
+    color:var(--charcoal);
+    min-height:100vh;
+  }
+  .bn{
+    font-family:'Noto Sans Bengali', sans-serif;
+    color:var(--ink-soft);
+    display:block;
+    margin-top:4px;
+    font-weight:500;
+  }
+  header{
+    background:linear-gradient(160deg, var(--ink) 0%, #0c2222 100%);
+    color:var(--parchment);
+    padding:56px 24px 68px;
+    position:relative;
+    overflow:hidden;
+    text-align:center;
+  }
+  header::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(244,239,225,0.035) 0px, rgba(244,239,225,0.035) 1px, transparent 1px, transparent 34px),
+      repeating-linear-gradient(90deg, rgba(244,239,225,0.03) 0px, rgba(244,239,225,0.03) 1px, transparent 1px, transparent 34px);
+    pointer-events:none;
+  }
+  .seal{
+    width:56px;height:56px;
+    margin:0 auto 18px;
+    border:2px solid var(--brass-bright);
+    border-radius:8px;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Lora',serif;
+    font-weight:700;
+    font-size:1.15rem;
+    color:var(--brass-bright);
+    letter-spacing:0.5px;
+    transform:rotate(-2deg);
+  }
+  header h1{
+    font-family:'Lora', serif;
+    font-weight:700;
+    font-size:clamp(1.7rem, 4vw, 2.7rem);
+    margin:0 0 6px;
+    letter-spacing:0.3px;
+  }
+  header .subtitle{
+    font-family:'Courier Prime', monospace;
+    color:var(--brass-bright);
+    font-size:0.82rem;
+    letter-spacing:2.5px;
+    text-transform:uppercase;
+    margin-bottom:14px;
+  }
+  header p.desc{
+    max-width:660px;
+    margin:0 auto;
+    color:#cfd9d5;
+    font-size:0.97rem;
+    line-height:1.6;
+  }
+  header p.desc .bn{color:#9fc2bc;}
+
+  .nav-wrap{
+    max-width:1000px;
+    margin:-34px auto 0;
+    padding:0 20px;
+    position:relative;
+    z-index:5;
+  }
+  .tabs{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    background:var(--parchment);
+    border:1px solid var(--paper-line);
+    border-radius:14px;
+    padding:12px;
+    box-shadow:0 14px 30px var(--shadow);
+  }
+  .tab-btn{
+    flex:1 1 auto;
+    min-width:130px;
+    background:transparent;
+    border:1px solid var(--paper-line);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    font-weight:600;
+    font-size:0.8rem;
+    padding:10px 10px;
+    border-radius:9px;
+    cursor:pointer;
+    transition:all 0.25s ease;
+    text-align:center;
+  }
+  .tab-btn:hover{border-color:var(--brass);}
+  .tab-btn.active{
+    background:var(--ink);
+    color:var(--parchment);
+    border-color:var(--ink);
+  }
+
+  main{
+    max-width:1000px;
+    margin:36px auto 80px;
+    padding:0 20px;
+  }
+  .section-block{margin-bottom:44px;}
+  .section-title{
+    font-family:'Lora', serif;
+    font-weight:700;
+    color:var(--ink);
+    font-size:1.35rem;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin:0 0 18px;
+    padding-bottom:10px;
+    border-bottom:2px solid var(--brass);
+  }
+  .section-title .count{
+    font-family:'Inter';
+    font-size:0.72rem;
+    font-weight:600;
+    background:var(--ink);
+    color:var(--parchment);
+    padding:3px 10px;
+    border-radius:20px;
+  }
+
+  .card{
+    background:#fefdf9;
+    border:1px solid var(--paper-line);
+    border-left:5px solid var(--brass);
+    border-radius:10px;
+    margin-bottom:14px;
+    overflow:hidden;
+    box-shadow:0 3px 10px rgba(23,58,58,0.06);
+    transition:box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .card:hover{box-shadow:0 8px 22px rgba(23,58,58,0.12);}
+  .card.open{border-left-color:var(--crimson);}
+
+  .q-btn{
+    width:100%;
+    text-align:left;
+    background:none;
+    border:none;
+    padding:18px 20px;
+    cursor:pointer;
+    display:flex;
+    align-items:flex-start;
+    gap:14px;
+    font-family:'Inter', sans-serif;
+  }
+  .q-number{
+    font-family:'Lora', serif;
+    font-weight:700;
+    color:var(--brass);
+    font-size:1.05rem;
+    flex-shrink:0;
+    padding-top:1px;
+  }
+  .q-text{flex:1;}
+  .q-text .en{
+    font-weight:600;
+    font-size:1rem;
+    color:var(--ink);
+    line-height:1.45;
+  }
+  .chev{
+    flex-shrink:0;
+    color:var(--brass);
+    font-size:1.1rem;
+    transition:transform 0.3s ease;
+    margin-top:2px;
+  }
+  .card.open .chev{transform:rotate(180deg); color:var(--crimson);}
+
+  .answer{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height 0.45s cubic-bezier(0.4,0,0.2,1), padding 0.3s ease;
+    background:var(--parchment-deep);
+    border-top:1px dashed var(--paper-line);
+  }
+  .card.open .answer{
+    max-height:1500px;
+    padding:18px 20px 20px 54px;
+  }
+  .answer ul{margin:0 0 10px; padding-left:20px;}
+  .answer li{margin-bottom:7px; line-height:1.55; font-size:0.95rem;}
+  .answer .bn-block{
+    margin-top:6px;
+    padding-top:12px;
+    border-top:1px solid rgba(176,122,46,0.35);
+  }
+  .answer .bn-block li{
+    font-family:'Noto Sans Bengali', sans-serif;
+    color:var(--ink-soft);
+  }
+  .kw-red{color:var(--crimson); font-weight:700;}
+  .kw-blue{color:var(--ink); font-weight:700; background:rgba(23,58,58,0.08); padding:0 3px; border-radius:3px;}
+  .page-ref{
+    display:inline-block;
+    margin-top:8px;
+    font-family:'Courier Prime', monospace;
+    font-size:0.75rem;
+    color:#fff;
+    background:var(--ink);
+    padding:3px 10px;
+    border-radius:20px;
+    letter-spacing:0.5px;
+  }
+
+  footer{
+    text-align:center;
+    padding:30px 20px 50px;
+    font-family:'Courier Prime', monospace;
+    font-size:0.75rem;
+    color:var(--ink-soft);
+    letter-spacing:1px;
+  }
+
+  @media (max-width:600px){
+    header{padding:42px 16px 56px;}
+    .q-btn{padding:15px;gap:10px;}
+    .card.open .answer{padding-left:20px;}
+    .tab-btn{min-width:100px;font-size:0.72rem;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="seal">LD¶</div>
+  <div class="subtitle">BECM 3107 · Contract Clause Review</div>
+  <h1>Liquidated Damages &amp; Penalties — Q&amp;A Casebook</h1>
+  <p class="desc">
+    Every question is drawn directly from the lecture slides — LD clauses, enforcement &amp; defences, quantum meruit, the construction time-frame, and warranty/guaranty. Tap a question to unseal the answer.
+    <span class="bn">প্রতিটি প্রশ্ন লেকচার স্লাইড থেকে সরাসরি নেওয়া হয়েছে — LD ধারা, প্রয়োগ ও প্রতিরক্ষা, Quantum Meruit, নির্মাণ সময়সীমা, এবং Warranty/Guaranty। উত্তর দেখতে প্রশ্নে ক্লিক করুন।</span>
+  </p>
+</header>
+
+<div class="nav-wrap">
+  <div class="tabs" id="tabs">
+    <button class="tab-btn active" data-filter="all">All Topics</button>
+    <button class="tab-btn" data-filter="ldbasics">LD &amp; Penalty Basics</button>
+    <button class="tab-btn" data-filter="enforcement">Enforcement &amp; Forms</button>
+    <button class="tab-btn" data-filter="timeframe">Time &amp; Completion</button>
+    <button class="tab-btn" data-filter="closing">Payment, Warranty &amp; Guaranty</button>
+  </div>
+</div>
+
+<main id="main"></main>
+
+<footer>
+  © Dr. Mizanoor Rahman, P.Eng. | KUET — Compiled Study Casebook
+</footer>
+
+<script>
+const data = [
+{
+  section:"ldbasics", title:"I. Liquidated Damages & Penalty — Fundamentals",
+  items:[
+    {
+      q:"What is 'Liquidated Damages' (LD) in a construction contract?",
+      qbn:"নির্মাণ চুক্তিতে 'তরলীকৃত ক্ষতি' (Liquidated Damages, LD) কী?",
+      a:[
+        "The <span class='kw-red'>Contractor compensates the Employer</span> to cover the Employer's costs incurred due to <span class='kw-blue'>late completion</span>.",
+        "LD means an amount of money that <span class='kw-red'>both parties agree in advance</span> to be paid if one party breaks the contract.",
+        "Example: if a contractor delays a project, the contract may state they must pay <span class='kw-blue'>$100 per day</span> as liquidated damages."
+      ],
+      abn:[
+        "<span class='kw-red'>ঠিকাদার নিয়োগকর্তাকে ক্ষতিপূরণ দেন</span> যাতে <span class='kw-blue'>দেরিতে সমাপ্তির</span> কারণে নিয়োগকর্তার ব্যয় পূরণ হয়।",
+        "LD মানে হলো এমন একটি অর্থের পরিমাণ যা <span class='kw-red'>উভয় পক্ষ আগে থেকেই সম্মত হয়</span> যদি কোনো পক্ষ চুক্তি ভঙ্গ করে।",
+        "উদাহরণ: ঠিকাদার প্রকল্পে দেরি করলে, চুক্তিতে বলা থাকতে পারে তাদের প্রতিদিন <span class='kw-blue'>$১০০</span> তরলীকৃত ক্ষতি হিসেবে দিতে হবে।"
+      ],
+      page:4
+    },
+    {
+      q:"What is 'Penalty Damages', and how differently do civil law and common law courts treat it?",
+      qbn:"'পেনাল্টি ড্যামেজ' কী, এবং দেওয়ানি আইন ও কমন ল আদালত এটিকে কীভাবে ভিন্নভাবে বিবেচনা করে?",
+      a:[
+        "<span class='kw-blue'>Meaning</span>: an amount of money set <span class='kw-red'>higher than the actual loss</span>.",
+        "<span class='kw-blue'>Purpose</span>: to <span class='kw-red'>punish</span> the party who breaks the contract, not just compensate.",
+        "<span class='kw-blue'>Court view</span>: <span class='kw-red'>Civil law courts</span> often enforce penalty damages, while <span class='kw-red'>Common law courts</span> usually do not enforce them.",
+        "Example: you agree to pay $200,000 for a house, but if the builder is late, they must pay <span class='kw-blue'>$50,000 as a penalty</span> — even if the real loss is less."
+      ],
+      abn:[
+        "<span class='kw-blue'>অর্থ</span>: প্রকৃত ক্ষতির চেয়ে <span class='kw-red'>বেশি নির্ধারিত অর্থের পরিমাণ</span>।",
+        "<span class='kw-blue'>উদ্দেশ্য</span>: চুক্তি ভঙ্গকারী পক্ষকে <span class='kw-red'>শাস্তি</span> দেওয়া, শুধু ক্ষতিপূরণ নয়।",
+        "<span class='kw-blue'>আদালতের দৃষ্টিভঙ্গি</span>: <span class='kw-red'>দেওয়ানি আইন আদালত</span> প্রায়ই পেনাল্টি ড্যামেজ কার্যকর করে, কিন্তু <span class='kw-red'>কমন ল আদালত</span> সাধারণত তা কার্যকর করে না।",
+        "উদাহরণ: আপনি একটি বাড়ির জন্য $২,০০,০০০ দিতে সম্মত হন, কিন্তু নির্মাতা দেরি করলে তাকে <span class='kw-blue'>$৫০,০০০ পেনাল্টি</span> দিতে হবে — এমনকি প্রকৃত ক্ষতি কম হলেও।"
+      ],
+      page:5
+    },
+    {
+      q:"What are the two mutual purposes served by an LD clause for the employer and the contractor?",
+      qbn:"একটি LD ধারা নিয়োগকর্তা ও ঠিকাদার উভয়ের জন্য কী দুটি পারস্পরিক উদ্দেশ্য পূরণ করে?",
+      a:[
+        "1. It enables both parties to <span class='kw-red'>agree beforehand</span> on the damage recoverable for a breach of contract.",
+        "2. It is <span class='kw-blue'>mutually beneficial</span> — both employer and contractor gain a reasonable degree of <span class='kw-red'>certainty</span> about the extent of their liabilities and risks from entering the contract.",
+        "It also lets the employer know the <span class='kw-blue'>extent of protection</span> if the contractor fails to perform, and <span class='kw-red'>limits the contractor's exposure</span> to claims."
+      ],
+      abn:[
+        "১. এটি উভয় পক্ষকে চুক্তি ভঙ্গের জন্য আদায়যোগ্য ক্ষতির বিষয়ে <span class='kw-red'>আগে থেকে সম্মত হতে</span> সক্ষম করে।",
+        "২. এটি <span class='kw-blue'>পারস্পরিকভাবে উপকারী</span> — নিয়োগকর্তা ও ঠিকাদার উভয়েই চুক্তিতে প্রবেশের ফলে তাদের দায়বদ্ধতা ও ঝুঁকির পরিমাণ সম্পর্কে যুক্তিসঙ্গত <span class='kw-red'>নিশ্চয়তা</span> পান।",
+        "এটি নিয়োগকর্তাকে ঠিকাদার ব্যর্থ হলে <span class='kw-blue'>সুরক্ষার পরিমাণ</span> জানতে দেয়, এবং ঠিকাদারের দাবির <span class='kw-red'>সংস্পর্শ সীমিত</span> করে।"
+      ],
+      page:"6–7"
+    },
+    {
+      q:"What is the 'capping' effect of an LD clause once a breach is triggered?",
+      qbn:"একবার লঙ্ঘন ঘটলে LD ধারার 'ক্যাপিং' প্রভাব কী?",
+      a:[
+        "It has the effect of <span class='kw-red'>capping the amount recoverable</span> once the breach (e.g., a delay in completion) has been triggered.",
+        "Losses <span class='kw-blue'>over and above</span> the stipulated amount are not, as a general rule, recoverable.",
+        "Example: if the contract sets damages at $10,000, you normally <span class='kw-red'>cannot claim more</span>, even if your real loss is $15,000."
+      ],
+      abn:[
+        "লঙ্ঘন (যেমন সমাপ্তিতে বিলম্ব) ঘটলে এটি <span class='kw-red'>আদায়যোগ্য পরিমাণ সীমাবদ্ধ</span> করার প্রভাব রাখে।",
+        "নির্ধারিত পরিমাণের <span class='kw-blue'>অতিরিক্ত</span> ক্ষতি সাধারণত আদায়যোগ্য নয়।",
+        "উদাহরণ: চুক্তিতে ক্ষতি $১০,০০০ নির্ধারিত থাকলে, প্রকৃত ক্ষতি $১৫,০০০ হলেও আপনি সাধারণত <span class='kw-red'>বেশি দাবি করতে পারবেন না</span>।"
+      ],
+      page:8
+    },
+    {
+      q:"What must an LD sum represent to be legally enforceable, and which landmark case established this principle?",
+      qbn:"আইনগতভাবে প্রয়োগযোগ্য হতে হলে LD-এর পরিমাণ কী প্রতিনিধিত্ব করতে হবে, এবং কোন যুগান্তকারী মামলা এই নীতি প্রতিষ্ঠা করেছে?",
+      a:[
+        "Liquidated Damages must be a <span class='kw-red'>genuine covenanted (agreed) pre-estimate of damage</span>.",
+        "If the agreed sum is regarded in law as a <span class='kw-blue'>'penalty'</span>, it will <span class='kw-red'>not be enforced by the courts</span>.",
+        "<span class='kw-blue'>Case law</span>: <em>Dunlop Pneumatic Tyre Co. v New Garage &amp; Motor Company Ltd</em>."
+      ],
+      abn:[
+        "তরলীকৃত ক্ষতি অবশ্যই ক্ষতির একটি <span class='kw-red'>প্রকৃত সম্মত পূর্ব-অনুমান</span> হতে হবে।",
+        "সম্মত পরিমাণ আইনে <span class='kw-blue'>'পেনাল্টি'</span> হিসেবে বিবেচিত হলে, তা <span class='kw-red'>আদালত কার্যকর করবে না</span>।",
+        "<span class='kw-blue'>মামলার আইন</span>: <em>Dunlop Pneumatic Tyre Co. v New Garage &amp; Motor Company Ltd</em>।"
+      ],
+      page:9
+    },
+    {
+      q:"When can a claim for LD fail due to sectional or partial completion of works?",
+      qbn:"কাজের আংশিক বা বিভাগীয় সমাপ্তির কারণে LD-এর দাবি কখন ব্যর্থ হতে পারে?",
+      a:[
+        "A claim for LD will fail if a <span class='kw-red'>single sum is stipulated</span> for LD but the works are to be completed <span class='kw-blue'>in sections</span>, or where the employer takes possession of part of the works before completion of the whole.",
+        "Example: a project has 3 sections, but the contract sets one LD amount for the whole job. If one section is delayed but others are already completed/used, the <span class='kw-red'>single LD amount may not be enforceable</span>."
+      ],
+      abn:[
+        "LD-এর জন্য <span class='kw-red'>একক পরিমাণ নির্ধারিত থাকলে</span> কিন্তু কাজ <span class='kw-blue'>বিভাগে সম্পন্ন</span> হওয়ার কথা থাকলে, অথবা সম্পূর্ণ কাজ শেষ হওয়ার আগে নিয়োগকর্তা অংশবিশেষ দখলে নিলে, LD-এর দাবি ব্যর্থ হবে।",
+        "উদাহরণ: একটি প্রকল্পে ৩টি বিভাগ আছে, কিন্তু চুক্তিতে সম্পূর্ণ কাজের জন্য একটি LD পরিমাণ নির্ধারিত। একটি বিভাগ দেরিতে হলেও অন্যগুলো ইতিমধ্যে সম্পন্ন/ব্যবহৃত হলে, <span class='kw-red'>একক LD পরিমাণটি প্রয়োগযোগ্য নাও হতে পারে</span>।"
+      ],
+      page:10
+    }
+  ]
+},
+{
+  section:"enforcement", title:"II. Enforcement, Defences & Standard Forms",
+  items:[
+    {
+      q:"What are the two main defences available against enforcement of an LD clause?",
+      qbn:"LD ধারার প্রয়োগের বিরুদ্ধে দুটি প্রধান প্রতিরক্ষা কী কী?",
+      a:[
+        "1. Arguing that <span class='kw-red'>the sum is a penalty</span> (not a genuine pre-estimate).",
+        "2. <span class='kw-blue'>Condition precedent not fulfilled</span> — a condition may be required to be fulfilled before the contractor becomes liable for LD.",
+        "Example: the employer is only entitled to recover LD <span class='kw-red'>upon receipt of the Architect's Delay Certificate</span>."
+      ],
+      abn:[
+        "১. যুক্তি দেওয়া যে <span class='kw-red'>পরিমাণটি একটি পেনাল্টি</span> (প্রকৃত পূর্ব-অনুমান নয়)।",
+        "২. <span class='kw-blue'>পূর্বশর্ত (Condition Precedent) পূরণ হয়নি</span> — ঠিকাদার LD-এর জন্য দায়ী হওয়ার আগে একটি শর্ত পূরণ হওয়া প্রয়োজন হতে পারে।",
+        "উদাহরণ: নিয়োগকর্তা কেবল <span class='kw-red'>স্থপতির বিলম্ব সনদ পাওয়ার পরই</span> LD আদায়ের অধিকারী।"
+      ],
+      page:11
+    },
+    {
+      q:"How does the concept of time becoming 'at large' affect the enforceability of the LD clause?",
+      qbn:"সময় 'at large' হয়ে যাওয়ার ধারণা LD ধারার প্রয়োগযোগ্যতাকে কীভাবে প্রভাবিত করে?",
+      a:[
+        "Most standard contracts allow the <span class='kw-red'>Architect or Superintendent Officer (SO)</span> to grant an <span class='kw-blue'>Extension of Time (EOT)</span> when there are acts of prevention or breaches by the employer.",
+        "However, if the EOT clause <span class='kw-red'>does not apply</span> to a particular act of prevention, the completion time becomes <span class='kw-blue'>'at large'</span>.",
+        "When time is 'at large', the contractor is only required to finish within a <span class='kw-red'>reasonable time</span>, and the LD clause becomes <span class='kw-blue'>inoperable</span>."
+      ],
+      abn:[
+        "নিয়োগকর্তার প্রতিরোধমূলক কাজ বা লঙ্ঘনের ক্ষেত্রে বেশিরভাগ প্রমিত চুক্তি <span class='kw-red'>স্থপতি বা সুপারিনটেন্ডেন্ট অফিসারকে (SO)</span> <span class='kw-blue'>সময় বৃদ্ধি (EOT)</span> প্রদানের অনুমতি দেয়।",
+        "তবে, EOT ধারা কোনো নির্দিষ্ট প্রতিরোধমূলক কাজে <span class='kw-red'>প্রযোজ্য না হলে</span>, সমাপ্তির সময় <span class='kw-blue'>'at large'</span> হয়ে যায়।",
+        "সময় 'at large' হলে, ঠিকাদারকে কেবল <span class='kw-red'>যুক্তিসঙ্গত সময়ের মধ্যে</span> কাজ শেষ করতে হয়, এবং LD ধারা <span class='kw-blue'>অকার্যকর</span> হয়ে যায়।"
+      ],
+      page:12
+    },
+    {
+      q:"Name at least four Standard Conditions of Contract (SCOC) used internationally, and their origins.",
+      qbn:"আন্তর্জাতিকভাবে ব্যবহৃত অন্তত চারটি প্রমিত চুক্তির শর্তাবলি (SCOC) এবং তাদের উৎপত্তি উল্লেখ করুন।",
+      a:[
+        "<span class='kw-red'>JCT</span> (Joint Contract Tribunal) — <span class='kw-blue'>UK</span>.",
+        "<span class='kw-red'>Master Format</span> (Construction Specification Institute, CSI) — <span class='kw-blue'>USA, Canada</span>.",
+        "<span class='kw-red'>FIDIC</span> (International Federation of Consulting Engineers) — <span class='kw-blue'>International</span>.",
+        "<span class='kw-red'>NEC</span> (Engineering and Construction Contract) — created by the <span class='kw-blue'>Institution of Civil Engineers</span>.",
+        "Others include <span class='kw-blue'>SIA</span> (Singapore Institute of Architects), <span class='kw-blue'>ACA</span> (Association of Consultants Architects), and <span class='kw-blue'>PSSCOC</span> (Singapore)."
+      ],
+      abn:[
+        "<span class='kw-red'>JCT</span> (জয়েন্ট কন্ট্রাক্ট ট্রাইব্যুনাল) — <span class='kw-blue'>যুক্তরাজ্য</span>।",
+        "<span class='kw-red'>মাস্টার ফরম্যাট</span> (CSI) — <span class='kw-blue'>যুক্তরাষ্ট্র, কানাডা</span>।",
+        "<span class='kw-red'>FIDIC</span> (আন্তর্জাতিক পরামর্শক প্রকৌশলী ফেডারেশন) — <span class='kw-blue'>আন্তর্জাতিক</span>।",
+        "<span class='kw-red'>NEC</span> (ইঞ্জিনিয়ারিং ও কন্সট্রাকশন কন্ট্রাক্ট) — <span class='kw-blue'>ইনস্টিটিউশন অব সিভিল ইঞ্জিনিয়ার্স</span> কর্তৃক তৈরি।",
+        "অন্যান্যের মধ্যে রয়েছে <span class='kw-blue'>SIA</span>, <span class='kw-blue'>ACA</span>, এবং <span class='kw-blue'>PSSCOC</span> (সিঙ্গাপুর)।"
+      ],
+      page:14
+    },
+    {
+      q:"Under Clause 2.32 of JCT SBC 11, what two things must happen before LD can be claimed or deducted?",
+      qbn:"JCT SBC 11-এর ধারা ২.৩২ অনুযায়ী, LD দাবি বা কর্তনের আগে কোন দুটি ঘটনা ঘটতে হবে?",
+      a:[
+        "1. The contract administrator must issue a <span class='kw-red'>non-completion certificate</span> (certifying the contractor failed to complete on time).",
+        "2. The employer must give the contractor <span class='kw-blue'>written notice of intention</span> to deduct liquidated damages."
+      ],
+      abn:[
+        "১. চুক্তি প্রশাসককে অবশ্যই একটি <span class='kw-red'>অ-সমাপ্তি সনদ</span> ইস্যু করতে হবে (ঠিকাদার সময়মতো সম্পন্ন করতে ব্যর্থ হয়েছে তা প্রত্যয়ন করে)।",
+        "২. নিয়োগকর্তাকে অবশ্যই ঠিকাদারকে তরলীকৃত ক্ষতি কর্তনের <span class='kw-blue'>উদ্দেশ্যের লিখিত নোটিশ</span> দিতে হবে।"
+      ],
+      page:15
+    },
+    {
+      q:"If an EOT (Extension of Time) is later granted, what happens to the non-completion certificate and the employer's original LD notice?",
+      qbn:"পরবর্তীতে EOT (সময় বৃদ্ধি) মঞ্জুর হলে, অ-সমাপ্তি সনদ এবং নিয়োগকর্তার মূল LD নোটিশের কী হয়?",
+      a:[
+        "It is still necessary for the contract administrator, on each occasion a new completion date is fixed, to issue a <span class='kw-red'>fresh non-completion certificate</span>.",
+        "But the employer's <span class='kw-blue'>original notice of intention to deduct LD remains in force</span> until it is specifically revoked."
+      ],
+      abn:[
+        "নতুন সমাপ্তির তারিখ নির্ধারিত হওয়ার প্রতিটি ক্ষেত্রে চুক্তি প্রশাসকের জন্য <span class='kw-red'>নতুন অ-সমাপ্তি সনদ</span> ইস্যু করা এখনও প্রয়োজনীয়।",
+        "কিন্তু নিয়োগকর্তার <span class='kw-blue'>LD কর্তনের উদ্দেশ্যের মূল নোটিশ কার্যকর থাকে</span> যতক্ষণ না তা সুনির্দিষ্টভাবে প্রত্যাহার করা হয়।"
+      ],
+      page:16
+    },
+    {
+      q:"How does the NEC3 approach to triggering LD (Clause X7) differ from the JCT approach?",
+      qbn:"LD ট্রিগার করার ক্ষেত্রে NEC3-এর পদ্ধতি (ধারা X7) JCT পদ্ধতি থেকে কীভাবে ভিন্ন?",
+      a:[
+        "Under <span class='kw-red'>NEC3</span>, LD become payable (or deductible) simply when the contractor has <span class='kw-blue'>failed to complete the works</span> within the prescribed time or any validly granted extension.",
+        "Clause X7 does <span class='kw-red'>not specifically require</span> the engineer to <span class='kw-blue'>certify non-completion</span> — unlike JCT, which requires a formal non-completion certificate."
+      ],
+      abn:[
+        "<span class='kw-red'>NEC3</span>-এর অধীনে, ঠিকাদার নির্ধারিত সময়ের মধ্যে বা কোনো বৈধভাবে মঞ্জুর করা সম্প্রসারণের মধ্যে <span class='kw-blue'>কাজ শেষ করতে ব্যর্থ হলেই</span> LD প্রদেয় (বা কর্তনযোগ্য) হয়ে যায়।",
+        "ধারা X7 বিশেষভাবে ইঞ্জিনিয়ারকে <span class='kw-blue'>অ-সমাপ্তি প্রত্যয়ন</span> করতে <span class='kw-red'>প্রয়োজন করে না</span> — JCT-এর বিপরীতে, যেখানে আনুষ্ঠানিক অ-সমাপ্তি সনদ প্রয়োজন।"
+      ],
+      page:17
+    },
+    {
+      q:"How do standard forms handle LD when the employer takes partial possession of the works (LD vs Phasing)?",
+      qbn:"নিয়োগকর্তা কাজের আংশিক দখল নিলে প্রমিত ফর্মগুলো LD কীভাবে পরিচালনা করে (LD বনাম Phasing)?",
+      a:[
+        "It would be <span class='kw-red'>absurd</span> if the employer could deduct delay damages at the full rate when part of the property had already been in his possession.",
+        "Standard forms provide that the rate at which damages are payable will be <span class='kw-blue'>reduced in proportion</span> to the value of the part taken over.",
+        "See <span class='kw-red'>JCT SBC 11 clause 2.37</span>, <span class='kw-red'>NEC3 clause X7.3</span>, and <span class='kw-red'>FIDIC 1999 Red Book clause 10.2</span>."
+      ],
+      abn:[
+        "সম্পত্তির অংশবিশেষ ইতিমধ্যে নিয়োগকর্তার দখলে থাকলে তিনি পূর্ণ হারে বিলম্ব ক্ষতি কর্তন করলে তা <span class='kw-red'>অযৌক্তিক</span> হবে।",
+        "প্রমিত ফর্মগুলো নির্ধারণ করে যে দখল নেওয়া অংশের মূল্যের <span class='kw-blue'>অনুপাতে ক্ষতির হার হ্রাস</span> পাবে।",
+        "দেখুন <span class='kw-red'>JCT SBC 11 ধারা ২.৩৭</span>, <span class='kw-red'>NEC3 ধারা X7.3</span>, এবং <span class='kw-red'>FIDIC 1999 রেড বুক ধারা ১০.২</span>।"
+      ],
+      page:18
+    }
+  ]
+},
+{
+  section:"timeframe", title:"III. Quantum Meruit & The Construction Time Frame",
+  items:[
+    {
+      q:"What is a 'Quantum Meruit' claim, and what common thread links the situations where it applies?",
+      qbn:"'Quantum Meruit' দাবি কী, এবং কোন সাধারণ বৈশিষ্ট্য এই দাবি প্রযোজ্য হওয়ার পরিস্থিতিগুলোকে সংযুক্ত করে?",
+      a:[
+        "A quantum meruit claim is one in which the contractor seeks payment of the <span class='kw-red'>reasonable value of work done</span> for the employer.",
+        "The common thread: there is either <span class='kw-blue'>no contractual entitlement to payment</span> or <span class='kw-blue'>no contractual assessment</span> of the amount due.",
+        "Example: a contractor starts building a house, but the contract is cancelled before completion. Since there is no agreed payment for the unfinished work, the contractor can <span class='kw-red'>claim a reasonable amount</span> under quantum meruit."
+      ],
+      abn:[
+        "Quantum Meruit দাবি হলো এমন একটি দাবি যেখানে ঠিকাদার নিয়োগকর্তার জন্য সম্পাদিত কাজের <span class='kw-red'>যুক্তিসঙ্গত মূল্যের অর্থ প্রদান</span> চান।",
+        "সাধারণ বৈশিষ্ট্য: হয় <span class='kw-blue'>অর্থ প্রদানের কোনো চুক্তিগত অধিকার নেই</span> অথবা প্রদেয় পরিমাণের <span class='kw-blue'>কোনো চুক্তিগত মূল্যায়ন নেই</span>।",
+        "উদাহরণ: একজন ঠিকাদার একটি বাড়ি তৈরি শুরু করেন, কিন্তু চুক্তি সমাপ্তির আগেই বাতিল হয়ে যায়। অসম্পূর্ণ কাজের জন্য কোনো সম্মত অর্থ প্রদান না থাকায়, ঠিকাদার quantum meruit-এর অধীনে <span class='kw-red'>যুক্তিসঙ্গত পরিমাণ দাবি</span> করতে পারেন।"
+      ],
+      page:19
+    },
+    {
+      q:"List the situations in the construction context where a quantum meruit claim is most likely to arise.",
+      qbn:"নির্মাণ প্রেক্ষাপটে quantum meruit দাবি উত্থাপনের সম্ভাব্য পরিস্থিতিগুলো তালিকাভুক্ত করুন।",
+      a:[
+        "Where there is an <span class='kw-red'>express undertaking</span> by the employer to pay a reasonable sum for services rendered.",
+        "Where professional or trade services are requested (e.g., under a <span class='kw-blue'>letter of intent</span>) but no price is agreed — a reasonable sum is implied.",
+        "Where a <span class='kw-blue'>price fixing clause</span> in a contract fails to operate.",
+        "Where <span class='kw-red'>extra work</span> is ordered falling outside the scope of a variations clause.",
+        "Where an apparent contract under which work is done is in fact <span class='kw-red'>void</span>."
+      ],
+      abn:[
+        "যেখানে সম্পাদিত সেবার জন্য যুক্তিসঙ্গত অর্থ প্রদানের <span class='kw-red'>সুস্পষ্ট প্রতিশ্রুতি</span> নিয়োগকর্তা দিয়েছেন।",
+        "যেখানে পেশাগত বা বাণিজ্যিক সেবা অনুরোধ করা হয়েছে (যেমন <span class='kw-blue'>লেটার অব ইনটেন্ট</span>-এর অধীনে) কিন্তু কোনো মূল্য সম্মত হয়নি — একটি যুক্তিসঙ্গত পরিমাণ ধরে নেওয়া হয়।",
+        "যেখানে চুক্তির <span class='kw-blue'>মূল্য নির্ধারণী ধারা</span> কার্যকর হতে ব্যর্থ হয়।",
+        "যেখানে ভ্যারিয়েশন ধারার পরিধির বাইরে <span class='kw-red'>অতিরিক্ত কাজ</span> নির্দেশ দেওয়া হয়েছে।",
+        "যেখানে যে চুক্তির অধীনে কাজ করা হয়েছে তা প্রকৃতপক্ষে <span class='kw-red'>বাতিল (void)</span>।"
+      ],
+      page:"20–21"
+    },
+    {
+      q:"Describe the general 'Time Frame' phases of a construction project as outlined in the slides.",
+      qbn:"স্লাইডে বর্ণিত নির্মাণ প্রকল্পের সাধারণ 'সময়সীমা' পর্যায়গুলো বর্ণনা করুন।",
+      a:[
+        "The time frame moves through: <span class='kw-red'>Commencement</span> → <span class='kw-blue'>Progress</span> → <span class='kw-red'>Completion</span>.",
+        "After Completion, there is a further phase: the <span class='kw-blue'>Contractor's obligation after completion</span>.",
+        "Running alongside this timeline is the possibility of an <span class='kw-red'>Extension of Time (EOT)</span>."
+      ],
+      abn:[
+        "সময়সীমা এগিয়ে চলে: <span class='kw-red'>শুরু (Commencement)</span> → <span class='kw-blue'>অগ্রগতি (Progress)</span> → <span class='kw-red'>সমাপ্তি (Completion)</span>।",
+        "সমাপ্তির পরে আরেকটি পর্যায় রয়েছে: <span class='kw-blue'>সমাপ্তির পরে ঠিকাদারের দায়িত্ব</span>।",
+        "এই সময়রেখার পাশাপাশি <span class='kw-red'>সময় বৃদ্ধির (EOT)</span> সম্ভাবনা থাকে।"
+      ],
+      page:22
+    },
+    {
+      q:"What does the 'Commencement' phase of a contract consist of?",
+      qbn:"চুক্তির 'Commencement' (শুরু) পর্যায় কী নিয়ে গঠিত?",
+      a:[
+        "Commencement involves <span class='kw-red'>possession of the site</span>.",
+        "It is marked by the <span class='kw-blue'>Date for Possession</span>, which leads toward Completion."
+      ],
+      abn:[
+        "Commencement-এ <span class='kw-red'>সাইটের দখল</span> জড়িত।",
+        "এটি <span class='kw-blue'>দখলের তারিখ</span> দ্বারা চিহ্নিত হয়, যা সমাপ্তির দিকে নিয়ে যায়।"
+      ],
+      page:23
+    },
+    {
+      q:"What obligation does FIDIC Red Book clause 8.1 impose on the contractor regarding progress?",
+      qbn:"অগ্রগতি সম্পর্কিত FIDIC রেড বুক ধারা ৮.১ ঠিকাদারের উপর কী বাধ্যবাধকতা আরোপ করে?",
+      a:[
+        "The contractor must proceed with the works <span class='kw-red'>'with due expedition and without delay'</span>.",
+        "The obligation is to proceed <span class='kw-blue'>continuously, industriously and efficiently</span> with appropriate physical resources.",
+        "This is so as to progress the works steadily toward completion, in accordance with the contractual requirements of <span class='kw-red'>time, sequence, and quality</span>."
+      ],
+      abn:[
+        "ঠিকাদারকে অবশ্যই <span class='kw-red'>'যথাযথ দ্রুততার সাথে এবং বিলম্ব ছাড়াই'</span> কাজ এগিয়ে নিতে হবে।",
+        "বাধ্যবাধকতা হলো উপযুক্ত ভৌত সম্পদ নিয়ে <span class='kw-blue'>ক্রমাগত, পরিশ্রমীভাবে এবং দক্ষতার সাথে</span> এগিয়ে যাওয়া।",
+        "এটি <span class='kw-red'>সময়, ক্রম এবং মানের</span> চুক্তিগত প্রয়োজনীয়তা অনুযায়ী স্থিরভাবে সমাপ্তির দিকে অগ্রসর হওয়ার জন্য।"
+      ],
+      page:24
+    },
+    {
+      q:"What five components make up the 'Completion' framework shown in the slides?",
+      qbn:"স্লাইডে দেখানো 'Completion' কাঠামোর পাঁচটি উপাদান কী কী?",
+      a:[
+        "1. <span class='kw-red'>Meaning of Completion</span>.",
+        "2. <span class='kw-red'>Date for Completion</span>.",
+        "3. <span class='kw-red'>Delay in Completion</span>.",
+        "4. <span class='kw-red'>Sectional and partial completion</span>.",
+        "5. <span class='kw-red'>Effect of Completion</span>."
+      ],
+      abn:[
+        "১. <span class='kw-red'>সমাপ্তির অর্থ</span>।",
+        "২. <span class='kw-red'>সমাপ্তির তারিখ</span>।",
+        "৩. <span class='kw-red'>সমাপ্তিতে বিলম্ব</span>।",
+        "৪. <span class='kw-red'>বিভাগীয় ও আংশিক সমাপ্তি</span>।",
+        "৫. <span class='kw-red'>সমাপ্তির প্রভাব</span>।"
+      ],
+      page:25
+    },
+    {
+      q:"According to FIDIC Red Book clause 8.2, what does the contractor's obligation of 'Completion' actually require?",
+      qbn:"FIDIC রেড বুক ধারা ৮.২ অনুযায়ী, 'সমাপ্তি'র ঠিকাদারের বাধ্যবাধকতা প্রকৃতপক্ষে কী দাবি করে?",
+      a:[
+        "The contractor's obligation is to complete the <span class='kw-red'>whole of the works</span>, including <span class='kw-blue'>passing tests on completion</span> and completing all work for the purposes of taking over.",
+        "The testing regime is set out in clauses 9.1–9.4, after which the <span class='kw-red'>taking-over certificate</span> is issued — except for minor outstanding work and defects that will not substantially affect intended use."
+      ],
+      abn:[
+        "ঠিকাদারের বাধ্যবাধকতা হলো <span class='kw-red'>সম্পূর্ণ কাজ</span> শেষ করা, যার মধ্যে রয়েছে <span class='kw-blue'>সমাপ্তির পরীক্ষায় উত্তীর্ণ হওয়া</span> এবং হস্তান্তরের উদ্দেশ্যে সমস্ত কাজ সম্পন্ন করা।",
+        "পরীক্ষার পদ্ধতি ধারা ৯.১–৯.৪-এ বর্ণিত, যার পরে <span class='kw-red'>হস্তান্তর সনদ</span> ইস্যু করা হয় — সামান্য অবশিষ্ট কাজ ও ত্রুটি ছাড়া, যা উদ্দেশ্যমূলক ব্যবহারকে উল্লেখযোগ্যভাবে প্রভাবিত করবে না।"
+      ],
+      page:26
+    },
+    {
+      q:"Is it legally essential to specify a 'Date for Completion' in a building contract, and what is lost if it is omitted?",
+      qbn:"একটি নির্মাণ চুক্তিতে 'সমাপ্তির তারিখ' নির্দিষ্ট করা কি আইনগতভাবে অপরিহার্য, এবং এটি বাদ দিলে কী হারানো যায়?",
+      a:[
+        "It is <span class='kw-red'>not essential</span> — if omitted, the contractor has an implied obligation to complete within a <span class='kw-blue'>reasonable time</span>.",
+        "However, relying on this is <span class='kw-red'>not very satisfactory</span> for any project of appreciable size, since the client normally needs confidence about precisely when to expect completion.",
+        "Critically, <span class='kw-blue'>without a specific completion date, there can be no provision for 'liquidated damages'</span> — i.e., no fixed sum payable per day/week of delay."
+      ],
+      abn:[
+        "এটি <span class='kw-red'>অপরিহার্য নয়</span> — বাদ দিলে, ঠিকাদারের <span class='kw-blue'>যুক্তিসঙ্গত সময়ের মধ্যে</span> কাজ শেষ করার একটি অন্তর্নিহিত বাধ্যবাধকতা থাকে।",
+        "তবে, উল্লেখযোগ্য আকারের যেকোনো প্রকল্পের জন্য এর উপর নির্ভর করা <span class='kw-red'>খুব সন্তোষজনক নয়</span>, কারণ ক্লায়েন্টের সাধারণত সমাপ্তি ঠিক কখন আশা করবে তা সম্পর্কে নিশ্চয়তা প্রয়োজন।",
+        "গুরুত্বপূর্ণভাবে, <span class='kw-blue'>নির্দিষ্ট সমাপ্তির তারিখ ছাড়া 'তরলীকৃত ক্ষতি'র কোনো বিধান থাকতে পারে না</span> — অর্থাৎ প্রতিদিন/সপ্তাহ বিলম্বের জন্য কোনো নির্দিষ্ট প্রদেয় অর্থ থাকতে পারে না।"
+      ],
+      page:"27–28"
+    },
+    {
+      q:"What consequences follow once the contract administrator certifies that the works have been completed?",
+      qbn:"চুক্তি প্রশাসক কাজ সম্পন্ন হয়েছে বলে প্রত্যয়ন করার পর কী কী পরিণতি ঘটে?",
+      a:[
+        "The <span class='kw-red'>employer becomes entitled to take possession</span> of the contract works.",
+        "The contractor's responsibility to <span class='kw-blue'>insure the completed works</span> generally comes to an end, subject to contract terms.",
+        "The contractor's <span class='kw-red'>liability for liquidated damages</span> for late completion usually ceases upon certification.",
+        "The contractor typically becomes entitled to the <span class='kw-blue'>release of part (often one-half) of the retention money</span>."
+      ],
+      abn:[
+        "<span class='kw-red'>নিয়োগকর্তা</span> চুক্তির কাজের <span class='kw-red'>দখল নেওয়ার অধিকারী</span> হন।",
+        "সম্পন্ন কাজ <span class='kw-blue'>বিমা করার</span> ঠিকাদারের দায়িত্ব সাধারণত শেষ হয়ে যায়, চুক্তির শর্তসাপেক্ষে।",
+        "দেরিতে সমাপ্তির জন্য ঠিকাদারের <span class='kw-red'>তরলীকৃত ক্ষতির দায়বদ্ধতা</span> সাধারণত প্রত্যয়নের পরে শেষ হয়।",
+        "ঠিকাদার সাধারণত <span class='kw-blue'>রিটেনশন অর্থের একটি অংশ (প্রায়ই অর্ধেক) মুক্তির</span> অধিকারী হন।"
+      ],
+      page:29
+    },
+    {
+      q:"What are the contractor's obligations after completion under FIDIC Red Book clauses 11.1–11.11, and what happens if the works fail repeated tests?",
+      qbn:"FIDIC রেড বুক ধারা ১১.১–১১.১১ অনুযায়ী সমাপ্তির পরে ঠিকাদারের দায়িত্ব কী, এবং কাজ বারবার পরীক্ষায় ব্যর্থ হলে কী ঘটে?",
+      a:[
+        "These clauses set out procedures for <span class='kw-red'>completion and testing</span> of the works, broadly similar to other standard forms.",
+        "A notable FIDIC feature: if the completed works fail the tests on completion, <span class='kw-blue'>further tests may be requested</span>.",
+        "Under clause 9.4, if <span class='kw-red'>repeated failures</span> occur, the employer may issue a <span class='kw-blue'>Taking-Over Certificate</span> with the contract price <span class='kw-red'>reduced proportionately</span> — effectively letting the employer take over the works and have them completed by someone else."
+      ],
+      abn:[
+        "এই ধারাগুলো কাজের <span class='kw-red'>সমাপ্তি ও পরীক্ষার</span> পদ্ধতি নির্ধারণ করে, যা অন্যান্য প্রমিত ফর্মের অনুরূপ।",
+        "FIDIC-এর একটি উল্লেখযোগ্য বৈশিষ্ট্য: সম্পন্ন কাজ সমাপ্তির পরীক্ষায় ব্যর্থ হলে, <span class='kw-blue'>আরও পরীক্ষার অনুরোধ করা যেতে পারে</span>।",
+        "ধারা ৯.৪-এর অধীনে, <span class='kw-red'>বারবার ব্যর্থতা</span> ঘটলে, নিয়োগকর্তা <span class='kw-blue'>হস্তান্তর সনদ</span> ইস্যু করতে পারেন এবং চুক্তির মূল্য <span class='kw-red'>আনুপাতিকভাবে হ্রাস</span> পাবে — এতে নিয়োগকর্তা কাজ গ্রহণ করে অন্য কাউকে দিয়ে তা সম্পন্ন করাতে পারেন।"
+      ],
+      page:"30–31"
+    },
+    {
+      q:"What is the fundamental rule about adjusting the time for completion in a construction contract?",
+      qbn:"নির্মাণ চুক্তিতে সমাপ্তির সময় সমন্বয়ের মৌলিক নিয়ম কী?",
+      a:[
+        "The time for completion can <span class='kw-red'>only be adjusted where the contract permits</span>, and strictly in accordance with the contract provisions.",
+        "If delay is caused by an event the <span class='kw-blue'>contract does not cover</span>, the contractor cannot claim more time, nor can the employer insist on giving any."
+      ],
+      abn:[
+        "সমাপ্তির সময় কেবল <span class='kw-red'>চুক্তি অনুমতি দিলেই সমন্বয় করা যায়</span>, এবং কঠোরভাবে চুক্তির বিধান অনুযায়ী।",
+        "বিলম্ব <span class='kw-blue'>চুক্তিতে অন্তর্ভুক্ত নয়</span> এমন কোনো ঘটনার কারণে হলে, ঠিকাদার অতিরিক্ত সময় দাবি করতে পারেন না, নিয়োগকর্তাও তা দিতে বাধ্য নন।"
+      ],
+      page:32
+    },
+    {
+      q:"Under JCT SBC 11 clause 2.29, how does a 'variation' entitle the contractor to an extension of time?",
+      qbn:"JCT SBC 11 ধারা ২.২৯ অনুযায়ী, একটি 'ভ্যারিয়েশন' কীভাবে ঠিকাদারকে সময় বৃদ্ধির অধিকার দেয়?",
+      a:[
+        "The contractor is entitled to an <span class='kw-red'>extension of time</span> in the event of a variation.",
+        "This applies whether the variation is <span class='kw-blue'>required by an instruction of the contract administrator</span>, or where any other matter has to be treated as a variation."
+      ],
+      abn:[
+        "ভ্যারিয়েশন ঘটলে ঠিকাদার <span class='kw-red'>সময় বৃদ্ধির</span> অধিকারী হন।",
+        "এটি প্রযোজ্য হয় ভ্যারিয়েশন <span class='kw-blue'>চুক্তি প্রশাসকের নির্দেশে প্রয়োজনীয়</span> হোক, অথবা অন্য কোনো বিষয়কে ভ্যারিয়েশন হিসেবে গণ্য করা হোক না কেন।"
+      ],
+      page:33
+    },
+    {
+      q:"How can 'Instructions of the Contract Administrator' under JCT SBC 11 clause 2.29.2 give rise to an extension of time?",
+      qbn:"JCT SBC 11 ধারা ২.২৯.২-এর অধীনে 'চুক্তি প্রশাসকের নির্দেশাবলী' কীভাবে সময় বৃদ্ধির জন্ম দিতে পারে?",
+      a:[
+        "JCT SBC 11 gives the contract administrator <span class='kw-red'>wide powers</span> to issue instructions to the contractor during the progress of works.",
+        "For some (though not all) of these instructions, clause 2.29.2 provides that <span class='kw-blue'>any delay resulting from the contractor's compliance</span> will carry an entitlement to an extension of time."
+      ],
+      abn:[
+        "JCT SBC 11 চুক্তি প্রশাসককে কাজের অগ্রগতির সময় ঠিকাদারকে নির্দেশ ইস্যু করার <span class='kw-red'>ব্যাপক ক্ষমতা</span> দেয়।",
+        "এই নির্দেশগুলোর কিছু (সবগুলো নয়) ক্ষেত্রে, ধারা ২.২৯.২ নির্ধারণ করে যে ঠিকাদারের পালনের ফলে <span class='kw-blue'>সৃষ্ট যেকোনো বিলম্ব</span> সময় বৃদ্ধির অধিকার বহন করবে।"
+      ],
+      page:34
+    }
+  ]
+},
+{
+  section:"closing", title:"IV. Payment, Warranty & Guaranty",
+  items:[
+    {
+      q:"What is a 'Warranty' provision in a typical construction contract?",
+      qbn:"একটি সাধারণ নির্মাণ চুক্তিতে 'Warranty' (ওয়ারেন্টি) ধারা কী?",
+      a:[
+        "The contractor <span class='kw-red'>'warrants', 'represents', or covenants</span> that its work will be performed in accordance with certain standards stated in the contract.",
+        "For example, the contractor warrants that <span class='kw-blue'>materials will be free from defects</span>."
+      ],
+      abn:[
+        "ঠিকাদার <span class='kw-red'>'ওয়ারেন্ট', 'প্রতিনিধিত্ব' বা অঙ্গীকার</span> করেন যে তার কাজ চুক্তিতে উল্লিখিত নির্দিষ্ট মান অনুযায়ী সম্পাদিত হবে।",
+        "উদাহরণস্বরূপ, ঠিকাদার ওয়ারেন্ট করেন যে <span class='kw-blue'>উপকরণ ত্রুটিমুক্ত থাকবে</span>।"
+      ],
+      page:36
+    },
+    {
+      q:"What is the remedy available for breach of a warranty in a construction contract?",
+      qbn:"নির্মাণ চুক্তিতে ওয়ারেন্টি লঙ্ঘনের জন্য কী প্রতিকার পাওয়া যায়?",
+      a:[
+        "The remedy is the <span class='kw-red'>recovery of monetary damages</span> incurred by the other party (e.g., project owner or general contractor) by reason of the breach.",
+        "Example: if defective materials need to be repaired or replaced by the owner, the owner is entitled to recover from the contractor the <span class='kw-blue'>cost of repairs or replacement</span>."
+      ],
+      abn:[
+        "প্রতিকার হলো লঙ্ঘনের কারণে অন্য পক্ষের (যেমন প্রকল্পের মালিক বা প্রধান ঠিকাদার) দ্বারা সংঘটিত <span class='kw-red'>আর্থিক ক্ষতি আদায়</span>।",
+        "উদাহরণ: ত্রুটিপূর্ণ উপকরণ মালিককে মেরামত বা প্রতিস্থাপন করতে হলে, মালিক ঠিকাদারের কাছ থেকে <span class='kw-blue'>মেরামত বা প্রতিস্থাপনের খরচ</span> আদায়ের অধিকারী।"
+      ],
+      page:37
+    },
+    {
+      q:"How does a 'Guaranty' differ from a 'Warranty', particularly in terms of timing and expiry?",
+      qbn:"'Guaranty' (গ্যারান্টি) কীভাবে 'Warranty' থেকে ভিন্ন, বিশেষত সময় ও মেয়াদ শেষ হওয়ার ক্ষেত্রে?",
+      a:[
+        "A typical guaranty provision becomes <span class='kw-red'>operative after completion</span> of the contractor's work.",
+        "It requires the contractor to <span class='kw-blue'>replace defective or non-conforming materials/equipment</span>, or remedy improper workmanship, at its own cost and expense.",
+        "The contract or design specification generally provides for an <span class='kw-red'>expiration date or period</span> beyond which the guaranty is no longer enforceable."
+      ],
+      abn:[
+        "একটি সাধারণ গ্যারান্টি ধারা ঠিকাদারের কাজ <span class='kw-red'>সমাপ্তির পরে কার্যকর</span> হয়।",
+        "এটি ঠিকাদারকে নিজ খরচে <span class='kw-blue'>ত্রুটিপূর্ণ বা অ-সামঞ্জস্যপূর্ণ উপকরণ/যন্ত্রপাতি প্রতিস্থাপন</span> করতে, অথবা অনুপযুক্ত কারিগরি কাজ সংশোধন করতে বাধ্য করে।",
+        "চুক্তি বা ডিজাইন স্পেসিফিকেশন সাধারণত এমন একটি <span class='kw-red'>মেয়াদ শেষ হওয়ার তারিখ বা সময়কাল</span> নির্ধারণ করে যার পরে গ্যারান্টি আর প্রয়োগযোগ্য থাকে না।"
+      ],
+      page:38
+    }
+  ]
+}
+];
+
+const main = document.getElementById('main');
+let qCounter = 0;
+
+function render(filter){
+  main.innerHTML = "";
+  qCounter = 0;
+  data.forEach(sec=>{
+    if(filter!=="all" && filter!==sec.section) return;
+    const block = document.createElement('div');
+    block.className = 'section-block';
+    const title = document.createElement('div');
+    title.className='section-title';
+    title.innerHTML = `<span>${sec.title}</span><span class="count">${sec.items.length} questions</span>`;
+    block.appendChild(title);
+
+    sec.items.forEach(item=>{
+      qCounter++;
+      const card = document.createElement('div');
+      card.className='card';
+
+      const btn = document.createElement('button');
+      btn.className='q-btn';
+      btn.innerHTML = `
+        <span class="q-number">${String(qCounter).padStart(2,'0')}</span>
+        <span class="q-text">
+          <span class="en">${item.q}</span>
+          <span class="bn">${item.qbn}</span>
+        </span>
+        <span class="chev">&#9662;</span>
+      `;
+      btn.addEventListener('click', ()=>{
+        card.classList.toggle('open');
+      });
+
+      const ans = document.createElement('div');
+      ans.className='answer';
+      let ul = "<ul>" + item.a.map(li=>`<li>${li}</li>`).join("") + "</ul>";
+      let ulbn = "<ul class='bn-block'>" + item.abn.map(li=>`<li>${li}</li>`).join("") + "</ul>";
+      ans.innerHTML = ul + ulbn + `<span class="page-ref">Page ${item.page}</span>`;
+
+      card.appendChild(btn);
+      card.appendChild(ans);
+      block.appendChild(card);
+    });
+
+    main.appendChild(block);
+  });
+}
+
+document.getElementById('tabs').addEventListener('click', (e)=>{
+  if(!e.target.classList.contains('tab-btn')) return;
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  e.target.classList.add('active');
+  render(e.target.dataset.filter);
+});
+
+render('all');
+</script>
+
+</body>
+</html>

@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BECM 3107 — Construction Documents | Q&A Study Guide</title>
+<style>
+  :root{
+    --maroon:#7a1f2b;
+    --maroon-dark:#5c1620;
+    --gold:#c9a24b;
+    --navy:#0b3d66;
+    --cream:#fdf6ea;
+    --paper:#ffffff;
+    --ink:#26211d;
+    --muted:#6b6258;
+    --blue-accent:#1a5fa8;
+    --red-accent:#b8322f;
+    --shadow: 0 6px 20px rgba(90,50,20,0.10);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Georgia','Segoe UI',Tahoma,sans-serif;
+    background: linear-gradient(180deg,#f3e9d6 0%, #ede0c8 100%);
+    color:var(--ink);
+    min-height:100vh;
+    padding-bottom:60px;
+  }
+  header{
+    background: linear-gradient(120deg, var(--maroon) 0%, var(--maroon-dark) 100%);
+    color:#fdf6ea;
+    padding:38px 20px 46px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.25);
+  }
+  header::after{
+    content:"";
+    position:absolute;
+    bottom:-40px; right:-40px;
+    width:220px;height:220px;
+    background: radial-gradient(circle, rgba(201,162,75,0.25) 0%, transparent 70%);
+  }
+  header .tag{
+    font-size:13px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    color:var(--gold);
+    font-weight:600;
+    margin-bottom:8px;
+  }
+  header h1{
+    margin:0;
+    font-size:clamp(24px,4vw,38px);
+    font-weight:700;
+    letter-spacing:0.5px;
+  }
+  header p.sub{
+    margin:10px auto 0;
+    max-width:640px;
+    font-size:15px;
+    color:#f0e4cf;
+    line-height:1.6;
+  }
+  .container{
+    max-width:900px;
+    margin:-24px auto 0;
+    padding:0 18px;
+  }
+  .toolbar{
+    background:var(--paper);
+    border-radius:14px;
+    box-shadow:var(--shadow);
+    padding:16px 20px;
+    display:flex;
+    gap:14px;
+    align-items:center;
+    flex-wrap:wrap;
+    margin-bottom:26px;
+    border:1px solid #ecdfc4;
+  }
+  .toolbar input[type="text"]{
+    flex:1;
+    min-width:180px;
+    padding:11px 16px;
+    border-radius:10px;
+    border:1.5px solid #ddd0ae;
+    font-size:15px;
+    outline:none;
+    transition: border-color .2s, box-shadow .2s;
+    font-family:inherit;
+  }
+  .toolbar input[type="text"]:focus{
+    border-color:var(--maroon);
+    box-shadow:0 0 0 3px rgba(122,31,43,0.12);
+  }
+  .toolbar button{
+    background:var(--navy);
+    color:#fff;
+    border:none;
+    padding:11px 18px;
+    border-radius:10px;
+    font-size:14px;
+    font-weight:600;
+    cursor:pointer;
+    transition: background .2s, transform .15s;
+    white-space:nowrap;
+  }
+  .toolbar button:hover{ background:#0a2f4f; transform:translateY(-1px);}
+  .stats{
+    text-align:center;
+    color:var(--muted);
+    font-size:13px;
+    margin-bottom:18px;
+    letter-spacing:0.3px;
+  }
+  .stats b{color:var(--maroon);}
+
+  .card{
+    background:var(--paper);
+    border-radius:14px;
+    margin-bottom:14px;
+    box-shadow:var(--shadow);
+    overflow:hidden;
+    border:1px solid #eee0c2;
+    transition: box-shadow .25s ease, transform .2s ease;
+  }
+  .card:hover{ box-shadow: 0 10px 26px rgba(90,50,20,0.16); }
+  .q-btn{
+    width:100%;
+    background:linear-gradient(90deg, #fffaf0, #fdf3de);
+    border:none;
+    text-align:left;
+    padding:18px 20px;
+    cursor:pointer;
+    display:flex;
+    align-items:flex-start;
+    gap:14px;
+    font-family:inherit;
+    transition: background .2s;
+  }
+  .q-btn:hover{ background:linear-gradient(90deg, #fbf1d8, #f8ecce);}
+  .q-btn.active{
+    background: linear-gradient(90deg, #f4e4bd, #eedcb0);
+  }
+  .q-number{
+    flex-shrink:0;
+    width:34px;height:34px;
+    border-radius:50%;
+    background:var(--maroon);
+    color:#fff;
+    font-weight:700;
+    font-size:14px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 2px 6px rgba(122,31,43,0.35);
+  }
+  .q-text{
+    flex:1;
+  }
+  .q-en{
+    font-size:16.5px;
+    font-weight:700;
+    color:var(--ink);
+    line-height:1.45;
+  }
+  .q-bn{
+    font-size:14.5px;
+    color:var(--navy);
+    margin-top:4px;
+    line-height:1.5;
+    font-weight:500;
+  }
+  .page-tag{
+    font-size:11.5px;
+    color:var(--muted);
+    background:#f1e9d3;
+    padding:3px 9px;
+    border-radius:20px;
+    margin-top:8px;
+    display:inline-block;
+    font-weight:600;
+  }
+  .chevron{
+    flex-shrink:0;
+    width:22px;height:22px;
+    margin-top:6px;
+    transition: transform .3s ease;
+    color:var(--maroon);
+  }
+  .q-btn.active .chevron{ transform:rotate(180deg); }
+
+  .answer-wrap{
+    max-height:0;
+    overflow:hidden;
+    transition: max-height .45s cubic-bezier(.4,0,.2,1);
+    background: #fffdf7;
+  }
+  .answer-inner{
+    padding:0 22px 22px 68px;
+    border-top:1px dashed #e6d7ac;
+  }
+  .answer-block{
+    margin-top:16px;
+    animation: fadeIn .4s ease;
+  }
+  @keyframes fadeIn{
+    from{opacity:0; transform:translateY(-6px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+  .ans-label{
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+    font-weight:700;
+    color:var(--gold);
+    background:var(--maroon);
+    display:inline-block;
+    padding:3px 10px;
+    border-radius:6px;
+    margin-bottom:10px;
+  }
+  .ans-en, .ans-bn{
+    font-size:15px;
+    line-height:1.75;
+    color:#3a332c;
+  }
+  .ans-bn{
+    margin-top:10px;
+    color:#1f4d33;
+    font-size:14.5px;
+    border-top:1px solid #eee2c4;
+    padding-top:10px;
+  }
+  .ans-en ul, .ans-bn ul{
+    margin:6px 0 6px 0;
+    padding-left:22px;
+  }
+  .ans-en li, .ans-bn li{
+    margin-bottom:5px;
+  }
+  .kw{ font-weight:700; }
+  .kw-red{ color:var(--red-accent); font-weight:700; }
+  .kw-blue{ color:var(--blue-accent); font-weight:700; }
+
+  .no-results{
+    text-align:center;
+    color:var(--muted);
+    padding:40px 0;
+    font-style:italic;
+    display:none;
+  }
+
+  footer{
+    text-align:center;
+    color:#8a7c65;
+    font-size:12.5px;
+    margin-top:30px;
+    padding:0 20px;
+  }
+
+  @media (max-width:520px){
+    .answer-inner{ padding-left:22px; }
+    .q-en{ font-size:15px; }
+    .q-bn{ font-size:13.5px; }
+    header{ padding:30px 14px 40px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="tag">BECM 3107 · Construction Contract and Law</div>
+  <h1>Construction Documents — Q&amp;A Study Guide</h1>
+  <p class="sub">Slide 02 · Sanjida Afrin Sworna, Lecturer (Adjunct), Dept. of Building Engineering and Construction Management, KUET &nbsp;|&nbsp; নির্মাণ দলিল বিষয়ক প্রশ্নোত্তর অধ্যয়ন সহায়িকা</p>
+</header>
+
+<div class="container">
+  <div class="toolbar">
+    <input type="text" id="searchBox" placeholder="Search questions... / প্রশ্ন খুঁজুন...">
+    <button id="expandAllBtn">Expand All</button>
+    <button id="collapseAllBtn">Collapse All</button>
+  </div>
+  <div class="stats">Showing <b id="visibleCount">35</b> of <b>35</b> questions</div>
+
+  <div id="cardsContainer"></div>
+  <div class="no-results" id="noResults">No matching questions found. / কোনো মিল পাওয়া যায়নি।</div>
+</div>
+
+<footer>
+  Prepared for revision purposes · BECM, Khulna University of Engineering &amp; Technology (KUET), Khulna-9203, Bangladesh
+</footer>
+
+<script>
+const data = [
+{
+  qEn: "What are Construction Documents (CD)?",
+  qBn: "নির্মাণ দলিল (CD) কী?",
+  page: "Page 2",
+  ansEn: `Construction Documents are both <span class="kw-red">written</span> and <span class="kw-red">graphic materials</span> used in a construction project.
+  <ul>
+    <li>Prepared or assembled by <span class="kw">A/E (Architects/Engineers)</span></li>
+  </ul>`,
+  ansBn: `নির্মাণ দলিল হলো একটি নির্মাণ প্রকল্পে ব্যবহৃত <span class="kw-red">লিখিত</span> এবং <span class="kw-red">গ্রাফিক উপকরণ</span>।
+  <ul>
+    <li>এটি <span class="kw">স্থপতি/প্রকৌশলী (A/E)</span> দ্বারা প্রস্তুত বা সংকলিত হয়</li>
+  </ul>`
+},
+{
+  qEn: "What two main components make up Construction Documents?",
+  qBn: "নির্মাণ দলিলের প্রধান দুটি উপাদান কী কী?",
+  page: "Page 2",
+  ansEn: `<ul>
+    <li><span class="kw-blue">Drawings</span> — plans, sections, elevations, details</li>
+    <li><span class="kw-blue">Written documents</span> — specifications, contracts, instructions</li>
+  </ul>`,
+  ansBn: `<ul>
+    <li><span class="kw-blue">অঙ্কন</span> — পরিকল্পনা, বিভাগ, উচ্চতা, বিস্তারিত</li>
+    <li><span class="kw-blue">লিখিত দলিল</span> — স্পেসিফিকেশন, চুক্তি, নির্দেশনা</li>
+  </ul>`
+},
+{
+  qEn: "What are the four purposes of Construction Documents?",
+  qBn: "নির্মাণ দলিলের চারটি উদ্দেশ্য কী কী?",
+  page: "Page 2",
+  ansEn: `<ul>
+    <li><span class="kw">Communicate</span> the design</li>
+    <li>Used for <span class="kw">bidding</span></li>
+    <li>Used <span class="kw">during construction</span></li>
+    <li><span class="kw">Contract administration</span></li>
+  </ul>`,
+  ansBn: `<ul>
+    <li>নকশা <span class="kw">যোগাযোগ</span> করা</li>
+    <li><span class="kw">দরপত্রের</span> জন্য ব্যবহৃত</li>
+    <li>নির্মাণকালে ব্যবহৃত</li>
+    <li><span class="kw">চুক্তি প্রশাসন</span></li>
+  </ul>`
+},
+{
+  qEn: "What four qualities must Construction Documents have?",
+  qBn: "নির্মাণ দলিলের চারটি প্রয়োজনীয় গুণ কী কী?",
+  page: "Page 2",
+  ansEn: `Construction Documents must be: <span class="kw-red">Clear</span>, <span class="kw-red">Concise</span>, <span class="kw-red">Correct</span>, and <span class="kw-red">Coordinated</span>.`,
+  ansBn: `নির্মাণ দলিল হতে হবে: <span class="kw-red">স্পষ্ট</span>, <span class="kw-red">সংক্ষিপ্ত</span>, <span class="kw-red">সঠিক</span> এবং <span class="kw-red">সমন্বিত</span>।`
+},
+{
+  qEn: "Into what two important parts are Construction Documents divided?",
+  qBn: "নির্মাণ দলিলকে কোন দুটি গুরুত্বপূর্ণ অংশে ভাগ করা হয়?",
+  page: "Page 3",
+  ansEn: `<ul>
+    <li><span class="kw">Procurement Documents</span></li>
+    <li><span class="kw">Contract Documents</span></li>
+  </ul>`,
+  ansBn: `<ul>
+    <li><span class="kw">প্রকিউরমেন্ট দলিল</span></li>
+    <li><span class="kw">চুক্তি দলিল</span></li>
+  </ul>`
+},
+{
+  qEn: "What is the purpose of Procurement Documents and what do they include?",
+  qBn: "প্রকিউরমেন্ট দলিলের উদ্দেশ্য কী এবং এতে কী অন্তর্ভুক্ত থাকে?",
+  page: "Page 3",
+  ansEn: `<ul>
+    <li>Used <span class="kw-blue">before construction starts</span>, mainly for bidding and selecting a contractor</li>
+    <li>Purpose: help the owner <span class="kw">choose the right contractor</span></li>
+    <li>Includes: instructions to bidders, invitation to bid, bid forms, and qualification requirements</li>
+  </ul>`,
+  ansBn: `<ul>
+    <li>নির্মাণ শুরুর আগে ব্যবহৃত হয়, মূলত দরপত্র এবং ঠিকাদার নির্বাচনের জন্য</li>
+    <li>উদ্দেশ্য: মালিককে <span class="kw">সঠিক ঠিকাদার</span> বেছে নিতে সাহায্য করা</li>
+    <li>অন্তর্ভুক্ত: দরদাতাদের নির্দেশনা, দরপত্রের আমন্ত্রণ, দরপত্র ফর্ম, যোগ্যতার প্রয়োজনীয়তা</li>
+  </ul>`
+},
+{
+  qEn: "What is the purpose of Contract Documents and what do they include?",
+  qBn: "চুক্তি দলিলের উদ্দেশ্য কী এবং এতে কী অন্তর্ভুক্ত থাকে?",
+  page: "Page 3",
+  ansEn: `<ul>
+    <li>Used <span class="kw-blue">after the contractor is selected</span>, during the construction phase</li>
+    <li>Purpose: <span class="kw-red">define the legal agreement and guide construction work</span></li>
+    <li>Includes: agreement (contract), general & special conditions, drawings & specifications</li>
+  </ul>`,
+  ansBn: `<ul>
+    <li>ঠিকাদার নির্বাচনের পর, নির্মাণ পর্যায়ে ব্যবহৃত হয়</li>
+    <li>উদ্দেশ্য: <span class="kw-red">আইনি চুক্তি নির্ধারণ ও নির্মাণ কাজের দিকনির্দেশনা</span> দেওয়া</li>
+    <li>অন্তর্ভুক্ত: চুক্তি (এগ্রিমেন্ট), সাধারণ ও বিশেষ শর্তাবলী, অঙ্কন ও স্পেসিফিকেশন</li>
+  </ul>`
+},
+{
+  qEn: "List the six components of Contract Documents.",
+  qBn: "চুক্তি দলিলের ছয়টি উপাদান তালিকাভুক্ত করুন।",
+  page: "Page 4",
+  ansEn: `<ul>
+    <li><span class="kw">Contract Forms</span></li>
+    <li><span class="kw">Conditions of the Contract</span> (General & Supplementary)</li>
+    <li><span class="kw">Drawings & Specifications</span></li>
+    <li><span class="kw">Construction Specifications</span></li>
+    <li><span class="kw">Addenda</span></li>
+    <li><span class="kw">Contract Modifications</span></li>
+  </ul>`,
+  ansBn: `<ul>
+    <li><span class="kw">চুক্তি ফর্ম</span></li>
+    <li><span class="kw">চুক্তির শর্তাবলী</span> (সাধারণ ও সম্পূরক)</li>
+    <li><span class="kw">অঙ্কন ও স্পেসিফিকেশন</span></li>
+    <li><span class="kw">নির্মাণ স্পেসিফিকেশন</span></li>
+    <li><span class="kw">সংযোজনী (Addenda)</span></li>
+    <li><span class="kw">চুক্তি পরিবর্তন</span></li>
+  </ul>`
+},
+{
+  qEn: "What is an Agreement in the context of Contract Forms?",
+  qBn: "চুক্তি ফর্মের প্রেক্ষাপটে \"এগ্রিমেন্ট\" কী?",
+  page: "Page 5",
+  ansEn: `A <span class="kw-red">written document signed</span> by the owner and the contractor, binding them into a <span class="kw">legal contract</span>.`,
+  ansBn: `মালিক এবং ঠিকাদার দ্বারা স্বাক্ষরিত একটি <span class="kw-red">লিখিত দলিল</span>, যা তাদের একটি <span class="kw">আইনি চুক্তিতে</span> আবদ্ধ করে।`
+},
+{
+  qEn: "Differentiate between Performance Bond and Payment Bond.",
+  qBn: "পারফরম্যান্স বন্ড এবং পেমেন্ট বন্ডের মধ্যে পার্থক্য করুন।",
+  page: "Page 5",
+  ansEn: `<ul>
+    <li><span class="kw-blue">Performance Bond</span>: guarantees funds to complete the contract if the <span class="kw">contractor defaults</span> or fails to perform</li>
+    <li><span class="kw-blue">Payment Bond</span>: guarantees that <span class="kw">subcontractors, material suppliers</span>, and other labor/goods/services will be paid</li>
+  </ul>`,
+  ansBn: `<ul>
+    <li><span class="kw-blue">পারফরম্যান্স বন্ড</span>: ঠিকাদার ব্যর্থ হলে চুক্তি সম্পন্ন করার জন্য <span class="kw">তহবিলের নিশ্চয়তা</span> দেয়</li>
+    <li><span class="kw-blue">পেমেন্ট বন্ড</span>: <span class="kw">উপঠিকাদার, সরবরাহকারী</span> এবং শ্রমিকদের অর্থ পরিশোধের নিশ্চয়তা দেয়</li>
+  </ul>`
+},
+{
+  qEn: "What are Certificates in Contract Forms?",
+  qBn: "চুক্তি ফর্মে \"সার্টিফিকেট\" কী?",
+  page: "Page 5",
+  ansEn: `<span class="kw">Supporting documents</span> that verify the contractor's compliance with legal and contractual requirements.`,
+  ansBn: `<span class="kw">সহায়ক দলিল</span> যা ঠিকাদারের আইনি ও চুক্তিগত প্রয়োজনীয়তা পূরণ নিশ্চিত করে।`
+},
+{
+  qEn: "What are the Conditions of the Contract and what two types exist?",
+  qBn: "চুক্তির শর্তাবলী কী এবং এর দুটি ধরন কী কী?",
+  page: "Page 6",
+  ansEn: `<span class="kw-red">Rules and terms</span> that explain how the construction contract will work in practice.
+  <ul>
+    <li><span class="kw">General Conditions</span></li>
+    <li><span class="kw">Supplementary Conditions</span></li>
+  </ul>`,
+  ansBn: `<span class="kw-red">নিয়ম ও শর্তাবলী</span> যা ব্যাখ্যা করে নির্মাণ চুক্তি বাস্তবে কীভাবে কাজ করবে।
+  <ul>
+    <li><span class="kw">সাধারণ শর্তাবলী</span></li>
+    <li><span class="kw">সম্পূরক শর্তাবলী</span></li>
+  </ul>`
+},
+{
+  qEn: "What do General Conditions establish, and who are the parties involved?",
+  qBn: "সাধারণ শর্তাবলী কী প্রতিষ্ঠিত করে এবং জড়িত পক্ষ কারা?",
+  page: "Page 7",
+  ansEn: `<ul>
+    <li>General clauses establishing <span class="kw-blue">how the project is administered</span>; contain common provisions practiced in the states</li>
+    <li>Document establishes <span class="kw">legal rights, responsibilities, and relationships</span> of the parties to the contract</li>
+    <li>Parties: <span class="kw">owner, owner's representative, and contractor</span></li>
+  </ul>`,
+  ansBn: `<ul>
+    <li>সাধারণ ধারা যা নির্ধারণ করে <span class="kw-blue">প্রকল্প কীভাবে পরিচালিত হবে</span>; রাজ্যগুলোতে প্রচলিত সাধারণ বিধান ধারণ করে</li>
+    <li>দলিলটি পক্ষগুলোর <span class="kw">আইনি অধিকার, দায়িত্ব এবং সম্পর্ক</span> প্রতিষ্ঠা করে</li>
+    <li>পক্ষ: <span class="kw">মালিক, মালিকের প্রতিনিধি এবং ঠিকাদার</span></li>
+  </ul>`
+},
+{
+  qEn: "Name the organizations that prepare Standard General Conditions Documents.",
+  qBn: "স্ট্যান্ডার্ড জেনারেল কন্ডিশনস ডকুমেন্ট প্রস্তুতকারী সংস্থাগুলোর নাম বলুন।",
+  page: "Page 8",
+  ansEn: `<ul>
+    <li><span class="kw">American Institute of Architects (AIA)</span></li>
+    <li><span class="kw">Associated General Contractors (AGC)</span> and <span class="kw">American Society of Civil Engineers (ASCE)</span></li>
+    <li>U.S. government <span class="kw">Federal Acquisition Regulation (FAR)</span></li>
+    <li><span class="kw">Engineers Joint Contract Documents Committee</span> (NSPE, ACEC, ASCE, CSI)</li>
+  </ul>`,
+  ansBn: `<ul>
+    <li><span class="kw">আমেরিকান ইনস্টিটিউট অফ আর্কিটেক্টস (AIA)</span></li>
+    <li><span class="kw">অ্যাসোসিয়েটেড জেনারেল কন্ট্রাক্টরস (AGC)</span> এবং <span class="kw">আমেরিকান সোসাইটি অফ সিভিল ইঞ্জিনিয়ার্স (ASCE)</span></li>
+    <li>মার্কিন সরকারের <span class="kw">ফেডারেল অ্যাকুইজিশন রেগুলেশন (FAR)</span></li>
+    <li><span class="kw">ইঞ্জিনিয়ার্স জয়েন্ট কন্ট্রাক্ট ডকুমেন্টস কমিটি</span> (NSPE, ACEC, ASCE, CSI)</li>
+  </ul>`
+},
+{
+  qEn: "What is the purpose of Supplementary (Special) Conditions?",
+  qBn: "সম্পূরক (বিশেষ) শর্তাবলীর উদ্দেশ্য কী?",
+  page: "Page 10",
+  ansEn: `Used <span class="kw-red">to modify or add to the General Conditions</span> so the contract meets the specific needs of a particular project.
+  <ul>
+    <li>Since every project is different, includes special rules on <span class="kw-blue">location, design, legal requirements, or site conditions</span></li>
+    <li>Ensures unique requirements like <span class="kw">insurance, wage rates, or scheduling</span> are clearly stated</li>
+  </ul>`,
+  ansBn: `নির্দিষ্ট প্রকল্পের প্রয়োজন মেটাতে <span class="kw-red">সাধারণ শর্তাবলী পরিবর্তন বা সংযোজনের</span> জন্য ব্যবহৃত হয়।
+  <ul>
+    <li>প্রতিটি প্রকল্প ভিন্ন হওয়ায় <span class="kw-blue">অবস্থান, নকশা, আইনি প্রয়োজনীয়তা বা সাইট শর্তাবলী</span> সংক্রান্ত বিশেষ নিয়ম থাকে</li>
+    <li><span class="kw">বীমা, মজুরি হার বা সময়সূচি</span>র মতো অনন্য প্রয়োজনীয়তা স্পষ্টভাবে বলা নিশ্চিত করে</li>
+  </ul>`
+},
+{
+  qEn: "List any five examples of Supplementary Conditions.",
+  qBn: "সম্পূরক শর্তাবলীর যেকোনো পাঁচটি উদাহরণ দিন।",
+  page: "Pages 11–12",
+  ansEn: `<ul>
+    <li><span class="kw">Surveying information</span> — site data owner will provide</li>
+    <li><span class="kw">Material substitutions</span> — rules for replacing materials</li>
+    <li><span class="kw">Insurance requirements</span></li>
+    <li><span class="kw">Phasing of construction</span></li>
+    <li><span class="kw">Shop drawings submission</span> procedures</li>
+    <li>Also: Examination of site, Start date, Project security, Cost reporting, Job schedule, Cleaning requirements, Traffic control</li>
+  </ul>`,
+  ansBn: `<ul>
+    <li><span class="kw">জরিপ তথ্য</span> — মালিক প্রদত্ত সাইট তথ্য</li>
+    <li><span class="kw">উপাদান প্রতিস্থাপন</span> — উপকরণ পরিবর্তনের নিয়ম</li>
+    <li><span class="kw">বীমার প্রয়োজনীয়তা</span></li>
+    <li><span class="kw">নির্মাণের পর্যায়ক্রম</span></li>
+    <li><span class="kw">শপ ড্রয়িং জমাদানের</span> পদ্ধতি</li>
+    <li>আরও: সাইট পরিদর্শন, শুরুর তারিখ, প্রকল্প নিরাপত্তা, খরচ প্রতিবেদন, কাজের সময়সূচি, পরিষ্কারের প্রয়োজনীয়তা, ট্র্যাফিক নিয়ন্ত্রণ</li>
+  </ul>`
+},
+{
+  qEn: "What is a working drawing and what does it include?",
+  qBn: "ওয়ার্কিং ড্রয়িং কী এবং এতে কী অন্তর্ভুক্ত থাকে?",
+  page: "Page 13",
+  ansEn: `The <span class="kw-red">final set of detailed drawings</span> prepared during the design process, showing exactly how a building will be constructed.
+  <ul>
+    <li>Includes <span class="kw">technical information, dimensions, materials, and construction details</span></li>
+  </ul>`,
+  ansBn: `নকশা প্রক্রিয়ার সময় প্রস্তুত করা <span class="kw-red">বিস্তারিত অঙ্কনের চূড়ান্ত সেট</span>, যা দেখায় ভবনটি ঠিক কীভাবে নির্মিত হবে।
+  <ul>
+    <li>এতে <span class="kw">প্রযুক্তিগত তথ্য, মাত্রা, উপকরণ এবং নির্মাণ বিবরণ</span> অন্তর্ভুক্ত থাকে</li>
+  </ul>`
+},
+{
+  qEn: "Why are working drawings important beyond construction guidance?",
+  qBn: "নির্মাণ নির্দেশনার বাইরে ওয়ার্কিং ড্রয়িংগুলো কেন গুরুত্বপূর্ণ?",
+  page: "Page 13",
+  ansEn: `<ul>
+    <li>Important for <span class="kw-blue">cost estimation</span> — quantities of materials/work items calculated from them</li>
+    <li>Have <span class="kw">legal importance</span> — define scope of work and contractor obligations</li>
+    <li>Can be used to <span class="kw">resolve disputes</span> during construction</li>
+  </ul>`,
+  ansBn: `<ul>
+    <li><span class="kw-blue">খরচ অনুমানের</span> জন্য গুরুত্বপূর্ণ — এদের ভিত্তিতে উপকরণ ও কাজের পরিমাণ গণনা হয়</li>
+    <li><span class="kw">আইনি গুরুত্ব</span> রয়েছে — কাজের পরিধি ও ঠিকাদারের বাধ্যবাধকতা নির্ধারণ করে</li>
+    <li>নির্মাণকালীন <span class="kw">বিরোধ নিষ্পত্তিতে</span> ব্যবহৃত হতে পারে</li>
+  </ul>`
+},
+{
+  qEn: "What are Drawing Specifications and what three functions do they serve?",
+  qBn: "ড্রয়িং স্পেসিফিকেশন কী এবং এর তিনটি কাজ কী কী?",
+  page: "Page 14",
+  ansEn: `<span class="kw-red">Written documents</span> that work together with drawings to clearly communicate construction requirements.
+  <ul>
+    <li><span class="kw">Cross-reference</span> with drawings — avoid misunderstandings</li>
+    <li><span class="kw">Define work quality and materials</span> — standards & workmanship</li>
+    <li><span class="kw">Clarify details</span> not on drawings — e.g., performance requirements or installation methods</li>
+  </ul>`,
+  ansBn: `<span class="kw-red">লিখিত দলিল</span> যা অঙ্কনের সাথে কাজ করে নির্মাণ প্রয়োজনীয়তা স্পষ্টভাবে যোগাযোগ করে।
+  <ul>
+    <li>অঙ্কনের সাথে <span class="kw">ক্রস-রেফারেন্স</span> — ভুল বোঝাবুঝি এড়ানো</li>
+    <li><span class="kw">কাজের গুণমান ও উপকরণ</span> নির্ধারণ</li>
+    <li>অঙ্কনে না থাকা <span class="kw">বিবরণ স্পষ্ট করা</span> — যেমন পারফরম্যান্স প্রয়োজনীয়তা বা ইনস্টলেশন পদ্ধতি</li>
+  </ul>`
+},
+{
+  qEn: "According to what sequence are drawing specifications organized?",
+  qBn: "কোন ক্রম অনুযায়ী ড্রয়িং স্পেসিফিকেশন সাজানো হয়?",
+  page: "Page 15",
+  ansEn: `<ul>
+    <li>General information and site work</li>
+    <li><span class="kw">Structural</span></li>
+    <li><span class="kw">Architectural</span></li>
+    <li><span class="kw">Plumbing</span></li>
+    <li><span class="kw">HVAC</span> (heating, air-conditioning, ventilation)</li>
+    <li>Drawing specification</li>
+  </ul>`,
+  ansBn: `<ul>
+    <li>সাধারণ তথ্য ও সাইট কাজ</li>
+    <li><span class="kw">কাঠামোগত</span></li>
+    <li><span class="kw">স্থাপত্য</span></li>
+    <li><span class="kw">প্লাম্বিং</span></li>
+    <li><span class="kw">HVAC</span> (তাপ, বায়ু চলাচল ও শীতাতপ নিয়ন্ত্রণ)</li>
+    <li>ড্রয়িং স্পেসিফিকেশন</li>
+  </ul>`
+},
+{
+  qEn: "What is the primary role of working drawings?",
+  qBn: "ওয়ার্কিং ড্রয়িংয়ের প্রধান ভূমিকা কী?",
+  page: "Page 16",
+  ansEn: `<ul>
+    <li>To convert <span class="kw-red">design data into construction information</span> and communicate it clearly to the building industry, code officials, manufacturers, suppliers, and fabricators</li>
+    <li>Drawings must provide a <span class="kw">complete, faithful, and accurate</span> graphic depiction of the design concept, <span class="kw-blue">to scale</span></li>
+  </ul>`,
+  ansBn: `<ul>
+    <li><span class="kw-red">নকশার তথ্যকে নির্মাণ তথ্যে</span> রূপান্তর করা এবং বিল্ডিং শিল্প, কোড কর্মকর্তা, প্রস্তুতকারক, সরবরাহকারী ও ফ্যাব্রিকেটরদের কাছে স্পষ্টভাবে যোগাযোগ করা</li>
+    <li>অঙ্কন অবশ্যই নকশার <span class="kw">সম্পূর্ণ, বিশ্বস্ত এবং সঠিক</span> গ্রাফিক্যাল উপস্থাপনা দেবে, <span class="kw-blue">স্কেল অনুযায়ী</span></li>
+  </ul>`
+},
+{
+  qEn: "What are the three primary aspects of working drawings?",
+  qBn: "ওয়ার্কিং ড্রয়িংয়ের তিনটি প্রধান দিক কী কী?",
+  page: "Page 17",
+  ansEn: `<ul>
+    <li><span class="kw">Configuration/size</span> — layout and dimensions of the building</li>
+    <li><span class="kw">Height</span> — vertical dimensions, floor heights, ceiling levels</li>
+    <li><span class="kw">Construction</span> — materials, structural elements, and construction methods</li>
+  </ul>`,
+  ansBn: `<ul>
+    <li><span class="kw">কনফিগারেশন/আকার</span> — ভবনের লেআউট ও মাত্রা</li>
+    <li><span class="kw">উচ্চতা</span> — উলম্ব মাত্রা, তলার উচ্চতা, সিলিং লেভেল</li>
+    <li><span class="kw">নির্মাণ</span> — উপকরণ, কাঠামোগত উপাদান ও নির্মাণ পদ্ধতি</li>
+  </ul>`
+},
+{
+  qEn: "How do the three primary aspects of working drawings translate into specific drawing types?",
+  qBn: "ওয়ার্কিং ড্রয়িংয়ের তিনটি প্রধান দিক নির্দিষ্ট অঙ্কন প্রকারে কীভাবে রূপান্তরিত হয়?",
+  page: "Page 18",
+  ansEn: `<ul>
+    <li><span class="kw">Floor plans</span> — configuration/size (length & width)</li>
+    <li><span class="kw">Exterior elevations</span> — height (the 3rd dimension)</li>
+    <li><span class="kw">Wall sections</span> — construction details</li>
+  </ul>
+  <span class="kw-red">Without any one of these, a project is incomplete</span> — they form the base of information for other drawings.`,
+  ansBn: `<ul>
+    <li><span class="kw">ফ্লোর প্ল্যান</span> — কনফিগারেশন/আকার (দৈর্ঘ্য ও প্রস্থ)</li>
+    <li><span class="kw">বাহ্যিক এলিভেশন</span> — উচ্চতা (তৃতীয় মাত্রা)</li>
+    <li><span class="kw">ওয়াল সেকশন</span> — নির্মাণ বিবরণ</li>
+  </ul>
+  <span class="kw-red">এর যেকোনো একটি ছাড়া প্রকল্প অসম্পূর্ণ</span> থেকে যায় — এগুলো অন্যান্য অঙ্কনের তথ্যের ভিত্তি গঠন করে।`
+},
+{
+  qEn: "What is the standard drawing numbering system used in construction documents?",
+  qBn: "নির্মাণ দলিলে ব্যবহৃত মানক অঙ্কন নম্বরকরণ পদ্ধতি কী?",
+  page: "Page 19",
+  ansEn: `<ul>
+    <li>Title Sheet — <span class="kw">T-01</span></li>
+    <li>Architectural Drawings — <span class="kw">A-01</span></li>
+    <li>Structural Drawings — <span class="kw">S-01</span></li>
+    <li>Plumbing Drawings — <span class="kw">P-01</span></li>
+    <li>HVAC Drawings — <span class="kw">M-01</span></li>
+    <li>Electrical Drawings — <span class="kw">E-01</span></li>
+  </ul>`,
+  ansBn: `<ul>
+    <li>টাইটেল শীট — <span class="kw">T-01</span></li>
+    <li>স্থাপত্য অঙ্কন — <span class="kw">A-01</span></li>
+    <li>কাঠামোগত অঙ্কন — <span class="kw">S-01</span></li>
+    <li>প্লাম্বিং অঙ্কন — <span class="kw">P-01</span></li>
+    <li>HVAC অঙ্কন — <span class="kw">M-01</span></li>
+    <li>বৈদ্যুতিক অঙ্কন — <span class="kw">E-01</span></li>
+  </ul>`
+},
+{
+  qEn: "What is meant by 'Clarity = Common Sense + Coordination' regarding construction drawings?",
+  qBn: "নির্মাণ অঙ্কনের ক্ষেত্রে \"স্বচ্ছতা = সাধারণ জ্ঞান + সমন্বয়\" বলতে কী বোঝায়?",
+  page: "Page 21",
+  ansEn: `<ul>
+    <li><span class="kw-red">Incomplete drawings</span> — lack essential details, generate questions, produce unintended results</li>
+    <li><span class="kw-red">Inaccurate drawings</span> — contain errors (wrong measurements, misaligned elements), causing field errors and extra cost</li>
+    <li><span class="kw">Avoid</span> — omissions and unnecessary information</li>
+  </ul>`,
+  ansBn: `<ul>
+    <li><span class="kw-red">অসম্পূর্ণ অঙ্কন</span> — প্রয়োজনীয় বিবরণ থাকে না, প্রশ্ন সৃষ্টি করে, অনভিপ্রেত ফলাফল ঘটায়</li>
+    <li><span class="kw-red">ভুল অঙ্কন</span> — ত্রুটি থাকে (ভুল পরিমাপ, ভুল সারিবদ্ধ উপাদান), যা মাঠের ভুল ও বাড়তি খরচ সৃষ্টি করে</li>
+    <li><span class="kw">এড়িয়ে চলুন</span> — বাদ পড়া তথ্য এবং অপ্রয়োজনীয় তথ্য</li>
+  </ul>`
+},
+{
+  qEn: "What are Shop Drawings and who approves them?",
+  qBn: "শপ ড্রয়িং কী এবং কে এটি অনুমোদন করে?",
+  page: "Page 22",
+  ansEn: `<ul>
+    <li>Architect's drawings show <span class="kw-red">design intent only</span>; contractors achieve that intent through their selections</li>
+    <li>Contractors submit <span class="kw">shop drawings</span> and related information (product data, samples) to the architect</li>
+    <li>The architect approves submittals <span class="kw-blue">for compliance with design intent only</span></li>
+  </ul>`,
+  ansBn: `<ul>
+    <li>স্থপতির অঙ্কন শুধুমাত্র <span class="kw-red">নকশার উদ্দেশ্য</span> দেখায়; ঠিকাদাররা নির্বাচনের মাধ্যমে সেই উদ্দেশ্য অর্জন করে</li>
+    <li>ঠিকাদাররা <span class="kw">শপ ড্রয়িং</span> ও সম্পর্কিত তথ্য (পণ্যের তথ্য, নমুনা) স্থপতির কাছে জমা দেয়</li>
+    <li>স্থপতি শুধুমাত্র <span class="kw-blue">নকশার উদ্দেশ্যের সাথে সামঞ্জস্যের জন্য</span> জমাগুলো অনুমোদন করেন</li>
+  </ul>`
+},
+{
+  qEn: "Describe the three phases of preparing a working drawing (site plan example).",
+  qBn: "ওয়ার্কিং ড্রয়িং প্রস্তুতির তিনটি ধাপ বর্ণনা করুন (সাইট প্ল্যান উদাহরণ)।",
+  page: "Page 23",
+  ansEn: `<ul>
+    <li><span class="kw">Phase I — Drafting</span>: shows the site, property lines, and surrounding roadways</li>
+    <li><span class="kw">Phase II — Drawing Refinement</span>: title and scale added; title block filled in for clarity/professionalism</li>
+    <li><span class="kw">Phase III — Complete Drawing</span>: site plan complete enough for engineering consultants to begin their parts of the CD set</li>
+  </ul>`,
+  ansBn: `<ul>
+    <li><span class="kw">ধাপ I — খসড়া তৈরি</span>: সাইট, সম্পত্তির সীমানা ও আশেপাশের রাস্তা দেখায়</li>
+    <li><span class="kw">ধাপ II — অঙ্কন পরিমার্জন</span>: শিরোনাম ও স্কেল যোগ, টাইটেল ব্লক পূরণ করা হয় স্বচ্ছতা/পেশাদারিত্বের জন্য</li>
+    <li><span class="kw">ধাপ III — সম্পূর্ণ অঙ্কন</span>: সাইট প্ল্যান এতটাই সম্পূর্ণ হয় যে প্রকৌশল পরামর্শকরা তাদের অংশে কাজ শুরু করতে পারেন</li>
+  </ul>`
+},
+{
+  qEn: "Why is coordination between drawings and specifications important?",
+  qBn: "অঙ্কন ও স্পেসিফিকেশনের মধ্যে সমন্বয় কেন গুরুত্বপূর্ণ?",
+  page: "Page 26",
+  ansEn: `<ul>
+    <li>Ensures a <span class="kw-red">sound, reliable, and complete</span> set of construction documents</li>
+    <li>Ensures <span class="kw">consistency and clarity</span> — e.g., a concrete type in the spec must match exactly what's shown in drawings</li>
+    <li>Uniformity <span class="kw-blue">facilitates construction</span> and reduces requests for interpretation and change orders</li>
+  </ul>`,
+  ansBn: `<ul>
+    <li>একটি <span class="kw-red">নির্ভরযোগ্য ও সম্পূর্ণ</span> নির্মাণ দলিল নিশ্চিত করে</li>
+    <li><span class="kw">সামঞ্জস্য ও স্বচ্ছতা</span> নিশ্চিত করে — যেমন স্পেসিফিকেশনে উল্লেখিত কংক্রিটের ধরন অঙ্কনের সাথে হুবহু মিলতে হবে</li>
+    <li>অভিন্নতা <span class="kw-blue">নির্মাণ প্রক্রিয়াকে সহজ করে</span> এবং ব্যাখ্যার অনুরোধ ও পরিবর্তন আদেশ কমায়</li>
+  </ul>`
+},
+{
+  qEn: "What do Construction Specifications outline, and what is a common mistake related to them?",
+  qBn: "নির্মাণ স্পেসিফিকেশন কী নির্ধারণ করে এবং এর সাথে সম্পর্কিত একটি সাধারণ ভুল কী?",
+  page: "Page 27",
+  ansEn: `<ul>
+    <li>Outlines <span class="kw">levels of quality and standards</span> to be met in construction</li>
+    <li>Common mistake: <span class="kw-red">poor coordination</span> — drawing says one thing, spec says another, leaving the contractor guessing</li>
+    <li>Specs are revised as design evolves through the design development phase</li>
+  </ul>`,
+  ansBn: `<ul>
+    <li><span class="kw">গুণমান ও মানের স্তর</span> নির্ধারণ করে যা নির্মাণে পূরণ করতে হবে</li>
+    <li>সাধারণ ভুল: <span class="kw-red">দুর্বল সমন্বয়</span> — অঙ্কন একরকম বলে, স্পেসিফিকেশন অন্যরকম বলে, ফলে ঠিকাদারকে অনুমান করতে হয়</li>
+    <li>নকশা উন্নয়ন পর্যায়ে স্পেসিফিকেশন সংশোধন ও আপডেট করা হয়</li>
+  </ul>`
+},
+{
+  qEn: "What are the two problems encountered in specifications and how are they resolved?",
+  qBn: "স্পেসিফিকেশনে সম্মুখীন হওয়া দুটি সমস্যা কী এবং কীভাবে সমাধান করা হয়?",
+  page: "Page 28",
+  ansEn: `<ul>
+    <li><span class="kw-red">Conflicting information</span> — drawings/specs don't match, or sections contradict. Resolved by: (1) technical specifications governing, or (2) A/E decides</li>
+    <li><span class="kw-red">Omissions</span> — missing necessary details force contractors to make assumptions, often assuming the "<span class="kw">greater value</span>" was intended</li>
+  </ul>`,
+  ansBn: `<ul>
+    <li><span class="kw-red">সাংঘর্ষিক তথ্য</span> — অঙ্কন/স্পেসিফিকেশন মেলে না, বা অংশগুলো পরস্পরবিরোধী। সমাধান: (১) টেকনিক্যাল স্পেসিফিকেশন প্রাধান্য পাবে, বা (২) A/E সিদ্ধান্ত নেবে</li>
+    <li><span class="kw-red">বাদ পড়া</span> — প্রয়োজনীয় বিবরণ অনুপস্থিত থাকায় ঠিকাদারদের অনুমান করতে হয়, প্রায়ই "<span class="kw">অধিক মূল্য</span>" অভিপ্রেত ধরে নেওয়া হয়</li>
+  </ul>`
+},
+{
+  qEn: "Who are the various users of specifications, and how does each use them?",
+  qBn: "স্পেসিফিকেশনের বিভিন্ন ব্যবহারকারী কারা এবং প্রত্যেকে কীভাবে এটি ব্যবহার করে?",
+  page: "Page 29",
+  ansEn: `<ul>
+    <li><span class="kw">Contractor/Estimator</span> — understand work, estimate accurate cost</li>
+    <li><span class="kw">Purchasing Agent</span> — purchase correct materials/equipment</li>
+    <li><span class="kw">Inspector</span> — check compliance with standards</li>
+    <li><span class="kw">Owner</span> — ensure expected quality achieved</li>
+    <li><span class="kw">Subcontractors</span> — perform tasks correctly</li>
+    <li><span class="kw">Manufacturers</span> — supply compliant products</li>
+  </ul>`,
+  ansBn: `<ul>
+    <li><span class="kw">ঠিকাদার/প্রাক্কলনকারী</span> — কাজ বোঝা, সঠিক খরচ প্রাক্কলন</li>
+    <li><span class="kw">ক্রয় এজেন্ট</span> — সঠিক উপকরণ/সরঞ্জাম কেনা</li>
+    <li><span class="kw">পরিদর্শক</span> — মান মেনে চলা যাচাই</li>
+    <li><span class="kw">মালিক</span> — প্রত্যাশিত গুণমান নিশ্চিত করা</li>
+    <li><span class="kw">উপঠিকাদার</span> — কাজ সঠিকভাবে সম্পাদন</li>
+    <li><span class="kw">প্রস্তুতকারক</span> — উপযুক্ত পণ্য সরবরাহ</li>
+  </ul>`
+},
+{
+  qEn: "What is an Addendum in construction contracts?",
+  qBn: "নির্মাণ চুক্তিতে \"অ্যাডেন্ডাম\" কী?",
+  page: "Page 30",
+  ansEn: `<span class="kw-red">Official updates</span> issued <span class="kw">before bidding</span> to correct or modify contract documents (changes, additions, corrections) that arise before bids are opened.
+  <ul>
+    <li>Ensures all bidders have the <span class="kw-blue">same accurate information</span></li>
+  </ul>`,
+  ansBn: `দরপত্র খোলার আগে চুক্তি দলিল সংশোধন বা পরিবর্তনের জন্য জারি করা <span class="kw-red">আনুষ্ঠানিক আপডেট</span> (পরিবর্তন, সংযোজন, সংশোধন)।
+  <ul>
+    <li>সকল দরদাতার কাছে <span class="kw-blue">একই সঠিক তথ্য</span> নিশ্চিত করে</li>
+  </ul>`
+},
+{
+  qEn: "What are the three types of Contract Modifications and how do they differ?",
+  qBn: "চুক্তি পরিবর্তনের তিনটি ধরন কী এবং এগুলো কীভাবে ভিন্ন?",
+  page: "Page 31",
+  ansEn: `<ul>
+    <li><span class="kw">Change Orders</span> — written agreement signed by owner & contractor when both agree on scope/cost/time changes</li>
+    <li><span class="kw">Construction Change Directive</span> — for urgent changes when cost/time impact isn't yet agreed; contractor proceeds, adjustments decided later</li>
+    <li><span class="kw">Written Amendment</span> — formal changes to contract terms when both parties agree (e.g., extending duration, revising clauses)</li>
+  </ul>`,
+  ansBn: `<ul>
+    <li><span class="kw">চেঞ্জ অর্ডার</span> — মালিক ও ঠিকাদার উভয়ে পরিধি/খরচ/সময় পরিবর্তনে সম্মত হলে স্বাক্ষরিত লিখিত চুক্তি</li>
+    <li><span class="kw">কনস্ট্রাকশন চেঞ্জ ডাইরেক্টিভ</span> — জরুরি পরিবর্তনের জন্য যখন খরচ/সময়ের প্রভাবে সম্মতি হয়নি; ঠিকাদার কাজ চালিয়ে যায়, সমন্বয় পরে নির্ধারিত হয়</li>
+    <li><span class="kw">লিখিত সংশোধনী</span> — উভয় পক্ষ সম্মত হলে চুক্তির শর্তে আনুষ্ঠানিক পরিবর্তন (যেমন সময়কাল বাড়ানো বা ধারা সংশোধন)</li>
+  </ul>`
+},
+{
+  qEn: "What four problems arise from incomplete coordination and incorrect construction documents?",
+  qBn: "অসম্পূর্ণ সমন্বয় এবং ভুল নির্মাণ দলিল থেকে কী চারটি সমস্যা দেখা দেয়?",
+  page: "Page 32",
+  ansEn: `<ul>
+    <li><span class="kw-red">Duplications</span> — part of the work specified in multiple locations</li>
+    <li><span class="kw-red">Omissions</span> — information excluded</li>
+    <li><span class="kw-red">Discrepancies</span> — conflicting information in contract documents</li>
+    <li><span class="kw-red">Terminology Differences</span> — terms differ between drawings & specs since different people prepare them</li>
+  </ul>`,
+  ansBn: `<ul>
+    <li><span class="kw-red">ডুপ্লিকেশন</span> — একাধিক স্থানে কাজের একই অংশ উল্লেখিত</li>
+    <li><span class="kw-red">বাদ পড়া</span> — বাদ দেওয়া তথ্য</li>
+    <li><span class="kw-red">অসঙ্গতি</span> — চুক্তি দলিলে পরস্পরবিরোধী তথ্য</li>
+    <li><span class="kw-red">পরিভাষাগত পার্থক্য</span> — অঙ্কন ও স্পেসিফিকেশনের মধ্যে শব্দ ভিন্ন, কারণ ভিন্ন ব্যক্তি প্রস্তুত করে</li>
+  </ul>`
+},
+{
+  qEn: "Name any six skills or knowledge areas needed in the preparation of construction documents.",
+  qBn: "নির্মাণ দলিল প্রস্তুতিতে প্রয়োজনীয় যেকোনো ছয়টি দক্ষতা বা জ্ঞান ক্ষেত্রের নাম বলুন।",
+  page: "Pages 33–36",
+  ansEn: `<ul>
+    <li><span class="kw">Building Information Modeling (BIM)</span> technology</li>
+    <li><span class="kw">Computer-Aided Design and Drafting (CADD)</span> & 3-D modeling</li>
+    <li><span class="kw">Construction sequencing</span> and details</li>
+    <li><span class="kw">Critical thinking</span> — analysis, synthesis, evaluation</li>
+    <li><span class="kw">Design principles</span> and site design</li>
+    <li><span class="kw">Sustainable design</span>, life safety, and project scheduling</li>
+  </ul>`,
+  ansBn: `<ul>
+    <li><span class="kw">বিল্ডিং ইনফরমেশন মডেলিং (BIM)</span> প্রযুক্তি</li>
+    <li><span class="kw">কম্পিউটার-এইডেড ডিজাইন অ্যান্ড ড্রাফটিং (CADD)</span> ও 3-ডি মডেলিং</li>
+    <li><span class="kw">নির্মাণ ধারাবাহিকতা</span> ও বিস্তারিত তথ্য</li>
+    <li><span class="kw">সমালোচনামূলক চিন্তা</span> — বিশ্লেষণ, সংশ্লেষণ, মূল্যায়ন</li>
+    <li><span class="kw">নকশা নীতি</span> ও সাইট ডিজাইন</li>
+    <li><span class="kw">টেকসই নকশা</span>, জীবন নিরাপত্তা, প্রকল্প সময়সূচি</li>
+  </ul>`
+}
+];
+
+const container = document.getElementById('cardsContainer');
+const noResults = document.getElementById('noResults');
+const visibleCountEl = document.getElementById('visibleCount');
+
+function buildCards(){
+  container.innerHTML = '';
+  data.forEach((item, idx) => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.dataset.idx = idx;
+
+    const searchText = (item.qEn + ' ' + item.qBn + ' ' + item.page).toLowerCase();
+    card.dataset.search = searchText;
+
+    card.innerHTML = `
+      <button class="q-btn" data-target="ans-${idx}">
+        <div class="q-number">${idx+1}</div>
+        <div class="q-text">
+          <div class="q-en">${item.qEn}</div>
+          <div class="q-bn">${item.qBn}</div>
+          <span class="page-tag">${item.page}</span>
+        </div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </button>
+      <div class="answer-wrap" id="ans-${idx}">
+        <div class="answer-inner">
+          <div class="answer-block">
+            <span class="ans-label">Answer</span>
+            <div class="ans-en">${item.ansEn}</div>
+            <div class="ans-bn">${item.ansBn}</div>
+          </div>
+        </div>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+
+  document.querySelectorAll('.q-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const wrap = document.getElementById(btn.dataset.target);
+      const isOpen = btn.classList.contains('active');
+      if(isOpen){
+        btn.classList.remove('active');
+        wrap.style.maxHeight = null;
+      } else {
+        btn.classList.add('active');
+        wrap.style.maxHeight = wrap.scrollHeight + 'px';
+      }
+    });
+  });
+}
+
+buildCards();
+
+document.getElementById('searchBox').addEventListener('input', function(){
+  const term = this.value.trim().toLowerCase();
+  let visible = 0;
+  document.querySelectorAll('.card').forEach(card => {
+    const match = card.dataset.search.includes(term);
+    card.style.display = match ? '' : 'none';
+    if(match) visible++;
+  });
+  visibleCountEl.textContent = visible;
+  noResults.style.display = visible === 0 ? 'block' : 'none';
+});
+
+document.getElementById('expandAllBtn').addEventListener('click', () => {
+  document.querySelectorAll('.q-btn').forEach(btn => {
+    const wrap = document.getElementById(btn.dataset.target);
+    btn.classList.add('active');
+    wrap.style.maxHeight = wrap.scrollHeight + 'px';
+  });
+});
+
+document.getElementById('collapseAllBtn').addEventListener('click', () => {
+  document.querySelectorAll('.q-btn').forEach(btn => {
+    const wrap = document.getElementById(btn.dataset.target);
+    btn.classList.remove('active');
+    wrap.style.maxHeight = null;
+  });
+});
+</script>
+</body>
+</html>

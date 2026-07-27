@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Law of Agency — BECM 3107 | Interactive Q&A</title>
+<style>
+  :root{
+    --navy:#0b1f3a;
+    --navy-2:#122a4d;
+    --accent:#c0392b;
+    --accent-2:#1f5fa8;
+    --gold:#d4a017;
+    --bg:#f4f6fb;
+    --card:#ffffff;
+    --text:#1c2530;
+    --muted:#5c6b7a;
+    --bn:#3a4a5a;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Segoe UI', Tahoma, Verdana, sans-serif;
+    background:linear-gradient(180deg,#eef2f9 0%, #f4f6fb 100%);
+    color:var(--text);
+    padding-bottom:60px;
+  }
+  header{
+    background:linear-gradient(135deg,var(--navy) 0%, var(--navy-2) 60%, #1a3a63 100%);
+    color:#fff;
+    padding:44px 20px 34px;
+    text-align:center;
+    box-shadow:0 6px 18px rgba(0,0,0,0.18);
+  }
+  header h1{
+    margin:0 0 6px;
+    font-size:1.9rem;
+    letter-spacing:0.5px;
+  }
+  header .course-code{
+    color:var(--gold);
+    font-weight:600;
+    font-size:1.05rem;
+    letter-spacing:1px;
+  }
+  header p.subtitle{
+    margin:10px auto 0;
+    max-width:680px;
+    color:#cfd9e8;
+    font-size:0.95rem;
+    line-height:1.5;
+  }
+  .container{
+    max-width:920px;
+    margin:0 auto;
+    padding:28px 16px 0;
+  }
+  .stats{
+    display:flex;
+    justify-content:center;
+    gap:14px;
+    flex-wrap:wrap;
+    margin:-22px auto 24px;
+    max-width:920px;
+    padding:0 16px;
+  }
+  .stat-pill{
+    background:var(--card);
+    border-radius:30px;
+    padding:8px 18px;
+    font-size:0.85rem;
+    box-shadow:0 4px 14px rgba(20,40,80,0.10);
+    color:var(--navy-2);
+    font-weight:600;
+  }
+  .controls{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    margin-bottom:18px;
+    flex-wrap:wrap;
+  }
+  .search-box{
+    flex:1;
+    min-width:220px;
+    position:relative;
+  }
+  .search-box input{
+    width:100%;
+    padding:11px 14px 11px 38px;
+    border-radius:10px;
+    border:1px solid #d6dde8;
+    font-size:0.92rem;
+    background:#fff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%235c6b7a"><circle cx="6.5" cy="6.5" r="5" fill="none" stroke="%235c6b7a" stroke-width="1.5"/><line x1="10.2" y1="10.2" x2="15" y2="15" stroke="%235c6b7a" stroke-width="1.5"/></svg>') no-repeat 12px center;
+    outline:none;
+    transition:border-color .2s;
+  }
+  .search-box input:focus{ border-color:var(--accent-2); }
+  .toggle-btn{
+    background:var(--navy);
+    color:#fff;
+    border:none;
+    padding:11px 18px;
+    border-radius:10px;
+    font-size:0.85rem;
+    cursor:pointer;
+    font-weight:600;
+    white-space:nowrap;
+    transition:background .2s, transform .15s;
+  }
+  .toggle-btn:hover{ background:var(--navy-2); transform:translateY(-1px); }
+
+  .qa-card{
+    background:var(--card);
+    border-radius:14px;
+    margin-bottom:14px;
+    box-shadow:0 3px 12px rgba(20,40,80,0.08);
+    overflow:hidden;
+    border-left:5px solid var(--accent-2);
+    transition:box-shadow .2s, transform .15s;
+  }
+  .qa-card:hover{ box-shadow:0 8px 22px rgba(20,40,80,0.14); }
+  .qa-card.open{ border-left-color:var(--accent); }
+
+  .qa-question{
+    padding:18px 20px;
+    cursor:pointer;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:14px;
+    user-select:none;
+  }
+  .q-index{
+    color:var(--accent-2);
+    font-weight:800;
+    margin-right:8px;
+    font-size:0.95rem;
+  }
+  .q-text-wrap{ flex:1; }
+  .q-en{
+    font-size:1.02rem;
+    font-weight:650;
+    color:var(--navy-2);
+    line-height:1.45;
+  }
+  .q-bn{
+    font-size:0.92rem;
+    color:var(--bn);
+    margin-top:4px;
+    line-height:1.5;
+    font-family:'Noto Sans Bengali','Segoe UI',sans-serif;
+  }
+  .chevron{
+    flex-shrink:0;
+    width:26px;
+    height:26px;
+    border-radius:50%;
+    background:#eef2f9;
+    color:var(--navy-2);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1rem;
+    transition:transform .3s, background .3s, color .3s;
+    margin-top:2px;
+  }
+  .qa-card.open .chevron{
+    transform:rotate(180deg);
+    background:var(--accent);
+    color:#fff;
+  }
+
+  .qa-answer{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .38s ease;
+    background:#fbfcfe;
+    border-top:1px dashed #dfe6ef;
+  }
+  .qa-answer-inner{
+    padding:18px 22px 20px 22px;
+  }
+  .answer-block-en, .answer-block-bn{
+    margin-bottom:10px;
+  }
+  .answer-label{
+    font-size:0.72rem;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    color:var(--muted);
+    font-weight:700;
+    margin-bottom:6px;
+  }
+  ul.ans-list{
+    margin:0 0 4px 0;
+    padding-left:20px;
+  }
+  ul.ans-list li{
+    margin-bottom:7px;
+    line-height:1.55;
+    font-size:0.95rem;
+  }
+  ul.ans-list.bn li{
+    font-family:'Noto Sans Bengali','Segoe UI',sans-serif;
+    font-size:0.93rem;
+    color:var(--bn);
+  }
+  .kw-red{ color:#c0392b; font-weight:700; }
+  .kw-blue{ color:#1f5fa8; font-weight:700; }
+  .page-ref{
+    display:inline-block;
+    margin-top:6px;
+    background:var(--navy);
+    color:#fff;
+    padding:3px 12px;
+    border-radius:20px;
+    font-size:0.75rem;
+    font-weight:600;
+  }
+  .case-note{
+    background:#fff7e6;
+    border-left:3px solid var(--gold);
+    padding:8px 12px;
+    font-size:0.88rem;
+    border-radius:6px;
+    margin:8px 0;
+    color:#5c4a1a;
+  }
+  footer{
+    text-align:center;
+    color:var(--muted);
+    font-size:0.8rem;
+    margin-top:40px;
+  }
+  @media (max-width:600px){
+    header h1{ font-size:1.5rem; }
+    .q-en{ font-size:0.95rem; }
+    .controls{ flex-direction:column; align-items:stretch; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="course-code">BECM 3107</div>
+  <h1>Law of Agency — Interactive Q&amp; A</h1>
+  <div class="course-code" style="font-family:'Noto Sans Bengali','Segoe UI',sans-serif; font-weight:400; color:#cfd9e8; font-size:0.95rem;">এজেন্সি আইন — ইন্টারঅ্যাকটিভ প্রশ্নোত্তর</div>
+  <p class="subtitle">Based on the lecture by Dr. Mizanoor Rahman, P.Eng., Department of BECM, KUET. Click any question to reveal the answer.</p>
+</header>
+
+<div class="stats">
+  <div class="stat-pill" id="totalCount">Loading...</div>
+  <div class="stat-pill">📄 21 Slides Covered</div>
+  <div class="stat-pill">🌐 English + বাংলা</div>
+</div>
+
+<div class="container">
+  <div class="controls">
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Search questions... / প্রশ্ন খুঁজুন...">
+    </div>
+    <button class="toggle-btn" id="toggleAllBtn">Expand All</button>
+  </div>
+
+  <div id="qaContainer"></div>
+</div>
+
+<footer>Prepared from "BECM 3107 – Law of Agency" slide deck • For study purposes</footer>
+
+<script>
+const qaData = [
+{
+  q_en: "What are the three learning outcomes of this chapter on the Law of Agency?",
+  q_bn: "এজেন্সি আইন অধ্যায়ের তিনটি লার্নিং আউটকাম কী কী?",
+  ans_en: [
+    "Define the term <span class='kw-red'>Agent</span>.",
+    "Explain how an <span class='kw-blue'>agency</span> is created.",
+    "Discuss the <span class='kw-red'>scope of an agent's authority</span>."
+  ],
+  ans_bn: [
+    "<span class='kw-red'>এজেন্ট</span> শব্দের সংজ্ঞা দেওয়া।",
+    "<span class='kw-blue'>এজেন্সি</span> কীভাবে তৈরি হয় তা ব্যাখ্যা করা।",
+    "একজন <span class='kw-red'>এজেন্টের ক্ষমতার পরিধি</span> নিয়ে আলোচনা করা।"
+  ],
+  page: 1
+},
+{
+  q_en: "Describe the typical contractual relationship in the AEC (Architecture, Engineering, Construction) sector.",
+  q_bn: "AEC (স্থাপত্য, প্রকৌশল, নির্মাণ) খাতের সাধারণ চুক্তিগত সম্পর্ক বর্ণনা করো।",
+  ans_en: [
+    "The <span class='kw-blue'>Client</span> has direct contractual links with both the <span class='kw-red'>Contractor</span> and the <span class='kw-red'>A/E/QS</span> (Architect/Engineer/Quantity Surveyor).",
+    "The <span class='kw-blue'>Contractor</span> and the <span class='kw-red'>A/E/QS</span> also interact with each other, but usually not through a direct contract — the A/E/QS often acts on the client's behalf.",
+    "This structure forms the basis for understanding <span class='kw-red'>agency relationships</span> in construction, since the A/E/QS frequently represents the client (principal) in dealings with the contractor (third party)."
+  ],
+  ans_bn: [
+    "<span class='kw-blue'>ক্লায়েন্ট</span>-এর সরাসরি চুক্তিগত সম্পর্ক থাকে <span class='kw-red'>কন্ট্রাক্টর</span> এবং <span class='kw-red'>A/E/QS</span> (স্থপতি/প্রকৌশলী/কোয়ান্টিটি সার্ভেয়র)-এর সাথে।",
+    "<span class='kw-blue'>কন্ট্রাক্টর</span> এবং <span class='kw-red'>A/E/QS</span>-এর মধ্যেও পারস্পরিক যোগাযোগ থাকে, তবে সাধারণত সরাসরি চুক্তির মাধ্যমে নয় — A/E/QS প্রায়ই ক্লায়েন্টের পক্ষে কাজ করে।",
+    "এই কাঠামোটি নির্মাণখাতে <span class='kw-red'>এজেন্সি সম্পর্ক</span> বোঝার ভিত্তি তৈরি করে, কারণ A/E/QS প্রায়ই ক্লায়েন্ট (প্রিন্সিপাল)-এর প্রতিনিধিত্ব করে কন্ট্রাক্টর (তৃতীয় পক্ষ)-এর সাথে লেনদেনে।"
+  ],
+  page: 2
+},
+{
+  q_en: "What is the definition of an 'agent' according to Alverstone CJ?",
+  q_bn: "Alverstone CJ-এর মতে 'এজেন্ট'-এর সংজ্ঞা কী?",
+  ans_en: [
+    "An <span class='kw-red'>agent</span> is defined as <span class='kw-blue'>\"any person who happens to act on behalf of another.\"</span>",
+    "This means an agent <span class='kw-red'>represents another person (the principal)</span> in dealings with third parties.",
+    "The key element is <span class='kw-blue'>acting on behalf of another person</span> in legal or business matters."
+  ],
+  ans_bn: [
+    "<span class='kw-red'>এজেন্ট</span>-কে সংজ্ঞায়িত করা হয় এভাবে: <span class='kw-blue'>\"যে কোনো ব্যক্তি যিনি অন্য কারো পক্ষে কাজ করেন।\"</span>",
+    "অর্থাৎ একজন এজেন্ট <span class='kw-red'>অন্য একজন ব্যক্তির (প্রিন্সিপাল)</span> প্রতিনিধিত্ব করেন তৃতীয় পক্ষের সাথে লেনদেনে।",
+    "মূল বিষয়টি হলো আইনি বা ব্যবসায়িক বিষয়ে <span class='kw-blue'>অন্যের পক্ষে কাজ করা</span>।"
+  ],
+  page: 3
+},
+{
+  q_en: "What is the main purpose of the Law of Agency, and who becomes legally responsible for a contract made by an agent?",
+  q_bn: "এজেন্সি আইনের মূল উদ্দেশ্য কী, এবং এজেন্টের করা চুক্তির জন্য আইনগতভাবে কে দায়ী হয়?",
+  ans_en: [
+    "The <span class='kw-red'>Law of Agency</span> is an important part of <span class='kw-blue'>commercial law</span>, explaining the relationship between a <span class='kw-red'>principal</span> and an <span class='kw-red'>agent</span>.",
+    "Its main purpose is to allow an <span class='kw-blue'>agent to act on behalf of the principal</span>, bringing the principal and third parties into a <span class='kw-red'>contractual relationship</span>.",
+    "The <span class='kw-blue'>principal</span> — not the agent — becomes <span class='kw-red'>legally responsible</span> for the contract.",
+    "The principal has the right to <span class='kw-blue'>enforce the contract</span> and is liable for obligations arising from it.",
+    "The agent only <span class='kw-red'>represents</span> the principal and normally does <span class='kw-blue'>not become personally liable</span> for the agreement."
+  ],
+  ans_bn: [
+    "<span class='kw-red'>এজেন্সি আইন</span> <span class='kw-blue'>বাণিজ্যিক আইনের</span> একটি গুরুত্বপূর্ণ অংশ, যা <span class='kw-red'>প্রিন্সিপাল</span> ও <span class='kw-red'>এজেন্টের</span> মধ্যে সম্পর্ক ব্যাখ্যা করে।",
+    "এর মূল উদ্দেশ্য হলো একজন <span class='kw-blue'>এজেন্টকে প্রিন্সিপালের পক্ষে কাজ করার</span> সুযোগ দেওয়া, যা প্রিন্সিপাল ও তৃতীয় পক্ষকে <span class='kw-red'>চুক্তিগত সম্পর্কে</span> নিয়ে আসে।",
+    "<span class='kw-blue'>প্রিন্সিপাল</span> — এজেন্ট নয় — চুক্তির জন্য <span class='kw-red'>আইনগতভাবে দায়ী</span> হয়।",
+    "প্রিন্সিপালের চুক্তি <span class='kw-blue'>প্রয়োগ করার অধিকার</span> থাকে এবং তিনি এর দায়বদ্ধতার জন্য দায়ী থাকেন।",
+    "এজেন্ট শুধুমাত্র প্রিন্সিপালের <span class='kw-red'>প্রতিনিধিত্ব</span> করেন এবং সাধারণত চুক্তির জন্য <span class='kw-blue'>ব্যক্তিগতভাবে দায়ী হন না</span>।"
+  ],
+  page: 4
+},
+{
+  q_en: "What are the three relationships involved in the creation of agency?",
+  q_bn: "এজেন্সি তৈরিতে জড়িত তিনটি সম্পর্ক কী কী?",
+  ans_en: [
+    "The <span class='kw-red'>Principal (P) – Agent (A)</span> relationship.",
+    "The <span class='kw-blue'>Agent (A) – Third Party (T)</span> relationship.",
+    "The <span class='kw-red'>Principal (P) – Third Party (T)</span> relationship."
+  ],
+  ans_bn: [
+    "<span class='kw-red'>প্রিন্সিপাল (P) – এজেন্ট (A)</span> সম্পর্ক।",
+    "<span class='kw-blue'>এজেন্ট (A) – তৃতীয় পক্ষ (T)</span> সম্পর্ক।",
+    "<span class='kw-red'>প্রিন্সিপাল (P) – তৃতীয় পক্ষ (T)</span> সম্পর্ক।"
+  ],
+  page: 5
+},
+{
+  q_en: "Illustrate the triangular relationship between Principal, Agent, and Third Party during contract creation.",
+  q_bn: "চুক্তি তৈরির সময় প্রিন্সিপাল, এজেন্ট ও তৃতীয় পক্ষের মধ্যকার ত্রিভুজাকার সম্পর্কটি ব্যাখ্যা করো।",
+  ans_en: [
+    "Between <span class='kw-red'>Principal and Agent</span>: an <span class='kw-blue'>Agency</span> relationship exists, covering its <span class='kw-red'>creation and authority (contract)</span>.",
+    "Between <span class='kw-blue'>Agent and 3rd Party</span>: <span class='kw-red'>negotiations</span> take place, where the agent represents the principal.",
+    "Between <span class='kw-red'>Principal and 3rd Party</span>: the actual <span class='kw-blue'>Contract of Sale</span> is formed — contractual rights and obligations are created directly between P and the 3rd Party."
+  ],
+  ans_bn: [
+    "<span class='kw-red'>প্রিন্সিপাল ও এজেন্টের</span> মধ্যে একটি <span class='kw-blue'>এজেন্সি</span> সম্পর্ক থাকে, যা এর <span class='kw-red'>সৃষ্টি ও ক্ষমতা (চুক্তি)</span> কভার করে।",
+    "<span class='kw-blue'>এজেন্ট ও তৃতীয় পক্ষের</span> মধ্যে <span class='kw-red'>আলোচনা (negotiations)</span> হয়, যেখানে এজেন্ট প্রিন্সিপালের প্রতিনিধিত্ব করে।",
+    "<span class='kw-red'>প্রিন্সিপাল ও তৃতীয় পক্ষের</span> মধ্যে প্রকৃত <span class='kw-blue'>বিক্রয় চুক্তি (Contract of Sale)</span> তৈরি হয় — যেখানে সরাসরি চুক্তিগত অধিকার ও দায়বদ্ধতা সৃষ্টি হয়।"
+  ],
+  page: 6
+},
+{
+  q_en: "Define the terms 'Principal', 'Third Party', and 'Agent' in the context of the relationship of parties.",
+  q_bn: "পক্ষগুলোর সম্পর্কের প্রেক্ষাপটে 'প্রিন্সিপাল', 'তৃতীয় পক্ষ' এবং 'এজেন্ট' শব্দগুলোর সংজ্ঞা দাও।",
+  ans_en: [
+    "The <span class='kw-red'>Principal</span> is the person whom the agent represents.",
+    "The <span class='kw-blue'>Third Party</span> is the person whom the agent deals with on behalf of the principal.",
+    "The <span class='kw-red'>Agent</span> is seen in law as the <span class='kw-blue'>'representative'</span> of the principal."
+  ],
+  ans_bn: [
+    "<span class='kw-red'>প্রিন্সিপাল</span> হলেন সেই ব্যক্তি, যাকে এজেন্ট প্রতিনিধিত্ব করেন।",
+    "<span class='kw-blue'>তৃতীয় পক্ষ</span> হলেন সেই ব্যক্তি, যার সাথে এজেন্ট প্রিন্সিপালের পক্ষে লেনদেন করেন।",
+    "<span class='kw-red'>এজেন্টকে</span> আইনে প্রিন্সিপালের <span class='kw-blue'>'প্রতিনিধি'</span> হিসেবে গণ্য করা হয়।"
+  ],
+  page: 7
+},
+{
+  q_en: "What is the general rule regarding the liability of an agent in agency law?",
+  q_bn: "এজেন্সি আইনে একজন এজেন্টের দায়বদ্ধতা সম্পর্কে সাধারণ নিয়ম কী?",
+  ans_en: [
+    "The general rule is that an agent is <span class='kw-red'>not liable</span> to his principal or the third party, <span class='kw-blue'>as long as he acts within the scope of authority</span> given by his principal.",
+    "Liability arising from a contract entered into by the agent <span class='kw-blue'>within his scope of authority</span> falls on the <span class='kw-red'>principal</span> who authorized the act.",
+    "Hence, the agent is nothing more than an <span class='kw-blue'>authorized representative</span> of the principal."
+  ],
+  ans_bn: [
+    "সাধারণ নিয়ম হলো, একজন এজেন্ট তার প্রিন্সিপাল বা তৃতীয় পক্ষের কাছে <span class='kw-red'>দায়বদ্ধ নয়</span>, যতক্ষণ তিনি প্রিন্সিপালের দেওয়া <span class='kw-blue'>ক্ষমতার পরিধির মধ্যে</span> কাজ করেন।",
+    "এজেন্টের <span class='kw-blue'>ক্ষমতার পরিধির মধ্যে</span> করা চুক্তির দায়বদ্ধতা <span class='kw-red'>প্রিন্সিপালের</span> উপর বর্তায়, যিনি সেই কাজের অনুমোদন দিয়েছিলেন।",
+    "সুতরাং, এজেন্ট প্রিন্সিপালের একজন <span class='kw-blue'>অনুমোদিত প্রতিনিধি</span> ছাড়া আর কিছু নন।"
+  ],
+  page: 8
+},
+{
+  q_en: "How does agency differ from distributorship? Why is a distributor not considered an agent in law?",
+  q_bn: "এজেন্সি ও ডিস্ট্রিবিউটরশিপের মধ্যে পার্থক্য কী? আইনগতভাবে একজন ডিস্ট্রিবিউটরকে কেন এজেন্ট বলা হয় না?",
+  ans_en: [
+    "The concept of <span class='kw-red'>agency at law</span> must be distinguished from other business relationships sometimes loosely called 'agencies', such as <span class='kw-blue'>distributorship</span>.",
+    "<span class='kw-red'>Distributors</span> are retailers who <span class='kw-blue'>buy goods from the manufacturer</span> and then <span class='kw-blue'>re-sell the goods as principals themselves</span>, even though they may informally use the term 'agent' of a product.",
+    "Unlike a true agent, a distributor takes <span class='kw-red'>ownership of the goods</span> and bears the risk/profit of resale, rather than merely representing the manufacturer in a contract with the end customer."
+  ],
+  ans_bn: [
+    "আইনে <span class='kw-red'>এজেন্সির ধারণাকে</span> অন্যান্য ব্যবসায়িক সম্পর্ক থেকে আলাদা করতে হয়, যেগুলোকে কখনো কখনো 'এজেন্সি' বলা হলেও প্রকৃতপক্ষে তা নয়, যেমন <span class='kw-blue'>ডিস্ট্রিবিউটরশিপ</span>।",
+    "<span class='kw-red'>ডিস্ট্রিবিউটররা</span> এমন খুচরা বিক্রেতা যারা <span class='kw-blue'>প্রস্তুতকারকের কাছ থেকে পণ্য কেনেন</span> এবং তারপর নিজেরাই <span class='kw-blue'>প্রিন্সিপাল হিসেবে পণ্য পুনরায় বিক্রি করেন</span>, যদিও তারা অনানুষ্ঠানিকভাবে কোনো পণ্যের 'এজেন্ট' শব্দটি ব্যবহার করতে পারেন।",
+    "প্রকৃত এজেন্টের বিপরীতে, একজন ডিস্ট্রিবিউটর <span class='kw-red'>পণ্যের মালিকানা</span> নেন এবং পুনর্বিক্রয়ের ঝুঁকি/লাভ বহন করেন, শুধুমাত্র শেষ ক্রেতার সাথে প্রস্তুতকারকের প্রতিনিধিত্ব করেন না।"
+  ],
+  page: 9
+},
+{
+  q_en: "How many contracts exist in an agency relationship, and between whom is it formed?",
+  q_bn: "একটি এজেন্সি সম্পর্কে কতগুলো চুক্তি থাকে এবং তা কাদের মধ্যে গঠিত হয়?",
+  ans_en: [
+    "In an agency relationship, there can be <span class='kw-red'>only one contract</span>.",
+    "That contract is made <span class='kw-blue'>between the principal and the third party</span> — the agent is not a party to this contract but merely facilitates it.",
+    "This contrasts with a <span class='kw-red'>distributorship</span>, where there are <span class='kw-blue'>two separate contracts</span>: a distributorship contract (manufacturer–distributor) and a retail contract (distributor–customer)."
+  ],
+  ans_bn: [
+    "একটি এজেন্সি সম্পর্কে <span class='kw-red'>শুধুমাত্র একটি চুক্তি</span> থাকে।",
+    "সেই চুক্তিটি <span class='kw-blue'>প্রিন্সিপাল ও তৃতীয় পক্ষের মধ্যে</span> সম্পন্ন হয় — এজেন্ট এই চুক্তির পক্ষ নন, তিনি শুধু এটি সহজতর করেন।",
+    "এটি <span class='kw-red'>ডিস্ট্রিবিউটরশিপের</span> থেকে ভিন্ন, যেখানে <span class='kw-blue'>দুটি পৃথক চুক্তি</span> থাকে: একটি ডিস্ট্রিবিউটরশিপ চুক্তি (প্রস্তুতকারক–ডিস্ট্রিবিউটর) এবং একটি খুচরা চুক্তি (ডিস্ট্রিবিউটর–ক্রেতা)।"
+  ],
+  page: 10
+},
+{
+  q_en: "List and briefly explain the five methods by which an agency relationship may be created.",
+  q_bn: "এজেন্সি সম্পর্ক তৈরির পাঁচটি পদ্ধতির তালিকা দাও এবং সংক্ষেপে ব্যাখ্যা করো।",
+  ans_en: [
+    "<span class='kw-red'>Consensual Agency</span> — created through an agency agreement/contract between principal and agent, giving actual authority (express or implied).",
+    "<span class='kw-blue'>Apparent/Ostensible Authority</span> — created through the principal's representation to a third party, making the third party believe the agent has authority.",
+    "<span class='kw-red'>Usual/Customary Authority</span> — authority arising from the normal practices, customs, or nature of the agent's role.",
+    "<span class='kw-blue'>Ratification</span> — when the principal approves/accepts an act originally performed by the agent without authority.",
+    "<span class='kw-red'>Operation of Law or Necessity</span> — agency created by law due to special circumstances or necessity."
+  ],
+  ans_bn: [
+    "<span class='kw-red'>সম্মতিমূলক এজেন্সি (Consensual Agency)</span> — প্রিন্সিপাল ও এজেন্টের মধ্যে একটি এজেন্সি চুক্তির মাধ্যমে তৈরি হয়, যা প্রকৃত ক্ষমতা (স্পষ্ট বা অন্তর্নিহিত) প্রদান করে।",
+    "<span class='kw-blue'>আপাত/প্রতীয়মান ক্ষমতা (Apparent/Ostensible Authority)</span> — প্রিন্সিপালের তৃতীয় পক্ষের কাছে প্রতিনিধিত্বের মাধ্যমে তৈরি হয়, যা তৃতীয় পক্ষকে বিশ্বাস করায় যে এজেন্টের ক্ষমতা আছে।",
+    "<span class='kw-red'>স্বাভাবিক/প্রথাগত ক্ষমতা (Usual/Customary Authority)</span> — এজেন্টের ভূমিকার স্বাভাবিক চর্চা, রীতি বা প্রকৃতি থেকে উদ্ভূত ক্ষমতা।",
+    "<span class='kw-blue'>অনুমোদন (Ratification)</span> — যখন প্রিন্সিপাল এজেন্টের ক্ষমতা ছাড়া করা কোনো কাজ অনুমোদন/গ্রহণ করেন।",
+    "<span class='kw-red'>আইনের প্রয়োগ বা প্রয়োজনীয়তা (Operation of Law or Necessity)</span> — বিশেষ পরিস্থিতি বা প্রয়োজনের কারণে আইন দ্বারা তৈরি এজেন্সি।"
+  ],
+  page: 11
+},
+{
+  q_en: "What is Consensual Agency? Differentiate between express authority and implied authority.",
+  q_bn: "সম্মতিমূলক এজেন্সি (Consensual Agency) কী? স্পষ্ট ক্ষমতা (express authority) ও অন্তর্নিহিত ক্ষমতার (implied authority) মধ্যে পার্থক্য করো।",
+  ans_en: [
+    "<span class='kw-red'>Consensual Agency</span> is created through an <span class='kw-blue'>agency agreement/contract</span> between the principal and the agent.",
+    "Through this, the agent receives <span class='kw-red'>actual (real) authority</span>, which may take two forms:",
+    "<span class='kw-blue'>Express authority</span>: authority given clearly and explicitly by the principal.",
+    "<span class='kw-blue'>Implied authority</span>: authority that is understood from the surrounding circumstances rather than stated outright."
+  ],
+  ans_bn: [
+    "<span class='kw-red'>সম্মতিমূলক এজেন্সি</span> প্রিন্সিপাল ও এজেন্টের মধ্যে একটি <span class='kw-blue'>এজেন্সি চুক্তির</span> মাধ্যমে তৈরি হয়।",
+    "এর মাধ্যমে এজেন্ট <span class='kw-red'>প্রকৃত (real) ক্ষমতা</span> পান, যা দুই ধরনের হতে পারে:",
+    "<span class='kw-blue'>স্পষ্ট ক্ষমতা (Express authority)</span>: প্রিন্সিপাল কর্তৃক স্পষ্টভাবে প্রদত্ত ক্ষমতা।",
+    "<span class='kw-blue'>অন্তর্নিহিত ক্ষমতা (Implied authority)</span>: যা সরাসরি বলা হয়নি কিন্তু পারিপার্শ্বিক অবস্থা থেকে বোঝা যায়।"
+  ],
+  page: 11
+},
+{
+  q_en: "What is Apparent or Ostensible Authority, and how is it different from actual authority?",
+  q_bn: "আপাত বা প্রতীয়মান ক্ষমতা (Apparent/Ostensible Authority) কী, এবং এটি প্রকৃত ক্ষমতা থেকে কীভাবে ভিন্ন?",
+  ans_en: [
+    "<span class='kw-red'>Apparent/Ostensible Authority</span> is created through the <span class='kw-blue'>principal's representation to a third party</span>, which makes the third party believe that the agent has authority to act.",
+    "Unlike actual (real) authority under consensual agency, this authority does <span class='kw-red'>not</span> arise from an agreement between principal and agent — it arises from the <span class='kw-blue'>principal's conduct or representation</span> that misleads (or informs) the third party.",
+    "This protects third parties who reasonably rely on the principal's representation, even if the agent's actual authority is limited or absent."
+  ],
+  ans_bn: [
+    "<span class='kw-red'>আপাত/প্রতীয়মান ক্ষমতা</span> তৈরি হয় <span class='kw-blue'>প্রিন্সিপালের তৃতীয় পক্ষের কাছে প্রতিনিধিত্বের</span> মাধ্যমে, যা তৃতীয় পক্ষকে বিশ্বাস করায় যে এজেন্টের কাজ করার ক্ষমতা আছে।",
+    "সম্মতিমূলক এজেন্সির প্রকৃত ক্ষমতার বিপরীতে, এই ক্ষমতা প্রিন্সিপাল-এজেন্টের চুক্তি থেকে <span class='kw-red'>আসে না</span> — এটি আসে <span class='kw-blue'>প্রিন্সিপালের আচরণ বা প্রতিনিধিত্ব</span> থেকে যা তৃতীয় পক্ষকে প্রভাবিত করে।",
+    "এটি তৃতীয় পক্ষকে সুরক্ষা দেয় যারা যুক্তিসঙ্গতভাবে প্রিন্সিপালের প্রতিনিধিত্বের উপর নির্ভর করে, যদিও এজেন্টের প্রকৃত ক্ষমতা সীমিত বা অনুপস্থিত থাকে।"
+  ],
+  page: 12
+},
+{
+  q_en: "Explain Usual or Customary Authority and give an example of how it might arise in construction.",
+  q_bn: "স্বাভাবিক বা প্রথাগত ক্ষমতা (Usual/Customary Authority) ব্যাখ্যা করো এবং নির্মাণখাতে এটি কীভাবে দেখা দিতে পারে তার একটি উদাহরণ দাও।",
+  ans_en: [
+    "<span class='kw-red'>Usual/Customary Authority</span> is authority that arises from the <span class='kw-blue'>normal practices, customs, or nature of the agent's role</span> — not from an explicit grant.",
+    "It reflects what a person in that particular position would <span class='kw-blue'>usually be expected to have authority to do</span>.",
+    "Example: an <span class='kw-red'>Architect or Project Manager</span> on a construction site would customarily be understood to have authority to issue routine site instructions, even without a specific clause granting that power."
+  ],
+  ans_bn: [
+    "<span class='kw-red'>স্বাভাবিক/প্রথাগত ক্ষমতা</span> হলো এমন ক্ষমতা যা <span class='kw-blue'>এজেন্টের ভূমিকার স্বাভাবিক চর্চা, রীতি বা প্রকৃতি</span> থেকে উদ্ভূত হয় — স্পষ্টভাবে প্রদত্ত নয়।",
+    "এটি প্রতিফলিত করে যে ঐ নির্দিষ্ট পদে থাকা একজন ব্যক্তির <span class='kw-blue'>সাধারণত কী কী কাজ করার ক্ষমতা থাকবে</span> বলে ধারণা করা হয়।",
+    "উদাহরণ: নির্মাণ সাইটে একজন <span class='kw-red'>স্থপতি বা প্রকল্প ব্যবস্থাপক</span> প্রথাগতভাবে রুটিন সাইট নির্দেশনা দেওয়ার ক্ষমতা রাখেন বলে ধরে নেওয়া হয়, যদিও তা নির্দিষ্টভাবে কোনো ধারায় লেখা নেই।"
+  ],
+  page: 12
+},
+{
+  q_en: "Explain the concept of Ratification in agency law.",
+  q_bn: "এজেন্সি আইনে অনুমোদন (Ratification)-এর ধারণা ব্যাখ্যা করো।",
+  ans_en: [
+    "<span class='kw-red'>Ratification</span> occurs when the <span class='kw-blue'>principal approves or accepts an act</span> that was originally performed by the agent <span class='kw-red'>without authority</span>.",
+    "By ratifying, the principal effectively 'adopts' the unauthorized act after the fact, making it as if the agent had authority all along.",
+    "This method retroactively creates an agency relationship for that particular transaction."
+  ],
+  ans_bn: [
+    "<span class='kw-red'>অনুমোদন (Ratification)</span> ঘটে যখন <span class='kw-blue'>প্রিন্সিপাল এমন একটি কাজ অনুমোদন বা গ্রহণ করেন</span> যা এজেন্ট মূলত <span class='kw-red'>কোনো ক্ষমতা ছাড়াই</span> করেছিলেন।",
+    "অনুমোদনের মাধ্যমে প্রিন্সিপাল কার্যত সেই অননুমোদিত কাজটি পরবর্তীতে 'গ্রহণ' করেন, ফলে মনে হয় যেন এজেন্টের শুরু থেকেই ক্ষমতা ছিল।",
+    "এই পদ্ধতি সেই নির্দিষ্ট লেনদেনের জন্য পূর্ববর্তী তারিখ থেকে (retroactively) একটি এজেন্সি সম্পর্ক তৈরি করে।"
+  ],
+  page: 12
+},
+{
+  q_en: "What is agency by Operation of Law or Necessity?",
+  q_bn: "আইনের প্রয়োগ বা প্রয়োজনীয়তার মাধ্যমে (Operation of Law or Necessity) এজেন্সি কী?",
+  ans_en: [
+    "This is an <span class='kw-red'>agency relationship created by law</span> itself, rather than by agreement, ratification, or representation.",
+    "It arises due to <span class='kw-blue'>special circumstances or necessity</span> — for example, emergency situations where someone must act to protect another's property or interests without prior authorization."
+  ],
+  ans_bn: [
+    "এটি একটি <span class='kw-red'>আইন দ্বারা সৃষ্ট এজেন্সি সম্পর্ক</span>, চুক্তি, অনুমোদন বা প্রতিনিধিত্বের মাধ্যমে নয়।",
+    "এটি <span class='kw-blue'>বিশেষ পরিস্থিতি বা প্রয়োজনীয়তার</span> কারণে সৃষ্টি হয় — যেমন জরুরি পরিস্থিতিতে, যেখানে পূর্বানুমোদন ছাড়াই কাউকে অন্যের সম্পত্তি বা স্বার্থ রক্ষার জন্য কাজ করতে হয়।"
+  ],
+  page: 12
+},
+{
+  q_en: "What is Disclosed Agency, and who is responsible for the resulting contract?",
+  q_bn: "প্রকাশিত এজেন্সি (Disclosed Agency) কী, এবং ফলস্বরূপ চুক্তির জন্য কে দায়ী?",
+  ans_en: [
+    "A <span class='kw-red'>disclosed agency</span> exists when an agent (A) enters into a contract with a third party (T) on behalf of a principal (P).",
+    "Before making the contract, the agent either <span class='kw-blue'>identifies the principal</span> or provides enough information for the principal to be identified.",
+    "In this type of agency, the <span class='kw-blue'>third party knows</span> that the agent is acting on behalf of the principal.",
+    "The contract is made <span class='kw-red'>between the principal and the third party</span>, not between the agent and the third party.",
+    "Therefore, the <span class='kw-blue'>principal is responsible</span> for the contract and can enforce its terms."
+  ],
+  ans_bn: [
+    "<span class='kw-red'>প্রকাশিত এজেন্সি</span> তখন বিদ্যমান থাকে যখন একজন এজেন্ট (A) একজন প্রিন্সিপালের (P) পক্ষে একজন তৃতীয় পক্ষের (T) সাথে চুক্তি করেন।",
+    "চুক্তি করার আগে, এজেন্ট হয় <span class='kw-blue'>প্রিন্সিপালকে চিহ্নিত করেন</span> অথবা প্রিন্সিপালকে চিহ্নিত করার জন্য যথেষ্ট তথ্য দেন।",
+    "এই ধরনের এজেন্সিতে, <span class='kw-blue'>তৃতীয় পক্ষ জানেন</span> যে এজেন্ট প্রিন্সিপালের পক্ষে কাজ করছেন।",
+    "চুক্তিটি <span class='kw-red'>প্রিন্সিপাল ও তৃতীয় পক্ষের মধ্যে</span> সম্পন্ন হয়, এজেন্ট ও তৃতীয় পক্ষের মধ্যে নয়।",
+    "সুতরাং, <span class='kw-blue'>প্রিন্সিপাল</span> চুক্তির জন্য দায়ী থাকেন এবং এর শর্তাবলী প্রয়োগ করতে পারেন।"
+  ],
+  page: 13
+},
+{
+  q_en: "What is the general rule regarding payment made by a third party to an agent? Cite the relevant case law.",
+  q_bn: "তৃতীয় পক্ষ কর্তৃক এজেন্টকে প্রদত্ত অর্থ পরিশোধ সম্পর্কে সাধারণ নিয়ম কী? প্রাসঙ্গিক মামলার উদাহরণ দাও।",
+  ans_en: [
+    "The general rule is that <span class='kw-red'>payment by a third party to the agent does not amount to payment to the principal</span>.",
+    "Therefore, paying the agent does <span class='kw-blue'>not automatically discharge</span> the third party's debt to the principal.",
+    "A third party can only validly discharge a debt owed to the principal by paying the agent in <span class='kw-red'>limited circumstances</span>, depending on specific authority or the situation.",
+    "This principle is supported by case law: <span class='kw-blue'>Irvine & Co v Watson & Sons [1880] 5 QBD 414</span>."
+  ],
+  ans_bn: [
+    "সাধারণ নিয়ম হলো, <span class='kw-red'>তৃতীয় পক্ষ কর্তৃক এজেন্টকে প্রদত্ত অর্থ প্রিন্সিপালকে প্রদত্ত অর্থের সমতুল্য নয়</span>।",
+    "তাই, এজেন্টকে অর্থ পরিশোধ করলে <span class='kw-blue'>প্রিন্সিপালের প্রতি তৃতীয় পক্ষের ঋণ স্বয়ংক্রিয়ভাবে পরিশোধিত হয় না</span>।",
+    "শুধুমাত্র <span class='kw-red'>সীমিত পরিস্থিতিতে</span>, নির্দিষ্ট ক্ষমতা বা অবস্থার উপর নির্ভর করে, তৃতীয় পক্ষ এজেন্টকে অর্থ প্রদানের মাধ্যমে প্রিন্সিপালের ঋণ পরিশোধ করতে পারে।",
+    "এই নীতিটি মামলার আইন দ্বারা সমর্থিত: <span class='kw-blue'>Irvine & Co v Watson & Sons [1880] 5 QBD 414</span>।"
+  ],
+  page: 14
+},
+{
+  q_en: "What is the general rule regarding an agent's liability to a third party, and when might an agent become personally liable?",
+  q_bn: "তৃতীয় পক্ষের প্রতি এজেন্টের দায়বদ্ধতার সাধারণ নিয়ম কী, এবং কোন পরিস্থিতিতে এজেন্ট ব্যক্তিগতভাবে দায়ী হতে পারেন?",
+  ans_en: [
+    "The general rule is that where the agency is <span class='kw-red'>disclosed</span>, the <span class='kw-blue'>principal alone</span> is liable on the contract.",
+    "However, an agent <span class='kw-red'>may make himself or herself personally liable</span> in addition to the principal, under certain circumstances.",
+    "Where someone <span class='kw-blue'>signs a contract in their own name</span> and without any qualification (e.g., not indicating they act 'as agent'), the general rule is that they <span class='kw-red'>assume personal liability</span>."
+  ],
+  ans_bn: [
+    "সাধারণ নিয়ম হলো, যেখানে এজেন্সি <span class='kw-red'>প্রকাশিত</span>, সেখানে চুক্তির জন্য <span class='kw-blue'>শুধু প্রিন্সিপালই</span> দায়ী থাকেন।",
+    "তবে, নির্দিষ্ট পরিস্থিতিতে একজন এজেন্ট প্রিন্সিপালের পাশাপাশি নিজেকেও <span class='kw-red'>ব্যক্তিগতভাবে দায়ী</span> করতে পারেন।",
+    "যদি কেউ <span class='kw-blue'>নিজের নামে চুক্তিতে স্বাক্ষর করেন</span> এবং কোনো শর্ত ছাড়া (যেমন 'এজেন্ট হিসেবে' কাজ করছেন তা উল্লেখ না করে), তাহলে সাধারণ নিয়ম হলো তিনি <span class='kw-red'>ব্যক্তিগত দায়বদ্ধতা</span> গ্রহণ করেন।"
+  ],
+  page: 15
+},
+{
+  q_en: "What is an Undisclosed Agency?",
+  q_bn: "অপ্রকাশিত এজেন্সি (Undisclosed Agency) কী?",
+  ans_en: [
+    "An <span class='kw-red'>undisclosed agency</span> exists when a third party (T) believes that the agent (A) is <span class='kw-blue'>acting on their own behalf</span>.",
+    "In this situation, the third party is <span class='kw-red'>not aware</span> that the agent is acting for a principal (P).",
+    "The <span class='kw-blue'>principal's identity</span> is either hidden or not revealed at the time of the contract.",
+    "The third party therefore contracts with the agent <span class='kw-red'>without knowing</span> the existence of the principal — this is known as an <span class='kw-blue'>undisclosed principal / undisclosed agency</span>."
+  ],
+  ans_bn: [
+    "<span class='kw-red'>অপ্রকাশিত এজেন্সি</span> তখন বিদ্যমান থাকে যখন তৃতীয় পক্ষ (T) বিশ্বাস করে যে এজেন্ট (A) <span class='kw-blue'>নিজের পক্ষে</span> কাজ করছেন।",
+    "এই পরিস্থিতিতে, তৃতীয় পক্ষ <span class='kw-red'>জানেন না</span> যে এজেন্ট একজন প্রিন্সিপালের (P) পক্ষে কাজ করছেন।",
+    "<span class='kw-blue'>প্রিন্সিপালের পরিচয়</span> চুক্তির সময় গোপন থাকে বা প্রকাশ করা হয় না।",
+    "তাই তৃতীয় পক্ষ প্রিন্সিপালের অস্তিত্ব <span class='kw-red'>না জেনেই</span> এজেন্টের সাথে চুক্তি করেন — একে বলা হয় <span class='kw-blue'>অপ্রকাশিত প্রিন্সিপাল / অপ্রকাশিত এজেন্সি</span>।"
+  ],
+  page: 16
+},
+{
+  q_en: "What are the four limitations on an undisclosed principal's right to intervene and enforce a contract? List them all.",
+  q_bn: "একজন অপ্রকাশিত প্রিন্সিপালের চুক্তিতে হস্তক্ষেপ ও তা প্রয়োগ করার অধিকারের চারটি সীমাবদ্ধতা কী কী? সবগুলো তালিকাভুক্ত করো।",
+  ans_en: [
+    "<span class='kw-red'>Capacity</span> — the undisclosed principal must have existed and had legal capacity at the time the contract was made.",
+    "<span class='kw-blue'>Agent had actual authority</span> — the principal can only intervene if the agent had actual authority to conclude the contract; an undisclosed principal can never ratify an unauthorized act.",
+    "<span class='kw-red'>The contract excludes P's intervention</span> — the principal cannot intervene if this is prohibited, expressly or impliedly, by the contract.",
+    "<span class='kw-blue'>Personal selection of the agent by the third party</span> — the principal cannot intervene if the third party contracted with the agent specifically for personal reasons (e.g., the agent's particular skills)."
+  ],
+  ans_bn: [
+    "<span class='kw-red'>সক্ষমতা (Capacity)</span> — অপ্রকাশিত প্রিন্সিপালকে চুক্তি করার সময় অবশ্যই বিদ্যমান থাকতে হবে এবং আইনি সক্ষমতা থাকতে হবে।",
+    "<span class='kw-blue'>এজেন্টের প্রকৃত ক্ষমতা ছিল</span> — প্রিন্সিপাল তখনই হস্তক্ষেপ করতে পারবেন যদি এজেন্টের চুক্তি সম্পন্ন করার প্রকৃত ক্ষমতা থাকে; একজন অপ্রকাশিত প্রিন্সিপাল কখনো অননুমোদিত কাজ অনুমোদন করতে পারেন না।",
+    "<span class='kw-red'>চুক্তি প্রিন্সিপালের হস্তক্ষেপ বাদ দেয়</span> — চুক্তিতে স্পষ্ট বা ইঙ্গিতে যদি প্রিন্সিপালের হস্তক্ষেপ নিষিদ্ধ থাকে, তবে তিনি হস্তক্ষেপ করতে পারবেন না।",
+    "<span class='kw-blue'>তৃতীয় পক্ষ কর্তৃক এজেন্টের ব্যক্তিগত নির্বাচন</span> — যদি তৃতীয় পক্ষ ব্যক্তিগত কারণে (যেমন এজেন্টের নির্দিষ্ট দক্ষতার জন্য) সেই এজেন্টের সাথেই চুক্তি করতে চেয়েছিলেন, তবে প্রিন্সিপাল হস্তক্ষেপ করতে পারবেন না।"
+  ],
+  page: "17-19"
+},
+{
+  q_en: "Explain the 'Capacity' limitation on the undisclosed principal's right to intervene, with reference to Kelner v Baxter.",
+  q_bn: "Kelner v Baxter মামলার রেফারেন্সসহ অপ্রকাশিত প্রিন্সিপালের হস্তক্ষেপের অধিকারের 'সক্ষমতা (Capacity)' সীমাবদ্ধতাটি ব্যাখ্যা করো।",
+  ans_en: [
+    "An <span class='kw-red'>undisclosed principal</span> can only intervene in a contract if he <span class='kw-blue'>was in existence and had the legal capacity</span> to make the contract at the time it was made.",
+    "This is directly relevant to <span class='kw-red'>pre-incorporation contracts</span> — where a company does not yet legally exist at the time a contract is signed on its behalf.",
+    "The case law reference here is <span class='kw-blue'>Kelner v Baxter</span>, which deals with the problem of a party contracting on behalf of a company before it is formally incorporated."
+  ],
+  ans_bn: [
+    "একজন <span class='kw-red'>অপ্রকাশিত প্রিন্সিপাল</span> তখনই একটি চুক্তিতে হস্তক্ষেপ করতে পারবেন যদি চুক্তি করার সময় তিনি <span class='kw-blue'>বিদ্যমান থাকেন এবং আইনি সক্ষমতা</span> থাকে।",
+    "এটি সরাসরি <span class='kw-red'>প্রাক-অন্তর্ভুক্তি চুক্তির (pre-incorporation contracts)</span> সাথে সম্পর্কিত — যেখানে একটি কোম্পানি তার পক্ষে চুক্তি স্বাক্ষরের সময় আইনগতভাবে এখনো অস্তিত্বে আসেনি।",
+    "এখানে মামলার রেফারেন্স হলো <span class='kw-blue'>Kelner v Baxter</span>, যা কোম্পানি আনুষ্ঠানিকভাবে গঠিত হওয়ার আগে তার পক্ষে চুক্তি করার সমস্যাটি নিয়ে আলোচনা করে।"
+  ],
+  page: 17
+},
+{
+  q_en: "Explain the limitation where a contract excludes the principal's intervention, referencing Humble v Hunter [1848].",
+  q_bn: "Humble v Hunter [1848] মামলার রেফারেন্সসহ চুক্তি যেখানে প্রিন্সিপালের হস্তক্ষেপ বাদ দেয় সেই সীমাবদ্ধতাটি ব্যাখ্যা করো।",
+  ans_en: [
+    "The principal cannot intervene if such intervention is <span class='kw-red'>prohibited by the contract</span>, either <span class='kw-blue'>expressly</span> (stated clearly) or <span class='kw-blue'>impliedly</span> (understood from the contract's terms/nature).",
+    "This limitation is illustrated by the case law <span class='kw-red'>Humble v Hunter [1848]</span>, where the terms of the contract itself indicated that the person contracting was to be treated as the true owner/principal, thus excluding intervention by any undisclosed principal.",
+    "This protects the third party's expectation that they were dealing with a specific contracting party."
+  ],
+  ans_bn: [
+    "প্রিন্সিপাল হস্তক্ষেপ করতে পারবেন না যদি চুক্তি দ্বারা তা <span class='kw-red'>নিষিদ্ধ</span> থাকে, হয় <span class='kw-blue'>স্পষ্টভাবে</span> (clearly বলা থাকে) বা <span class='kw-blue'>ইঙ্গিতে</span> (চুক্তির শর্ত/প্রকৃতি থেকে বোঝা যায়)।",
+    "এই সীমাবদ্ধতাটি <span class='kw-red'>Humble v Hunter [1848]</span> মামলার মাধ্যমে ব্যাখ্যা করা হয়, যেখানে চুক্তির শর্তগুলো নির্দেশ করে যে চুক্তিকারী ব্যক্তিকেই প্রকৃত মালিক/প্রিন্সিপাল হিসেবে গণ্য করতে হবে, ফলে কোনো অপ্রকাশিত প্রিন্সিপালের হস্তক্ষেপ বাদ যায়।",
+    "এটি তৃতীয় পক্ষের প্রত্যাশা রক্ষা করে যে তারা একটি নির্দিষ্ট চুক্তিকারী পক্ষের সাথে লেনদেন করছিলেন।"
+  ],
+  page: 18
+},
+{
+  q_en: "Explain the limitation regarding 'personal selection of agent by third party', referencing Greer v Downs Supply Co [1927].",
+  q_bn: "Greer v Downs Supply Co [1927] মামলার রেফারেন্সসহ 'তৃতীয় পক্ষ কর্তৃক এজেন্টের ব্যক্তিগত নির্বাচন' সীমাবদ্ধতাটি ব্যাখ্যা করো।",
+  ans_en: [
+    "The principal cannot intervene if the <span class='kw-red'>third party contracted with the agent for personal reasons</span> — that is, the third party specifically wanted to contract with that particular agent, for example because of the agent's <span class='kw-blue'>personal skills or reputation</span>.",
+    "This is supported by the case law <span class='kw-blue'>Greer v Downs Supply Co [1927]</span>.",
+    "The rationale is that if a third party chose to deal with the agent specifically as an individual (not merely as a stand-in for any principal), it would be unfair to force them into a contract with an undisclosed principal they never intended to deal with."
+  ],
+  ans_bn: [
+    "প্রিন্সিপাল হস্তক্ষেপ করতে পারবেন না যদি <span class='kw-red'>তৃতীয় পক্ষ ব্যক্তিগত কারণে এজেন্টের সাথে চুক্তি করে থাকেন</span> — অর্থাৎ তৃতীয় পক্ষ বিশেষভাবে সেই এজেন্টের সাথেই চুক্তি করতে চেয়েছিলেন, যেমন এজেন্টের <span class='kw-blue'>ব্যক্তিগত দক্ষতা বা সুনামের</span> কারণে।",
+    "এটি <span class='kw-blue'>Greer v Downs Supply Co [1927]</span> মামলা দ্বারা সমর্থিত।",
+    "যুক্তিটি হলো, যদি তৃতীয় পক্ষ বিশেষভাবে সেই ব্যক্তির (এজেন্ট) সাথে লেনদেন করতে চেয়ে থাকেন (কোনো প্রিন্সিপালের প্রতিনিধি হিসেবে নয়), তাহলে তাদেরকে এমন একজন অপ্রকাশিত প্রিন্সিপালের সাথে চুক্তিতে বাধ্য করা অন্যায্য হবে, যার সাথে তারা কখনো লেনদেন করতে চাননি।"
+  ],
+  page: 19
+},
+{
+  q_en: "What is the homework assignment given at the end of this chapter?",
+  q_bn: "এই অধ্যায়ের শেষে দেওয়া বাড়ির কাজ (হোমওয়ার্ক) কী?",
+  ans_en: [
+    "Discuss the applications of <span class='kw-red'>Building Information Modeling (BIM)</span> in <span class='kw-blue'>construction contracts</span>."
+  ],
+  ans_bn: [
+    "<span class='kw-blue'>নির্মাণ চুক্তিতে</span> <span class='kw-red'>বিল্ডিং ইনফরমেশন মডেলিং (BIM)</span>-এর প্রয়োগ নিয়ে আলোচনা করো।"
+  ],
+  page: 20
+}
+];
+
+// Build cards
+const container = document.getElementById('qaContainer');
+qaData.forEach((item, idx) => {
+  const card = document.createElement('div');
+  card.className = 'qa-card';
+
+  const q = document.createElement('div');
+  q.className = 'qa-question';
+  q.innerHTML = `
+    <div class="q-text-wrap">
+      <div class="q-en"><span class="q-index">Q${idx+1}.</span>${item.q_en}</div>
+      <div class="q-bn">${item.q_bn}</div>
+    </div>
+    <div class="chevron">▾</div>
+  `;
+
+  const ansEnList = item.ans_en.map(li => `<li>${li}</li>`).join('');
+  const ansBnList = item.ans_bn.map(li => `<li>${li}</li>`).join('');
+
+  const a = document.createElement('div');
+  a.className = 'qa-answer';
+  a.innerHTML = `
+    <div class="qa-answer-inner">
+      <div class="answer-block-en">
+        <div class="answer-label">Answer</div>
+        <ul class="ans-list">${ansEnList}</ul>
+      </div>
+      <div class="answer-block-bn">
+        <div class="answer-label">উত্তর (বাংলা)</div>
+        <ul class="ans-list bn">${ansBnList}</ul>
+      </div>
+      <span class="page-ref">Page ${item.page}</span>
+    </div>
+  `;
+
+  q.addEventListener('click', () => {
+    const isOpen = card.classList.contains('open');
+    if(isOpen){
+      card.classList.remove('open');
+      a.style.maxHeight = null;
+    } else {
+      card.classList.add('open');
+      a.style.maxHeight = a.scrollHeight + 'px';
+    }
+  });
+
+  card.appendChild(q);
+  card.appendChild(a);
+  container.appendChild(card);
+});
+
+document.getElementById('totalCount').textContent = qaData.length + ' Questions Included';
+
+// Expand / Collapse all
+let allOpen = false;
+document.getElementById('toggleAllBtn').addEventListener('click', function(){
+  allOpen = !allOpen;
+  const cards = document.querySelectorAll('.qa-card');
+  cards.forEach(card => {
+    const answer = card.querySelector('.qa-answer');
+    if(allOpen){
+      card.classList.add('open');
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+    } else {
+      card.classList.remove('open');
+      answer.style.maxHeight = null;
+    }
+  });
+  this.textContent = allOpen ? 'Collapse All' : 'Expand All';
+});
+
+// Search filter
+document.getElementById('searchInput').addEventListener('input', function(e){
+  const term = e.target.value.toLowerCase();
+  const cards = document.querySelectorAll('.qa-card');
+  cards.forEach(card => {
+    const text = card.textContent.toLowerCase();
+    card.style.display = text.includes(term) ? '' : 'none';
+  });
+});
+
+// Recalculate max-height on window resize for open cards (responsiveness)
+window.addEventListener('resize', () => {
+  document.querySelectorAll('.qa-card.open .qa-answer').forEach(a => {
+    a.style.maxHeight = a.scrollHeight + 'px';
+  });
+});
+</script>
+
+</body>
+</html>

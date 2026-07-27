@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Indemnity Agreement — BECM 3107 | Interactive Q&A</title>
+<style>
+  :root{
+    --navy:#0b1f3a;
+    --navy-2:#122a4d;
+    --accent:#b0241a;
+    --accent-2:#1f5fa8;
+    --gold:#d4a017;
+    --bg:#f4f6fb;
+    --card:#ffffff;
+    --text:#1c2530;
+    --muted:#5c6b7a;
+    --bn:#3a4a5a;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Segoe UI', Tahoma, Verdana, sans-serif;
+    background:linear-gradient(180deg,#eef2f9 0%, #f4f6fb 100%);
+    color:var(--text);
+    padding-bottom:60px;
+  }
+  header{
+    background:linear-gradient(135deg,var(--navy) 0%, var(--navy-2) 60%, #1a3a63 100%);
+    color:#fff;
+    padding:44px 20px 34px;
+    text-align:center;
+    box-shadow:0 6px 18px rgba(0,0,0,0.18);
+  }
+  header h1{
+    margin:0 0 6px;
+    font-size:1.9rem;
+    letter-spacing:0.5px;
+  }
+  header .course-code{
+    color:var(--gold);
+    font-weight:600;
+    font-size:1.05rem;
+    letter-spacing:1px;
+  }
+  header p.subtitle{
+    margin:10px auto 0;
+    max-width:680px;
+    color:#cfd9e8;
+    font-size:0.95rem;
+    line-height:1.5;
+  }
+  .container{
+    max-width:920px;
+    margin:0 auto;
+    padding:28px 16px 0;
+  }
+  .stats{
+    display:flex;
+    justify-content:center;
+    gap:14px;
+    flex-wrap:wrap;
+    margin:-22px auto 24px;
+    max-width:920px;
+    padding:0 16px;
+  }
+  .stat-pill{
+    background:var(--card);
+    border-radius:30px;
+    padding:8px 18px;
+    font-size:0.85rem;
+    box-shadow:0 4px 14px rgba(20,40,80,0.10);
+    color:var(--navy-2);
+    font-weight:600;
+  }
+  .controls{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    margin-bottom:18px;
+    flex-wrap:wrap;
+  }
+  .search-box{
+    flex:1;
+    min-width:220px;
+    position:relative;
+  }
+  .search-box input{
+    width:100%;
+    padding:11px 14px 11px 38px;
+    border-radius:10px;
+    border:1px solid #d6dde8;
+    font-size:0.92rem;
+    background:#fff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%235c6b7a"><circle cx="6.5" cy="6.5" r="5" fill="none" stroke="%235c6b7a" stroke-width="1.5"/><line x1="10.2" y1="10.2" x2="15" y2="15" stroke="%235c6b7a" stroke-width="1.5"/></svg>') no-repeat 12px center;
+    outline:none;
+    transition:border-color .2s;
+  }
+  .search-box input:focus{ border-color:var(--accent-2); }
+  .toggle-btn{
+    background:var(--navy);
+    color:#fff;
+    border:none;
+    padding:11px 18px;
+    border-radius:10px;
+    font-size:0.85rem;
+    cursor:pointer;
+    font-weight:600;
+    white-space:nowrap;
+    transition:background .2s, transform .15s;
+  }
+  .toggle-btn:hover{ background:var(--navy-2); transform:translateY(-1px); }
+
+  .qa-card{
+    background:var(--card);
+    border-radius:14px;
+    margin-bottom:14px;
+    box-shadow:0 3px 12px rgba(20,40,80,0.08);
+    overflow:hidden;
+    border-left:5px solid var(--accent-2);
+    transition:box-shadow .2s, transform .15s;
+  }
+  .qa-card:hover{ box-shadow:0 8px 22px rgba(20,40,80,0.14); }
+  .qa-card.open{ border-left-color:var(--accent); }
+
+  .qa-question{
+    padding:18px 20px;
+    cursor:pointer;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:14px;
+    user-select:none;
+  }
+  .q-index{
+    color:var(--accent-2);
+    font-weight:800;
+    margin-right:8px;
+    font-size:0.95rem;
+  }
+  .q-text-wrap{ flex:1; }
+  .q-en{
+    font-size:1.02rem;
+    font-weight:650;
+    color:var(--navy-2);
+    line-height:1.45;
+  }
+  .q-bn{
+    font-size:0.92rem;
+    color:var(--bn);
+    margin-top:4px;
+    line-height:1.5;
+    font-family:'Noto Sans Bengali','Segoe UI',sans-serif;
+  }
+  .chevron{
+    flex-shrink:0;
+    width:26px;
+    height:26px;
+    border-radius:50%;
+    background:#eef2f9;
+    color:var(--navy-2);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1rem;
+    transition:transform .3s, background .3s, color .3s;
+    margin-top:2px;
+  }
+  .qa-card.open .chevron{
+    transform:rotate(180deg);
+    background:var(--accent);
+    color:#fff;
+  }
+
+  .qa-answer{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .38s ease;
+    background:#fbfcfe;
+    border-top:1px dashed #dfe6ef;
+  }
+  .qa-answer-inner{
+    padding:18px 22px 20px 22px;
+  }
+  .answer-block-en, .answer-block-bn{
+    margin-bottom:10px;
+  }
+  .answer-label{
+    font-size:0.72rem;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    color:var(--muted);
+    font-weight:700;
+    margin-bottom:6px;
+  }
+  ul.ans-list{
+    margin:0 0 4px 0;
+    padding-left:20px;
+  }
+  ul.ans-list li{
+    margin-bottom:7px;
+    line-height:1.55;
+    font-size:0.95rem;
+  }
+  ul.ans-list.bn li{
+    font-family:'Noto Sans Bengali','Segoe UI',sans-serif;
+    font-size:0.93rem;
+    color:var(--bn);
+  }
+  .kw-red{ color:#b0241a; font-weight:700; }
+  .kw-blue{ color:#1f5fa8; font-weight:700; }
+  .page-ref{
+    display:inline-block;
+    margin-top:6px;
+    background:var(--navy);
+    color:#fff;
+    padding:3px 12px;
+    border-radius:20px;
+    font-size:0.75rem;
+    font-weight:600;
+  }
+  footer{
+    text-align:center;
+    color:var(--muted);
+    font-size:0.8rem;
+    margin-top:40px;
+  }
+  @media (max-width:600px){
+    header h1{ font-size:1.5rem; }
+    .q-en{ font-size:0.95rem; }
+    .controls{ flex-direction:column; align-items:stretch; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="course-code">BECM 3107 — Construction Contract &amp; Law</div>
+  <h1>Indemnity Agreement — Interactive Q&amp; A</h1>
+  <div class="course-code" style="font-family:'Noto Sans Bengali','Segoe UI',sans-serif; font-weight:400; color:#cfd9e8; font-size:0.95rem;">ইনডেমনিটি চুক্তি — ইন্টারঅ্যাকটিভ প্রশ্নোত্তর</div>
+  <p class="subtitle">Based on the lecture by Sanjida Afrin Sworna, Part-Time Teacher, Department of BECM, KUET. Click any question to reveal the answer.</p>
+</header>
+
+<div class="stats">
+  <div class="stat-pill" id="totalCount">Loading...</div>
+  <div class="stat-pill">📄 22 Slides Covered</div>
+  <div class="stat-pill">🌐 English + বাংলা</div>
+</div>
+
+<div class="container">
+  <div class="controls">
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Search questions... / প্রশ্ন খুঁজুন...">
+    </div>
+    <button class="toggle-btn" id="toggleAllBtn">Expand All</button>
+  </div>
+
+  <div id="qaContainer"></div>
+</div>
+
+<footer>Prepared from "BECM 3107 – Indemnity Agreement" slide deck • For study purposes</footer>
+
+<script>
+const qaData = [
+{
+  q_en: "What is 'Indemnity'? Give both definitions discussed in the lecture.",
+  q_bn: "'ইনডেমনিটি (Indemnity)' কী? লেকচারে আলোচিত উভয় সংজ্ঞা দাও।",
+  ans_en: [
+    "<span class='kw-red'>Indemnity</span> is <span class='kw-blue'>holding someone harmless</span> for something.",
+    "It is also defined as a <span class='kw-red'>contract</span> by which one party <span class='kw-blue'>agrees to save another</span> from a <span class='kw-blue'>legal consequence</span> of the conduct of one of the parties to the agreement, or of some other person."
+  ],
+  ans_bn: [
+    "<span class='kw-red'>ইনডেমনিটি</span> মানে কোনো কিছুর জন্য কাউকে <span class='kw-blue'>ক্ষতিমুক্ত রাখা (harmless রাখা)</span>।",
+    "এটি একটি <span class='kw-red'>চুক্তি</span> হিসেবেও সংজ্ঞায়িত করা হয়, যার মাধ্যমে একজন পক্ষ চুক্তির অন্য পক্ষের বা অন্য কোনো ব্যক্তির আচরণের <span class='kw-blue'>আইনি পরিণতি</span> থেকে অন্য একজনকে <span class='kw-blue'>রক্ষা করতে সম্মত হন</span>।"
+  ],
+  page: 2
+},
+{
+  q_en: "Who is the 'Indemnitee'? Explain with an example involving a general contractor, owner, and subcontractor.",
+  q_bn: "'ইনডেমনিটি (Indemnitee)' কে? জেনারেল কন্ট্রাক্টর, মালিক এবং সাবকন্ট্রাক্টর সংশ্লিষ্ট একটি উদাহরণসহ ব্যাখ্যা করো।",
+  ans_en: [
+    "The <span class='kw-red'>Indemnitee</span> is <span class='kw-blue'>the party claiming indemnity</span>.",
+    "When a <span class='kw-red'>general contractor</span> agrees to indemnify and hold harmless the <span class='kw-blue'>owner</span>, then the <span class='kw-blue'>owner is the indemnitee</span>.",
+    "Similarly, when the <span class='kw-red'>subcontractor</span> agrees to indemnify and hold harmless the <span class='kw-blue'>general contractor</span>, then the <span class='kw-blue'>general contractor is the indemnitee</span>."
+  ],
+  ans_bn: [
+    "<span class='kw-red'>ইনডেমনিটি (Indemnitee)</span> হলো <span class='kw-blue'>যে পক্ষ ইনডেমনিটি দাবি করে</span>।",
+    "যখন একজন <span class='kw-red'>জেনারেল কন্ট্রাক্টর</span> <span class='kw-blue'>মালিককে</span> ইনডেমনিফাই ও হোল্ড হারমলেস করতে সম্মত হন, তখন <span class='kw-blue'>মালিকই ইনডেমনিটি (indemnitee)</span>।",
+    "একইভাবে, যখন <span class='kw-red'>সাবকন্ট্রাক্টর</span> <span class='kw-blue'>জেনারেল কন্ট্রাক্টরকে</span> ইনডেমনিফাই ও হোল্ড হারমলেস করতে সম্মত হন, তখন <span class='kw-blue'>জেনারেল কন্ট্রাক্টরই ইনডেমনিটি (indemnitee)</span>।"
+  ],
+  page: 3
+},
+{
+  q_en: "Who is the 'Indemnitor'? In a general contractor vs. subcontractor context, who typically plays this role?",
+  q_bn: "'ইনডেমনিটর (Indemnitor)' কে? জেনারেল কন্ট্রাক্টর বনাম সাবকন্ট্রাক্টরের প্রেক্ষাপটে সাধারণত কে এই ভূমিকা পালন করেন?",
+  ans_en: [
+    "The <span class='kw-red'>Indemnitor</span> is <span class='kw-blue'>the party who agrees to assume the responsibility</span> for the loss.",
+    "When a <span class='kw-red'>general contractor</span> agrees to indemnify and hold harmless the owner, the <span class='kw-blue'>general contractor is the indemnitor</span>.",
+    "In the context of <span class='kw-red'>general contractor v. subcontractor</span>, it is generally the <span class='kw-blue'>subcontractor as the indemnitor</span> who agrees to indemnify the general contractor."
+  ],
+  ans_bn: [
+    "<span class='kw-red'>ইনডেমনিটর (Indemnitor)</span> হলো <span class='kw-blue'>যে পক্ষ ক্ষতির দায়িত্ব গ্রহণ করতে সম্মত হন</span>।",
+    "যখন একজন <span class='kw-red'>জেনারেল কন্ট্রাক্টর</span> মালিককে ইনডেমনিফাই ও হোল্ড হারমলেস করতে সম্মত হন, তখন <span class='kw-blue'>জেনারেল কন্ট্রাক্টরই ইনডেমনিটর</span>।",
+    "<span class='kw-red'>জেনারেল কন্ট্রাক্টর বনাম সাবকন্ট্রাক্টরের</span> প্রেক্ষাপটে সাধারণত <span class='kw-blue'>সাবকন্ট্রাক্টরই ইনডেমনিটর</span> হিসেবে জেনারেল কন্ট্রাক্টরকে ইনডেমনিফাই করতে সম্মত হন।"
+  ],
+  page: 4
+},
+{
+  q_en: "Why is it important for owners and contractors to read and understand indemnity clauses before signing a contract?",
+  q_bn: "চুক্তিতে স্বাক্ষর করার আগে মালিক ও কন্ট্রাক্টরদের জন্য ইনডেমনিটি ধারা পড়া ও বোঝা কেন গুরুত্বপূর্ণ?",
+  ans_en: [
+    "<span class='kw-red'>Indemnity clauses manage the risk</span> borne by a party, so it is important to <span class='kw-blue'>read and understand the terms before signing</span>.",
+    "Otherwise, a party risks <span class='kw-red'>carrying the full burden of liability</span>, irrespective of the conduct of the other party.",
+    "Indemnities frequently <span class='kw-blue'>extend beyond the risks and amounts covered by insurance</span>, and in some cases could even <span class='kw-red'>affect the insurance cover itself</span>."
+  ],
+  ans_bn: [
+    "<span class='kw-red'>ইনডেমনিটি ধারা</span> একটি পক্ষের বহন করা ঝুঁকি পরিচালনা করে, তাই স্বাক্ষরের আগে <span class='kw-blue'>শর্তাবলী পড়া ও বোঝা</span> গুরুত্বপূর্ণ।",
+    "নাহলে, অন্য পক্ষের আচরণ নির্বিশেষে একটি পক্ষ <span class='kw-red'>পুরো দায়বদ্ধতার বোঝা</span> বহন করার ঝুঁকিতে পড়তে পারে।",
+    "ইনডেমনিটি প্রায়ই <span class='kw-blue'>বীমা দ্বারা কভার করা ঝুঁকি ও পরিমাণের বাইরেও প্রসারিত</span> হয়, এবং কিছু ক্ষেত্রে এটি <span class='kw-red'>বীমা কভারকেই প্রভাবিত করতে পারে</span>।"
+  ],
+  page: 5
+},
+{
+  q_en: "What are the two types of indemnity?",
+  q_bn: "ইনডেমনিটির দুটি প্রকার কী কী?",
+  ans_en: [
+    "<span class='kw-red'>Implied</span> Indemnity.",
+    "<span class='kw-blue'>Express</span> Indemnity."
+  ],
+  ans_bn: [
+    "<span class='kw-red'>অন্তর্নিহিত (Implied)</span> ইনডেমনিটি।",
+    "<span class='kw-blue'>স্পষ্ট (Express)</span> ইনডেমনিটি।"
+  ],
+  page: 6
+},
+{
+  q_en: "What is Implied Contractual Indemnity? Give examples of situations it can arise from.",
+  q_bn: "অন্তর্নিহিত চুক্তিগত ইনডেমনিটি (Implied Contractual Indemnity) কী? এটি কোন কোন পরিস্থিতি থেকে উদ্ভূত হতে পারে তার উদাহরণ দাও।",
+  ans_en: [
+    "<span class='kw-red'>Implied Contractual Indemnity</span> is based upon some <span class='kw-blue'>underlying contractual relationship</span> between the indemnitee and the indemnitor.",
+    "The indemnitor's liability arises from the indemnitor's <span class='kw-red'>breach of an implied contractual duty</span> owed to the indemnitee.",
+    "Examples include an implied promise to <span class='kw-blue'>perform work under a contract safely and carefully</span>, and to <span class='kw-blue'>perform contract services skillfully and properly</span>."
+  ],
+  ans_bn: [
+    "<span class='kw-red'>অন্তর্নিহিত চুক্তিগত ইনডেমনিটি</span> ইনডেমনিটি ও ইনডেমনিটরের মধ্যে বিদ্যমান কোনো <span class='kw-blue'>অন্তর্নিহিত চুক্তিগত সম্পর্কের</span> উপর ভিত্তি করে গড়ে ওঠে।",
+    "ইনডেমনিটরের দায়বদ্ধতা তৈরি হয় ইনডেমনিটির প্রতি থাকা <span class='kw-red'>অন্তর্নিহিত চুক্তিগত দায়িত্ব লঙ্ঘনের</span> মাধ্যমে।",
+    "উদাহরণস্বরূপ, চুক্তির অধীনে কাজ <span class='kw-blue'>নিরাপদে ও যত্নসহকারে সম্পন্ন করার</span> এবং সেবা <span class='kw-blue'>দক্ষভাবে ও সঠিকভাবে সম্পাদনের</span> একটি অন্তর্নিহিত প্রতিশ্রুতি।"
+  ],
+  page: 7
+},
+{
+  q_en: "What is Express Contractual Indemnity, and what determines its scope?",
+  q_bn: "স্পষ্ট চুক্তিগত ইনডেমনিটি (Express Contractual Indemnity) কী, এবং এর পরিধি কী দ্বারা নির্ধারিত হয়?",
+  ans_en: [
+    "<span class='kw-red'>Express Contractual Indemnity</span> is based upon a <span class='kw-blue'>written agreement</span> by one person to indemnify or hold another harmless from the legal consequences of its conduct.",
+    "The <span class='kw-red'>scope</span> of Express Contractual Indemnity depends entirely upon the <span class='kw-blue'>wording of the indemnity language</span> used in the contract."
+  ],
+  ans_bn: [
+    "<span class='kw-red'>স্পষ্ট চুক্তিগত ইনডেমনিটি</span> একজন ব্যক্তির <span class='kw-blue'>লিখিত চুক্তির</span> ভিত্তিতে গড়ে ওঠে, যেখানে তিনি তার আচরণের আইনি পরিণতি থেকে অন্য কাউকে ইনডেমনিফাই বা হারমলেস রাখতে সম্মত হন।",
+    "স্পষ্ট চুক্তিগত ইনডেমনিটির <span class='kw-red'>পরিধি</span> সম্পূর্ণরূপে চুক্তিতে ব্যবহৃত <span class='kw-blue'>ইনডেমনিটি ভাষার শব্দচয়নের</span> উপর নির্ভর করে।"
+  ],
+  page: 8
+},
+{
+  q_en: "If an express indemnity agreement applies to a loss and both the indemnitee's and indemnitor's general liability insurance policies apply, whose policy provides primary coverage (absent a contrary written agreement)?",
+  q_bn: "যদি একটি স্পষ্ট ইনডেমনিটি চুক্তি কোনো ক্ষতির ক্ষেত্রে প্রযোজ্য হয় এবং ইনডেমনিটি ও ইনডেমনিটর উভয়ের জেনারেল লায়াবিলিটি বীমা প্রযোজ্য হয়, তাহলে (বিপরীত কোনো লিখিত চুক্তি না থাকলে) কার পলিসি প্রাথমিক (primary) কভারেজ প্রদান করে?",
+  ans_en: [
+    "In the <span class='kw-red'>absence of a prior written agreement to the contrary</span>, the <span class='kw-blue'>indemnitor's policy will be considered to provide primary coverage</span>.",
+    "This applies when an express indemnity agreement covers the loss and both parties' general liability insurance policies also apply to it."
+  ],
+  ans_bn: [
+    "<span class='kw-red'>বিপরীত কোনো পূর্ববর্তী লিখিত চুক্তি না থাকলে</span>, <span class='kw-blue'>ইনডেমনিটরের পলিসিকেই প্রাথমিক (primary) কভারেজ</span> প্রদানকারী হিসেবে গণ্য করা হবে।",
+    "এটি তখন প্রযোজ্য যখন একটি স্পষ্ট ইনডেমনিটি চুক্তি ক্ষতিটি কভার করে এবং উভয় পক্ষের জেনারেল লায়াবিলিটি বীমা পলিসিও তাতে প্রযোজ্য।"
+  ],
+  page: 9
+},
+{
+  q_en: "Define an 'Indemnity Agreement'. What additional promise can it include besides paying for liability?",
+  q_bn: "'ইনডেমনিটি চুক্তি (Indemnity Agreement)'-এর সংজ্ঞা দাও। দায়বদ্ধতার জন্য অর্থ প্রদান ছাড়াও এতে আর কী প্রতিশ্রুতি অন্তর্ভুক্ত থাকতে পারে?",
+  ans_en: [
+    "An <span class='kw-red'>indemnity agreement</span> is an <span class='kw-blue'>express, contractual promise</span> by one party (the 'indemnitor') to <span class='kw-blue'>pay for the liability</span> of another party (the 'indemnitee').",
+    "It can also include a promise to <span class='kw-red'>defend the indemnified party</span> in a claim or litigation (court case / legal action)."
+  ],
+  ans_bn: [
+    "<span class='kw-red'>ইনডেমনিটি চুক্তি</span> হলো একজন পক্ষের ('ইনডেমনিটর') পক্ষ থেকে অন্য একজন পক্ষের ('ইনডেমনিটি') <span class='kw-blue'>দায়বদ্ধতার জন্য অর্থ পরিশোধের</span> একটি <span class='kw-blue'>স্পষ্ট, চুক্তিগত প্রতিশ্রুতি</span>।",
+    "এতে ইনডেমনিফাইড পক্ষকে কোনো দাবি বা মামলায় (কোর্ট কেস/আইনি পদক্ষেপ) <span class='kw-red'>রক্ষা করার (defend) প্রতিশ্রুতিও</span> অন্তর্ভুক্ত থাকতে পারে।"
+  ],
+  page: 10
+},
+{
+  q_en: "What does an indemnity agreement determine, what law governs such agreements, and why is clarity important in the provision?",
+  q_bn: "একটি ইনডেমনিটি চুক্তি কী নির্ধারণ করে, এই ধরনের চুক্তি কোন আইন দ্বারা পরিচালিত হয়, এবং ধারায় স্পষ্টতা কেন গুরুত্বপূর্ণ?",
+  ans_en: [
+    "An indemnity agreement determines <span class='kw-red'>who will bear the loss</span>.",
+    "Indemnity agreements are generally governed by the <span class='kw-blue'>law of contracts</span>.",
+    "If indemnity is to be provided under a contract, the provision must be <span class='kw-red'>clear</span> — <span class='kw-blue'>clarity is very important</span>.",
+    "An <span class='kw-red'>express contract provision</span> ordinarily <span class='kw-blue'>controls over equitable/fair principles</span>."
+  ],
+  ans_bn: [
+    "একটি ইনডেমনিটি চুক্তি নির্ধারণ করে <span class='kw-red'>কে ক্ষতি বহন করবে</span>।",
+    "ইনডেমনিটি চুক্তি সাধারণত <span class='kw-blue'>চুক্তি আইন (law of contracts)</span> দ্বারা পরিচালিত হয়।",
+    "চুক্তির অধীনে ইনডেমনিটি প্রদান করতে হলে, ধারাটি অবশ্যই <span class='kw-red'>স্পষ্ট</span> হতে হবে — <span class='kw-blue'>স্পষ্টতা অত্যন্ত গুরুত্বপূর্ণ</span>।",
+    "একটি <span class='kw-red'>স্পষ্ট চুক্তির ধারা</span> সাধারণত <span class='kw-blue'>ন্যায্য/সমতাভিত্তিক নীতির উপর প্রাধান্য পায়</span>।"
+  ],
+  page: 11
+},
+{
+  q_en: "What is the key concept behind an indemnity agreement, and what determines the indemnitor's liability?",
+  q_bn: "ইনডেমনিটি চুক্তির মূল ধারণা কী, এবং ইনডেমনিটরের দায়বদ্ধতা কী দ্বারা নির্ধারিত হয়?",
+  ans_en: [
+    "The key concept of an indemnity agreement is <span class='kw-red'>holding the indemnitee harmless</span> and <span class='kw-blue'>relieved of liability</span> according to the agreement's terms.",
+    "The <span class='kw-red'>indemnitor's liability</span> under an indemnity agreement is <span class='kw-blue'>determined by the provisions of the agreement</span> itself."
+  ],
+  ans_bn: [
+    "ইনডেমনিটি চুক্তির মূল ধারণা হলো চুক্তির শর্ত অনুযায়ী ইনডেমনিটিকে <span class='kw-red'>ক্ষতিমুক্ত (harmless)</span> রাখা এবং <span class='kw-blue'>দায়বদ্ধতা থেকে মুক্ত</span> রাখা।",
+    "ইনডেমনিটি চুক্তির অধীনে <span class='kw-red'>ইনডেমনিটরের দায়বদ্ধতা</span> নির্ধারিত হয় চুক্তির নিজস্ব <span class='kw-blue'>শর্তাবলী দ্বারা</span>।"
+  ],
+  page: 12
+},
+{
+  q_en: "What insurance-related consequences should parties beware of when signing a contractual indemnity?",
+  q_bn: "একটি চুক্তিগত ইনডেমনিটিতে স্বাক্ষর করার সময় পক্ষগুলোর বীমা-সম্পর্কিত কী পরিণতি সম্পর্কে সতর্ক থাকা উচিত?",
+  ans_en: [
+    "Many insurance policies <span class='kw-red'>specifically exclude liability incurred under a contractual indemnity</span>.",
+    "This means you may <span class='kw-blue'>not be covered by insurance</span> for the categories of risk you assume by the contract, and the categories of loss, damage, or exposure you agree to be liable for.",
+    "Always make sure your <span class='kw-red'>indemnity obligations and insurance coverage match</span>; otherwise, you may be <span class='kw-blue'>personally exposed to major financial risk</span>."
+  ],
+  ans_bn: [
+    "অনেক বীমা পলিসি <span class='kw-red'>চুক্তিগত ইনডেমনিটির অধীনে ঘটা দায়বদ্ধতা নির্দিষ্টভাবে বাদ (exclude)</span> দেয়।",
+    "অর্থাৎ, চুক্তির মাধ্যমে আপনি যে ঝুঁকির শ্রেণি বহন করেন এবং যে ক্ষতি, ক্ষয়ক্ষতি বা এক্সপোজারের জন্য দায়ী থাকতে সম্মত হন, তার জন্য আপনি <span class='kw-blue'>বীমা দ্বারা কভার নাও হতে পারেন</span>।",
+    "সবসময় নিশ্চিত করুন যে আপনার <span class='kw-red'>ইনডেমনিটি বাধ্যবাধকতা ও বীমা কভারেজ মিলছে কিনা</span>; নাহলে আপনি বড় ধরনের <span class='kw-blue'>আর্থিক ঝুঁকিতে ব্যক্তিগতভাবে উন্মুক্ত হতে পারেন</span>।"
+  ],
+  page: 13
+},
+{
+  q_en: "List the four key questions you should always ask regarding an indemnity clause.",
+  q_bn: "একটি ইনডেমনিটি ধারা সম্পর্কে সবসময় জিজ্ঞাসা করা উচিত এমন চারটি মূল প্রশ্ন তালিকাভুক্ত করো।",
+  ans_en: [
+    "Is the indemnity <span class='kw-red'>manageable</span>?",
+    "Does it <span class='kw-blue'>affect your insurance</span>?",
+    "Are you <span class='kw-red'>covered by insurance</span> for the risk?",
+    "If not, are you <span class='kw-blue'>prepared to run the risk</span> of the indemnity being called upon?"
+  ],
+  ans_bn: [
+    "ইনডেমনিটি কি <span class='kw-red'>পরিচালনাযোগ্য (manageable)</span>?",
+    "এটি কি আপনার <span class='kw-blue'>বীমাকে প্রভাবিত করে</span>?",
+    "ঝুঁকির জন্য আপনি কি <span class='kw-red'>বীমা দ্বারা কভার</span> আছেন?",
+    "যদি না থাকেন, তাহলে ইনডেমনিটি ডাকা হলে সেই <span class='kw-blue'>ঝুঁকি নিতে আপনি প্রস্তুত কিনা</span>?"
+  ],
+  page: 14
+},
+{
+  q_en: "Why would a party want to obtain an indemnity agreement from another party?",
+  q_bn: "একটি পক্ষ কেন অন্য পক্ষের কাছ থেকে একটি ইনডেমনিটি চুক্তি চাইবে?",
+  ans_en: [
+    "So that the <span class='kw-red'>indemnitee</span> doesn't have to <span class='kw-blue'>pay a claim or judgment</span> against them.",
+    "This applies specifically to claims/judgments that are <span class='kw-red'>attributable to the indemnitor's negligence</span> — whether on the indemnitee's property or otherwise."
+  ],
+  ans_bn: [
+    "যাতে <span class='kw-red'>ইনডেমনিটি (indemnitee)</span>-কে তার বিরুদ্ধে আনা কোনো <span class='kw-blue'>দাবি বা রায়ের অর্থ পরিশোধ</span> করতে না হয়।",
+    "এটি বিশেষভাবে প্রযোজ্য এমন দাবি/রায়ের জন্য যা <span class='kw-red'>ইনডেমনিটরের অবহেলার কারণে</span> ঘটে — তা ইনডেমনিটির সম্পত্তিতে হোক বা অন্য কোথাও।"
+  ],
+  page: 15
+},
+{
+  q_en: "Before agreeing to indemnify someone (i.e., before becoming an indemnitor), what should you always check?",
+  q_bn: "কাউকে ইনডেমনিফাই করতে সম্মত হওয়ার আগে (অর্থাৎ ইনডেমনিটর হওয়ার আগে), সবসময় কী পরীক্ষা করা উচিত?",
+  ans_en: [
+    "Always check whether your <span class='kw-red'>insurance actually covers that contractual promise</span> before agreeing to indemnify someone.",
+    "Otherwise, you may be <span class='kw-blue'>personally exposed to the loss</span> if a claim arises."
+  ],
+  ans_bn: [
+    "কাউকে ইনডেমনিফাই করতে সম্মত হওয়ার আগে সবসময় পরীক্ষা করুন যে আপনার <span class='kw-red'>বীমা প্রকৃতপক্ষে সেই চুক্তিগত প্রতিশ্রুতি কভার করে কিনা</span>।",
+    "নাহলে, কোনো দাবি উঠলে আপনি <span class='kw-blue'>ব্যক্তিগতভাবে সেই ক্ষতির ঝুঁকিতে</span> পড়তে পারেন।"
+  ],
+  page: 16
+},
+{
+  q_en: "What key decisions do the contracting parties make when determining the scope of an indemnity agreement?",
+  q_bn: "একটি ইনডেমনিটি চুক্তির পরিধি নির্ধারণ করার সময় চুক্তিকারী পক্ষগুলো কোন মূল সিদ্ধান্তগুলো নেয়?",
+  ans_en: [
+    "The contracting parties decide the <span class='kw-red'>scope of the indemnity agreement</span>.",
+    "Question 1: Will it be <span class='kw-blue'>limited to the negligence</span> of the indemnifying party?",
+    "Question 2: Will it be an agreement to <span class='kw-red'>\"defend, hold harmless and indemnify\"</span> against <span class='kw-blue'>any claim</span> brought against the indemnitee?"
+  ],
+  ans_bn: [
+    "চুক্তিকারী পক্ষগুলো <span class='kw-red'>ইনডেমনিটি চুক্তির পরিধি</span> নির্ধারণ করে।",
+    "প্রশ্ন ১: এটি কি ইনডেমনিফাইং পক্ষের <span class='kw-blue'>অবহেলার (negligence) মধ্যে সীমাবদ্ধ</span> থাকবে?",
+    "প্রশ্ন ২: এটি কি ইনডেমনিটির বিরুদ্ধে আনা <span class='kw-blue'>যেকোনো দাবির</span> বিরুদ্ধে <span class='kw-red'>\"defend, hold harmless and indemnify\"</span>-এর একটি চুক্তি হবে?"
+  ],
+  page: 17
+},
+{
+  q_en: "What are the three 'other protections' a party can seek in addition to an indemnity clause, and how does each help?",
+  q_bn: "ইনডেমনিটি ধারার পাশাপাশি একটি পক্ষ আরও কোন তিনটি সুরক্ষা চাইতে পারে, এবং প্রতিটি কীভাবে সাহায্য করে?",
+  ans_en: [
+    "<span class='kw-red'>Be added as an additional insured</span> — ask the other party to include you in their liability insurance policy, so you also receive protection under their insurance if a claim arises.",
+    "<span class='kw-blue'>Require adequate insurance coverage</span> — make sure the other party has insurance with sufficient limits for each accident (per occurrence) and for all claims during the policy period (aggregate), ensuring enough money to cover losses.",
+    "<span class='kw-red'>Make their insurance pay first</span> — require that the other party's insurance is <span class='kw-blue'>primary</span>, meaning it must pay any valid claim before your own insurance policy is used, protecting your insurance and reducing your financial risk."
+  ],
+  ans_bn: [
+    "<span class='kw-red'>অতিরিক্ত ইন্স্যুরড (additional insured) হিসেবে যুক্ত হওয়া</span> — অন্য পক্ষকে তাদের লায়াবিলিটি বীমা পলিসিতে আপনাকে অন্তর্ভুক্ত করতে বলুন, যাতে কোনো দাবি উঠলে আপনিও তাদের বীমার অধীনে সুরক্ষা পান।",
+    "<span class='kw-blue'>পর্যাপ্ত বীমা কভারেজ চাওয়া</span> — নিশ্চিত করুন যে অন্য পক্ষের প্রতিটি দুর্ঘটনার (per occurrence) এবং পলিসি মেয়াদে সব দাবির (aggregate) জন্য পর্যাপ্ত সীমার বীমা আছে, যাতে ক্ষতি পূরণের জন্য যথেষ্ট অর্থ থাকে।",
+    "<span class='kw-red'>তাদের বীমাকে আগে পরিশোধ করতে বাধ্য করা</span> — অন্য পক্ষের বীমাকে <span class='kw-blue'>প্রাথমিক (primary)</span> করতে বলুন, অর্থাৎ আপনার নিজের বীমা ব্যবহারের আগে তাদের বীমাকেই বৈধ দাবি পরিশোধ করতে হবে, যা আপনার বীমা সুরক্ষিত রাখে এবং আর্থিক ঝুঁকি কমায়।"
+  ],
+  page: 18
+},
+{
+  q_en: "How do courts generally interpret indemnity agreements, and what limitations exist regarding negligence and intentional acts?",
+  q_bn: "আদালত সাধারণত ইনডেমনিটি চুক্তি কীভাবে ব্যাখ্যা করে, এবং অবহেলা ও ইচ্ছাকৃত কাজের ক্ষেত্রে কী সীমাবদ্ধতা রয়েছে?",
+  ans_en: [
+    "Courts interpret indemnification provisions <span class='kw-red'>very narrowly</span>, using <span class='kw-blue'>strict construction</span>, because such provisions can be broad and over-reaching — so wording must be clear.",
+    "Some courts <span class='kw-red'>refuse to apply</span> an indemnification provision that <span class='kw-blue'>indemnifies a party against its own negligence</span>.",
+    "Others refuse to <span class='kw-red'>enforce</span> indemnification provisions that indemnify a party against its <span class='kw-blue'>own intentional act</span>."
+  ],
+  ans_bn: [
+    "আদালত ইনডেমনিফিকেশন ধারা <span class='kw-red'>খুবই সংকীর্ণভাবে</span> ব্যাখ্যা করে, <span class='kw-blue'>কঠোর ব্যাখ্যা (strict construction)</span> পদ্ধতি ব্যবহার করে, কারণ এই ধরনের ধারা ব্যাপক ও অতিরিক্ত হতে পারে — তাই শব্দচয়ন স্পষ্ট হতে হবে।",
+    "কিছু আদালত এমন ইনডেমনিফিকেশন ধারা <span class='kw-red'>প্রয়োগ করতে অস্বীকার</span> করে যা কোনো পক্ষকে তার <span class='kw-blue'>নিজের অবহেলার বিরুদ্ধে ইনডেমনিফাই</span> করে।",
+    "অন্যরা এমন ইনডেমনিফিকেশন ধারা <span class='kw-red'>প্রয়োগ (enforce) করতে অস্বীকার</span> করে যা কোনো পক্ষকে তার <span class='kw-blue'>নিজের ইচ্ছাকৃত কাজের</span> বিরুদ্ধে ইনডেমনিফাই করে।"
+  ],
+  page: 19
+},
+{
+  q_en: "According to the lecture, what practical steps are involved in how indemnity agreements work?",
+  q_bn: "লেকচার অনুযায়ী, ইনডেমনিটি চুক্তি কীভাবে কার্যকর হয় তার সাথে জড়িত ব্যবহারিক পদক্ষেপগুলো কী কী?",
+  ans_en: [
+    "<span class='kw-red'>Timely notice of the claim</span> by the indemnitee to the indemnitor.",
+    "<span class='kw-blue'>Timely notice to your insurance company</span>.",
+    "Your indemnitor has a <span class='kw-red'>contractual obligation to defend and indemnify you</span> — and must do so <span class='kw-blue'>in GOOD FAITH</span>."
+  ],
+  ans_bn: [
+    "ইনডেমনিটি কর্তৃক ইনডেমনিটরকে দাবির <span class='kw-red'>সময়মতো নোটিশ</span> প্রদান।",
+    "আপনার <span class='kw-blue'>বীমা কোম্পানিকে সময়মতো নোটিশ</span> প্রদান।",
+    "আপনার ইনডেমনিটরের আপনাকে <span class='kw-red'>রক্ষা ও ইনডেমনিফাই করার একটি চুক্তিগত বাধ্যবাধকতা</span> রয়েছে — এবং তা অবশ্যই <span class='kw-blue'>সরল বিশ্বাসে (in GOOD FAITH)</span> করতে হবে।"
+  ],
+  page: 20
+},
+{
+  q_en: "What final wording requirements apply to a 'broad form' indemnity clause, according to the lecture's closing remarks?",
+  q_bn: "লেকচারের শেষ মন্তব্য অনুযায়ী, একটি 'ব্রড ফর্ম (broad form)' ইনডেমনিটি ধারার জন্য শব্দচয়নের চূড়ান্ত শর্তগুলো কী কী?",
+  ans_en: [
+    "The terms requiring <span class='kw-red'>broad form indemnity</span> must be stated in <span class='kw-blue'>plain language</span>.",
+    "<span class='kw-red'>Eye-catching</span> — the part of the contract containing the broad form indemnity should be <span class='kw-blue'>bolded, highlighted, and/or in large print/font/type</span>.",
+    "<span class='kw-red'>Consideration</span> — there must be some <span class='kw-blue'>identifiable financial payment or \"consideration\"</span> for the indemnity to be valid."
+  ],
+  ans_bn: [
+    "<span class='kw-red'>ব্রড ফর্ম ইনডেমনিটি</span> চাওয়া শর্তগুলো অবশ্যই <span class='kw-blue'>সরল ভাষায়</span> উল্লেখ করতে হবে।",
+    "<span class='kw-red'>দৃষ্টি আকর্ষণকারী (Eye-catching)</span> — চুক্তির যে অংশে ব্রড ফর্ম ইনডেমনিটি রয়েছে তা অবশ্যই <span class='kw-blue'>বোল্ড, হাইলাইটেড এবং/অথবা বড় প্রিন্ট/ফন্ট/টাইপে</span> থাকতে হবে।",
+    "<span class='kw-red'>প্রতিদান (Consideration)</span> — ইনডেমনিটি বৈধ হওয়ার জন্য অবশ্যই কোনো <span class='kw-blue'>চিহ্নিতযোগ্য আর্থিক পরিশোধ বা 'প্রতিদান'</span> থাকতে হবে।"
+  ],
+  page: 21
+}
+];
+
+// Build cards
+const container = document.getElementById('qaContainer');
+qaData.forEach((item, idx) => {
+  const card = document.createElement('div');
+  card.className = 'qa-card';
+
+  const q = document.createElement('div');
+  q.className = 'qa-question';
+  q.innerHTML = `
+    <div class="q-text-wrap">
+      <div class="q-en"><span class="q-index">Q${idx+1}.</span>${item.q_en}</div>
+      <div class="q-bn">${item.q_bn}</div>
+    </div>
+    <div class="chevron">▾</div>
+  `;
+
+  const ansEnList = item.ans_en.map(li => `<li>${li}</li>`).join('');
+  const ansBnList = item.ans_bn.map(li => `<li>${li}</li>`).join('');
+
+  const a = document.createElement('div');
+  a.className = 'qa-answer';
+  a.innerHTML = `
+    <div class="qa-answer-inner">
+      <div class="answer-block-en">
+        <div class="answer-label">Answer</div>
+        <ul class="ans-list">${ansEnList}</ul>
+      </div>
+      <div class="answer-block-bn">
+        <div class="answer-label">উত্তর (বাংলা)</div>
+        <ul class="ans-list bn">${ansBnList}</ul>
+      </div>
+      <span class="page-ref">Page ${item.page}</span>
+    </div>
+  `;
+
+  q.addEventListener('click', () => {
+    const isOpen = card.classList.contains('open');
+    if(isOpen){
+      card.classList.remove('open');
+      a.style.maxHeight = null;
+    } else {
+      card.classList.add('open');
+      a.style.maxHeight = a.scrollHeight + 'px';
+    }
+  });
+
+  card.appendChild(q);
+  card.appendChild(a);
+  container.appendChild(card);
+});
+
+document.getElementById('totalCount').textContent = qaData.length + ' Questions Included';
+
+// Expand / Collapse all
+let allOpen = false;
+document.getElementById('toggleAllBtn').addEventListener('click', function(){
+  allOpen = !allOpen;
+  const cards = document.querySelectorAll('.qa-card');
+  cards.forEach(card => {
+    const answer = card.querySelector('.qa-answer');
+    if(allOpen){
+      card.classList.add('open');
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+    } else {
+      card.classList.remove('open');
+      answer.style.maxHeight = null;
+    }
+  });
+  this.textContent = allOpen ? 'Collapse All' : 'Expand All';
+});
+
+// Search filter
+document.getElementById('searchInput').addEventListener('input', function(e){
+  const term = e.target.value.toLowerCase();
+  const cards = document.querySelectorAll('.qa-card');
+  cards.forEach(card => {
+    const text = card.textContent.toLowerCase();
+    card.style.display = text.includes(term) ? '' : 'none';
+  });
+});
+
+// Recalculate max-height on window resize for open cards (responsiveness)
+window.addEventListener('resize', () => {
+  document.querySelectorAll('.qa-card.open .qa-answer').forEach(a => {
+    a.style.maxHeight = a.scrollHeight + 'px';
+  });
+});
+</script>
+
+</body>
+</html>

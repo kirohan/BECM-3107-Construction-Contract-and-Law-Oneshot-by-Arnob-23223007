@@ -1,0 +1,1461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BECM 3107 — Construction Contract and Law | Q&A Study Guide</title>
+<style>
+  :root{
+    --navy:#0d1b3e;
+    --navy2:#16234f;
+    --purple:#5b2a86;
+    --teal:#0e8f8f;
+    --gold:#c8952a;
+    --red:#c0392b;
+    --blue:#1a5aad;
+    --bg:#f4f6fb;
+    --card:#ffffff;
+    --muted:#5b657a;
+    --border:#e3e7f0;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:"Segoe UI", "Noto Sans Bengali", Tahoma, Arial, sans-serif;
+    background:linear-gradient(180deg,#eef1f9 0%, #f7f8fc 400px, #f4f6fb 100%);
+    color:#1c2333;
+    line-height:1.55;
+  }
+  header{
+    background:linear-gradient(120deg, var(--navy) 0%, var(--purple) 100%);
+    color:#fff;
+    padding:42px 20px 60px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  header::after{
+    content:"";
+    position:absolute;
+    bottom:-40px;left:0;right:0;height:80px;
+    background:var(--bg);
+    border-radius:50% 50% 0 0 / 100% 100% 0 0;
+  }
+  header h1{
+    margin:0 0 6px;
+    font-size:clamp(22px,4vw,34px);
+    letter-spacing:0.5px;
+    font-weight:700;
+  }
+  header .code{
+    display:inline-block;
+    background:rgba(255,255,255,0.15);
+    padding:4px 14px;
+    border-radius:20px;
+    font-size:14px;
+    margin-bottom:10px;
+    letter-spacing:1px;
+  }
+  header p.sub{
+    margin:6px auto 0;
+    max-width:700px;
+    font-size:15px;
+    opacity:0.92;
+  }
+  header p.instructor{
+    margin-top:14px;
+    font-size:13px;
+    opacity:0.8;
+  }
+
+  .container{
+    max-width:920px;
+    margin:-20px auto 60px;
+    padding:0 16px;
+    position:relative;
+    z-index:2;
+  }
+
+  .stats{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    justify-content:center;
+    margin-bottom:28px;
+  }
+  .stat-pill{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:12px 18px;
+    text-align:center;
+    min-width:120px;
+    box-shadow:0 3px 10px rgba(20,30,70,0.06);
+  }
+  .stat-pill .num{
+    font-size:22px;
+    font-weight:800;
+    color:var(--purple);
+    display:block;
+  }
+  .stat-pill .lbl{
+    font-size:12px;
+    color:var(--muted);
+  }
+
+  .search-box{
+    margin:0 auto 30px;
+    max-width:600px;
+  }
+  .search-box input{
+    width:100%;
+    padding:14px 18px;
+    border-radius:14px;
+    border:1px solid var(--border);
+    font-size:15px;
+    box-shadow:0 3px 10px rgba(20,30,70,0.06);
+    outline:none;
+    transition:box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+  .search-box input:focus{
+    border-color:var(--teal);
+    box-shadow:0 0 0 4px rgba(14,143,143,0.12);
+  }
+
+  .section-title{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin:38px 0 16px;
+  }
+  .section-title .badge{
+    width:34px;height:34px;border-radius:10px;
+    background:var(--navy);
+    color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-weight:700;
+    font-size:14px;
+    flex-shrink:0;
+  }
+  .section-title h2{
+    font-size:18px;
+    margin:0;
+    color:var(--navy2);
+  }
+  .section-title h2 .bn{
+    display:block;
+    font-size:14px;
+    font-weight:500;
+    color:var(--muted);
+    margin-top:2px;
+  }
+
+  .qa-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:16px;
+    margin-bottom:12px;
+    overflow:hidden;
+    box-shadow:0 2px 8px rgba(20,30,70,0.05);
+    transition:box-shadow 0.25s ease, transform 0.15s ease;
+  }
+  .qa-card:hover{
+    box-shadow:0 6px 18px rgba(20,30,70,0.10);
+  }
+  .qa-card.open{
+    border-color:#c9d6f0;
+  }
+
+  .q-btn{
+    width:100%;
+    text-align:left;
+    background:none;
+    border:none;
+    padding:18px 20px;
+    cursor:pointer;
+    display:flex;
+    align-items:flex-start;
+    gap:14px;
+    font-family:inherit;
+  }
+  .q-num{
+    flex-shrink:0;
+    width:30px;height:30px;
+    border-radius:50%;
+    background:linear-gradient(135deg, var(--teal), var(--blue));
+    color:#fff;
+    font-size:13px;
+    font-weight:700;
+    display:flex;align-items:center;justify-content:center;
+    margin-top:2px;
+  }
+  .q-text{
+    flex:1;
+  }
+  .q-text .en{
+    font-size:15.5px;
+    font-weight:600;
+    color:#1c2333;
+  }
+  .q-text .bn{
+    font-size:14px;
+    color:var(--muted);
+    margin-top:4px;
+  }
+  .page-tag{
+    flex-shrink:0;
+    font-size:11px;
+    color:var(--gold);
+    background:#fdf3e2;
+    border:1px solid #f0dfb8;
+    padding:3px 8px;
+    border-radius:8px;
+    white-space:nowrap;
+    margin-top:3px;
+    font-weight:700;
+  }
+  .chev{
+    flex-shrink:0;
+    width:20px;height:20px;
+    margin-top:5px;
+    transition:transform 0.25s ease;
+    color:var(--muted);
+  }
+  .qa-card.open .chev{
+    transform:rotate(180deg);
+  }
+
+  .a-wrap{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height 0.4s ease;
+  }
+  .qa-card.open .a-wrap{
+    max-height:2000px;
+  }
+  .a-inner{
+    padding:0 20px 22px 64px;
+    border-top:1px dashed var(--border);
+    margin-top:0;
+  }
+  .a-inner .a-block{
+    padding-top:14px;
+  }
+  .a-inner ul{
+    margin:8px 0;
+    padding-left:20px;
+  }
+  .a-inner li{
+    margin-bottom:6px;
+    font-size:14.5px;
+  }
+  .a-inner p{
+    margin:8px 0;
+    font-size:14.5px;
+  }
+  .lang-label{
+    display:inline-block;
+    font-size:11px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    color:#fff;
+    padding:2px 8px;
+    border-radius:6px;
+    margin-bottom:8px;
+  }
+  .lang-label.en{background:var(--navy);}
+  .lang-label.bn{background:var(--purple);}
+  .bn-block{
+    font-family:"Noto Sans Bengali","Segoe UI",sans-serif;
+  }
+
+  .kw-red{color:var(--red); font-weight:700;}
+  .kw-blue{color:var(--blue); font-weight:700;}
+
+  .no-result{
+    text-align:center;
+    color:var(--muted);
+    padding:40px 0;
+    display:none;
+  }
+
+  footer{
+    text-align:center;
+    padding:30px 16px 50px;
+    color:var(--muted);
+    font-size:12.5px;
+  }
+
+  @media (max-width:600px){
+    .a-inner{padding-left:20px;}
+    .q-btn{padding:14px 14px;}
+    .page-tag{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="code">BECM 3107</div>
+  <h1>Construction Contract and Law — Q&amp;A Study Guide</h1>
+  <p class="sub">A complete interactive question bank covering Law &amp; its Origin, Legal Systems, Law of Contract, Contract Terms, Validity Factors, and Remedies — with Bangla translations.</p>
+  <p class="instructor">Course Material: Dr. Mizanoor Rahman, P.Eng. — Dept. of BECM, KUET</p>
+</header>
+
+<div class="container">
+
+  <div class="stats">
+    <div class="stat-pill"><span class="num" id="totalCount">0</span><span class="lbl">Total Questions</span></div>
+    <div class="stat-pill"><span class="num">6</span><span class="lbl">Topics Covered</span></div>
+    <div class="stat-pill"><span class="num">85</span><span class="lbl">Source Slides</span></div>
+  </div>
+
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="🔍  Search questions (English or Bangla)...">
+  </div>
+
+  <div id="qaRoot"></div>
+  <p class="no-result" id="noResult">No matching questions found.</p>
+</div>
+
+<footer>
+  Prepared as a study aid from BECM 3107 course slides — for educational review purposes only.<br>
+  শুধুমাত্র শিক্ষামূলক পর্যালোচনার উদ্দেশ্যে প্রস্তুত।
+</footer>
+
+<script>
+const data = [
+{
+  section:"1. Course Introduction & Structure",
+  section_bn:"কোর্সের ভূমিকা ও কাঠামো",
+  items:[
+    {
+      q:"What are the key reference books recommended for this course?",
+      q_bn:"এই কোর্সের জন্য কী কী গুরুত্বপূর্ণ রেফারেন্স বই সুপারিশ করা হয়েছে?",
+      a_en:`<ul>
+        <li><span class="kw-blue">Quinn & Elliott</span> — <i>Contract Law</i>, 11th Edn (2011)</li>
+        <li><span class="kw-blue">Quinn & Elliott</span> — <i>Tort Law</i>, 11th Edn (2011)</li>
+        <li><span class="kw-blue">John Murdoch & Will Hughes</span> — <i>Construction Contracts: Law and Management</i>, 5th Edn</li>
+        <li><span class="kw-red">FIDIC</span> (International Federation of Consulting Engineers) — <b>Red Book 1999</b></li>
+        <li><span class="kw-red">JCT</span> (Joint Contracts Tribunal) 2005 — Standard Building Contract with Quantities</li>
+        <li>Government of Bangladesh — <b>Standard Tender Document (National)</b> for Procurement of Works</li>
+      </ul>`,
+      a_bn:`<ul>
+        <li><b>Quinn ও Elliott</b> — Contract Law, ১১তম সংস্করণ (২০১১)</li>
+        <li><b>Quinn ও Elliott</b> — Tort Law, ১১তম সংস্করণ (২০১১)</li>
+        <li><b>John Murdoch ও Will Hughes</b> — Construction Contracts: Law and Management, ৫ম সংস্করণ</li>
+        <li><b>FIDIC</b> (Red Book 1999)</li>
+        <li><b>JCT</b> ২০০৫ — Standard Building Contract with Quantities</li>
+        <li>বাংলাদেশ সরকারের <b>Standard Tender Document (National)</b></li>
+      </ul>`,
+      page:"2–3"
+    },
+    {
+      q:"What topics are covered under 'Course Content (MR)'?",
+      q_bn:"'Course Content (MR)' এর অধীনে কোন বিষয়গুলো অন্তর্ভুক্ত?",
+      a_en:`<ul>
+        <li>Introduction of <span class="kw-blue">law</span></li>
+        <li><span class="kw-blue">Law of Torts</span></li>
+        <li><span class="kw-blue">Law of contract</span></li>
+        <li><span class="kw-red">Alternative Dispute Resolution (ADR)</span></li>
+        <li><b>Standard contract forms</b> for the construction industry</li>
+        <li><b>Liquidated damages (LD)</b>, penalties, warranties and guarantees</li>
+      </ul>`,
+      a_bn:`<ul>
+        <li>আইনের ভূমিকা</li>
+        <li><b>Tort আইন</b></li>
+        <li><b>চুক্তি আইন</b></li>
+        <li><b>বিকল্প বিরোধ নিষ্পত্তি (ADR)</b></li>
+        <li>নির্মাণ শিল্পের জন্য স্ট্যান্ডার্ড চুক্তি ফর্ম</li>
+        <li><b>Liquidated Damages (LD)</b>, জরিমানা, ওয়ারেন্টি ও গ্যারান্টি</li>
+      </ul>`,
+      page:"4"
+    },
+    {
+      q:"What topics are covered under 'Course Content (SAS)'?",
+      q_bn:"'Course Content (SAS)' এর অধীনে কোন বিষয়গুলো অন্তর্ভুক্ত?",
+      a_en:`<ul>
+        <li><span class="kw-blue">Tender/Contract document</span> preparation</li>
+        <li>Documents for <b>inspections, submittals and changes</b> in a contract</li>
+        <li>Procedures for <span class="kw-red">early contract termination</span></li>
+        <li>Documents for <b>close-out and commissioning</b></li>
+        <li><b>Insurance & construction bonding</b>: liability insurance, indemnity agreements, surety bonds, bid bonds, performance bonds, labor & material payment bonds, lien bonds, warranty bonds, letters of credit</li>
+      </ul>`,
+      a_bn:`<ul>
+        <li>টেন্ডার/চুক্তি ডকুমেন্ট প্রস্তুতকরণ</li>
+        <li>পরিদর্শন, সাবমিটাল ও চুক্তির পরিবর্তনের ডকুমেন্ট</li>
+        <li>চুক্তি আগাম সমাপ্তির পদ্ধতি</li>
+        <li>ক্লোজ-আউট ও কমিশনিং ডকুমেন্ট</li>
+        <li><b>ইন্স্যুরেন্স ও কনস্ট্রাকশন বন্ডিং</b>: পারফরম্যান্স বন্ড, বিড বন্ড ইত্যাদি</li>
+      </ul>`,
+      page:"5"
+    },
+    {
+      q:"What are the main objectives of this course?",
+      q_bn:"এই কোর্সের মূল উদ্দেশ্যগুলো কী কী?",
+      a_en:`<ul>
+        <li>Provide a <span class="kw-blue">fundamental understanding of construction law</span> relevant to engineering & project management</li>
+        <li>Introduce <b>tort law, contract law</b>, and <span class="kw-red">dispute resolution</span> mechanisms</li>
+        <li>Familiarize students with <b>standard construction contracts</b> and legal provisions</li>
+        <li>Develop practical knowledge in <b>preparation & administration</b> of construction documents</li>
+        <li>Enhance awareness of <span class="kw-red">legal risks, liabilities</span>, and risk management tools (insurance, bonding)</li>
+      </ul>`,
+      a_bn:`<ul>
+        <li>নির্মাণ আইন সম্পর্কে মৌলিক ধারণা প্রদান</li>
+        <li><b>Tort আইন, চুক্তি আইন</b> ও বিরোধ নিষ্পত্তির পরিচিতি</li>
+        <li>স্ট্যান্ডার্ড নির্মাণ চুক্তির সাথে পরিচিতি</li>
+        <li>চুক্তি ডকুমেন্টেশনের ব্যবহারিক জ্ঞান</li>
+        <li><b>আইনগত ঝুঁকি ও দায়বদ্ধতা</b> সম্পর্কে সচেতনতা বৃদ্ধি</li>
+      </ul>`,
+      page:"6"
+    },
+    {
+      q:"What are the expected learning outcomes of this course?",
+      q_bn:"এই কোর্সের প্রত্যাশিত শিখন ফলাফল (Learning Outcome) কী কী?",
+      a_en:`<ul>
+        <li>Explain fundamental <span class="kw-blue">construction law principles</span></li>
+        <li>Interpret and apply <b>standard construction contracts</b></li>
+        <li>Analyze legal issues like <span class="kw-red">liquidated damages, warranties, guarantees</span></li>
+        <li>Apply <b>dispute resolution</b> techniques</li>
+        <li>Prepare/manage <b>contract & project documentation</b></li>
+        <li>Assess <b>contract administration, close-out</b>, and risk management</li>
+      </ul>`,
+      a_bn:`<ul>
+        <li>নির্মাণ আইনের মূলনীতি ব্যাখ্যা করা</li>
+        <li>স্ট্যান্ডার্ড চুক্তি প্রয়োগ করা</li>
+        <li><b>Liquidated Damages, ওয়ারেন্টি</b> সংক্রান্ত বিশ্লেষণ</li>
+        <li>বিরোধ নিষ্পত্তি কৌশল প্রয়োগ করা</li>
+        <li>চুক্তি ডকুমেন্টেশন প্রস্তুত ও পরিচালনা করা</li>
+      </ul>`,
+      page:"7"
+    }
+  ]
+},
+{
+  section:"2. Law, Its Origin & Legal Systems",
+  section_bn:"আইনের উৎপত্তি ও বৈশ্বিক আইন ব্যবস্থা",
+  items:[
+    {
+      q:"What are the different origins/forms of law in a society?",
+      q_bn:"একটি সমাজের আইনের বিভিন্ন উৎস বা রূপ কী কী?",
+      a_en:`<ul>
+        <li><span class="kw-blue">Religious requirements</span> → Religious law</li>
+        <li><span class="kw-blue">Customary law</span> → customs and local practices</li>
+        <li>Political/economic doctrines → <span class="kw-red">Marxist, Socialist, Communist</span> law</li>
+        <li><b>Parliament</b> → elected members of the country</li>
+        <li><b>Case Law</b> → judge-developed law</li>
+      </ul>`,
+      a_bn:`<ul>
+        <li><b>ধর্মীয় বিধান</b> → ধর্মীয় আইন</li>
+        <li><b>প্রথাগত আইন</b> → রীতিনীতি ও স্থানীয় প্রথা</li>
+        <li>রাজনৈতিক/অর্থনৈতিক মতবাদ → মার্ক্সবাদী, সমাজতান্ত্রিক আইন</li>
+        <li><b>সংসদ</b> → নির্বাচিত সদস্যদের দ্বারা প্রণীত</li>
+        <li><b>কেস ল</b> → বিচারক-প্রণীত আইন</li>
+      </ul>`,
+      page:"8"
+    },
+    {
+      q:"What are the three organs of the state and their functions?",
+      q_bn:"রাষ্ট্রের তিনটি অঙ্গ এবং তাদের কাজ কী কী?",
+      a_en:`<ul>
+        <li><span class="kw-blue">The Executive</span>: carries out laws & makes policies — PM & Cabinet Ministers</li>
+        <li><span class="kw-blue">The Legislature</span>: makes laws — Parliament & MPs</li>
+        <li><span class="kw-blue">The Judiciary</span>: applies & interprets laws — Judges & Court System</li>
+      </ul>`,
+      a_bn:`<ul>
+        <li><b>নির্বাহী বিভাগ (Executive)</b>: আইন কার্যকর ও নীতি প্রণয়ন করে — প্রধানমন্ত্রী ও মন্ত্রিসভা</li>
+        <li><b>আইনসভা (Legislature)</b>: আইন প্রণয়ন করে — সংসদ ও সংসদ সদস্য</li>
+        <li><b>বিচার বিভাগ (Judiciary)</b>: আইন প্রয়োগ ও ব্যাখ্যা করে — বিচারক ও আদালত</li>
+      </ul>`,
+      page:"9–10"
+    },
+    {
+      q:"What are the major legal systems found in the world?",
+      q_bn:"বিশ্বের প্রধান আইন ব্যবস্থাগুলো কী কী?",
+      a_en:`<ul>
+        <li><span class="kw-blue">Common Law</span> — England, Wales, Commonwealth (Singapore, Malaysia, Hong Kong, Australia, NZ, India)</li>
+        <li><span class="kw-blue">Civil Law</span> — Europe, China, Japan, Indo China, Indonesia</li>
+        <li><span class="kw-red">Religious law</span> — Middle East, Israel</li>
+        <li><b>Moral/Cultural/Tribal law</b> — Africa</li>
+      </ul>`,
+      a_bn:`<ul>
+        <li><b>কমন ল</b> — ইংল্যান্ড, ওয়েলস, কমনওয়েলথভুক্ত দেশ</li>
+        <li><b>সিভিল ল</b> — ইউরোপ, চীন, জাপান</li>
+        <li><b>ধর্মীয় আইন</b> — মধ্যপ্রাচ্য, ইসরায়েল</li>
+        <li><b>নৈতিক/সাংস্কৃতিক/উপজাতীয় আইন</b> — আফ্রিকা</li>
+      </ul>`,
+      page:"11"
+    },
+    {
+      q:"Which countries follow the Common Law system, and why?",
+      q_bn:"কোন দেশগুলো কমন ল ব্যবস্থা অনুসরণ করে এবং কেন?",
+      a_en:`<ul>
+        <li>Countries: <span class="kw-blue">Hong Kong, Australia, New Zealand, Malaysia, Singapore, India, Canada</span></li>
+        <li>Reason: Most countries adopting common law were <span class="kw-red">colonies of the British Empire</span> or remain part of the <b>Commonwealth</b></li>
+      </ul>`,
+      a_bn:`<ul>
+        <li>দেশসমূহ: <b>হংকং, অস্ট্রেলিয়া, নিউজিল্যান্ড, মালয়েশিয়া, সিঙ্গাপুর, ভারত, কানাডা</b></li>
+        <li>কারণ: এই দেশগুলো একসময় <b>ব্রিটিশ সাম্রাজ্যের উপনিবেশ</b> ছিল বা এখনও কমনওয়েলথভুক্ত</li>
+      </ul>`,
+      page:"12"
+    },
+    {
+      q:"Give examples of countries under Civil Law, Islamic Law, Marxist, and African Tribal legal systems.",
+      q_bn:"সিভিল ল, ইসলামী আইন, মার্ক্সবাদী ও আফ্রিকান উপজাতীয় আইন ব্যবস্থার উদাহরণ দাও।",
+      a_en:`<ul>
+        <li><span class="kw-blue">Civil Law</span> — France, Germany, Italy, Spain</li>
+        <li><span class="kw-blue">Islamic Law</span> — Saudi Arabia</li>
+        <li><span class="kw-red">Marxist/Communist Law</span> — China</li>
+        <li><b>African Tribal Law</b> — Kenya</li>
+      </ul>`,
+      a_bn:`<ul>
+        <li><b>সিভিল ল</b> — ফ্রান্স, জার্মানি, ইতালি, স্পেন</li>
+        <li><b>ইসলামী আইন</b> — সৌদি আরব</li>
+        <li><b>মার্ক্সবাদী/কমিউনিস্ট আইন</b> — চীন</li>
+        <li><b>আফ্রিকান উপজাতীয় আইন</b> — কেনিয়া</li>
+      </ul>`,
+      page:"13"
+    },
+    {
+      q:"How is English Law classified/structured?",
+      q_bn:"ইংরেজি আইনকে কীভাবে শ্রেণীবদ্ধ করা হয়?",
+      a_en:`<p>English Law branches into:</p>
+      <ul>
+        <li><span class="kw-blue">Common Law</span> — includes <b>Criminal Law</b> (England & Wales only) and <b>Civil Law</b> (Tort, Intellectual Property, Contract, Property, Succession/Wills)</li>
+        <li><span class="kw-blue">Statutory Law</span> — Company Law, Commonwealth Criminal Law</li>
+        <li><span class="kw-blue">Procedural Law</span></li>
+        <li><span class="kw-blue">Constitutional Law</span></li>
+        <li><span class="kw-blue">Law of Equity</span> — Law of Trust, Land Law, <span class="kw-red">Construction Law</span></li>
+      </ul>`,
+      a_bn:`<ul>
+        <li><b>কমন ল</b> — ফৌজদারি আইন ও দেওয়ানি আইন (Tort, চুক্তি, সম্পত্তি আইন)</li>
+        <li><b>স্ট্যাটিউটরি ল</b> — কোম্পানি আইন</li>
+        <li><b>প্রসিডিউরাল ল</b></li>
+        <li><b>সাংবিধানিক আইন</b></li>
+        <li><b>ইক্যুইটি আইন</b> — ট্রাস্ট আইন, ভূমি আইন, <b>নির্মাণ আইন</b></li>
+      </ul>`,
+      page:"14"
+    },
+    {
+      q:"What is the classification of laws under English Law (civil vs criminal, public vs private, etc.)?",
+      q_bn:"ইংরেজি আইনে আইনের শ্রেণীবিভাগ (দেওয়ানি বনাম ফৌজদারি ইত্যাদি) কী কী?",
+      a_en:`<ul>
+        <li><span class="kw-blue">Civil Law vs Criminal Law</span> — e.g., Tort/Contract (civil) vs Murder/Theft (criminal)</li>
+        <li><b>Case laws</b> (judge-made laws)</li>
+        <li><span class="kw-blue">Public Law vs Private Law</span></li>
+        <li><span class="kw-blue">Substantive Law vs Procedural Law</span></li>
+        <li><span class="kw-red">Law of Equity</span> (Trusts & Land Law)</li>
+        <li><b>Statutory Law</b> (Company Law & Company Act)</li>
+      </ul>`,
+      a_bn:`<ul>
+        <li><b>দেওয়ানি আইন বনাম ফৌজদারি আইন</b></li>
+        <li><b>কেস ল</b> (বিচারক-প্রণীত)</li>
+        <li><b>পাবলিক আইন বনাম প্রাইভেট আইন</b></li>
+        <li><b>Substantive আইন বনাম Procedural আইন</b></li>
+        <li><b>ইক্যুইটি আইন</b> (ট্রাস্ট ও ভূমি আইন)</li>
+        <li><b>স্ট্যাটিউটরি আইন</b></li>
+      </ul>`,
+      page:"15"
+    },
+    {
+      q:"What is Common Law and how did it originate historically?",
+      q_bn:"কমন ল কী এবং ঐতিহাসিকভাবে এর উৎপত্তি কীভাবে হয়েছিল?",
+      a_en:`<ul>
+        <li>Common law was a product of the <span class="kw-red">invasion of England in 1066</span> by the French (Norman) King <b>William the Conqueror</b></li>
+        <li>Before invasion, England had different Kings and each region had different <span class="kw-blue">local/customary laws</span> — not uniform or consistent</li>
+      </ul>`,
+      a_bn:`<ul>
+        <li>কমন ল উৎপত্তি হয় <b>১০৬৬ সালে</b> ফরাসি (নরম্যান) রাজা <b>উইলিয়াম দ্য কনকরার</b>-এর ইংল্যান্ড আক্রমণের মাধ্যমে</li>
+        <li>আক্রমণের আগে ইংল্যান্ডে বিভিন্ন অঞ্চলে ভিন্ন ভিন্ন <b>স্থানীয় ও প্রথাগত আইন</b> ছিল — অভিন্নতা ছিল না</li>
+      </ul>`,
+      page:"16"
+    },
+    {
+      q:"What role did William the Conqueror and King Henry II play in developing Common Law?",
+      q_bn:"কমন ল উন্নয়নে উইলিয়াম দ্য কনকরার ও রাজা হেনরি দ্বিতীয়-এর ভূমিকা কী ছিল?",
+      a_en:`<ul>
+        <li>They ensured <span class="kw-blue">uniform, consistent application</span> of the King's Laws by sending <b>'circuit judges'</b> to all parts of England</li>
+        <li><span class="kw-red">Law reporting</span> helped ensure consistency and uniformity across the country</li>
+      </ul>`,
+      a_bn:`<ul>
+        <li>তারা সমগ্র ইংল্যান্ডে <b>'সার্কিট জাজ'</b> পাঠিয়ে রাজার আইনের অভিন্ন প্রয়োগ নিশ্চিত করেন</li>
+        <li><b>আইন রিপোর্টিং</b> ধারাবাহিকতা ও অভিন্নতা নিশ্চিত করতে সাহায্য করে</li>
+      </ul>`,
+      page:"17"
+    },
+    {
+      q:"What are the unique traditions of the Common Law system?",
+      q_bn:"কমন ল ব্যবস্থার অনন্য বৈশিষ্ট্যগুলো কী কী?",
+      a_en:`<ul>
+        <li><span class="kw-red">Judicial Precedent</span> — lower courts must follow similar prior High Court decisions; ensures consistency</li>
+        <li>Importance of <span class="kw-blue">Case Law</span> as a source of law</li>
+        <li>Importance of <b>judges</b></li>
+        <li>Laws are <b>not codified</b></li>
+        <li><span class="kw-blue">Jury system</span></li>
+      </ul>`,
+      a_bn:`<ul>
+        <li><b>জুডিশিয়াল প্রিসিডেন্ট</b> — নিম্ন আদালতকে উচ্চ আদালতের অনুরূপ পূর্বসিদ্ধান্ত অনুসরণ করতে হয়</li>
+        <li><b>কেস ল</b>-এর গুরুত্ব</li>
+        <li><b>বিচারকদের</b> গুরুত্ব</li>
+        <li>আইন <b>সংকলিত নয়</b></li>
+        <li><b>জুরি ব্যবস্থা</b></li>
+      </ul>`,
+      page:"18"
+    },
+    {
+      q:"How does the Civil Law tradition differ from Common Law?",
+      q_bn:"সিভিল ল ঐতিহ্য কমন ল থেকে কীভাবে আলাদা?",
+      a_en:`<ul>
+        <li>Civil law has all its laws <span class="kw-blue">codified</span></li>
+        <li><span class="kw-red">No doctrine of judicial precedent</span> — only interpretation of codes</li>
+        <li>Case law <b>not important</b> as a source of law</li>
+        <li>No statutes — only <b>amendment of codes</b></li>
+      </ul>`,
+      a_bn:`<ul>
+        <li>সিভিল ল-এর সব আইন <b>সংকলিত (codified)</b></li>
+        <li><b>জুডিশিয়াল প্রিসিডেন্টের নীতি নেই</b> — শুধু কোড ব্যাখ্যা হয়</li>
+        <li>কেস ল আইনের উৎস হিসেবে গুরুত্বপূর্ণ নয়</li>
+        <li>কোনো স্ট্যাটিউট নেই — শুধু কোড সংশোধন হয়</li>
+      </ul>`,
+      page:"19"
+    },
+    {
+      q:"How is Construction Law positioned within the broader legal framework?",
+      q_bn:"নির্মাণ আইন ব্যাপক আইনি কাঠামোর মধ্যে কীভাবে অবস্থিত?",
+      a_en:`<p>Construction Law draws from three areas:</p>
+      <ul>
+        <li><span class="kw-blue">Law</span> — Contract Law, Commercial Law, Tort, Intellectual Property, Trust, Land Law</li>
+        <li><span class="kw-blue">Procurement Route</span> — Traditional, Design & Build, Management, Partnership</li>
+        <li><span class="kw-blue">Contract Administration</span> — Standard Forms, Claims (Time, Variation, Loss & Damage), Contract Admin</li>
+      </ul>`,
+      a_bn:`<ul>
+        <li><b>আইন</b> — চুক্তি আইন, বাণিজ্যিক আইন, Tort, বৌদ্ধিক সম্পত্তি আইন</li>
+        <li><b>ক্রয় পদ্ধতি</b> — Traditional, Design & Build, Management, Partnership</li>
+        <li><b>চুক্তি প্রশাসন</b> — স্ট্যান্ডার্ড ফর্ম, দাবি (Time, Variation, Loss & Damage)</li>
+      </ul>`,
+      page:"20"
+    }
+  ]
+},
+{
+  section:"3. Law of Contract — Formation Basics",
+  section_bn:"চুক্তি আইন — গঠনের মৌলিক ধারণা",
+  items:[
+    {
+      q:"What is a contract, according to legal definition?",
+      q_bn:"আইনগত সংজ্ঞা অনুযায়ী চুক্তি কী?",
+      a_en:`<p>A contract is an <span class="kw-blue">agreement between two or more parties</span> that is intended to be <span class="kw-red">legally binding</span> — i.e., a legally binding agreement, formed through <b>Offer → Acceptance → Agreement</b>.</p>`,
+      a_bn:`<p>চুক্তি হলো দুই বা ততোধিক পক্ষের মধ্যে এমন একটি <b>চুক্তি (agreement)</b> যা <b>আইনগতভাবে বাধ্যতামূলক</b> হওয়ার উদ্দেশ্যে করা হয় — <b>প্রস্তাব → গ্রহণ → চুক্তি</b> এর মাধ্যমে গঠিত।</p>`,
+      page:"23"
+    },
+    {
+      q:"In what ways can a contract be made?",
+      q_bn:"কী কী উপায়ে একটি চুক্তি সম্পন্ন করা যায়?",
+      a_en:`<ul>
+        <li><span class="kw-blue">Writing</span> — e.g., purchase of land or property</li>
+        <li><span class="kw-blue">Verbal communication</span> — e.g., at an auction</li>
+        <li><span class="kw-blue">Conduct</span> — e.g., at a checkout</li>
+      </ul>`,
+      a_bn:`<ul>
+        <li><b>লিখিতভাবে</b> — যেমন জমি বা সম্পত্তি ক্রয়</li>
+        <li><b>মৌখিক যোগাযোগের মাধ্যমে</b> — যেমন নিলামে</li>
+        <li><b>আচরণের মাধ্যমে (Conduct)</b> — যেমন চেকআউটে</li>
+      </ul>`,
+      page:"24"
+    },
+    {
+      q:"What is a bilateral contract? Give an example.",
+      q_bn:"দ্বিপাক্ষিক (bilateral) চুক্তি কী? একটি উদাহরণ দাও।",
+      a_en:`<p>In a bilateral contract, <span class="kw-blue">each party takes on an obligation</span>, usually by promising the other something.</p>
+      <p><b>Example:</b> Anne promises to sell something and Ben promises to buy it.</p>`,
+      a_bn:`<p>দ্বিপাক্ষিক চুক্তিতে <b>উভয় পক্ষই একটি দায়বদ্ধতা</b> গ্রহণ করে, সাধারণত একে অপরকে কিছু প্রতিশ্রুতি দিয়ে।</p>
+      <p><b>উদাহরণ:</b> Anne কিছু বিক্রি করার প্রতিশ্রুতি দেয় এবং Ben তা কেনার প্রতিশ্রুতি দেয়।</p>`,
+      page:"25"
+    },
+    {
+      q:"What is a unilateral contract? Give an example.",
+      q_bn:"একতরফা (unilateral) চুক্তি কী? একটি উদাহরণ দাও।",
+      a_en:`<p>A unilateral contract arises where <span class="kw-red">only one party assumes an obligation</span> under the contract.</p>
+      <p><b>Example:</b> Offering a $100 reward to anyone who finds your lost purse.</p>`,
+      a_bn:`<p>একতরফা চুক্তিতে <b>শুধুমাত্র একটি পক্ষ</b> চুক্তির অধীনে দায়বদ্ধতা গ্রহণ করে।</p>
+      <p><b>উদাহরণ:</b> হারানো ব্যাগ খুঁজে পেলে $১০০ পুরস্কার দেওয়ার ঘোষণা।</p>`,
+      page:"26"
+    },
+    {
+      q:"What are the four essential elements required to form a valid contract?",
+      q_bn:"একটি বৈধ চুক্তি গঠনের জন্য প্রয়োজনীয় চারটি মৌলিক উপাদান কী কী?",
+      a_en:`<ul>
+        <li><span class="kw-blue">Offer</span></li>
+        <li><span class="kw-blue">Acceptance</span></li>
+        <li><span class="kw-blue">Consideration</span></li>
+        <li><span class="kw-red">Intention to create legal relationship</span></li>
+      </ul>`,
+      a_bn:`<ul>
+        <li><b>প্রস্তাব (Offer)</b></li>
+        <li><b>গ্রহণ (Acceptance)</b></li>
+        <li><b>প্রতিদান (Consideration)</b></li>
+        <li><b>আইনি সম্পর্ক তৈরির অভিপ্রায়</b></li>
+      </ul>`,
+      page:"27"
+    },
+    {
+      q:"What constitutes a valid 'offer' in contract law? Who are the offeror and offeree?",
+      q_bn:"চুক্তি আইনে বৈধ 'প্রস্তাব' কী গঠন করে? Offeror ও Offeree কারা?",
+      a_en:`<ul>
+        <li>A communication is an <span class="kw-blue">offer</span> if it indicates the <b>terms</b> on which the offeror is prepared to make a contract, and shows clear intent to be <span class="kw-red">bound if accepted</span></li>
+        <li><b>Offeror</b> = person making the offer</li>
+        <li><b>Offeree</b> = person receiving the offer</li>
+      </ul>`,
+      a_bn:`<ul>
+        <li>একটি বার্তাকে <b>প্রস্তাব</b> বলা হয় যদি তাতে চুক্তির শর্তাবলী উল্লেখ থাকে এবং গ্রহণ করা হলে <b>বাধ্যতামূলক</b> হওয়ার স্পষ্ট ইঙ্গিত থাকে</li>
+        <li><b>Offeror</b> = যিনি প্রস্তাব দেন</li>
+        <li><b>Offeree</b> = যিনি প্রস্তাব গ্রহণ করেন</li>
+      </ul>`,
+      page:"28"
+    },
+    {
+      q:"In what ways can an offer be terminated before it becomes a contract?",
+      q_bn:"চুক্তিতে পরিণত হওয়ার আগে কীভাবে একটি প্রস্তাব বাতিল/সমাপ্ত হতে পারে?",
+      a_en:`<ul>
+        <li><span class="kw-blue">End of specified time</span></li>
+        <li><span class="kw-blue">End of reasonable time</span></li>
+        <li><b>Failure of a precondition</b></li>
+        <li><span class="kw-red">Rejection</span></li>
+        <li><span class="kw-red">Counter-offer</span></li>
+        <li><b>Death of offeror</b></li>
+        <li><b>Death of offeree</b></li>
+        <li><b>Withdrawal</b></li>
+      </ul>`,
+      a_bn:`<ul>
+        <li>নির্দিষ্ট সময়ের সমাপ্তি</li>
+        <li>যুক্তিসঙ্গত সময়ের সমাপ্তি</li>
+        <li>পূর্বশর্তের ব্যর্থতা</li>
+        <li><b>প্রত্যাখ্যান (Rejection)</b></li>
+        <li><b>পাল্টা প্রস্তাব (Counter-offer)</b></li>
+        <li>Offeror-এর মৃত্যু</li>
+        <li>Offeree-এর মৃত্যু</li>
+        <li>প্রত্যাহার (Withdrawal)</li>
+      </ul>`,
+      page:"29"
+    },
+    {
+      q:"What is an 'invitation to treat' (ITT)? How does it differ from an offer?",
+      q_bn:"'Invitation to Treat' (ITT) কী? এটি একটি প্রস্তাব থেকে কীভাবে আলাদা?",
+      a_en:`<ul>
+        <li><span class="kw-red">Advertisements, price tags, shop displays</span> are NOT legal offers — they are an <b>invitation to treat</b></li>
+        <li>If a price is wrong, it <span class="kw-blue">can be corrected</span></li>
+        <li>The item does <b>not</b> have to be sold at the mistaken price</li>
+        <li>An ITT is a preliminary stage inviting the <i>other party</i> to make the offer</li>
+      </ul>`,
+      a_bn:`<ul>
+        <li><b>বিজ্ঞাপন, মূল্য ট্যাগ, দোকানের প্রদর্শনী</b> আইনগত প্রস্তাব নয় — এগুলো <b>Invitation to Treat</b></li>
+        <li>দাম ভুল হলে তা <b>সংশোধন করা যায়</b></li>
+        <li>ভুল দামে পণ্য বিক্রি করতে <b>বাধ্য নয়</b></li>
+        <li>ITT হলো একটি প্রাথমিক পর্যায় যেখানে অন্য পক্ষকে প্রস্তাব দিতে আমন্ত্রণ জানানো হয়</li>
+      </ul>`,
+      page:"30–31"
+    },
+    {
+      q:"Can an offer be made to the 'whole world'? Explain with example.",
+      q_bn:"'সমগ্র বিশ্বের' প্রতি কি প্রস্তাব দেওয়া যায়? উদাহরণসহ ব্যাখ্যা কর।",
+      a_en:`<ul>
+        <li>Yes — an offer can be <span class="kw-blue">communicated to the whole world</span>, but it must still be communicated (mere intention is not enough)</li>
+        <li><b>Example:</b> A construction company posts: "We will pay $5,000 to anyone who reports a safety hazard." A worker reporting a hazard counts as <span class="kw-red">acceptance</span>, and the company must pay.</li>
+      </ul>`,
+      a_bn:`<ul>
+        <li>হ্যাঁ — প্রস্তাব <b>সমগ্র বিশ্বের প্রতি</b> দেওয়া যায়, তবে তা যোগাযোগ করা আবশ্যক</li>
+        <li><b>উদাহরণ:</b> একটি নির্মাণ কোম্পানি ঘোষণা দেয়, নিরাপত্তা ঝুঁকি রিপোর্ট করলে $৫,০০০ দেওয়া হবে। একজন শ্রমিক রিপোর্ট করলে তা <b>গ্রহণ (acceptance)</b> হিসেবে গণ্য হয় এবং কোম্পানিকে অর্থ দিতে হবে।</li>
+      </ul>`,
+      page:"32"
+    },
+    {
+      q:"Can an offer be revoked once performance has begun in a unilateral contract?",
+      q_bn:"একতরফা চুক্তিতে সম্পাদন শুরু হয়ে গেলে প্রস্তাব বাতিল করা যায় কি?",
+      a_en:`<ul>
+        <li><span class="kw-red">No</span> — once the offeree has <b>started performing</b> the required act, the offeror <b>cannot withdraw</b> the offer</li>
+        <li><b>Example:</b> A contractor offers $2,000 to complete a site survey. Once a surveyor <span class="kw-blue">starts</span> measuring, the offer cannot be revoked.</li>
+      </ul>`,
+      a_bn:`<ul>
+        <li><b>না</b> — Offeree একবার কাজ <b>শুরু করলে</b>, Offeror প্রস্তাব <b>প্রত্যাহার করতে পারবে না</b></li>
+        <li><b>উদাহরণ:</b> সার্ভেয়ার একবার জরিপ শুরু করলে ঠিকাদার প্রস্তাব বাতিল করতে পারবে না।</li>
+      </ul>`,
+      page:"33"
+    },
+    {
+      q:"Can an offer be revoked in a bilateral contract? Explain with the auction bid example.",
+      q_bn:"দ্বিপাক্ষিক চুক্তিতে কি প্রস্তাব বাতিল করা যায়? নিলামের উদাহরণসহ ব্যাখ্যা কর।",
+      a_en:`<ul>
+        <li><span class="kw-blue">Yes</span> — an offer in a bilateral contract can be withdrawn at any time <b>if it has not yet been accepted</b></li>
+        <li><b>Example:</b> A bidder retracted his bid before the <span class="kw-red">fall of the hammer</span> at auction — the court held this revocation was valid since acceptance had not occurred</li>
+      </ul>`,
+      a_bn:`<ul>
+        <li><b>হ্যাঁ</b> — দ্বিপাক্ষিক চুক্তিতে <b>গ্রহণের আগে</b> যেকোনো সময় প্রস্তাব প্রত্যাহার করা যায়</li>
+        <li><b>উদাহরণ:</b> নিলামে হাতুড়ির আঘাতের আগে বিডার তার বিড প্রত্যাহার করলে তা বৈধ বলে গণ্য হয়</li>
+      </ul>`,
+      page:"34"
+    },
+    {
+      q:"How is 'acceptance' defined in contract law?",
+      q_bn:"চুক্তি আইনে 'গ্রহণ (acceptance)' কীভাবে সংজ্ঞায়িত হয়?",
+      a_en:`<p>Acceptance is any <span class="kw-blue">words or conduct</span> indicating the offeree's <span class="kw-red">unconditional intention</span> to consent to the offer on the terms proposed by the offeror.</p>`,
+      a_bn:`<p>Acceptance হলো offeree-এর এমন <b>শব্দ বা আচরণ</b> যা offeror-এর প্রস্তাবিত শর্তে <b>নিঃশর্ত সম্মতি</b> প্রকাশ করে।</p>`,
+      page:"35"
+    },
+    {
+      q:"What actions or responses do NOT constitute a valid acceptance?",
+      q_bn:"কোন কোন কাজ/প্রতিক্রিয়া বৈধ Acceptance হিসেবে গণ্য হয় না?",
+      a_en:`<ol>
+        <li><span class="kw-red">Counter-offer</span> — terminates the original offer (Hyde v Wrench [1840])</li>
+        <li><span class="kw-red">Rejection</span> — terminates the offer</li>
+        <li><span class="kw-blue">Request for more information</span></li>
+      </ol>`,
+      a_bn:`<ol>
+        <li><b>Counter-offer</b> — মূল প্রস্তাব বাতিল করে দেয় (Hyde v Wrench [1840])</li>
+        <li><b>Rejection</b> — প্রস্তাব বাতিল করে দেয়</li>
+        <li><b>অতিরিক্ত তথ্যের জন্য অনুরোধ</b></li>
+      </ol>`,
+      page:"36–37"
+    },
+    {
+      q:"How is a unilateral contract typically accepted?",
+      q_bn:"একতরফা চুক্তি সাধারণত কীভাবে গ্রহণ (accept) করা হয়?",
+      a_en:`<p>Unilateral contracts are usually accepted by <span class="kw-blue">conduct</span>.</p>
+      <p><b>Example:</b> Offering $100 for finding a lost dog — the act of <i>finding the dog</i> itself is the acceptance.</p>`,
+      a_bn:`<p>একতরফা চুক্তি সাধারণত <b>আচরণের (conduct) মাধ্যমে</b> গ্রহণ করা হয়।</p>
+      <p><b>উদাহরণ:</b> হারানো কুকুর খুঁজে পাওয়ার জন্য $১০০ পুরস্কার — কুকুর খুঁজে পাওয়াই হলো Acceptance।</p>`,
+      page:"38"
+    },
+    {
+      q:"When is acceptance legally 'communicated'? Explain the general rule and the postal rule.",
+      q_bn:"Acceptance আইনগতভাবে কখন 'যোগাযোগিত' বলে ধরা হয়? সাধারণ নিয়ম ও Postal Rule ব্যাখ্যা কর।",
+      a_en:`<ul>
+        <li><b>General rule:</b> acceptance is communicated only when it is <span class="kw-blue">received</span> by the offeror (email, phone, fax, SMS — must actually reach the offeror)</li>
+        <li><b>Postal rule:</b> for letters of acceptance, acceptance is deemed to occur <span class="kw-red">when the letter is posted</span> — even if it's lost in transit</li>
+      </ul>`,
+      a_bn:`<ul>
+        <li><b>সাধারণ নিয়ম:</b> Acceptance তখনই যোগাযোগিত হয় যখন offeror তা <b>প্রাপ্ত হয়</b> (ইমেইল, ফোন, ফ্যাক্স ইত্যাদি)</li>
+        <li><b>Postal Rule:</b> চিঠির ক্ষেত্রে, চিঠি <b>পোস্ট করার সময়</b>ই Acceptance ধরা হয় — এমনকি চিঠি হারিয়ে গেলেও</li>
+      </ul>`,
+      page:"39"
+    },
+    {
+      q:"Can silence be treated as acceptance? Explain with reference to Felthouse v Bindley.",
+      q_bn:"নীরবতা কি Acceptance হিসেবে গণ্য হতে পারে? Felthouse v Bindley মামলার উদাহরণসহ ব্যাখ্যা কর।",
+      a_en:`<ul>
+        <li>An acceptance <span class="kw-red">must be communicated</span> to the offeror</li>
+        <li>The offeror <b>cannot insist</b> that "no reply means acceptance"</li>
+        <li><b>Case:</b> <i>Felthouse v Bindley [1862]</i> confirmed silence cannot amount to acceptance</li>
+      </ul>`,
+      a_bn:`<ul>
+        <li>Acceptance অবশ্যই offeror-কে <b>জানাতে হবে</b></li>
+        <li>Offeror জোর দিতে পারে না যে "উত্তর না দেওয়া মানেই গ্রহণ"</li>
+        <li><b>মামলা:</b> Felthouse v Bindley [1862] এ নিশ্চিত হয় যে নীরবতা Acceptance নয়</li>
+      </ul>`,
+      page:"39"
+    }
+  ]
+},
+{
+  section:"4. Consideration & Intention to Create Legal Relations",
+  section_bn:"প্রতিদান ও আইনি সম্পর্ক তৈরির অভিপ্রায়",
+  items:[
+    {
+      q:"What is 'consideration' in contract law?",
+      q_bn:"চুক্তি আইনে 'Consideration (প্রতিদান)' কী?",
+      a_en:`<ul>
+        <li>What <span class="kw-blue">one party gives to another</span> — there must be some sort of <b>exchange</b></li>
+        <li>Need <span class="kw-red">not reflect the full monetary value</span>, but must have <b>some measurable value</b></li>
+        <li><b>Example:</b> Mary buys a car from Tom for $90,000 — Mary gets the car, Tom gets the money</li>
+      </ul>`,
+      a_bn:`<ul>
+        <li>এক পক্ষ অন্য পক্ষকে যা প্রদান করে — এখানে অবশ্যই কিছু <b>বিনিময় (exchange)</b> থাকতে হবে</li>
+        <li>এর <b>পূর্ণ আর্থিক মূল্য প্রতিফলিত হওয়া বাধ্যতামূলক নয়</b>, তবে কিছু পরিমাপযোগ্য মূল্য থাকতে হবে</li>
+        <li><b>উদাহরণ:</b> Mary $৯০,০০০ দিয়ে Tom-এর কাছ থেকে গাড়ি কেনে</li>
+      </ul>`,
+      page:"40"
+    },
+    {
+      q:"What is the rule that 'consideration must be sufficient but need not be adequate'? Explain with a case reference.",
+      q_bn:"'Consideration যথেষ্ট হতে হবে কিন্তু পর্যাপ্ত হওয়ার প্রয়োজন নেই' — নিয়মটি মামলার উদাহরণসহ ব্যাখ্যা কর।",
+      a_en:`<ul>
+        <li>Consideration must be <span class="kw-blue">sufficient (agreed)</span> but need <span class="kw-red">not be adequate (real/equal value)</span></li>
+        <li>Courts will <b>not investigate</b> whether parties got equal value</li>
+        <li><b>Case:</b> <i>Chappell & Co Ltd v The Nestle Co Ltd (1959)</i></li>
+      </ul>`,
+      a_bn:`<ul>
+        <li>Consideration <b>যথেষ্ট (sufficient)</b> হতে হবে কিন্তু <b>পর্যাপ্ত (adequate)</b> হতে হবে না</li>
+        <li>আদালত <b>যাচাই করে না</b> যে পক্ষগুলো সমান মূল্য পেয়েছে কিনা</li>
+        <li><b>মামলা:</b> Chappell & Co Ltd v The Nestle Co Ltd (1959)</li>
+      </ul>`,
+      page:"41"
+    },
+    {
+      q:"Why is 'past consideration' not valid? Give an example.",
+      q_bn:"কেন 'অতীত প্রতিদান (Past Consideration)' বৈধ নয়? একটি উদাহরণ দাও।",
+      a_en:`<ul>
+        <li><span class="kw-red">Past consideration is not valid</span> consideration for a new promise</li>
+        <li><b>Example:</b> A gives B a lift home. On arrival, B promises to pay BDT 500 for petrol. A <span class="kw-blue">cannot enforce</span> this promise since the lift (consideration) is already <b>past</b>.</li>
+      </ul>`,
+      a_bn:`<ul>
+        <li><b>অতীত প্রতিদান</b> নতুন প্রতিশ্রুতির জন্য বৈধ Consideration নয়</li>
+        <li><b>উদাহরণ:</b> A, B-কে বাড়িতে লিফট দেয়। পৌঁছে B ৫০০ টাকা তেলের খরচ দেওয়ার প্রতিশ্রুতি দেয়। যেহেতু লিফট দেওয়া <b>অতীতের ঘটনা</b>, তাই A এই প্রতিশ্রুতি বলবৎ করতে পারবে না।</li>
+      </ul>`,
+      page:"42"
+    },
+    {
+      q:"From whom must consideration come? Explain with Tweedle v Atkinson.",
+      q_bn:"Consideration কার কাছ থেকে আসতে হবে? Tweedle v Atkinson মামলাসহ ব্যাখ্যা কর।",
+      a_en:`<ul>
+        <li>Consideration must come from the person who wants to <span class="kw-blue">enforce the contract</span> (the <b>promisee</b>) — it does not have to go <i>to</i> the promisor</li>
+        <li><b>Example:</b> A's father & B's father agree A's son will pay BDT 1000 to B's son. Only <span class="kw-red">B's son (the promisee)</span> can enforce it — A's father cannot, as he gave no consideration.</li>
+        <li><b>Case:</b> <i>Tweedle v Atkinson [1861]</i></li>
+      </ul>`,
+      a_bn:`<ul>
+        <li>Consideration সেই ব্যক্তির কাছ থেকে আসতে হবে যিনি <b>চুক্তি বলবৎ করতে চান (promisee)</b></li>
+        <li><b>উদাহরণ:</b> শুধুমাত্র B-এর ছেলে (promisee) চুক্তি বলবৎ করতে পারবে, A-এর বাবা পারবে না কারণ সে কোনো Consideration দেয়নি</li>
+        <li><b>মামলা:</b> Tweedle v Atkinson [1861]</li>
+      </ul>`,
+      page:"43"
+    },
+    {
+      q:"What is 'intention to create legal relations' and why is it important?",
+      q_bn:"'আইনি সম্পর্ক তৈরির অভিপ্রায়' কী এবং এটি কেন গুরুত্বপূর্ণ?",
+      a_en:`<ul>
+        <li>The <span class="kw-red">4th essential element</span> of a contract, beyond Offer, Acceptance, and Consideration</li>
+        <li>Courts do <span class="kw-blue">not honor</span> agreements between friends (social) or family (domestic) that satisfy the other three elements but lack this intention</li>
+      </ul>`,
+      a_bn:`<ul>
+        <li>এটি চুক্তির <b>চতুর্থ প্রয়োজনীয় উপাদান</b></li>
+        <li>বন্ধু (সামাজিক) বা পরিবারের (গৃহস্থালী) মধ্যে চুক্তি এই উপাদানের অভাবে আদালত <b>মান্য করে না</b></li>
+      </ul>`,
+      page:"44–45"
+    },
+    {
+      q:"What presumptions do courts make about business vs. social/domestic agreements?",
+      q_bn:"ব্যবসায়িক ও সামাজিক/গৃহস্থালী চুক্তি সম্পর্কে আদালত কী অনুমান করে?",
+      a_en:`<ul>
+        <li>There <span class="kw-blue">IS intention</span> to create legal relations in any <b>business agreement</b></li>
+        <li>There is <span class="kw-red">NO intention</span> in <b>social (friends)</b> and <b>domestic (family)</b> agreements</li>
+      </ul>`,
+      a_bn:`<ul>
+        <li><b>ব্যবসায়িক চুক্তিতে</b> আইনি সম্পর্কের অভিপ্রায় <b>আছে</b> বলে ধরা হয়</li>
+        <li><b>সামাজিক (বন্ধু)</b> ও <b>গৃহস্থালী (পরিবার)</b> চুক্তিতে অভিপ্রায় <b>নেই</b> বলে ধরা হয়</li>
+      </ul>`,
+      page:"46"
+    },
+    {
+      q:"What are letters of intent, MOU, and letters of comfort? Are they legally binding?",
+      q_bn:"Letters of Intent, MOU এবং Letters of Comfort কী? এগুলো কি আইনগতভাবে বাধ্যতামূলক?",
+      a_en:`<ul>
+        <li><span class="kw-red">Letters of Intent</span> — problematic & considered <b>bad practice</b> in construction</li>
+        <li><span class="kw-blue">Memorandum of Understanding (MOU)</span></li>
+        <li><span class="kw-blue">Letters of Comfort</span></li>
+        <li>These are usually <span class="kw-red">not legally binding</span> as they do not create legal intention to be bound</li>
+      </ul>`,
+      a_bn:`<ul>
+        <li><b>Letters of Intent</b> — নির্মাণ শিল্পে সমস্যাজনক ও খারাপ চর্চা হিসেবে বিবেচিত</li>
+        <li><b>Memorandum of Understanding (MOU)</b></li>
+        <li><b>Letters of Comfort</b></li>
+        <li>এগুলো সাধারণত <b>আইনগতভাবে বাধ্যতামূলক নয়</b></li>
+      </ul>`,
+      page:"47"
+    }
+  ]
+},
+{
+  section:"5. Contents & Terms of a Contract",
+  section_bn:"চুক্তির বিষয়বস্তু ও শর্তাবলী",
+  items:[
+    {
+      q:"What are the main contents/components that make up a contract?",
+      q_bn:"একটি চুক্তির প্রধান বিষয়বস্তু/উপাদানসমূহ কী কী?",
+      a_en:`<ul>
+        <li><span class="kw-blue">Terms/Conditions</span></li>
+        <li><span class="kw-blue">Incorporation of Terms</span></li>
+        <li><span class="kw-red">Exemption Clause</span></li>
+      </ul>`,
+      a_bn:`<ul>
+        <li><b>শর্তাবলী (Terms/Conditions)</b></li>
+        <li><b>শর্ত অন্তর্ভুক্তকরণ (Incorporation of Terms)</b></li>
+        <li><b>Exemption Clause</b></li>
+      </ul>`,
+      page:"48"
+    },
+    {
+      q:"What is the difference between 'express terms' and 'implied terms'?",
+      q_bn:"'Express Terms' ও 'Implied Terms'-এর মধ্যে পার্থক্য কী?",
+      a_en:`<ul>
+        <li><span class="kw-blue">Express Terms</span> — explicitly stated, either as <b>oral statements</b> or <b>written terms</b></li>
+        <li><span class="kw-blue">Implied Terms</span> — added by courts even if not written; can be implied <b>in fact, in law, by custom,</b> or <b>by trade usage</b></li>
+      </ul>`,
+      a_bn:`<ul>
+        <li><b>Express Terms</b> — স্পষ্টভাবে বলা হয়, মৌখিক বা লিখিত আকারে</li>
+        <li><b>Implied Terms</b> — চুক্তিতে না লেখা থাকলেও আদালত অন্তর্ভুক্ত করতে পারে — Fact, Law, Custom বা Trade Usage দ্বারা</li>
+      </ul>`,
+      page:"49"
+    },
+    {
+      q:"What are the three ways written terms can be incorporated into a contract?",
+      q_bn:"লিখিত শর্তাবলী চুক্তিতে অন্তর্ভুক্ত হওয়ার তিনটি উপায় কী কী?",
+      a_en:`<ul>
+        <li>By <span class="kw-blue">signature</span></li>
+        <li>By <span class="kw-blue">reasonable notice</span></li>
+        <li>By a <span class="kw-blue">previous course of dealing</span></li>
+      </ul>`,
+      a_bn:`<ul>
+        <li><b>স্বাক্ষরের মাধ্যমে</b></li>
+        <li><b>যুক্তিসঙ্গত নোটিশের মাধ্যমে</b></li>
+        <li><b>পূর্ববর্তী লেনদেনের ধারা</b> অনুযায়ী</li>
+      </ul>`,
+      page:"51"
+    },
+    {
+      q:"What are 'terms implied in fact'?",
+      q_bn:"'Terms Implied in Fact' কী?",
+      a_en:`<p>Terms not laid down in the contract but which are assumed both parties <span class="kw-blue">would have intended to include</span> if they had thought about it — often left out by <b>mistake</b> or because they seemed too <b>obvious</b> to state.</p>`,
+      a_bn:`<p>চুক্তিতে সরাসরি উল্লেখ নেই, কিন্তু ধরে নেওয়া হয় উভয় পক্ষই তা <b>অন্তর্ভুক্ত করতে চাইতেন</b> যদি তারা এ বিষয়ে চিন্তা করতেন — সাধারণত ভুলবশত বা অতি স্পষ্ট মনে হওয়ায় বাদ পড়ে।</p>`,
+      page:"54"
+    },
+    {
+      q:"What are 'terms implied in law'? Give an example.",
+      q_bn:"'Terms Implied in Law' কী? একটি উদাহরণ দাও।",
+      a_en:`<p>Terms which the <span class="kw-red">law dictates must be present</span> in certain types of contract, regardless of party intent.</p>
+      <p><b>Example:</b> A landlord letting multiple homes in one building is under an implied legal obligation to provide <span class="kw-blue">proper access</span> to individual dwellings.</p>`,
+      a_bn:`<p>যে শর্তগুলো <b>আইন দ্বারা বাধ্যতামূলকভাবে</b> নির্দিষ্ট ধরনের চুক্তিতে থাকতে হয়, পক্ষগুলোর ইচ্ছা নির্বিশেষে।</p>
+      <p><b>উদাহরণ:</b> একাধিক বাসস্থানের ভাড়াদাতা প্রতিটি বাসস্থানে <b>যথাযথ প্রবেশাধিকার</b> প্রদানে আইনগতভাবে বাধ্য।</p>`,
+      page:"55"
+    },
+    {
+      q:"What are 'terms implied by custom'? Give a construction-industry example.",
+      q_bn:"'Terms Implied by Custom' কী? নির্মাণ শিল্পের একটি উদাহরণ দাও।",
+      a_en:`<p>Terms implied because <span class="kw-blue">local custom</span> dictates they would normally be included.</p>
+      <p><b>Example:</b> Even if not mentioned, local construction practice may require using <span class="kw-red">certified quality cement</span> — courts may imply this term based on local custom.</p>`,
+      a_bn:`<p>স্থানীয় প্রথা অনুযায়ী সাধারণত অন্তর্ভুক্ত থাকে বলে ধরে নেওয়া শর্ত।</p>
+      <p><b>উদাহরণ (নির্মাণ):</b> চুক্তিতে উল্লেখ না থাকলেও স্থানীয় প্রথা অনুযায়ী <b>প্রত্যয়িত মানসম্পন্ন সিমেন্ট</b> ব্যবহার করা আবশ্যক হতে পারে।</p>`,
+      page:"56"
+    },
+    {
+      q:"What are 'terms implied by trade usage'? Give a construction-industry example.",
+      q_bn:"'Terms Implied by Trade Usage' কী? নির্মাণ শিল্পের একটি উদাহরণ দাও।",
+      a_en:`<p>Terms routinely part of contracts within a <span class="kw-blue">particular trade or industry</span> may be implied by courts.</p>
+      <p><b>Example:</b> A developer hiring a contractor — even if unwritten, industry norms require providing a <span class="kw-red">structural safety certificate</span> upon completion.</p>`,
+      a_bn:`<p>নির্দিষ্ট শিল্প বা ব্যবসায় নিয়মিতভাবে অন্তর্ভুক্ত থাকা শর্তসমূহ আদালত অন্তর্ভুক্ত করতে পারে।</p>
+      <p><b>উদাহরণ:</b> ভবন নির্মাণ শেষে <b>স্ট্রাকচারাল সেফটি সার্টিফিকেট</b> প্রদান শিল্প রীতির অংশ হিসেবে বাধ্যতামূলক ধরা যেতে পারে।</p>`,
+      page:"57"
+    },
+    {
+      q:"What is the difference between 'Conditions' and 'Warranties' in a contract?",
+      q_bn:"চুক্তিতে 'Condition' এবং 'Warranty'-এর মধ্যে পার্থক্য কী?",
+      a_en:`<ul>
+        <li><span class="kw-red">Condition</span> — an important term; breach allows the innocent party to <b>repudiate the contract</b> and sue for damages</li>
+        <li><span class="kw-blue">Warranty</span> — a less critical term; breach only allows the innocent party to <b>sue for damages</b>, not terminate the contract</li>
+      </ul>`,
+      a_bn:`<ul>
+        <li><b>Condition</b> — গুরুত্বপূর্ণ শর্ত; লঙ্ঘন হলে নির্দোষ পক্ষ চুক্তি <b>বাতিল</b> করতে ও ক্ষতিপূরণ দাবি করতে পারে</li>
+        <li><b>Warranty</b> — কম গুরুত্বপূর্ণ শর্ত; লঙ্ঘন হলে শুধু <b>ক্ষতিপূরণ দাবি</b> করা যায়, চুক্তি বাতিল করা যায় না</li>
+      </ul>`,
+      page:"59–60"
+    },
+    {
+      q:"What are 'innominate terms' (intermediate terms)?",
+      q_bn:"'Innominate Terms' (Intermediate Terms) কী?",
+      a_en:`<p>Terms that can be broken with either <span class="kw-blue">important or trivial consequences</span>, depending on the <b>nature of the breach</b>. If serious, acts as a condition; if minor, acts as a warranty.</p>`,
+      a_bn:`<p>যেসব শর্ত লঙ্ঘন হলে ফলাফল <b>গুরুত্বপূর্ণ বা তুচ্ছ</b> — যেকোনোটি হতে পারে, লঙ্ঘনের প্রকৃতির উপর নির্ভর করে। গুরুতর হলে তা Condition এবং সামান্য হলে তা Warranty হিসেবে কাজ করে।</p>`,
+      page:"61"
+    },
+    {
+      q:"What are 'exemption clauses' and what purposes do they serve?",
+      q_bn:"'Exemption Clause' কী এবং এর উদ্দেশ্য কী কী?",
+      a_en:`<p>Terms included in contracts to avoid or limit liability for certain breaches:</p>
+      <ul>
+        <li><span class="kw-blue">Limitation Clause</span> — limits the extent of liability for damages</li>
+        <li><span class="kw-red">Exclusion Clause</span> — excludes liability for damages altogether</li>
+      </ul>`,
+      a_bn:`<p>নির্দিষ্ট লঙ্ঘনের জন্য দায় এড়ানো বা সীমিত করার উদ্দেশ্যে চুক্তিতে অন্তর্ভুক্ত শর্তাবলী:</p>
+      <ul>
+        <li><b>Limitation Clause</b> — ক্ষতিপূরণের দায় সীমিত করে</li>
+        <li><b>Exclusion Clause</b> — ক্ষতিপূরণের দায় সম্পূর্ণভাবে বাদ দেয়</li>
+      </ul>`,
+      page:"61"
+    }
+  ]
+},
+{
+  section:"6. Factors Affecting the Validity of a Contract",
+  section_bn:"চুক্তির বৈধতাকে প্রভাবিতকারী উপাদানসমূহ",
+  items:[
+    {
+      q:"What are the main factors that can affect the validity of a contract?",
+      q_bn:"চুক্তির বৈধতা প্রভাবিত করতে পারে এমন প্রধান উপাদানসমূহ কী কী?",
+      a_en:`<ul>
+        <li><span class="kw-blue">Incapacity</span></li>
+        <li><span class="kw-blue">Mistake</span></li>
+        <li><span class="kw-red">Misrepresentation</span></li>
+        <li><span class="kw-red">Illegality</span></li>
+        <li><b>Duress / Undue Influence</b></li>
+      </ul>`,
+      a_bn:`<ul>
+        <li><b>Incapacity (অক্ষমতা)</b></li>
+        <li><b>Mistake (ভুল)</b></li>
+        <li><b>Misrepresentation (ভুল বর্ণনা)</b></li>
+        <li><b>Illegality (অবৈধতা)</b></li>
+        <li><b>Duress / Undue Influence (জবরদস্তি/অনুচিত প্রভাব)</b></li>
+      </ul>`,
+      page:"62"
+    },
+    {
+      q:"Which people/organizations are considered to lack capacity to contract?",
+      q_bn:"কোন ব্যক্তি/প্রতিষ্ঠানকে চুক্তি করার ক্ষমতাহীন বলে ধরা হয়?",
+      a_en:`<ul>
+        <li><span class="kw-blue">Minors</span></li>
+        <li><span class="kw-blue">People suffering from mental incapacity</span></li>
+        <li><span class="kw-red">Corporations</span> (limited capacity)</li>
+      </ul>`,
+      a_bn:`<ul>
+        <li><b>নাবালক (Minors)</b></li>
+        <li><b>মানসিকভাবে অক্ষম ব্যক্তি</b></li>
+        <li><b>কর্পোরেশন</b> (সীমিত ক্ষমতা)</li>
+      </ul>`,
+      page:"63"
+    },
+    {
+      q:"What is the current legal age of majority, and how did it change historically?",
+      q_bn:"বর্তমান আইনি প্রাপ্তবয়স্কতার বয়স কত এবং ঐতিহাসিকভাবে এটি কীভাবে পরিবর্তিত হয়েছে?",
+      a_en:`<ul>
+        <li>Traditionally, anyone <span class="kw-red">under 21</span> was regarded as a minor ('infant')</li>
+        <li>In <span class="kw-blue">1969</span>, the <b>Family Law Reform Act</b> reduced the age of majority to <b>18</b></li>
+      </ul>`,
+      a_bn:`<ul>
+        <li>ঐতিহ্যগতভাবে <b>২১ বছরের কম বয়সী</b> কাউকে নাবালক ('infant') ধরা হতো</li>
+        <li><b>১৯৬৯</b> সালে <b>Family Law Reform Act</b> প্রাপ্তবয়স্কতার বয়স কমিয়ে <b>১৮</b> বছর করে</li>
+      </ul>`,
+      page:"64"
+    },
+    {
+      q:"Are contracts with minors always void? Explain.",
+      q_bn:"নাবালকের সাথে চুক্তি কি সবসময় বাতিল (void)? ব্যাখ্যা কর।",
+      a_en:`<ul>
+        <li>The basic common law rule: contracts <span class="kw-red">do not bind minors</span></li>
+        <li>However, some contracts ARE binding or merely <span class="kw-blue">voidable</span>:
+          <ul>
+            <li>Contracts of service <b>for the minor's benefit</b> bind the minor</li>
+            <li>Contracts for <b>necessary goods and services</b> bind the minor</li>
+            <li>Other contracts are <b>voidable</b> (not automatically void)</li>
+          </ul>
+        </li>
+      </ul>`,
+      a_bn:`<ul>
+        <li>মৌলিক নিয়ম: চুক্তি সাধারণত নাবালককে <b>বাঁধে না</b></li>
+        <li>তবে কিছু ক্ষেত্রে চুক্তি বাধ্যতামূলক বা কেবল <b>voidable (বাতিলযোগ্য)</b>:
+          <ul>
+            <li>নাবালকের <b>উপকারার্থে</b> সেবা চুক্তি বাধ্যতামূলক</li>
+            <li><b>প্রয়োজনীয় দ্রব্য ও সেবার</b> চুক্তি বাধ্যতামূলক</li>
+            <li>অন্যান্য চুক্তি কেবল <b>voidable</b></li>
+          </ul>
+        </li>
+      </ul>`,
+      page:"65"
+    },
+    {
+      q:"What is 'mistake' in the law of contract? Give an example (Raffles v Wickelhaus).",
+      q_bn:"চুক্তি আইনে 'Mistake' কী? Raffles v Wickelhaus মামলার উদাহরণসহ ব্যাখ্যা কর।",
+      a_en:`<ul>
+        <li>Mistake arises when parties are <span class="kw-blue">mistaken as to the terms</span> or an <b>important fact</b> in the contract</li>
+        <li><b>Example:</b> A buyer expects goods on a ship named 'Peerless', but the seller ships on a <span class="kw-red">different ship of the same name</span> that arrives much later (<i>Raffles v Wickelhaus</i>)</li>
+      </ul>`,
+      a_bn:`<ul>
+        <li>যখন পক্ষগুলো চুক্তির <b>শর্ত</b> বা <b>গুরুত্বপূর্ণ তথ্য</b> সম্পর্কে ভুল ধারণা রাখে তখন Mistake দেখা দেয়</li>
+        <li><b>উদাহরণ:</b> ক্রেতা 'Peerless' নামের একটি জাহাজে পণ্য আশা করেন, কিন্তু বিক্রেতা <b>একই নামের অন্য জাহাজে</b> পণ্য পাঠান যা অনেক দেরিতে পৌঁছায়</li>
+      </ul>`,
+      page:"66"
+    },
+    {
+      q:"What happens to a contract if the courts find both parties entered it under a mistake?",
+      q_bn:"উভয় পক্ষ ভুল ধারণা নিয়ে চুক্তি করলে আদালত কী সিদ্ধান্ত নেয়?",
+      a_en:`<p>The contract will <span class="kw-red">not be valid</span> — it becomes <b>'void ab initio'</b>, meaning <span class="kw-blue">void from the very beginning</span>.</p>`,
+      a_bn:`<p>চুক্তি <b>বৈধ থাকে না</b> — এটি <b>'void ab initio'</b> হয়ে যায়, অর্থাৎ <b>শুরু থেকেই বাতিল</b>।</p>`,
+      page:"67"
+    },
+    {
+      q:"What are the different types of 'mistake' recognized in contract law?",
+      q_bn:"চুক্তি আইনে স্বীকৃত বিভিন্ন ধরনের 'Mistake' কী কী?",
+      a_en:`<ul>
+        <li><span class="kw-blue">Common Mistake</span> — both parties make the same fundamental mistake</li>
+        <li><span class="kw-red">Cross-purposes Mistake</span> — divided into:
+          <ul>
+            <li><b>Mutual Mistake</b> — each party makes a different mistake</li>
+            <li><b>Unilateral Mistake</b> — only one party is mistaken</li>
+          </ul>
+        </li>
+      </ul>`,
+      a_bn:`<ul>
+        <li><b>Common Mistake</b> — উভয় পক্ষই একই মৌলিক ভুল করে</li>
+        <li><b>Cross-purposes Mistake</b>:
+          <ul>
+            <li><b>Mutual Mistake</b> — প্রতিটি পক্ষ ভিন্ন ভিন্ন ভুল করে</li>
+            <li><b>Unilateral Mistake</b> — শুধুমাত্র একটি পক্ষ ভুল করে</li>
+          </ul>
+        </li>
+      </ul>`,
+      page:"68"
+    },
+    {
+      q:"Differentiate between Common Mistake, Mutual Mistake, and Unilateral Mistake with examples.",
+      q_bn:"উদাহরণসহ Common Mistake, Mutual Mistake এবং Unilateral Mistake-এর মধ্যে পার্থক্য দেখাও।",
+      a_en:`<ul>
+        <li><span class="kw-blue">Common Mistake</span> — both believe a painting is oil, when it's actually a <b>water painting</b> (both share the same wrong belief)</li>
+        <li><span class="kw-red">Mutual Mistake</span> — each party has a <b>different</b> mistaken understanding (<i>Raffles v Wickelhaus</i> — different ships)</li>
+        <li><span class="kw-red">Unilateral Mistake</span> — only <b>one party</b> is mistaken; the other is not (e.g., fraudulent misrepresentation situations)</li>
+      </ul>`,
+      a_bn:`<ul>
+        <li><b>Common Mistake</b> — উভয়ই মনে করে ছবিটি তেল রং-এর, বাস্তবে এটি জলরং-এর ছবি</li>
+        <li><b>Mutual Mistake</b> — প্রতিটি পক্ষ <b>আলাদা আলাদা</b> ভুল ধারণা রাখে</li>
+        <li><b>Unilateral Mistake</b> — শুধু <b>একটি পক্ষই</b> ভুল করে, অন্যটি নয়</li>
+      </ul>`,
+      page:"69–70"
+    },
+    {
+      q:"What is 'misrepresentation' in contract law and what are its consequences?",
+      q_bn:"চুক্তি আইনে 'Misrepresentation' কী এবং এর ফলাফল কী?",
+      a_en:`<ul>
+        <li>A misrepresentation is an <span class="kw-red">untrue statement of fact</span> by one party that <b>induces</b> the other to enter the contract</li>
+        <li>The contract becomes <span class="kw-blue">voidable</span>, and the innocent party may have a right to <b>damages</b></li>
+      </ul>`,
+      a_bn:`<ul>
+        <li>Misrepresentation হলো একটি পক্ষের দেওয়া <b>মিথ্যা তথ্য</b> যা অন্য পক্ষকে চুক্তিতে প্রবেশে <b>প্ররোচিত</b> করে</li>
+        <li>এতে চুক্তি <b>voidable (বাতিলযোগ্য)</b> হয়ে যায়, এবং নির্দোষ পক্ষ <b>ক্ষতিপূরণ</b> পাওয়ার অধিকারী হতে পারে</li>
+      </ul>`,
+      page:"71"
+    },
+    {
+      q:"What are the three types of misrepresentation, and what remedies apply to each?",
+      q_bn:"তিন ধরনের Misrepresentation কী কী এবং প্রতিটির প্রতিকার কী?",
+      a_en:`<ul>
+        <li><span class="kw-red">Fraudulent misrepresentation</span> — a knowingly dishonest false statement → <b>Rescission + Damages</b> (tort of deceit)</li>
+        <li><span class="kw-blue">Negligent misrepresentation</span> — false statement made carelessly → <b>Rescission + Damages</b></li>
+        <li><span class="kw-blue">Innocent misrepresentation</span> — false statement believed to be true with reasonable grounds → <b>Rescission only</b> (damages at court's discretion under Misrepresentation Act 1967)</li>
+      </ul>`,
+      a_bn:`<ul>
+        <li><b>Fraudulent Misrepresentation</b> — জেনেশুনে দেওয়া মিথ্যা তথ্য → <b>Rescission + ক্ষতিপূরণ</b></li>
+        <li><b>Negligent Misrepresentation</b> — অসতর্কভাবে দেওয়া মিথ্যা তথ্য → <b>Rescission + ক্ষতিপূরণ</b></li>
+        <li><b>Innocent Misrepresentation</b> — সত্য বিশ্বাস করে দেওয়া বিবৃতি → শুধুমাত্র <b>Rescission</b></li>
+      </ul>`,
+      page:"72–74"
+    },
+    {
+      q:"What makes a contract void due to 'illegality'? Give examples.",
+      q_bn:"কোন কারণে একটি চুক্তি 'Illegality (অবৈধতা)'-র কারণে বাতিল হয়? উদাহরণ দাও।",
+      a_en:`<p>If the <span class="kw-red">performance of a contract is illegal or immoral</span>, the contract is <b>void/invalid</b>. Examples:</p>
+      <ul>
+        <li>Contracts requiring <b>criminal activities</b></li>
+        <li>Contracts promoting <b>immoral activities</b></li>
+        <li>Contracts <span class="kw-blue">against public policy</span> — e.g., <b>restraint of trade clauses</b></li>
+      </ul>`,
+      a_bn:`<p>চুক্তির সম্পাদন <b>অবৈধ বা অনৈতিক</b> হলে তা <b>বাতিল/অবৈধ</b> হয়ে যায়। উদাহরণ:</p>
+      <ul>
+        <li><b>অপরাধমূলক কার্যক্রম</b> সম্পাদনের চুক্তি</li>
+        <li><b>অনৈতিক কার্যক্রম</b> প্রচারের চুক্তি</li>
+        <li><b>জনস্বার্থবিরোধী</b> চুক্তি — যেমন Restraint of Trade Clause</li>
+      </ul>`,
+      page:"75"
+    },
+    {
+      q:"What is 'duress' in contract law, and what five conditions must be satisfied to establish it?",
+      q_bn:"চুক্তি আইনে 'Duress' কী এবং এটি প্রমাণের জন্য পাঁচটি শর্ত কী কী?",
+      a_en:`<p>Duress occurs when one party uses an <span class="kw-red">improper threat or act</span> to obtain a contract (e.g., threats of illegal conduct).</p>
+      <p><b>Five conditions:</b></p>
+      <ol>
+        <li>Pressure was <span class="kw-blue">exerted</span> on the contracting party</li>
+        <li>The pressure was <span class="kw-blue">illegitimate</span></li>
+        <li>The pressure <b>induced</b> the claimant to enter the contract</li>
+        <li>The claimant had <b>no real choice</b> but to enter</li>
+        <li>The claimant <b>protested</b> at the time or shortly after</li>
+      </ol>`,
+      a_bn:`<p>Duress ঘটে যখন এক পক্ষ <b>অনুচিত হুমকি বা কাজ</b> ব্যবহার করে চুক্তি সম্পাদনে বাধ্য করে।</p>
+      <p><b>পাঁচটি শর্ত:</b></p>
+      <ol>
+        <li>চুক্তির পক্ষের উপর <b>চাপ প্রয়োগ</b> করা হয়েছিল</li>
+        <li>এই চাপ ছিল <b>অবৈধ</b></li>
+        <li>এই চাপ দাবিদারকে চুক্তিতে প্রবেশে <b>প্ররোচিত করেছিল</b></li>
+        <li>দাবিদারের <b>প্রকৃত কোনো বিকল্প ছিল না</b></li>
+        <li>দাবিদার সে সময় বা পরে <b>প্রতিবাদ</b> করেছিল</li>
+      </ol>`,
+      page:"76–77"
+    },
+    {
+      q:"What is 'undue influence' in contract law?",
+      q_bn:"চুক্তি আইনে 'Undue Influence' কী?",
+      a_en:`<p>A court finds undue influence when someone who shares a <span class="kw-blue">special trust</span> with the victim uses that trust to <span class="kw-red">persuade</span> them into signing (or not signing) a contract — essentially an <b>abuse of confidence and trust</b>.</p>`,
+      a_bn:`<p>যখন কেউ ভুক্তভোগীর সাথে <b>বিশেষ আস্থার সম্পর্ক</b> ব্যবহার করে চুক্তিতে স্বাক্ষর করতে (বা না করতে) <b>প্ররোচিত</b> করে, তখন আদালত তা Undue Influence হিসেবে বিবেচনা করে — এটি মূলত <b>আস্থার অপব্যবহার</b>।</p>`,
+      page:"78"
+    },
+    {
+      q:"What are the two types of undue influence? Differentiate them.",
+      q_bn:"Undue Influence-এর দুই ধরনের মধ্যে পার্থক্য কী?",
+      a_en:`<ul>
+        <li><span class="kw-blue">Actual Undue Influence</span> — the claimant must <b>prove</b> they entered the transaction as a result of undue influence</li>
+        <li><span class="kw-red">Presumed Undue Influence</span> — arises where there is a <b>pre-existing relationship of confidence</b> (fiduciary relationship) — no proof of actual influence needed, it is <b>presumed</b></li>
+      </ul>`,
+      a_bn:`<ul>
+        <li><b>Actual Undue Influence</b> — দাবিদারকে <b>প্রমাণ করতে হয়</b> যে সে Undue Influence-এর কারণে চুক্তি করেছে</li>
+        <li><b>Presumed Undue Influence</b> — যেখানে <b>পূর্ব-বিদ্যমান আস্থার সম্পর্ক (fiduciary)</b> থাকে — সেখানে প্রভাব <b>স্বতঃপ্রণোদিতভাবে ধরে নেওয়া হয়</b></li>
+      </ul>`,
+      page:"79–80"
+    },
+    {
+      q:"What is a 'fiduciary relationship'? Give examples of relationships where undue influence is presumed.",
+      q_bn:"'Fiduciary Relationship' কী? Undue Influence অনুমিত হয় এমন সম্পর্কের উদাহরণ দাও।",
+      a_en:`<p>A <span class="kw-blue">fiduciary relationship</span> is one of <b>trust</b>, where one party places confidence in the other. Examples where presumed undue influence applies:</p>
+      <ul>
+        <li><b>Parent and child</b></li>
+        <li><b>Religious adviser and disciple</b></li>
+        <li><b>Guardian and ward</b></li>
+        <li><b>Solicitor and client</b></li>
+        <li><b>Trustee and beneficiary</b></li>
+        <li><b>Doctor and patient</b></li>
+      </ul>`,
+      a_bn:`<p><b>Fiduciary Relationship</b> হলো এমন একটি আস্থার সম্পর্ক যেখানে একপক্ষ অন্যপক্ষের উপর আস্থা রাখে। যেসব সম্পর্কে Undue Influence অনুমিত হয়:</p>
+      <ul>
+        <li>পিতামাতা ও সন্তান</li>
+        <li>ধর্মীয় পরামর্শদাতা ও শিষ্য</li>
+        <li>অভিভাবক ও ওয়ার্ড</li>
+        <li>সলিসিটর ও ক্লায়েন্ট</li>
+        <li>ট্রাস্টি ও উপকারভোগী</li>
+        <li>ডাক্তার ও রোগী</li>
+      </ul>`,
+      page:"81"
+    }
+  ]
+},
+{
+  section:"7. Remedies for Breach of Contract",
+  section_bn:"চুক্তি লঙ্ঘনের প্রতিকার",
+  items:[
+    {
+      q:"What are the three types of remedies available for a breach of contract?",
+      q_bn:"চুক্তি লঙ্ঘনের জন্য তিন ধরনের প্রতিকার কী কী?",
+      a_en:`<ul>
+        <li><span class="kw-blue">Common Law Remedies</span></li>
+        <li><span class="kw-red">Equitable Remedies</span></li>
+        <li><b>Remedies agreed between the parties</b></li>
+      </ul>`,
+      a_bn:`<ul>
+        <li><b>Common Law Remedies</b></li>
+        <li><b>Equitable Remedies</b></li>
+        <li><b>পক্ষগুলোর মধ্যে সম্মত প্রতিকার</b></li>
+      </ul>`,
+      page:"82"
+    },
+    {
+      q:"What are 'common law remedies'? Explain the general principle behind damages.",
+      q_bn:"'Common Law Remedies' কী? ক্ষতিপূরণের সাধারণ নীতি ব্যাখ্যা কর।",
+      a_en:`<ul>
+        <li>An award of <span class="kw-blue">damages</span> is the usual remedy — <b>money</b> compensating the innocent party for financial losses</li>
+        <li><b>General rule:</b> damages should put the innocent party in the position they would have been in <span class="kw-red">if the contract had been performed</span></li>
+      </ul>`,
+      a_bn:`<ul>
+        <li><b>Damages (ক্ষতিপূরণ)</b> প্রদানই সাধারণ প্রতিকার — আর্থিক ক্ষতির জন্য অর্থ প্রদান</li>
+        <li><b>সাধারণ নিয়ম:</b> ক্ষতিপূরণ এমনভাবে দেওয়া হয় যেন নির্দোষ পক্ষ সেই অবস্থানে থাকে যেখানে সে <b>চুক্তি পালিত হলে</b> থাকতো</li>
+      </ul>`,
+      page:"83"
+    },
+    {
+      q:"What are 'equitable remedies'? Name and explain them.",
+      q_bn:"'Equitable Remedies' কী? এগুলোর নাম ও ব্যাখ্যা দাও।",
+      a_en:`<p>Available at the <span class="kw-blue">discretion of the court</span> when common law remedies are inadequate:</p>
+      <ul>
+        <li><span class="kw-red">Specific Performance</span> — compelling someone to perform their contractual obligations</li>
+        <li><span class="kw-red">Injunction</span> — normally ordering the defendant <b>not to do something</b></li>
+      </ul>`,
+      a_bn:`<p>সাধারণ প্রতিকার অপর্যাপ্ত হলে <b>আদালতের বিবেচনায়</b> প্রদত্ত প্রতিকার:</p>
+      <ul>
+        <li><b>Specific Performance</b> — চুক্তিগত বাধ্যবাধকতা পালনে বাধ্য করা</li>
+        <li><b>Injunction</b> — বিবাদীকে কিছু <b>না করার নির্দেশ</b> দেওয়া</li>
+      </ul>`,
+      page:"84"
+    },
+    {
+      q:"What are 'agreed remedies' in a contract?",
+      q_bn:"চুক্তিতে 'Agreed Remedies' কী?",
+      a_en:`<p>Remedies that are <span class="kw-blue">sometimes provided for in the contract itself</span> — pre-agreed by the parties (e.g., liquidated damages clauses).</p>`,
+      a_bn:`<p>এমন প্রতিকার যা <b>চুক্তিতেই আগে থেকে উল্লেখ থাকে</b> — পক্ষগুলোর পূর্ব-সম্মতিতে (যেমন Liquidated Damages ধারা)।</p>`,
+      page:"85"
+    }
+  ]
+}
+];
+
+// Render
+const root = document.getElementById('qaRoot');
+let qCounter = 0;
+let allCards = [];
+
+data.forEach((section, sIdx) => {
+  const secDiv = document.createElement('div');
+  secDiv.innerHTML = `
+    <div class="section-title">
+      <div class="badge">${sIdx+1}</div>
+      <h2>${section.section}<span class="bn">${section.section_bn}</span></h2>
+    </div>
+  `;
+  root.appendChild(secDiv);
+
+  section.items.forEach(item => {
+    qCounter++;
+    const card = document.createElement('div');
+    card.className = 'qa-card';
+    card.innerHTML = `
+      <button class="q-btn">
+        <div class="q-num">${qCounter}</div>
+        <div class="q-text">
+          <div class="en">${item.q}</div>
+          <div class="bn">${item.q_bn}</div>
+        </div>
+        <div class="page-tag">Page ${item.page}</div>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </button>
+      <div class="a-wrap">
+        <div class="a-inner">
+          <div class="a-block">
+            <span class="lang-label en">Answer</span>
+            <div>${item.a_en}</div>
+          </div>
+          <div class="a-block bn-block">
+            <span class="lang-label bn">উত্তর</span>
+            <div>${item.a_bn}</div>
+          </div>
+        </div>
+      </div>
+    `;
+    const btn = card.querySelector('.q-btn');
+    btn.addEventListener('click', () => {
+      card.classList.toggle('open');
+    });
+    root.appendChild(card);
+    allCards.push({card, searchText:(item.q+' '+item.q_bn+' '+section.section+' '+section.section_bn).toLowerCase()});
+  });
+});
+
+document.getElementById('totalCount').textContent = qCounter;
+
+// Search
+const searchInput = document.getElementById('searchInput');
+const noResult = document.getElementById('noResult');
+searchInput.addEventListener('input', () => {
+  const term = searchInput.value.trim().toLowerCase();
+  let visibleCount = 0;
+  allCards.forEach(({card, searchText}) => {
+    if(term === '' || searchText.includes(term)){
+      card.style.display = '';
+      visibleCount++;
+    } else {
+      card.style.display = 'none';
+    }
+  });
+  noResult.style.display = visibleCount === 0 ? 'block' : 'none';
+});
+</script>
+
+</body>
+</html>

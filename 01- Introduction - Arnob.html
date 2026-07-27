@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Introduction — BECM 3107 | Interactive Q&A</title>
+<style>
+  :root{
+    --navy:#0b1f3a;
+    --navy-2:#122a4d;
+    --accent:#1f6f4c;
+    --accent-2:#1f5fa8;
+    --gold:#c98a1f;
+    --bg:#f4f6fb;
+    --card:#ffffff;
+    --text:#1c2530;
+    --muted:#5c6b7a;
+    --bn:#3a4a5a;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Segoe UI', Tahoma, Verdana, sans-serif;
+    background:linear-gradient(180deg,#eef2f9 0%, #f4f6fb 100%);
+    color:var(--text);
+    padding-bottom:60px;
+  }
+  header{
+    background:linear-gradient(135deg,var(--navy) 0%, var(--navy-2) 60%, #1a3a63 100%);
+    color:#fff;
+    padding:44px 20px 34px;
+    text-align:center;
+    box-shadow:0 6px 18px rgba(0,0,0,0.18);
+  }
+  header h1{
+    margin:0 0 6px;
+    font-size:1.9rem;
+    letter-spacing:0.5px;
+  }
+  header .course-code{
+    color:var(--gold);
+    font-weight:600;
+    font-size:1.05rem;
+    letter-spacing:1px;
+  }
+  header p.subtitle{
+    margin:10px auto 0;
+    max-width:680px;
+    color:#cfd9e8;
+    font-size:0.95rem;
+    line-height:1.5;
+  }
+  .container{
+    max-width:920px;
+    margin:0 auto;
+    padding:28px 16px 0;
+  }
+  .stats{
+    display:flex;
+    justify-content:center;
+    gap:14px;
+    flex-wrap:wrap;
+    margin:-22px auto 24px;
+    max-width:920px;
+    padding:0 16px;
+  }
+  .stat-pill{
+    background:var(--card);
+    border-radius:30px;
+    padding:8px 18px;
+    font-size:0.85rem;
+    box-shadow:0 4px 14px rgba(20,40,80,0.10);
+    color:var(--navy-2);
+    font-weight:600;
+  }
+  .controls{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    margin-bottom:18px;
+    flex-wrap:wrap;
+  }
+  .search-box{
+    flex:1;
+    min-width:220px;
+    position:relative;
+  }
+  .search-box input{
+    width:100%;
+    padding:11px 14px 11px 38px;
+    border-radius:10px;
+    border:1px solid #d6dde8;
+    font-size:0.92rem;
+    background:#fff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%235c6b7a"><circle cx="6.5" cy="6.5" r="5" fill="none" stroke="%235c6b7a" stroke-width="1.5"/><line x1="10.2" y1="10.2" x2="15" y2="15" stroke="%235c6b7a" stroke-width="1.5"/></svg>') no-repeat 12px center;
+    outline:none;
+    transition:border-color .2s;
+  }
+  .search-box input:focus{ border-color:var(--accent-2); }
+  .toggle-btn{
+    background:var(--navy);
+    color:#fff;
+    border:none;
+    padding:11px 18px;
+    border-radius:10px;
+    font-size:0.85rem;
+    cursor:pointer;
+    font-weight:600;
+    white-space:nowrap;
+    transition:background .2s, transform .15s;
+  }
+  .toggle-btn:hover{ background:var(--navy-2); transform:translateY(-1px); }
+
+  .qa-card{
+    background:var(--card);
+    border-radius:14px;
+    margin-bottom:14px;
+    box-shadow:0 3px 12px rgba(20,40,80,0.08);
+    overflow:hidden;
+    border-left:5px solid var(--accent-2);
+    transition:box-shadow .2s, transform .15s;
+  }
+  .qa-card:hover{ box-shadow:0 8px 22px rgba(20,40,80,0.14); }
+  .qa-card.open{ border-left-color:var(--accent); }
+
+  .qa-question{
+    padding:18px 20px;
+    cursor:pointer;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:14px;
+    user-select:none;
+  }
+  .q-index{
+    color:var(--accent-2);
+    font-weight:800;
+    margin-right:8px;
+    font-size:0.95rem;
+  }
+  .q-text-wrap{ flex:1; }
+  .q-en{
+    font-size:1.02rem;
+    font-weight:650;
+    color:var(--navy-2);
+    line-height:1.45;
+  }
+  .q-bn{
+    font-size:0.92rem;
+    color:var(--bn);
+    margin-top:4px;
+    line-height:1.5;
+    font-family:'Noto Sans Bengali','Segoe UI',sans-serif;
+  }
+  .chevron{
+    flex-shrink:0;
+    width:26px;
+    height:26px;
+    border-radius:50%;
+    background:#eef2f9;
+    color:var(--navy-2);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1rem;
+    transition:transform .3s, background .3s, color .3s;
+    margin-top:2px;
+  }
+  .qa-card.open .chevron{
+    transform:rotate(180deg);
+    background:var(--accent);
+    color:#fff;
+  }
+
+  .qa-answer{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .38s ease;
+    background:#fbfcfe;
+    border-top:1px dashed #dfe6ef;
+  }
+  .qa-answer-inner{
+    padding:18px 22px 20px 22px;
+  }
+  .answer-block-en, .answer-block-bn{
+    margin-bottom:10px;
+  }
+  .answer-label{
+    font-size:0.72rem;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    color:var(--muted);
+    font-weight:700;
+    margin-bottom:6px;
+  }
+  ul.ans-list{
+    margin:0 0 4px 0;
+    padding-left:20px;
+  }
+  ul.ans-list li{
+    margin-bottom:7px;
+    line-height:1.55;
+    font-size:0.95rem;
+  }
+  ul.ans-list.bn li{
+    font-family:'Noto Sans Bengali','Segoe UI',sans-serif;
+    font-size:0.93rem;
+    color:var(--bn);
+  }
+  .kw-red{ color:#a83c1e; font-weight:700; }
+  .kw-blue{ color:#1f5fa8; font-weight:700; }
+  .page-ref{
+    display:inline-block;
+    margin-top:6px;
+    background:var(--navy);
+    color:#fff;
+    padding:3px 12px;
+    border-radius:20px;
+    font-size:0.75rem;
+    font-weight:600;
+  }
+  footer{
+    text-align:center;
+    color:var(--muted);
+    font-size:0.8rem;
+    margin-top:40px;
+  }
+  @media (max-width:600px){
+    header h1{ font-size:1.5rem; }
+    .q-en{ font-size:0.95rem; }
+    .controls{ flex-direction:column; align-items:stretch; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="course-code">BECM 3107 — Construction Contract &amp; Law</div>
+  <h1>Introduction — Interactive Q&amp; A</h1>
+  <div class="course-code" style="font-family:'Noto Sans Bengali','Segoe UI',sans-serif; font-weight:400; color:#cfd9e8; font-size:0.95rem;">ভূমিকা — ইন্টারঅ্যাকটিভ প্রশ্নোত্তর</div>
+  <p class="subtitle">Based on the lecture by Sanjida Afrin Sworna, Lecturer (Adjunct), Department of BECM, KUET. Click any question to reveal the answer.</p>
+</header>
+
+<div class="stats">
+  <div class="stat-pill" id="totalCount">Loading...</div>
+  <div class="stat-pill">📄 12 Slides Covered</div>
+  <div class="stat-pill">🌐 English + বাংলা</div>
+</div>
+
+<div class="container">
+  <div class="controls">
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Search questions... / প্রশ্ন খুঁজুন...">
+    </div>
+    <button class="toggle-btn" id="toggleAllBtn">Expand All</button>
+  </div>
+
+  <div id="qaContainer"></div>
+</div>
+
+<footer>Prepared from "BECM 3107 – Introduction" slide deck • For study purposes</footer>
+
+<script>
+const qaData = [
+{
+  q_en: "How many credits are assigned to BECM 3107, and how many contact hours per week does it involve?",
+  q_bn: "BECM 3107 কোর্সে কত ক্রেডিট বরাদ্দ, এবং প্রতি সপ্তাহে কত ঘণ্টা ক্লাস হয়?",
+  ans_en: [
+    "BECM 3107: <span class='kw-red'>Construction Contract and Law</span>.",
+    "Credits: <span class='kw-blue'>4.0</span> (<span class='kw-blue'>4.0 hrs/week</span>)."
+  ],
+  ans_bn: [
+    "BECM 3107: <span class='kw-red'>নির্মাণ চুক্তি ও আইন (Construction Contract and Law)</span>।",
+    "ক্রেডিট: <span class='kw-blue'>৪.০</span> (সপ্তাহে <span class='kw-blue'>৪.০ ঘণ্টা</span>)।"
+  ],
+  page: 2
+},
+{
+  q_en: "What topics does the portion of BECM 3107 taught by SAS (Sanjida Afrin Sworna) cover, according to the course contents?",
+  q_bn: "কোর্স কনটেন্ট অনুযায়ী, SAS (সানজিদা আফরিন স্বর্ণা) কর্তৃক পড়ানো BECM 3107-এর অংশে কোন কোন বিষয় অন্তর্ভুক্ত?",
+  ans_en: [
+    "Introduction to <span class='kw-red'>working drawings, specifications, and other documents</span> required to prepare a contract, with emphasis on the <span class='kw-blue'>organization and use of architectural/engineering drawings and specifications</span>.",
+    "The <span class='kw-red'>sequence of contract activities</span> — preparing bidding and contract documents, preparing technical/building specifications, and preparing documents for inspections.",
+    "<span class='kw-blue'>Submittals and changes</span> in a contract, procedures for <span class='kw-red'>early contract termination</span>, and preparing documents for <span class='kw-blue'>close-out and commissioning</span>.",
+    "<span class='kw-red'>Insurance and construction bonding</span> — liability insurance, indemnity agreements, surety bonds, bid bonds, performance bonds, labour and material payment bonds, lien bonds, warranty bonds, and letters of credit.",
+    "<span class='kw-blue'>Construction management contracts and custom contracts</span>."
+  ],
+  ans_bn: [
+    "চুক্তি তৈরির জন্য প্রয়োজনীয় <span class='kw-red'>ওয়ার্কিং ড্রয়িং, স্পেসিফিকেশন এবং অন্যান্য দলিলের</span> ভূমিকা, বিশেষত <span class='kw-blue'>স্থাপত্য/প্রকৌশল ড্রয়িং ও স্পেসিফিকেশনের সংগঠন ও ব্যবহারের</span> উপর গুরুত্ব দিয়ে।",
+    "<span class='kw-red'>চুক্তি কার্যক্রমের ক্রম</span> — বিডিং ও চুক্তির দলিল প্রস্তুত করা, টেকনিক্যাল/বিল্ডিং স্পেসিফিকেশন প্রস্তুত করা, এবং পরিদর্শনের জন্য দলিল প্রস্তুত করা।",
+    "চুক্তিতে <span class='kw-blue'>সাবমিটাল ও পরিবর্তন</span>, <span class='kw-red'>প্রাথমিক চুক্তি সমাপ্তির</span> পদ্ধতি, এবং <span class='kw-blue'>ক্লোজ-আউট ও কমিশনিং</span>-এর জন্য দলিল প্রস্তুত করা।",
+    "<span class='kw-red'>বীমা ও নির্মাণ বন্ড</span> — দায় বীমা, ইনডেমনিটি চুক্তি, সিকিউরিটি বন্ড, বিড বন্ড, পারফরম্যান্স বন্ড, শ্রম ও উপকরণ পেমেন্ট বন্ড, লিয়েন বন্ড, ওয়ারেন্টি বন্ড এবং ঋণপত্র (letters of credit)।",
+    "<span class='kw-blue'>কনস্ট্রাকশন ম্যানেজমেন্ট চুক্তি ও কাস্টম চুক্তি</span>।"
+  ],
+  page: 2
+},
+{
+  q_en: "List the six course objectives of BECM 3107.",
+  q_bn: "BECM 3107-এর ছয়টি কোর্স উদ্দেশ্য তালিকাভুক্ত করো।",
+  ans_en: [
+    "Gain basic knowledge about <span class='kw-red'>construction law</span> and understand working drawings, specifications, and other important contract documents.",
+    "Understand how <span class='kw-blue'>architectural and engineering drawings and specifications</span> are organized and used during construction.",
+    "Learn the <span class='kw-red'>sequence of contract activities</span>, including preparation of bidding documents, contract documents, and technical/building specifications.",
+    "Develop knowledge about contract procedures such as <span class='kw-blue'>submittals, changes, inspections, early termination</span>, and project close-out/commissioning.",
+    "Understand different types of <span class='kw-red'>construction insurance and bonding</span>, including liability insurance, indemnity agreements, bid bonds, performance bonds, and warranty bonds.",
+    "Gain knowledge about <span class='kw-blue'>construction management contracts and custom contracts</span> used in the industry."
+  ],
+  ans_bn: [
+    "<span class='kw-red'>নির্মাণ আইন</span> সম্পর্কে মৌলিক জ্ঞান অর্জন এবং ওয়ার্কিং ড্রয়িং, স্পেসিফিকেশন ও গুরুত্বপূর্ণ চুক্তির দলিল বোঝা।",
+    "নির্মাণের সময় <span class='kw-blue'>স্থাপত্য ও প্রকৌশল ড্রয়িং এবং স্পেসিফিকেশন</span> কীভাবে সংগঠিত ও ব্যবহৃত হয় তা বোঝা।",
+    "বিডিং দলিল, চুক্তির দলিল এবং টেকনিক্যাল/বিল্ডিং স্পেসিফিকেশন প্রস্তুতসহ <span class='kw-red'>চুক্তি কার্যক্রমের ক্রম</span> শেখা।",
+    "<span class='kw-blue'>সাবমিটাল, পরিবর্তন, পরিদর্শন, প্রাথমিক সমাপ্তি</span> এবং প্রকল্প ক্লোজ-আউট/কমিশনিং-এর মতো চুক্তি পদ্ধতি সম্পর্কে জ্ঞান বিকাশ।",
+    "দায় বীমা, ইনডেমনিটি চুক্তি, বিড বন্ড, পারফরম্যান্স বন্ড ও ওয়ারেন্টি বন্ডসহ বিভিন্ন ধরনের <span class='kw-red'>নির্মাণ বীমা ও বন্ড</span> বোঝা।",
+    "শিল্পে ব্যবহৃত <span class='kw-blue'>কনস্ট্রাকশন ম্যানেজমেন্ট চুক্তি ও কাস্টম চুক্তি</span> সম্পর্কে জ্ঞান অর্জন।"
+  ],
+  page: 3
+},
+{
+  q_en: "What are the three course outcomes of BECM 3107?",
+  q_bn: "BECM 3107-এর তিনটি কোর্স আউটকাম কী কী?",
+  ans_en: [
+    "Be able to <span class='kw-red'>understand and use construction drawings, specifications, and contract documents</span> in practical work.",
+    "Be able to <span class='kw-blue'>prepare and manage bidding, contracts, and different stages</span> of construction activities.",
+    "Be able to <span class='kw-red'>identify and apply construction laws, insurance, bonds, and contract procedures</span> in real projects."
+  ],
+  ans_bn: [
+    "বাস্তব কাজে <span class='kw-red'>নির্মাণ ড্রয়িং, স্পেসিফিকেশন এবং চুক্তির দলিল বোঝা ও ব্যবহার করতে</span> সক্ষম হওয়া।",
+    "নির্মাণ কার্যক্রমের বিভিন্ন পর্যায়ে <span class='kw-blue'>বিডিং, চুক্তি প্রস্তুত ও পরিচালনা করতে</span> সক্ষম হওয়া।",
+    "বাস্তব প্রকল্পে <span class='kw-red'>নির্মাণ আইন, বীমা, বন্ড ও চুক্তি পদ্ধতি চিহ্নিত ও প্রয়োগ করতে</span> সক্ষম হওয়া।"
+  ],
+  page: 4
+},
+{
+  q_en: "Name at least five of the reference books recommended for the BECM 3107 course.",
+  q_bn: "BECM 3107 কোর্সের জন্য সুপারিশকৃত অন্তত পাঁচটি রেফারেন্স বই উল্লেখ করো।",
+  ans_en: [
+    "<span class='kw-red'>Contract Law</span> — Catherine Elliot & Frances Quinn, 8th Ed. or later.",
+    "<span class='kw-blue'>Fundamentals of Building Contract Management</span> — Thomas E Uher.",
+    "<span class='kw-red'>Conditions of Contract for Construction</span> — MDB harmonised edition.",
+    "<span class='kw-blue'>Construction Law: An Introduction for Engineers, Architects, and Contractors</span> — Gail S. Kelley.",
+    "<span class='kw-red'>Construction Law</span> — Julian Bailey.",
+    "Other references include <span class='kw-blue'>International Construction Contract Law</span> (Lukas Klee), <span class='kw-blue'>Construction Contract Variations</span> (Michael Sergeant), <span class='kw-blue'>Environmental Law for the Construction Industry</span> (Amanda Stubbs), FIDIC's <span class='kw-blue'>Conditions of Contract for Construction</span>, and two Bangladesh government publications: <span class='kw-red'>The Public Procurement Act 2006</span> and the <span class='kw-red'>Standard Tender Document (National) for Procurement of Works</span>."
+  ],
+  ans_bn: [
+    "<span class='kw-red'>Contract Law</span> — Catherine Elliot & Frances Quinn, ৮ম সংস্করণ বা তার পরবর্তী।",
+    "<span class='kw-blue'>Fundamentals of Building Contract Management</span> — Thomas E Uher.",
+    "<span class='kw-red'>Conditions of Contract for Construction</span> — MDB harmonised edition.",
+    "<span class='kw-blue'>Construction Law: An Introduction for Engineers, Architects, and Contractors</span> — Gail S. Kelley.",
+    "<span class='kw-red'>Construction Law</span> — Julian Bailey.",
+    "অন্যান্য রেফারেন্সের মধ্যে রয়েছে <span class='kw-blue'>International Construction Contract Law</span> (Lukas Klee), <span class='kw-blue'>Construction Contract Variations</span> (Michael Sergeant), <span class='kw-blue'>Environmental Law for the Construction Industry</span> (Amanda Stubbs), FIDIC-এর <span class='kw-blue'>Conditions of Contract for Construction</span>, এবং বাংলাদেশ সরকারের দুটি প্রকাশনা: <span class='kw-red'>The Public Procurement Act 2006</span> এবং <span class='kw-red'>Standard Tender Document (National) for Procurement of Works</span>।"
+  ],
+  page: 5
+},
+{
+  q_en: "Which government of Bangladesh publications are included in the reference book list, and why might they be relevant to this course?",
+  q_bn: "রেফারেন্স বইয়ের তালিকায় বাংলাদেশ সরকারের কোন প্রকাশনাগুলো অন্তর্ভুক্ত রয়েছে, এবং এগুলো এই কোর্সের জন্য কেন প্রাসঙ্গিক হতে পারে?",
+  ans_en: [
+    "<span class='kw-red'>The Public Procurement Act 2006</span> — Government of the People's Republic of Bangladesh.",
+    "<span class='kw-red'>Standard Tender Document (National) For Procurement of Works</span> — Government of the People's Republic of Bangladesh.",
+    "These are relevant because they represent the <span class='kw-blue'>national legal and procedural framework</span> governing public construction procurement and tendering in Bangladesh, complementing the more general/international contract law texts."
+  ],
+  ans_bn: [
+    "<span class='kw-red'>The Public Procurement Act 2006</span> — গণপ্রজাতন্ত্রী বাংলাদেশ সরকার।",
+    "<span class='kw-red'>Standard Tender Document (National) For Procurement of Works</span> — গণপ্রজাতন্ত্রী বাংলাদেশ সরকার।",
+    "এগুলো প্রাসঙ্গিক কারণ এগুলো বাংলাদেশে পাবলিক নির্মাণ ক্রয় ও টেন্ডারিং পরিচালনাকারী <span class='kw-blue'>জাতীয় আইনি ও পদ্ধতিগত কাঠামো</span> প্রতিনিধিত্ব করে, যা আরও সাধারণ/আন্তর্জাতিক চুক্তি আইনের বইগুলোর পরিপূরক।"
+  ],
+  page: 5
+},
+{
+  q_en: "What is the marks distribution for BECM 3107?",
+  q_bn: "BECM 3107-এর মার্ক বণ্টন কী?",
+  ans_en: [
+    "<span class='kw-red'>Class Test</span>: 20 (after 5 cycles) + 10 (after 10 cycles).",
+    "<span class='kw-blue'>Attendance</span>: 10.",
+    "<span class='kw-red'>Assignment/Homework</span>: 05.",
+    "<span class='kw-blue'>Term Final</span>: 105."
+  ],
+  ans_bn: [
+    "<span class='kw-red'>ক্লাস টেস্ট</span>: ২০ (৫ সাইকেল পর) + ১০ (১০ সাইকেল পর)।",
+    "<span class='kw-blue'>উপস্থিতি (Attendance)</span>: ১০।",
+    "<span class='kw-red'>অ্যাসাইনমেন্ট/হোমওয়ার্ক</span>: ০৫।",
+    "<span class='kw-blue'>টার্ম ফাইনাল</span>: ১০৫।"
+  ],
+  page: 6
+},
+{
+  q_en: "What are the class day, time, and teacher for BECM 3107?",
+  q_bn: "BECM 3107-এর ক্লাসের দিন, সময় এবং শিক্ষক কারা?",
+  ans_en: [
+    "<span class='kw-red'>Sunday</span>: 11:30–12:20 am, taught by <span class='kw-blue'>SAS</span> (Sanjida Afrin Sworna).",
+    "<span class='kw-red'>Tuesday</span>: 12:20–1:10 am (pm), taught by <span class='kw-blue'>SAS</span> (Sanjida Afrin Sworna)."
+  ],
+  ans_bn: [
+    "<span class='kw-red'>রবিবার (Sunday)</span>: সকাল ১১:৩০–১২:২০, পড়ান <span class='kw-blue'>SAS</span> (সানজিদা আফরিন স্বর্ণা)।",
+    "<span class='kw-red'>মঙ্গলবার (Tuesday)</span>: ১২:২০–১:১০, পড়ান <span class='kw-blue'>SAS</span> (সানজিদা আফরিন স্বর্ণা)।"
+  ],
+  page: 7
+},
+{
+  q_en: "List the nine major topics covered under 'Course Contents' as shown in the topic-icon overview slide.",
+  q_bn: "টপিক-আইকন ওভারভিউ স্লাইডে দেখানো 'কোর্স কনটেন্ট'-এর নয়টি প্রধান বিষয় তালিকাভুক্ত করো।",
+  ans_en: [
+    "<span class='kw-red'>Construction Documents</span>.",
+    "<span class='kw-blue'>Construction Contract</span>.",
+    "<span class='kw-red'>Contract Administration</span>.",
+    "<span class='kw-blue'>Changes to the Work</span>.",
+    "<span class='kw-red'>Termination of the Construction Contract</span>.",
+    "<span class='kw-blue'>Construction Insurance</span>.",
+    "<span class='kw-red'>Surety Bonds & Letter of Credit (LOC)</span>.",
+    "<span class='kw-blue'>Indemnity Agreement</span>.",
+    "<span class='kw-red'>Project Commissioning & Close-out</span>."
+  ],
+  ans_bn: [
+    "<span class='kw-red'>নির্মাণ দলিল (Construction Documents)</span>।",
+    "<span class='kw-blue'>নির্মাণ চুক্তি (Construction Contract)</span>।",
+    "<span class='kw-red'>চুক্তি প্রশাসন (Contract Administration)</span>।",
+    "<span class='kw-blue'>কাজের পরিবর্তন (Changes to the Work)</span>।",
+    "<span class='kw-red'>নির্মাণ চুক্তির সমাপ্তি (Termination of the Construction Contract)</span>।",
+    "<span class='kw-blue'>নির্মাণ বীমা (Construction Insurance)</span>।",
+    "<span class='kw-red'>সিকিউরিটি বন্ড ও ঋণপত্র (Surety Bonds & Letter of Credit)</span>।",
+    "<span class='kw-blue'>ইনডেমনিটি চুক্তি (Indemnity Agreement)</span>।",
+    "<span class='kw-red'>প্রকল্প কমিশনিং ও ক্লোজ-আউট (Project Commissioning & Close-out)</span>।"
+  ],
+  page: 8
+},
+{
+  q_en: "Define a 'construction contract' as given in the lecture.",
+  q_bn: "লেকচারে দেওয়া 'নির্মাণ চুক্তি (construction contract)'-এর সংজ্ঞা দাও।",
+  ans_en: [
+    "A construction contract is a <span class='kw-red'>legally enforceable agreement</span> between two or more parties, usually the <span class='kw-blue'>owner and the contractor</span>.",
+    "The contractor agrees to <span class='kw-red'>carry out specific construction work</span> according to defined drawings and specifications.",
+    "The owner agrees to <span class='kw-blue'>pay for that work</span> under agreed terms and conditions."
+  ],
+  ans_bn: [
+    "একটি নির্মাণ চুক্তি হলো দুই বা ততোধিক পক্ষের মধ্যে, সাধারণত <span class='kw-blue'>মালিক ও কন্ট্রাক্টরের</span> মধ্যে, একটি <span class='kw-red'>আইনগতভাবে বলবৎযোগ্য চুক্তি</span>।",
+    "কন্ট্রাক্টর নির্দিষ্ট ড্রয়িং ও স্পেসিফিকেশন অনুযায়ী <span class='kw-red'>নির্দিষ্ট নির্মাণ কাজ সম্পাদনের</span> সম্মতি দেন।",
+    "মালিক সম্মত শর্তাবলী অনুযায়ী সেই কাজের জন্য <span class='kw-blue'>অর্থ প্রদানের</span> সম্মতি দেন।"
+  ],
+  page: 9
+},
+{
+  q_en: "List the first set of key factors (elements) of a construction contract mentioned in the lecture.",
+  q_bn: "লেকচারে উল্লিখিত নির্মাণ চুক্তির মূল উপাদানগুলোর (elements) প্রথম সেট তালিকাভুক্ত করো।",
+  ans_en: [
+    "A construction contract is a <span class='kw-red'>legally enforceable agreement</span>.",
+    "It involves <span class='kw-blue'>two or more parties</span> (usually the owner and the contractor).",
+    "It contains <span class='kw-red'>mutual (reciprocal) promises</span>.",
+    "The <span class='kw-blue'>contractor agrees to perform the work</span>.",
+    "The work must <span class='kw-red'>follow drawings and specifications</span>."
+  ],
+  ans_bn: [
+    "একটি নির্মাণ চুক্তি <span class='kw-red'>আইনগতভাবে বলবৎযোগ্য চুক্তি</span>।",
+    "এতে <span class='kw-blue'>দুই বা ততোধিক পক্ষ</span> (সাধারণত মালিক ও কন্ট্রাক্টর) জড়িত থাকে।",
+    "এতে <span class='kw-red'>পারস্পরিক (reciprocal) প্রতিশ্রুতি</span> থাকে।",
+    "<span class='kw-blue'>কন্ট্রাক্টর কাজ সম্পাদনের সম্মতি দেন</span>।",
+    "কাজটি অবশ্যই <span class='kw-red'>ড্রয়িং ও স্পেসিফিকেশন অনুসরণ করতে হবে</span>।"
+  ],
+  page: 9
+},
+{
+  q_en: "List the remaining key factors (elements) of a construction contract, and explain why it is described as 'binding by law'.",
+  q_bn: "নির্মাণ চুক্তির অবশিষ্ট মূল উপাদানগুলো তালিকাভুক্ত করো, এবং কেন এটিকে 'আইনগতভাবে বাধ্যতামূলক (binding by law)' বলা হয় তা ব্যাখ্যা করো।",
+  ans_en: [
+    "The <span class='kw-red'>owner agrees to pay for the work</span>.",
+    "It includes <span class='kw-blue'>terms and conditions</span> (time, cost, quality, responsibilities).",
+    "It <span class='kw-red'>defines the rights and obligations</span> of each party.",
+    "It provides <span class='kw-blue'>rules for handling changes, delays, and disputes</span>.",
+    "It is <span class='kw-red'>binding by law</span>, meaning <span class='kw-blue'>failure to follow it can lead to legal action</span> — this is what makes it enforceable rather than a mere informal understanding."
+  ],
+  ans_bn: [
+    "<span class='kw-red'>মালিক কাজের জন্য অর্থ প্রদানের সম্মতি দেন</span>।",
+    "এতে <span class='kw-blue'>শর্তাবলী</span> (সময়, খরচ, মান, দায়িত্ব) অন্তর্ভুক্ত থাকে।",
+    "এটি প্রতিটি পক্ষের <span class='kw-red'>অধিকার ও বাধ্যবাধকতা নির্ধারণ</span> করে।",
+    "এটি <span class='kw-blue'>পরিবর্তন, বিলম্ব ও বিরোধ পরিচালনার নিয়ম</span> প্রদান করে।",
+    "এটি <span class='kw-red'>আইনগতভাবে বাধ্যতামূলক (binding by law)</span>, অর্থাৎ <span class='kw-blue'>এটি না মানলে আইনি পদক্ষেপ নেওয়া যেতে পারে</span> — এই বৈশিষ্ট্যই এটিকে একটি সাধারণ অনানুষ্ঠানিক বোঝাপড়ার চেয়ে প্রয়োগযোগ্য করে তোলে।"
+  ],
+  page: 10
+},
+{
+  q_en: "Define 'Construction Law' as given in the lecture.",
+  q_bn: "লেকচারে দেওয়া 'নির্মাণ আইন (Construction Law)'-এর সংজ্ঞা দাও।",
+  ans_en: [
+    "Construction law is <span class='kw-red'>the law that applies to and governs the execution of construction and engineering projects</span>.",
+    "It deals with the <span class='kw-blue'>laws, regulations, and requirements</span> in the construction industry."
+  ],
+  ans_bn: [
+    "নির্মাণ আইন হলো এমন আইন যা <span class='kw-red'>নির্মাণ ও প্রকৌশল প্রকল্পের বাস্তবায়নে প্রযোজ্য ও তা পরিচালনা করে</span>।",
+    "এটি নির্মাণ শিল্পের <span class='kw-blue'>আইন, বিধিমালা এবং প্রয়োজনীয়তা</span> নিয়ে কাজ করে।"
+  ],
+  page: 11
+},
+{
+  q_en: "What are the two perspectives given on the definition of construction law, in terms of the range of projects and areas it covers?",
+  q_bn: "নির্মাণ আইনের সংজ্ঞায় প্রকল্প ও ক্ষেত্রের পরিধির দিক থেকে দেওয়া দুটি দৃষ্টিভঙ্গি কী কী?",
+  ans_en: [
+    "<span class='kw-red'>Perspective 1</span>: Construction law embraces principles of law applicable to a diverse range of projects, including <span class='kw-blue'>\"typical\" construction and engineering projects</span> such as buildings, houses, roads, railways, harbours, and other assets affixed to land.",
+    "<span class='kw-red'>Perspective 2</span>: It is also applicable to <span class='kw-blue'>analogous areas of commerce</span>, where agreements are made to carry out work and provide goods and services in order to create an asset or deliver a service."
+  ],
+  ans_bn: [
+    "<span class='kw-red'>দৃষ্টিভঙ্গি ১</span>: নির্মাণ আইন বিভিন্ন ধরনের প্রকল্পে প্রযোজ্য আইনি নীতি অন্তর্ভুক্ত করে, যার মধ্যে রয়েছে <span class='kw-blue'>\"সাধারণ\" নির্মাণ ও প্রকৌশল প্রকল্প</span> যেমন ভবন, বাড়ি, রাস্তা, রেলপথ, বন্দর এবং জমিতে সংযুক্ত অন্যান্য সম্পদ।",
+    "<span class='kw-red'>দৃষ্টিভঙ্গি ২</span>: এটি <span class='kw-blue'>বাণিজ্যের অনুরূপ ক্ষেত্রেও</span> প্রযোজ্য, যেখানে কোনো সম্পদ তৈরি বা সেবা প্রদানের জন্য কাজ সম্পাদন ও পণ্য/সেবা প্রদানের চুক্তি করা হয়।"
+  ],
+  page: 11
+}
+];
+
+// Build cards
+const container = document.getElementById('qaContainer');
+qaData.forEach((item, idx) => {
+  const card = document.createElement('div');
+  card.className = 'qa-card';
+
+  const q = document.createElement('div');
+  q.className = 'qa-question';
+  q.innerHTML = `
+    <div class="q-text-wrap">
+      <div class="q-en"><span class="q-index">Q${idx+1}.</span>${item.q_en}</div>
+      <div class="q-bn">${item.q_bn}</div>
+    </div>
+    <div class="chevron">▾</div>
+  `;
+
+  const ansEnList = item.ans_en.map(li => `<li>${li}</li>`).join('');
+  const ansBnList = item.ans_bn.map(li => `<li>${li}</li>`).join('');
+
+  const a = document.createElement('div');
+  a.className = 'qa-answer';
+  a.innerHTML = `
+    <div class="qa-answer-inner">
+      <div class="answer-block-en">
+        <div class="answer-label">Answer</div>
+        <ul class="ans-list">${ansEnList}</ul>
+      </div>
+      <div class="answer-block-bn">
+        <div class="answer-label">উত্তর (বাংলা)</div>
+        <ul class="ans-list bn">${ansBnList}</ul>
+      </div>
+      <span class="page-ref">Page ${item.page}</span>
+    </div>
+  `;
+
+  q.addEventListener('click', () => {
+    const isOpen = card.classList.contains('open');
+    if(isOpen){
+      card.classList.remove('open');
+      a.style.maxHeight = null;
+    } else {
+      card.classList.add('open');
+      a.style.maxHeight = a.scrollHeight + 'px';
+    }
+  });
+
+  card.appendChild(q);
+  card.appendChild(a);
+  container.appendChild(card);
+});
+
+document.getElementById('totalCount').textContent = qaData.length + ' Questions Included';
+
+// Expand / Collapse all
+let allOpen = false;
+document.getElementById('toggleAllBtn').addEventListener('click', function(){
+  allOpen = !allOpen;
+  const cards = document.querySelectorAll('.qa-card');
+  cards.forEach(card => {
+    const answer = card.querySelector('.qa-answer');
+    if(allOpen){
+      card.classList.add('open');
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+    } else {
+      card.classList.remove('open');
+      answer.style.maxHeight = null;
+    }
+  });
+  this.textContent = allOpen ? 'Collapse All' : 'Expand All';
+});
+
+// Search filter
+document.getElementById('searchInput').addEventListener('input', function(e){
+  const term = e.target.value.toLowerCase();
+  const cards = document.querySelectorAll('.qa-card');
+  cards.forEach(card => {
+    const text = card.textContent.toLowerCase();
+    card.style.display = text.includes(term) ? '' : 'none';
+  });
+});
+
+// Recalculate max-height on window resize for open cards (responsiveness)
+window.addEventListener('resize', () => {
+  document.querySelectorAll('.qa-card.open .qa-answer').forEach(a => {
+    a.style.maxHeight = a.scrollHeight + 'px';
+  });
+});
+</script>
+
+</body>
+</html>

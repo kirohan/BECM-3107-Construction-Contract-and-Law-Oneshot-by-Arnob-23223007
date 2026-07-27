@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BECM 3107 — Contract Administration | Q&A Study Guide</title>
+<style>
+  :root{
+    --burnt:#c1571c;
+    --burnt-dark:#9b4415;
+    --peach:#fbe3d0;
+    --slate:#455165;
+    --cream:#fff8f2;
+    --paper:#ffffff;
+    --ink:#26211d;
+    --muted:#6b6258;
+    --blue-accent:#1a5fa8;
+    --red-accent:#b8322f;
+    --shadow: 0 6px 20px rgba(120,60,20,0.10);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Georgia','Segoe UI',Tahoma,sans-serif;
+    background: linear-gradient(180deg,#fdf1e6 0%, #fbe8d6 100%);
+    color:var(--ink);
+    min-height:100vh;
+    padding-bottom:60px;
+  }
+  header{
+    background: linear-gradient(120deg, var(--slate) 0%, #2f3847 100%);
+    color:#fdf6ea;
+    padding:38px 20px 46px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.25);
+  }
+  header::before{
+    content:"";
+    position:absolute;
+    top:-50px; left:-50px;
+    width:180px;height:180px;
+    border-radius:50%;
+    background: var(--burnt);
+    opacity:0.9;
+  }
+  header::after{
+    content:"";
+    position:absolute;
+    top:20px; left:70px;
+    width:50px;height:50px;
+    border-radius:50%;
+    background: var(--burnt);
+    opacity:0.7;
+  }
+  header .inner{ position:relative; z-index:2; }
+  header .tag{
+    font-size:13px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    color:#f5c9a3;
+    font-weight:600;
+    margin-bottom:8px;
+  }
+  header h1{
+    margin:0;
+    font-size:clamp(24px,4vw,38px);
+    font-weight:700;
+    letter-spacing:0.5px;
+  }
+  header p.sub{
+    margin:10px auto 0;
+    max-width:640px;
+    font-size:15px;
+    color:#e9e2d8;
+    line-height:1.6;
+  }
+  .container{
+    max-width:900px;
+    margin:-24px auto 0;
+    padding:0 18px;
+  }
+  .toolbar{
+    background:var(--paper);
+    border-radius:14px;
+    box-shadow:var(--shadow);
+    padding:16px 20px;
+    display:flex;
+    gap:14px;
+    align-items:center;
+    flex-wrap:wrap;
+    margin-bottom:26px;
+    border:1px solid #f3ddc4;
+  }
+  .toolbar input[type="text"]{
+    flex:1;
+    min-width:180px;
+    padding:11px 16px;
+    border-radius:10px;
+    border:1.5px solid #edd0ae;
+    font-size:15px;
+    outline:none;
+    transition: border-color .2s, box-shadow .2s;
+    font-family:inherit;
+  }
+  .toolbar input[type="text"]:focus{
+    border-color:var(--burnt);
+    box-shadow:0 0 0 3px rgba(193,87,28,0.15);
+  }
+  .toolbar button{
+    background:var(--slate);
+    color:#fff;
+    border:none;
+    padding:11px 18px;
+    border-radius:10px;
+    font-size:14px;
+    font-weight:600;
+    cursor:pointer;
+    transition: background .2s, transform .15s;
+    white-space:nowrap;
+  }
+  .toolbar button:hover{ background:#333c4a; transform:translateY(-1px);}
+  .stats{
+    text-align:center;
+    color:var(--muted);
+    font-size:13px;
+    margin-bottom:18px;
+    letter-spacing:0.3px;
+  }
+  .stats b{color:var(--burnt-dark);}
+
+  .card{
+    background:var(--paper);
+    border-radius:14px;
+    margin-bottom:14px;
+    box-shadow:var(--shadow);
+    overflow:hidden;
+    border:1px solid #f4e1c6;
+    transition: box-shadow .25s ease, transform .2s ease;
+  }
+  .card:hover{ box-shadow: 0 10px 26px rgba(120,60,20,0.18); }
+  .q-btn{
+    width:100%;
+    background:linear-gradient(90deg, #fff8ee, #fdefdc);
+    border:none;
+    text-align:left;
+    padding:18px 20px;
+    cursor:pointer;
+    display:flex;
+    align-items:flex-start;
+    gap:14px;
+    font-family:inherit;
+    transition: background .2s;
+  }
+  .q-btn:hover{ background:linear-gradient(90deg, #fbeed6, #f9e4c8);}
+  .q-btn.active{
+    background: linear-gradient(90deg, #f7dfba, #f2d3a4);
+  }
+  .q-number{
+    flex-shrink:0;
+    width:34px;height:34px;
+    border-radius:50%;
+    background:var(--burnt);
+    color:#fff;
+    font-weight:700;
+    font-size:14px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 2px 6px rgba(193,87,28,0.4);
+  }
+  .q-text{
+    flex:1;
+  }
+  .q-en{
+    font-size:16.5px;
+    font-weight:700;
+    color:var(--ink);
+    line-height:1.45;
+  }
+  .q-bn{
+    font-size:14.5px;
+    color:var(--slate);
+    margin-top:4px;
+    line-height:1.5;
+    font-weight:500;
+  }
+  .page-tag{
+    font-size:11.5px;
+    color:var(--muted);
+    background:#f6e7cd;
+    padding:3px 9px;
+    border-radius:20px;
+    margin-top:8px;
+    display:inline-block;
+    font-weight:600;
+  }
+  .chevron{
+    flex-shrink:0;
+    width:22px;height:22px;
+    margin-top:6px;
+    transition: transform .3s ease;
+    color:var(--burnt);
+  }
+  .q-btn.active .chevron{ transform:rotate(180deg); }
+
+  .answer-wrap{
+    max-height:0;
+    overflow:hidden;
+    transition: max-height .45s cubic-bezier(.4,0,.2,1);
+    background: #fffdf8;
+  }
+  .answer-inner{
+    padding:0 22px 22px 68px;
+    border-top:1px dashed #efdcb5;
+  }
+  .answer-block{
+    margin-top:16px;
+    animation: fadeIn .4s ease;
+  }
+  @keyframes fadeIn{
+    from{opacity:0; transform:translateY(-6px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+  .ans-label{
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+    font-weight:700;
+    color:#ffe3c9;
+    background:var(--burnt);
+    display:inline-block;
+    padding:3px 10px;
+    border-radius:6px;
+    margin-bottom:10px;
+  }
+  .ans-en, .ans-bn{
+    font-size:15px;
+    line-height:1.75;
+    color:#3a332c;
+  }
+  .ans-bn{
+    margin-top:10px;
+    color:#1f3d4d;
+    font-size:14.5px;
+    border-top:1px solid #f1e2bf;
+    padding-top:10px;
+  }
+  .ans-en ul, .ans-bn ul{
+    margin:6px 0 6px 0;
+    padding-left:22px;
+  }
+  .ans-en li, .ans-bn li{
+    margin-bottom:5px;
+  }
+  .kw{ font-weight:700; }
+  .kw-red{ color:var(--red-accent); font-weight:700; }
+  .kw-blue{ color:var(--blue-accent); font-weight:700; }
+  .case-box{
+    background:#fdf1e2;
+    border-left:4px solid var(--burnt);
+    padding:10px 14px;
+    border-radius:6px;
+    margin-top:8px;
+    font-size:14.5px;
+  }
+
+  .no-results{
+    text-align:center;
+    color:var(--muted);
+    padding:40px 0;
+    font-style:italic;
+    display:none;
+  }
+
+  footer{
+    text-align:center;
+    color:#8a7c65;
+    font-size:12.5px;
+    margin-top:30px;
+    padding:0 20px;
+  }
+
+  @media (max-width:520px){
+    .answer-inner{ padding-left:22px; }
+    .q-en{ font-size:15px; }
+    .q-bn{ font-size:13.5px; }
+    header{ padding:30px 14px 40px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="inner">
+    <div class="tag">BECM 3107 · Construction Contract and Law</div>
+    <h1>Contract Administration — Q&amp;A Study Guide</h1>
+    <p class="sub">Sanjida Afrin Sworna, Lecturer (Adjunct), Dept. of Building Engineering and Construction Management, KUET &nbsp;|&nbsp; চুক্তি প্রশাসন বিষয়ক প্রশ্নোত্তর অধ্যয়ন সহায়িকা</p>
+  </div>
+</header>
+
+<div class="container">
+  <div class="toolbar">
+    <input type="text" id="searchBox" placeholder="Search questions... / প্রশ্ন খুঁজুন...">
+    <button id="expandAllBtn">Expand All</button>
+    <button id="collapseAllBtn">Collapse All</button>
+  </div>
+  <div class="stats">Showing <b id="visibleCount">35</b> of <b>35</b> questions</div>
+
+  <div id="cardsContainer"></div>
+  <div class="no-results" id="noResults">No matching questions found. / কোনো মিল পাওয়া যায়নি।</div>
+</div>
+
+<footer>
+  Prepared for revision purposes · BECM, Khulna University of Engineering &amp; Technology (KUET), Khulna-9203, Bangladesh
+</footer>
+
+<script>
+const data = [
+{
+  qEn: "What does contract administration refer to in a construction project context?",
+  qBn: "নির্মাণ প্রকল্পের প্রেক্ষাপটে চুক্তি প্রশাসন বলতে কী বোঝায়?",
+  page: "Page 2",
+  ansEn: `A <span class="kw-red">wide range of activities</span> designed to ensure that the project is constructed <span class="kw">in accordance with the contract documents</span>.`,
+  ansBn: `এমন <span class="kw-red">বিস্তৃত পরিসরের কার্যক্রম</span> যা নিশ্চিত করে যে প্রকল্পটি <span class="kw">চুক্তি দলিল অনুযায়ী</span> নির্মিত হচ্ছে।`
+},
+{
+  qEn: "In practice, who typically handles contract administration for private vs. public owners?",
+  qBn: "বাস্তবে, বেসরকারি ও সরকারি মালিকদের জন্য চুক্তি প্রশাসন সাধারণত কারা পরিচালনা করে?",
+  page: "Page 2",
+  ansEn: `<ul>
+    <li><span class="kw-blue">Private owners</span> (e.g., developers) often use their own <span class="kw">in-house team</span></li>
+    <li><span class="kw-blue">Public owners</span> (government projects) may use their own staff <span class="kw">or hire a different A/E firm</span> for independent supervision</li>
+  </ul>`,
+  ansBn: `<ul>
+    <li><span class="kw-blue">বেসরকারি মালিকরা</span> (যেমন ডেভেলপার) প্রায়ই তাদের নিজস্ব <span class="kw">ইন-হাউজ টিম</span> ব্যবহার করে</li>
+    <li><span class="kw-blue">সরকারি মালিকরা</span> (সরকারি প্রকল্প) নিজস্ব কর্মী ব্যবহার করতে পারে <span class="kw">অথবা স্বাধীন তদারকির জন্য ভিন্ন A/E ফার্ম</span> নিয়োগ দিতে পারে</li>
+  </ul>`
+},
+{
+  qEn: "Why do most owners prefer to keep the same A/E for contract administration?",
+  qBn: "বেশিরভাগ মালিক চুক্তি প্রশাসনের জন্য একই A/E রাখতে কেন পছন্দ করেন?",
+  page: "Page 2",
+  ansEn: `Because the same A/E who prepared the design <span class="kw-red">already understands the project well</span>.`,
+  ansBn: `কারণ যে A/E নকশা তৈরি করেছে, সে <span class="kw-red">প্রকল্পটি ইতিমধ্যেই ভালোভাবে বোঝে</span>।`
+},
+{
+  qEn: "What is the A/E's role during contract administration, and what authority do contract documents grant?",
+  qBn: "চুক্তি প্রশাসনের সময় A/E-এর ভূমিকা কী এবং চুক্তি দলিল কী কর্তৃত্ব প্রদান করে?",
+  page: "Page 3",
+  ansEn: `<ul>
+    <li>The A/E works as a <span class="kw-red">limited agent of the owner</span> during contract administration</li>
+    <li>Contract documents give the A/E <span class="kw">express authority</span> to act for the owner on certain matters</li>
+  </ul>`,
+  ansBn: `<ul>
+    <li>চুক্তি প্রশাসনের সময় A/E মালিকের <span class="kw-red">সীমিত এজেন্ট</span> হিসেবে কাজ করে</li>
+    <li>চুক্তি দলিল A/E-কে নির্দিষ্ট বিষয়ে মালিকের পক্ষে কাজ করার <span class="kw">সুস্পষ্ট কর্তৃত্ব</span> প্রদান করে</li>
+  </ul>`
+},
+{
+  qEn: "Differentiate between A/E's Express Authority and Implied Authority.",
+  qBn: "A/E-এর সুস্পষ্ট কর্তৃত্ব ও অন্তর্নিহিত কর্তৃত্বের মধ্যে পার্থক্য করুন।",
+  page: "Page 3",
+  ansEn: `<ul>
+    <li><span class="kw-blue">Express Authority</span>: authority explicitly stated — to act for the owner on certain matters</li>
+    <li><span class="kw-blue">Implied Authority</span>: authority implied from provisions of the contract documents or from the <span class="kw">circumstances</span></li>
+  </ul>`,
+  ansBn: `<ul>
+    <li><span class="kw-blue">সুস্পষ্ট কর্তৃত্ব</span>: স্পষ্টভাবে বর্ণিত কর্তৃত্ব — নির্দিষ্ট বিষয়ে মালিকের পক্ষে কাজ করার জন্য</li>
+    <li><span class="kw-blue">অন্তর্নিহিত কর্তৃত্ব</span>: চুক্তি দলিলের বিধান অথবা <span class="kw">পরিস্থিতি</span> থেকে অনুমিত কর্তৃত্ব</li>
+  </ul>`
+},
+{
+  qEn: "List the six areas of A/E's liability for contract administration.",
+  qBn: "চুক্তি প্রশাসনের জন্য A/E-এর দায়বদ্ধতার ছয়টি ক্ষেত্র তালিকাভুক্ত করুন।",
+  page: "Page 4",
+  ansEn: `<ul>
+    <li><span class="kw">Approval of Shop Drawings</span> and Other Submittals</li>
+    <li><span class="kw">Site Visits and Inspections</span></li>
+    <li><span class="kw">The Right to Stop Work</span></li>
+    <li><span class="kw">Approval of Progress Payments</span></li>
+    <li><span class="kw">Responding to Change Order Requests</span></li>
+    <li><span class="kw">Requests for Information</span>, Interpretations, and Clarifications</li>
+  </ul>`,
+  ansBn: `<ul>
+    <li><span class="kw">শপ ড্রয়িং</span> ও অন্যান্য জমাদান অনুমোদন</li>
+    <li><span class="kw">সাইট পরিদর্শন ও পরিদর্শন</span></li>
+    <li><span class="kw">কাজ বন্ধ করার অধিকার</span></li>
+    <li><span class="kw">অগ্রগতি অর্থপ্রদান অনুমোদন</span></li>
+    <li><span class="kw">পরিবর্তন আদেশের অনুরোধে সাড়া দেওয়া</span></li>
+    <li>তথ্য, ব্যাখ্যা ও স্পষ্টীকরণের <span class="kw">অনুরোধ</span></li>
+  </ul>`
+},
+{
+  qEn: "Why have A/Es become cautious about approving shop drawings?",
+  qBn: "শপ ড্রয়িং অনুমোদনে A/E-রা কেন সতর্ক হয়ে উঠেছে?",
+  page: "Page 5",
+  ansEn: `A/Es have become increasingly careful to <span class="kw-red">avoid contractual responsibility</span> for approving shop drawings, ensuring the submittals conform to the applicable <span class="kw">design concepts</span> only.`,
+  ansBn: `A/E-রা ক্রমশ সতর্ক হয়ে উঠেছে যাতে শপ ড্রয়িং অনুমোদনের জন্য <span class="kw-red">চুক্তিগত দায়বদ্ধতা এড়ানো</span> যায়, শুধুমাত্র প্রযোজ্য <span class="kw">নকশা ধারণার</span> সাথে সামঞ্জস্য নিশ্চিত করে।`
+},
+{
+  qEn: "What is the purpose of reviewing proposed substitutions?",
+  qBn: "প্রস্তাবিত প্রতিস্থাপন পর্যালোচনার উদ্দেশ্য কী?",
+  page: "Page 5",
+  ansEn: `Proposed substitutions are submitted to the A/E for approval to indicate they have only been reviewed for <span class="kw-blue">conformance with the information given in the contract documents</span>.`,
+  ansBn: `প্রস্তাবিত প্রতিস্থাপন A/E-এর কাছে অনুমোদনের জন্য জমা দেওয়া হয় যাতে বোঝা যায় এগুলো শুধুমাত্র <span class="kw-blue">চুক্তি দলিলে প্রদত্ত তথ্যের সাথে সামঞ্জস্যের জন্য</span> পর্যালোচনা করা হয়েছে।`
+},
+{
+  qEn: "Does A/E approval of a shop drawing mean full responsibility for construction? Explain.",
+  qBn: "শপ ড্রয়িংয়ের A/E অনুমোদন কি নির্মাণের সম্পূর্ণ দায়বদ্ধতা বোঝায়? ব্যাখ্যা করুন।",
+  page: "Page 6",
+  ansEn: `<span class="kw-red">No.</span>
+  <ul>
+    <li>Approval only means the submittal is <span class="kw">consistent with design intent</span></li>
+    <li>It does <span class="kw-red">NOT</span> mean the A/E controls construction methods</li>
+    <li>It does <span class="kw-red">NOT</span> mean the A/E is responsible for how the work is done on-site</li>
+  </ul>`,
+  ansBn: `<span class="kw-red">না।</span>
+  <ul>
+    <li>অনুমোদন শুধু বোঝায় যে জমাটি <span class="kw">নকশার উদ্দেশ্যের সাথে সামঞ্জস্যপূর্ণ</span></li>
+    <li>এটি বোঝায় <span class="kw-red">না</span> যে A/E নির্মাণ পদ্ধতি নিয়ন্ত্রণ করে</li>
+    <li>এটি বোঝায় <span class="kw-red">না</span> যে A/E সাইটে কাজ কীভাবে করা হচ্ছে তার জন্য দায়ী</li>
+  </ul>`
+},
+{
+  qEn: "What does A/E's liability for failing to discover defective work depend on?",
+  qBn: "ত্রুটিপূর্ণ কাজ শনাক্ত করতে ব্যর্থ হওয়ার জন্য A/E-এর দায়বদ্ধতা কিসের উপর নির্ভর করে?",
+  page: "Page 7",
+  ansEn: `It depends, in part, on the <span class="kw-red">terms of its contract</span> — specifically whether it involves <span class="kw">general supervision</span> or a <span class="kw">full-time representative</span>.`,
+  ansBn: `এটি আংশিকভাবে নির্ভর করে <span class="kw-red">এর চুক্তির শর্তের</span> উপর — নির্দিষ্টভাবে এতে <span class="kw">সাধারণ তদারকি</span> নাকি <span class="kw">পূর্ণকালীন প্রতিনিধি</span> জড়িত তার উপর।`
+},
+{
+  qEn: "Does the A/E have the authority to accept nonconforming work?",
+  qBn: "A/E-এর কি অ-সামঞ্জস্যপূর্ণ কাজ গ্রহণ করার কর্তৃত্ব আছে?",
+  page: "Page 7",
+  ansEn: `<ul>
+    <li>Even with authority to <span class="kw-blue">reject</span> nonconforming work, the A/E does <span class="kw-red">not</span> have authority to <span class="kw-red">accept</span> such work</li>
+    <li>The owner will seek the A/E's advice, but it is <span class="kw">ultimately the owner's decision</span></li>
+  </ul>`,
+  ansBn: `<ul>
+    <li>অ-সামঞ্জস্যপূর্ণ কাজ <span class="kw-blue">প্রত্যাখ্যান</span> করার কর্তৃত্ব থাকলেও, A/E-এর এই কাজ <span class="kw-red">গ্রহণ</span> করার কর্তৃত্ব নেই</li>
+    <li>মালিক A/E-এর পরামর্শ নেবেন, কিন্তু এটি <span class="kw">শেষ পর্যন্ত মালিকের সিদ্ধান্ত</span></li>
+  </ul>`
+},
+{
+  qEn: "What is 'general supervision' in site visits and what is expected of the A/E under it?",
+  qBn: "সাইট পরিদর্শনে \"সাধারণ তদারকি\" কী এবং এর অধীনে A/E-এর কাছে কী প্রত্যাশা করা হয়?",
+  page: "Page 8",
+  ansEn: `If the A/E makes only <span class="kw-red">periodic site visits</span>, it is called general supervision. Under this, the A/E is expected to:
+  <ul>
+    <li>Get a <span class="kw">general understanding</span> of the work</li>
+    <li>Observe <span class="kw">overall quality</span></li>
+    <li>Try to identify <span class="kw">visible defects</span></li>
+    <li>They are <span class="kw-blue">not</span> expected to inspect every detail or monitor construction continuously</li>
+  </ul>`,
+  ansBn: `A/E যদি শুধু <span class="kw-red">নিয়মিত/পর্যায়ক্রমিক সাইট পরিদর্শন</span> করে, তবে একে সাধারণ তদারকি বলা হয়। এর অধীনে A/E-এর কাছে প্রত্যাশা করা হয়:
+  <ul>
+    <li>কাজের <span class="kw">সাধারণ বোঝাপড়া</span> অর্জন করা</li>
+    <li><span class="kw">সামগ্রিক গুণমান</span> পর্যবেক্ষণ করা</li>
+    <li><span class="kw">দৃশ্যমান ত্রুটি</span> শনাক্ত করার চেষ্টা করা</li>
+    <li>প্রতিটি খুঁটিনাটি পরিদর্শন বা ক্রমাগত পর্যবেক্ষণ করার প্রত্যাশা <span class="kw-blue">করা হয় না</span></li>
+  </ul>`
+},
+{
+  qEn: "What changes when the A/E has a full-time representative (clerk of the works) on site?",
+  qBn: "সাইটে A/E-এর একজন পূর্ণকালীন প্রতিনিধি (ক্লার্ক অফ দ্য ওয়ার্কস) থাকলে কী পরিবর্তন হয়?",
+  page: "Page 9",
+  ansEn: `<ul>
+    <li>The A/E is <span class="kw-red">much more closely involved</span> in the construction process</li>
+    <li>Due to this <span class="kw">continuous presence</span>, courts are <span class="kw-blue">more likely to hold the A/E responsible</span> if defective work is not identified</li>
+  </ul>`,
+  ansBn: `<ul>
+    <li>A/E নির্মাণ প্রক্রিয়ায় <span class="kw-red">অনেক বেশি ঘনিষ্ঠভাবে জড়িত</span> হয়</li>
+    <li>এই <span class="kw">ক্রমাগত উপস্থিতির</span> কারণে, ত্রুটিপূর্ণ কাজ শনাক্ত করতে ব্যর্থ হলে আদালত <span class="kw-blue">A/E-কে দায়ী করার সম্ভাবনা বেশি</span></li>
+  </ul>`
+},
+{
+  qEn: "What are the three key contract clauses courts have interpreted regarding A/E responsibility?",
+  qBn: "A/E-এর দায়বদ্ধতা সম্পর্কিত আদালত কর্তৃক ব্যাখ্যাকৃত তিনটি প্রধান চুক্তি ধারা কী কী?",
+  page: "Page 9",
+  ansEn: `<ul>
+    <li>"<span class="kw">Endeavor to guard the Owner</span> against defects and deficiencies in the Work of the Contractor"</li>
+    <li>"<span class="kw-red">Shall not be responsible</span> for the Contractor's failure to carry out the Work in accordance with the Contract Documents"</li>
+    <li>"<span class="kw-red">Shall not be responsible</span> for the acts or omissions of the Contractor"</li>
+  </ul>`,
+  ansBn: `<ul>
+    <li>"ঠিকাদারের কাজে ত্রুটি ও অভাব থেকে মালিককে রক্ষা করার <span class="kw">প্রচেষ্টা করা</span>"</li>
+    <li>"চুক্তি দলিল অনুযায়ী কাজ সম্পাদনে ঠিকাদারের ব্যর্থতার জন্য <span class="kw-red">দায়ী থাকবে না</span>"</li>
+    <li>"ঠিকাদারের কাজ বা ত্রুটির জন্য <span class="kw-red">দায়ী থাকবে না</span>"</li>
+  </ul>`
+},
+{
+  qEn: "What authority might contract documents give the A/E beyond rejecting defective work?",
+  qBn: "ত্রুটিপূর্ণ কাজ প্রত্যাখ্যানের বাইরে চুক্তি দলিল A/E-কে কী কর্তৃত্ব দিতে পারে?",
+  page: "Page 11",
+  ansEn: `The contract documents may authorize the A/E to <span class="kw-red">stop work</span>.`,
+  ansBn: `চুক্তি দলিল A/E-কে <span class="kw-red">কাজ বন্ধ করার</span> কর্তৃত্ব দিতে পারে।`
+},
+{
+  qEn: "What liability can the A/E face if it fails to stop work during adverse conditions?",
+  qBn: "প্রতিকূল পরিস্থিতিতে কাজ বন্ধ করতে ব্যর্থ হলে A/E কী দায়বদ্ধতার সম্মুখীন হতে পারে?",
+  page: "Page 11",
+  ansEn: `If the A/E has the right to stop work, it may be held liable for <span class="kw-red">both the owner's and the contractor's extra costs</span> if it fails to stop work during <span class="kw">adverse weather conditions or safety hazards</span>.`,
+  ansBn: `A/E-এর কাজ বন্ধ করার অধিকার থাকলে, <span class="kw">প্রতিকূল আবহাওয়া বা নিরাপত্তা ঝুঁকির</span> সময় কাজ বন্ধ করতে ব্যর্থ হলে <span class="kw-red">মালিক ও ঠিকাদার উভয়ের বাড়তি খরচের</span> জন্য দায়ী হতে পারে।`
+},
+{
+  qEn: "Describe the Miller v. DeWitt case (1967) and its significance.",
+  qBn: "মিলার বনাম ডিউইট মামলা (১৯৬৭) বর্ণনা করুন এবং এর গুরুত্ব ব্যাখ্যা করুন।",
+  page: "Page 12",
+  ansEn: `<div class="case-box">
+  <ul>
+    <li>A/E was found <span class="kw-red">liable</span> for workers injured when the <span class="kw">roof collapsed</span> during construction</li>
+    <li>The court found that because the A/E had the <span class="kw">duty to evaluate the work</span> and the <span class="kw">right to stop work</span>, it had a duty to prevent the contractor from carrying out faulty work</li>
+    <li>The court focused on a clause requiring the A/E to <span class="kw-blue">"supervise"</span> the contractor</li>
+  </ul></div>`,
+  ansBn: `<div class="case-box">
+  <ul>
+    <li>নির্মাণকালে <span class="kw">ছাদ ধসে</span> শ্রমিক আহত হওয়ার জন্য A/E-কে <span class="kw-red">দায়ী</span> পাওয়া যায়</li>
+    <li>আদালত দেখতে পায় যে A/E-এর কাজ <span class="kw">মূল্যায়নের দায়িত্ব</span> এবং <span class="kw">কাজ বন্ধ করার অধিকার</span> থাকায়, ঠিকাদারকে ত্রুটিপূর্ণ কাজ করতে বাধা দেওয়ার দায়িত্ব ছিল</li>
+    <li>আদালত এমন একটি ধারার উপর গুরুত্ব দেয় যা A/E-কে ঠিকাদারকে <span class="kw-blue">"তদারকি"</span> করার শর্ত দিয়েছিল</li>
+  </ul></div>`
+},
+{
+  qEn: "How did the Miller decision differ from the prevailing view at the time?",
+  qBn: "মিলার সিদ্ধান্তটি সেই সময়ের প্রচলিত মতামত থেকে কীভাবে ভিন্ন ছিল?",
+  page: "Page 12",
+  ansEn: `The Miller decision was <span class="kw-red">contrary to the prevailing view</span>, which held that the A/E's duty was to provide a <span class="kw">completed structure</span> per the owner's requirements — <span class="kw-blue">not to dictate the methods</span> by which the contractor performs the work.`,
+  ansBn: `মিলার সিদ্ধান্তটি <span class="kw-red">প্রচলিত মতামতের বিপরীত</span> ছিল, যা বলত A/E-এর দায়িত্ব ছিল মালিকের প্রয়োজনীয়তা অনুযায়ী <span class="kw">সম্পূর্ণ কাঠামো</span> প্রদান করা — ঠিকাদার কাজ কীভাবে করবে সেই <span class="kw-blue">পদ্ধতি নির্দেশ করা নয়</span>।`
+},
+{
+  qEn: "What does A/E approval of progress payments represent, and what liability can arise?",
+  qBn: "অগ্রগতি অর্থপ্রদানের A/E অনুমোদন কী প্রতিনিধিত্ব করে এবং কী দায়বদ্ধতা দেখা দিতে পারে?",
+  page: "Page 13",
+  ansEn: `<ul>
+    <li>Such approval is a <span class="kw-red">representation to the owner</span> that the work was properly performed</li>
+    <li>The A/E may be <span class="kw">liable to the owner</span> for approving payment applications when the work was <span class="kw-blue">defective or incomplete</span></li>
+  </ul>`,
+  ansBn: `<ul>
+    <li>এই ধরনের অনুমোদন মালিকের কাছে <span class="kw-red">একটি প্রতিনিধিত্ব</span> যে কাজ সঠিকভাবে সম্পাদিত হয়েছে</li>
+    <li>কাজ <span class="kw-blue">ত্রুটিপূর্ণ বা অসম্পূর্ণ</span> থাকা সত্ত্বেও অর্থপ্রদানের আবেদন অনুমোদনের জন্য A/E মালিকের কাছে <span class="kw">দায়ী</span> হতে পারে</li>
+  </ul>`
+},
+{
+  qEn: "Why might a lender engage an independent A/E for payment review?",
+  qBn: "একজন ঋণদাতা কেন অর্থপ্রদান পর্যালোচনার জন্য একজন স্বাধীন A/E নিয়োগ দিতে পারেন?",
+  page: "Page 13",
+  ansEn: `If the lender is concerned about payments or worried the <span class="kw-red">contractor will default</span>, it may engage an independent A/E to <span class="kw">verify the stated percentage of completion is accurate</span>.`,
+  ansBn: `ঋণদাতা যদি অর্থপ্রদান নিয়ে উদ্বিগ্ন হন বা <span class="kw-red">ঠিকাদার খেলাপি হবে</span> এই আশঙ্কা করেন, তবে তিনি একজন স্বাধীন A/E নিয়োগ দিতে পারেন যাতে <span class="kw">সম্পন্ন হওয়ার উল্লেখিত শতাংশ সঠিক কিনা</span> তা যাচাই করা যায়।`
+},
+{
+  qEn: "What is the A/E's role regarding change orders and change directives?",
+  qBn: "পরিবর্তন আদেশ ও পরিবর্তন নির্দেশনা সম্পর্কে A/E-এর ভূমিকা কী?",
+  page: "Page 14",
+  ansEn: `<ul>
+    <li>Preparing a <span class="kw">change order</span> is usually part of the A/E's <span class="kw-red">basic services</span></li>
+    <li>Preparing a <span class="kw">construction change directive</span> is likewise usually part of basic services</li>
+  </ul>`,
+  ansBn: `<ul>
+    <li><span class="kw">পরিবর্তন আদেশ</span> প্রস্তুত করা সাধারণত A/E-এর <span class="kw-red">মৌলিক সেবার</span> অংশ</li>
+    <li><span class="kw">নির্মাণ পরিবর্তন নির্দেশনা</span> প্রস্তুত করাও একইভাবে সাধারণত মৌলিক সেবার অংশ</li>
+  </ul>`
+},
+{
+  qEn: "When is the A/E entitled to additional compensation regarding change orders?",
+  qBn: "পরিবর্তন আদেশ সম্পর্কে A/E কখন অতিরিক্ত ক্ষতিপূরণ পাওয়ার অধিকারী?",
+  page: "Page 14",
+  ansEn: `Creating and assembling <span class="kw-red">supporting documentation</span> — such as new or revised plans and specifications — generally constitutes an <span class="kw">additional service</span>, for which the A/E is entitled to receive <span class="kw-blue">additional compensation</span>.`,
+  ansBn: `<span class="kw-red">সহায়ক দলিল</span> তৈরি ও সংকলন করা — যেমন নতুন বা সংশোধিত পরিকল্পনা ও স্পেসিফিকেশন — সাধারণত একটি <span class="kw">অতিরিক্ত সেবা</span> গঠন করে, যার জন্য A/E <span class="kw-blue">অতিরিক্ত ক্ষতিপূরণ</span> পাওয়ার অধিকারী।`
+},
+{
+  qEn: "What is an RFI and why might A/E's delayed response create owner liability?",
+  qBn: "RFI কী এবং A/E-এর বিলম্বিত সাড়া কেন মালিকের দায়বদ্ধতা তৈরি করতে পারে?",
+  page: "Page 15",
+  ansEn: `<ul>
+    <li><span class="kw-red">RFI</span> (Request for Information) — questions about plans/specs referred to the A/E during construction; also known as requests for <span class="kw">interpretation or clarification</span></li>
+    <li>Since the A/E works as the owner's <span class="kw">agent</span>, the owner may be liable if the A/E's failure to respond promptly <span class="kw-blue">causes a delay</span></li>
+  </ul>`,
+  ansBn: `<ul>
+    <li><span class="kw-red">RFI</span> (তথ্যের জন্য অনুরোধ) — নির্মাণকালে A/E-কে পাঠানো পরিকল্পনা/স্পেসিফিকেশন সংক্রান্ত প্রশ্ন; একে <span class="kw">ব্যাখ্যা বা স্পষ্টীকরণের</span> অনুরোধও বলা হয়</li>
+    <li>A/E যেহেতু মালিকের <span class="kw">এজেন্ট</span> হিসেবে কাজ করে, তাই A/E-এর দ্রুত সাড়া দিতে ব্যর্থতা যদি <span class="kw-blue">বিলম্ব ঘটায়</span>, তবে মালিক দায়ী হতে পারেন</li>
+  </ul>`
+},
+{
+  qEn: "What could a high number of RFIs indicate, and what can the A/E claim in that case?",
+  qBn: "অনেক বেশি সংখ্যক RFI কী নির্দেশ করতে পারে এবং সেক্ষেত্রে A/E কী দাবি করতে পারে?",
+  page: "Page 16",
+  ansEn: `<ul>
+    <li>An unusually large number of RFIs may signal that the <span class="kw-red">contractor lacks proper qualifications</span> for the project</li>
+    <li>In such cases, the A/E may claim <span class="kw">additional compensation</span> for providing services beyond those contemplated by its contract with the owner</li>
+  </ul>`,
+  ansBn: `<ul>
+    <li>অস্বাভাবিকভাবে বেশি সংখ্যক RFI ইঙ্গিত দিতে পারে যে <span class="kw-red">ঠিকাদারের প্রকল্পের জন্য উপযুক্ত যোগ্যতা নেই</span></li>
+    <li>এমন ক্ষেত্রে, A/E মালিকের সাথে চুক্তিতে কল্পিত সেবার বাইরে সেবা প্রদানের জন্য <span class="kw">অতিরিক্ত ক্ষতিপূরণ</span> দাবি করতে পারে</li>
+  </ul>`
+},
+{
+  qEn: "What are the Engineer's principal duties in contract administration?",
+  qBn: "চুক্তি প্রশাসনে প্রকৌশলীর প্রধান দায়িত্বগুলো কী কী?",
+  page: "Page 17",
+  ansEn: `<ul>
+    <li><span class="kw">Admin & supervision</span> of contract</li>
+    <li>Ensure contractor acts as per <span class="kw">contract, local regulation, best practices</span></li>
+    <li><span class="kw-blue">SO (Superintending Officer)</span> — interpret drawings, specs & general conditions of contract</li>
+    <li>Ensure <span class="kw">good delivery, fair deal & price</span></li>
+    <li>Supervise tests, inspect materials & workmanship</li>
+    <li>Issue site instructions & keep site records</li>
+    <li>Hold site meetings; measure work with contractor's staff; check day work & certify payment</li>
+    <li>Check VO/Claims; produce periodic progress reports and as-built drawings</li>
+  </ul>`,
+  ansBn: `<ul>
+    <li>চুক্তির <span class="kw">প্রশাসন ও তদারকি</span></li>
+    <li>ঠিকাদার <span class="kw">চুক্তি, স্থানীয় নিয়মকানুন ও সর্বোত্তম অনুশীলন</span> অনুযায়ী কাজ করছে তা নিশ্চিত করা</li>
+    <li><span class="kw-blue">SO (তত্ত্বাবধায়ক কর্মকর্তা)</span> — অঙ্কন, স্পেসিফিকেশন ও চুক্তির সাধারণ শর্তাবলী ব্যাখ্যা করা</li>
+    <li><span class="kw">ভালো ডেলিভারি, ন্যায্য চুক্তি ও মূল্য</span> নিশ্চিত করা</li>
+    <li>পরীক্ষা তদারকি, উপকরণ ও কর্মদক্ষতা পরিদর্শন</li>
+    <li>সাইট নির্দেশনা জারি ও সাইট রেকর্ড রাখা</li>
+    <li>সাইট মিটিং করা; ঠিকাদারের কর্মীদের সাথে কাজ পরিমাপ; দৈনিক কাজ যাচাই ও অর্থপ্রদান সার্টিফাই</li>
+    <li>VO/দাবি যাচাই; পর্যায়ক্রমিক অগ্রগতি প্রতিবেদন ও প্রকৃত-নির্মিত (as-built) অঙ্কন তৈরি</li>
+  </ul>`
+},
+{
+  qEn: "What are the Resident Engineer's (RE) principal duties?",
+  qBn: "রেসিডেন্ট ইঞ্জিনিয়ারের (RE) প্রধান দায়িত্বগুলো কী কী?",
+  page: "Page 17",
+  ansEn: `<ul>
+    <li>Ensure <span class="kw">time frame met</span></li>
+    <li>Ensure <span class="kw">safety</span></li>
+    <li>Ensure <span class="kw">compliance of specification</span></li>
+    <li>Review <span class="kw">method statement</span></li>
+  </ul>`,
+  ansBn: `<ul>
+    <li><span class="kw">সময়সীমা পূরণ</span> নিশ্চিত করা</li>
+    <li><span class="kw">নিরাপত্তা</span> নিশ্চিত করা</li>
+    <li><span class="kw">স্পেসিফিকেশন মেনে চলা</span> নিশ্চিত করা</li>
+    <li><span class="kw">পদ্ধতি বিবৃতি (method statement)</span> পর্যালোচনা</li>
+  </ul>`
+},
+{
+  qEn: "What is the A/E's role in contractor termination?",
+  qBn: "ঠিকাদার বরখাস্তে A/E-এর ভূমিকা কী?",
+  page: "Page 18",
+  ansEn: `<ul>
+    <li>Contract documents often require the A/E to <span class="kw-red">advise the owner</span> on whether the contractor should be terminated for default</li>
+    <li>Some contracts state that unless the A/E <span class="kw">certifies adequate cause</span> for termination, the owner does not have the right to terminate the contractor for default</li>
+  </ul>`,
+  ansBn: `<ul>
+    <li>চুক্তি দলিল প্রায়ই A/E-কে ঠিকাদার খেলাপির কারণে বরখাস্ত হওয়া উচিত কিনা সে বিষয়ে <span class="kw-red">মালিককে পরামর্শ দিতে</span> বলে</li>
+    <li>কিছু চুক্তিতে বলা থাকে, A/E বরখাস্তের জন্য <span class="kw">পর্যাপ্ত কারণ সার্টিফাই</span> না করলে মালিকের ঠিকাদারকে খেলাপির কারণে বরখাস্ত করার অধিকার নেই</li>
+  </ul>`
+},
+{
+  qEn: "What must the contractor establish to recover damages from the A/E over an unjustified termination?",
+  qBn: "অন্যায্য বরখাস্তের জন্য A/E থেকে ক্ষতিপূরণ আদায় করতে ঠিকাদারকে কী প্রমাণ করতে হবে?",
+  page: "Page 18",
+  ansEn: `<span class="kw-red">Mere negligence or poor judgment is NOT sufficient</span> for the contractor to recover damages from the A/E, even if the termination was unjustified.`,
+  ansBn: `বরখাস্ত অন্যায্য হলেও, A/E থেকে ক্ষতিপূরণ আদায় করতে <span class="kw-red">শুধুমাত্র অবহেলা বা দুর্বল বিচার-বুদ্ধি যথেষ্ট নয়</span>।`
+},
+{
+  qEn: "What are common causes of delays in construction projects?",
+  qBn: "নির্মাণ প্রকল্পে বিলম্বের সাধারণ কারণগুলো কী কী?",
+  page: "Page 19",
+  ansEn: `<ul>
+    <li><span class="kw-red">Unforeseen delay</span> (at tendering time, outside contractor's liability & risks)</li>
+    <li><span class="kw">Late information</span>, modifications, additional work, design errors</li>
+    <li><span class="kw-blue">Acts of God</span>, e.g., adverse weather</li>
+    <li>Resulting in an <span class="kw">Extension of Time (EOT)</span> & cost, which the contractor must prove, per clauses stipulated in the <span class="kw">Course of Construction (COC)</span></li>
+  </ul>`,
+  ansBn: `<ul>
+    <li><span class="kw-red">অপ্রত্যাশিত বিলম্ব</span> (দরপত্রের সময়, ঠিকাদারের দায়বদ্ধতা ও ঝুঁকির বাইরে)</li>
+    <li><span class="kw">দেরিতে তথ্য</span>, পরিবর্তন, অতিরিক্ত কাজ, নকশার ত্রুটি</li>
+    <li><span class="kw-blue">দৈব ঘটনা (Acts of God)</span>, যেমন প্রতিকূল আবহাওয়া</li>
+    <li>ফলে <span class="kw">সময় বৃদ্ধি (EOT)</span> ও খরচ, যা ঠিকাদারকে <span class="kw">নির্মাণ ধারাবাহিকতায় (COC)</span> নির্ধারিত ধারা অনুযায়ী প্রমাণ করতে হবে</li>
+  </ul>`
+},
+{
+  qEn: "What must the contractor do to obtain an Extension of Time (EOT)?",
+  qBn: "সময় বৃদ্ধি (EOT) পেতে ঠিকাদারকে কী করতে হবে?",
+  page: "Page 19",
+  ansEn: `The contractor must <span class="kw-red">prove the EOT claim</span>, per the <span class="kw">clauses stipulated in the Course of Construction (COC)</span>.`,
+  ansBn: `ঠিকাদারকে <span class="kw">নির্মাণ ধারাবাহিকতায় (COC)</span> নির্ধারিত ধারা অনুযায়ী <span class="kw-red">EOT দাবি প্রমাণ করতে</span> হবে।`
+},
+{
+  qEn: "List the reasons why a time extension would be considered appropriate.",
+  qBn: "সময় বৃদ্ধিকে যথাযথ বিবেচনা করার কারণগুলো তালিকাভুক্ত করুন।",
+  page: "Page 20",
+  ansEn: `<ul>
+    <li>Delays from <span class="kw-red">severe weather</span></li>
+    <li>Delays caused by <span class="kw">slow responses to RFIs</span></li>
+    <li>Delays from <span class="kw">slow processing of submittals or shop drawings</span></li>
+    <li>Delays caused by <span class="kw-blue">delinquent deliveries</span> and <span class="kw-blue">labor strikes</span></li>
+    <li>Delays caused by <span class="kw">slow permit processing</span></li>
+    <li>Delays caused by the <span class="kw">architect</span> (poor quality contract documents, work interference)</li>
+    <li>Delays caused by the <span class="kw">owner</span> (slow decision making, work interference)</li>
+  </ul>`,
+  ansBn: `<ul>
+    <li><span class="kw-red">তীব্র আবহাওয়া</span> থেকে বিলম্ব</li>
+    <li><span class="kw">RFI-এর ধীর সাড়া</span> থেকে বিলম্ব</li>
+    <li><span class="kw">জমাদান বা শপ ড্রয়িংয়ের ধীর প্রক্রিয়াকরণ</span> থেকে বিলম্ব</li>
+    <li><span class="kw-blue">বিলম্বিত ডেলিভারি</span> ও <span class="kw-blue">শ্রমিক ধর্মঘট</span> থেকে বিলম্ব</li>
+    <li><span class="kw">পারমিট প্রক্রিয়াকরণের ধীরতা</span> থেকে বিলম্ব</li>
+    <li><span class="kw">স্থপতি</span>র কারণে বিলম্ব (দুর্বল মানের চুক্তি দলিল, কাজে হস্তক্ষেপ)</li>
+    <li><span class="kw">মালিকের</span> কারণে বিলম্ব (ধীর সিদ্ধান্ত গ্রহণ, কাজে হস্তক্ষেপ)</li>
+  </ul>`
+},
+{
+  qEn: "What additional causes of delay are covered under Time Extensions (Cont'd)?",
+  qBn: "\"টাইম এক্সটেনশনস (Cont'd)\"-এ বিলম্বের কোন অতিরিক্ত কারণগুলো আলোচনা করা হয়েছে?",
+  page: "Page 21",
+  ansEn: `<span class="kw">Delays caused by outside protests</span> — such as political or environmental groups, and others.`,
+  ansBn: `<span class="kw">বাইরের প্রতিবাদের</span> কারণে বিলম্ব — যেমন রাজনৈতিক বা পরিবেশবাদী গোষ্ঠী এবং অন্যান্য।`
+},
+{
+  qEn: "Why are EOT claims that include additional costs often difficult to negotiate?",
+  qBn: "অতিরিক্ত খরচ সহ EOT দাবি প্রায়ই কেন আলোচনার জন্য কঠিন হয়?",
+  page: "Page 21",
+  ansEn: `<ul>
+    <li>A <span class="kw">simple EOT</span> (extra time only) is easy to process — e.g., severe weather usually gets <span class="kw-blue">little objection</span> from the owner if bad weather days are properly documented</li>
+    <li>EOTs that include <span class="kw-red">additional costs</span> are usually difficult to negotiate and often <span class="kw-red">end up as disputed items</span></li>
+  </ul>`,
+  ansBn: `<ul>
+    <li>একটি <span class="kw">সরল EOT</span> (শুধু অতিরিক্ত সময়) প্রক্রিয়া করা সহজ — যেমন তীব্র আবহাওয়ার জন্য যদি খারাপ আবহাওয়ার দিনগুলো সঠিকভাবে নথিভুক্ত করা হয়, তবে মালিকের কাছ থেকে <span class="kw-blue">সামান্য আপত্তি</span> আসে</li>
+    <li><span class="kw-red">অতিরিক্ত খরচ</span> সহ EOT সাধারণত আলোচনা করা কঠিন এবং প্রায়ই <span class="kw-red">বিতর্কিত বিষয়ে পরিণত হয়</span></li>
+  </ul>`
+},
+{
+  qEn: "What role does strong contract administration (CA) skill play in LAD situations?",
+  qBn: "LAD পরিস্থিতিতে দক্ষ চুক্তি প্রশাসন (CA) দক্ষতা কী ভূমিকা পালন করে?",
+  page: "Page 21",
+  ansEn: `<ul>
+    <li>A construction manager must be <span class="kw-red">alert to delays beyond control</span> that result in extra costs</li>
+    <li><span class="kw">LAD (Liquidated and Ascertained Damages)</span> is a situation where <span class="kw-blue">strong CA skills and the right paperwork make the difference</span></li>
+  </ul>`,
+  ansBn: `<ul>
+    <li>একজন নির্মাণ ব্যবস্থাপককে <span class="kw-red">নিয়ন্ত্রণের বাইরে থাকা বিলম্বের</span> ব্যাপারে সতর্ক থাকতে হবে, যা বাড়তি খরচ সৃষ্টি করে</li>
+    <li><span class="kw">LAD (নির্ধারিত ও নিরূপিত ক্ষতিপূরণ)</span> এমন একটি পরিস্থিতি যেখানে <span class="kw-blue">দক্ষ CA দক্ষতা এবং সঠিক কাগজপত্র পার্থক্য গড়ে দেয়</span></li>
+  </ul>`
+},
+{
+  qEn: "Define the key abbreviations used in this lecture: SO, VO, COC, LAD, QS, QP, RE.",
+  qBn: "এই লেকচারে ব্যবহৃত মূল সংক্ষিপ্ত রূপগুলো সংজ্ঞায়িত করুন: SO, VO, COC, LAD, QS, QP, RE।",
+  page: "Page 22",
+  ansEn: `<ul>
+    <li><span class="kw">SO</span> — Superintending Officer</li>
+    <li><span class="kw">VO</span> — Variation Order</li>
+    <li><span class="kw">COC</span> — Course of Construction</li>
+    <li><span class="kw">LAD</span> — Liquidated and Ascertained Damages</li>
+    <li><span class="kw">QS</span> — Quantity Surveyor</li>
+    <li><span class="kw">QP</span> — Qualified Person</li>
+    <li><span class="kw">RE</span> — Resident Engineer</li>
+  </ul>`,
+  ansBn: `<ul>
+    <li><span class="kw">SO</span> — তত্ত্বাবধায়ক কর্মকর্তা (Superintending Officer)</li>
+    <li><span class="kw">VO</span> — পরিবর্তন আদেশ (Variation Order)</li>
+    <li><span class="kw">COC</span> — নির্মাণ ধারাবাহিকতা (Course of Construction)</li>
+    <li><span class="kw">LAD</span> — নির্ধারিত ও নিরূপিত ক্ষতিপূরণ (Liquidated and Ascertained Damages)</li>
+    <li><span class="kw">QS</span> — পরিমাণ জরিপকারী (Quantity Surveyor)</li>
+    <li><span class="kw">QP</span> — যোগ্য ব্যক্তি (Qualified Person)</li>
+    <li><span class="kw">RE</span> — রেসিডেন্ট ইঞ্জিনিয়ার (Resident Engineer)</li>
+  </ul>`
+}
+];
+
+const container = document.getElementById('cardsContainer');
+const noResults = document.getElementById('noResults');
+const visibleCountEl = document.getElementById('visibleCount');
+
+function buildCards(){
+  container.innerHTML = '';
+  data.forEach((item, idx) => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.dataset.idx = idx;
+
+    const searchText = (item.qEn + ' ' + item.qBn + ' ' + item.page).toLowerCase();
+    card.dataset.search = searchText;
+
+    card.innerHTML = `
+      <button class="q-btn" data-target="ans-${idx}">
+        <div class="q-number">${idx+1}</div>
+        <div class="q-text">
+          <div class="q-en">${item.qEn}</div>
+          <div class="q-bn">${item.qBn}</div>
+          <span class="page-tag">${item.page}</span>
+        </div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </button>
+      <div class="answer-wrap" id="ans-${idx}">
+        <div class="answer-inner">
+          <div class="answer-block">
+            <span class="ans-label">Answer</span>
+            <div class="ans-en">${item.ansEn}</div>
+            <div class="ans-bn">${item.ansBn}</div>
+          </div>
+        </div>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+
+  document.querySelectorAll('.q-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const wrap = document.getElementById(btn.dataset.target);
+      const isOpen = btn.classList.contains('active');
+      if(isOpen){
+        btn.classList.remove('active');
+        wrap.style.maxHeight = null;
+      } else {
+        btn.classList.add('active');
+        wrap.style.maxHeight = wrap.scrollHeight + 'px';
+      }
+    });
+  });
+}
+
+buildCards();
+
+document.getElementById('searchBox').addEventListener('input', function(){
+  const term = this.value.trim().toLowerCase();
+  let visible = 0;
+  document.querySelectorAll('.card').forEach(card => {
+    const match = card.dataset.search.includes(term);
+    card.style.display = match ? '' : 'none';
+    if(match) visible++;
+  });
+  visibleCountEl.textContent = visible;
+  noResults.style.display = visible === 0 ? 'block' : 'none';
+});
+
+document.getElementById('expandAllBtn').addEventListener('click', () => {
+  document.querySelectorAll('.q-btn').forEach(btn => {
+    const wrap = document.getElementById(btn.dataset.target);
+    btn.classList.add('active');
+    wrap.style.maxHeight = wrap.scrollHeight + 'px';
+  });
+});
+
+document.getElementById('collapseAllBtn').addEventListener('click', () => {
+  document.querySelectorAll('.q-btn').forEach(btn => {
+    const wrap = document.getElementById(btn.dataset.target);
+    btn.classList.remove('active');
+    wrap.style.maxHeight = null;
+  });
+});
+</script>
+</body>
+</html>

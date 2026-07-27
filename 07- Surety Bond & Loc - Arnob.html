@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Surety Bonds &amp; Letter of Credit — Study Guide</title>
+<style>
+  :root{
+    --navy:#122038;
+    --navy-deep:#0b1626;
+    --burgundy:#7c2d3c;
+    --burgundy-light:#a1465a;
+    --cream:#f7f0e2;
+    --cream-2:#efe4cd;
+    --gold:#c39a4d;
+    --gold-soft:#e0c785;
+    --ink:#20262f;
+    --paper:#fffaf0;
+    --shadow: 0 10px 30px rgba(11,22,38,0.18);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family: Georgia, 'Times New Roman', serif;
+    background: linear-gradient(180deg, var(--navy-deep) 0%, var(--navy) 340px, var(--cream) 340px, var(--cream) 100%);
+    color: var(--ink);
+    min-height:100vh;
+  }
+  .sans{ font-family: 'Segoe UI', Tahoma, Verdana, Arial, sans-serif; }
+
+  /* ===== Header ===== */
+  header.hero{
+    max-width:1100px;
+    margin:0 auto;
+    padding:56px 28px 40px;
+    text-align:center;
+    color:var(--cream);
+    position:relative;
+  }
+  .eyebrow{
+    font-family:'Segoe UI', Tahoma, sans-serif;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    font-size:12px;
+    color: var(--gold-soft);
+    margin-bottom:14px;
+  }
+  header.hero h1{
+    font-size:clamp(28px, 5vw, 46px);
+    margin:0 0 8px;
+    font-weight:700;
+    letter-spacing:0.5px;
+  }
+  header.hero .bn-title{
+    font-size:clamp(16px, 2.6vw, 20px);
+    color: var(--gold-soft);
+    margin:0 0 22px;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+  }
+  header.hero p.desc{
+    max-width:680px;
+    margin:0 auto;
+    font-size:15px;
+    line-height:1.7;
+    color:#d9d3c4;
+    font-family:'Segoe UI', Tahoma, sans-serif;
+  }
+  .scale-divider{
+    width:90px;height:3px;
+    background:linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin:22px auto 0;
+  }
+
+  /* ===== Controls ===== */
+  .controls-wrap{
+    max-width:1000px;
+    margin:-6px auto 0;
+    padding:0 24px;
+    position:relative;
+    z-index:5;
+  }
+  .search-box{
+    background:var(--paper);
+    border-radius:14px;
+    box-shadow:var(--shadow);
+    padding:14px 18px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    border:1px solid rgba(196,161,77,0.4);
+  }
+  .search-box input{
+    flex:1;
+    border:none;
+    outline:none;
+    background:transparent;
+    font-size:15px;
+    font-family:'Segoe UI', Tahoma, sans-serif;
+    color:var(--ink);
+  }
+  .search-box svg{flex-shrink:0;opacity:0.55;}
+
+  .filters{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    justify-content:center;
+    margin:22px auto 6px;
+    max-width:1000px;
+    padding:0 24px;
+  }
+  .filter-btn{
+    font-family:'Segoe UI', Tahoma, sans-serif;
+    font-size:13.5px;
+    padding:9px 16px;
+    border-radius:999px;
+    border:1.5px solid var(--burgundy);
+    background:transparent;
+    color:var(--burgundy);
+    cursor:pointer;
+    transition: all .25s ease;
+    font-weight:600;
+    letter-spacing:0.2px;
+  }
+  .filter-btn.active, .filter-btn:hover{
+    background:var(--burgundy);
+    color:var(--cream);
+    box-shadow:0 4px 14px rgba(124,45,60,0.35);
+  }
+  .count-tag{
+    text-align:center;
+    font-family:'Segoe UI', Tahoma, sans-serif;
+    font-size:12.5px;
+    color:#7a6f5c;
+    margin:8px 0 26px;
+  }
+
+  /* ===== Cards ===== */
+  main{
+    max-width:900px;
+    margin:0 auto;
+    padding:0 24px 70px;
+  }
+  .section-label{
+    font-family:'Segoe UI', Tahoma, sans-serif;
+    font-size:11.5px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:var(--burgundy);
+    font-weight:700;
+    margin:34px 0 14px 4px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .section-label::after{
+    content:"";
+    flex:1;
+    height:1px;
+    background:linear-gradient(90deg, rgba(124,45,60,0.4), transparent);
+  }
+
+  .card{
+    background:var(--paper);
+    border-radius:16px;
+    margin-bottom:14px;
+    box-shadow:0 3px 12px rgba(18,32,56,0.08);
+    border:1px solid #e7dcc3;
+    overflow:hidden;
+    transition: box-shadow .25s ease, transform .25s ease;
+  }
+  .card:hover{ box-shadow:0 8px 24px rgba(18,32,56,0.14); }
+  .card.open{ box-shadow:0 10px 28px rgba(124,45,60,0.16); border-color: var(--gold-soft); }
+
+  .q-btn{
+    width:100%;
+    text-align:left;
+    background:none;
+    border:none;
+    cursor:pointer;
+    padding:18px 20px;
+    display:flex;
+    gap:14px;
+    align-items:flex-start;
+    font-family: Georgia, serif;
+  }
+  .q-num{
+    flex-shrink:0;
+    width:34px;height:34px;
+    border-radius:50%;
+    background:var(--navy);
+    color:var(--gold-soft);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:13.5px;
+    font-weight:700;
+    font-family:'Segoe UI', Tahoma, sans-serif;
+  }
+  .q-text-wrap{ flex:1; }
+  .q-en{
+    font-size:16px;
+    color:var(--navy);
+    font-weight:700;
+    line-height:1.45;
+  }
+  .q-bn{
+    font-size:14.5px;
+    color:var(--burgundy);
+    margin-top:4px;
+    line-height:1.5;
+    font-family:'Segoe UI', Tahoma, sans-serif;
+  }
+  .page-chip{
+    display:inline-block;
+    margin-top:8px;
+    font-family:'Segoe UI', Tahoma, sans-serif;
+    font-size:11px;
+    background:var(--cream-2);
+    color:#7a6f5c;
+    padding:2px 9px;
+    border-radius:999px;
+    font-weight:600;
+  }
+  .chevron{
+    flex-shrink:0;
+    width:20px;height:20px;
+    margin-top:6px;
+    transition:transform .3s ease;
+    color:var(--gold);
+  }
+  .card.open .chevron{ transform:rotate(135deg); }
+
+  .answer{
+    max-height:0;
+    overflow:hidden;
+    transition: max-height .4s ease, padding .4s ease;
+    background: linear-gradient(180deg, #fbf5e6, #faf1de);
+    border-top: 1px dashed #e2d3ad;
+  }
+  .card.open .answer{
+    max-height:1400px;
+  }
+  .answer-inner{
+    padding:18px 20px 22px 68px;
+    font-family:'Segoe UI', Tahoma, sans-serif;
+  }
+  .answer-block{ margin-bottom:14px; }
+  .answer-block:last-child{ margin-bottom:0; }
+  .lang-tag{
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+    font-weight:700;
+    color:var(--gold);
+    margin-bottom:6px;
+    display:block;
+  }
+  .lang-tag.bn{ color:var(--burgundy-light); }
+  ul.ans-list{
+    margin:0;
+    padding-left:20px;
+    color:var(--ink);
+    font-size:14.5px;
+    line-height:1.65;
+  }
+  ul.ans-list.bn-list{
+    font-size:14.5px;
+  }
+  ul.ans-list li{ margin-bottom:6px; }
+  ul.ans-list li:last-child{ margin-bottom:0; }
+
+  b.kw{ color:var(--burgundy); }
+  b.kw.blue{ color:#1f4e8c; }
+
+  /* No results */
+  .no-results{
+    text-align:center;
+    padding:50px 20px;
+    color:#8a7f6b;
+    font-family:'Segoe UI', Tahoma, sans-serif;
+    display:none;
+  }
+
+  footer{
+    text-align:center;
+    padding:30px 20px 46px;
+    font-family:'Segoe UI', Tahoma, sans-serif;
+    font-size:12.5px;
+    color:#8a7f6b;
+  }
+  footer .line{
+    width:60px;height:2px;
+    background:var(--gold);
+    margin:0 auto 14px;
+  }
+
+  @media (max-width:560px){
+    .answer-inner{ padding-left:20px; }
+    .q-en{ font-size:15px; }
+    header.hero{ padding:44px 18px 34px; }
+    .filters{ gap:7px; }
+    .filter-btn{ font-size:12.5px; padding:7px 12px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="eyebrow">BECM 3107 · Construction Contract and Law · Slide 07</div>
+  <h1>Surety Bonds &amp; Letter of Credit (LOC)</h1>
+  <div class="bn-title">সিকিউরিটি বন্ড ও লেটার অফ ক্রেডিট — প্রশ্নোত্তর অধ্যয়ন গাইড</div>
+  <div class="scale-divider"></div>
+  <p class="desc">An interactive bilingual (English–Bangla) question bank covering every concept from the lecture slides — surety bond fundamentals, bond types, and the Letter of Credit. Tap any question to reveal its answer.</p>
+</header>
+
+<div class="controls-wrap">
+  <div class="search-box">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input id="searchInput" type="text" placeholder="Search a question or keyword… (প্রশ্ন খুঁজুন)">
+  </div>
+</div>
+
+<div class="filters" id="filterBar">
+  <button class="filter-btn active" data-cat="all">All · সব</button>
+  <button class="filter-btn" data-cat="fundamentals">Bond Fundamentals</button>
+  <button class="filter-btn" data-cat="types">Types of Bonds</button>
+  <button class="filter-btn" data-cat="insurance">Bonds vs Insurance</button>
+  <button class="filter-btn" data-cat="loc">Letter of Credit</button>
+  <button class="filter-btn" data-cat="compare">LOC vs Surety Bond</button>
+</div>
+<div class="count-tag" id="countTag"></div>
+
+<main id="cardContainer"></main>
+<div class="no-results" id="noResults">No matching questions found — try a different keyword.<br>কোনো মিলযুক্ত প্রশ্ন পাওয়া যায়নি।</div>
+
+<footer>
+  <div class="line"></div>
+  Department of Building Engineering and Construction Management (BECM), KUET, Khulna-9203, Bangladesh<br>
+  Study guide generated from Slide 07 — Surety Bonds &amp; Letter of Credit (LOC)
+</footer>
+
+<script>
+const DATA = [
+{cat:"fundamentals", label:"Bond Fundamentals · বন্ডের মূলনীতি", page:2,
+ qEn:"What three key questions frame the discussion on surety bonds?",
+ qBn:"সিকিউরিটি বন্ড নিয়ে আলোচনার কাঠামো কোন তিনটি মূল প্রশ্নের ওপর ভিত্তি করে তৈরি?",
+ aEn:["What <b class='kw'>surety bonds</b> are","Who <b class='kw'>issues</b> surety bonds","What type of <b class='kw'>protection</b> they provide"],
+ aBn:["<b class='kw'>সিকিউরিটি বন্ড</b> কী","সিকিউরিটি বন্ড কে <b class='kw'>ইস্যু</b> করে","এগুলো কী ধরনের <b class='kw'>সুরক্ষা</b> প্রদান করে"]},
+
+{cat:"fundamentals", label:"Bond Fundamentals · বন্ডের মূলনীতি", page:3,
+ qEn:"Define a surety bond and identify its three parties.",
+ qBn:"সিকিউরিটি বন্ড কী এবং এর তিনটি পক্ষ কারা তা ব্যাখ্যা করুন।",
+ aEn:["A surety bond is a written <b class='kw'>three-party agreement</b> guaranteeing performance of contractual obligations",
+      "<b class='kw blue'>Principal</b> — the contractor performing the work",
+      "<b class='kw blue'>Obligee</b> — the project owner requiring the bond",
+      "<b class='kw blue'>Surety</b> — the bonding company guaranteeing performance"],
+ aBn:["সিকিউরিটি বন্ড একটি লিখিত <b class='kw'>ত্রিপক্ষীয় চুক্তি</b> যা চুক্তিগত বাধ্যবাধকতা পূরণের নিশ্চয়তা দেয়",
+      "<b class='kw blue'>প্রিন্সিপাল</b> — কাজ সম্পাদনকারী ঠিকাদার",
+      "<b class='kw blue'>অবলিজি</b> — বন্ড দাবিকারী প্রকল্প মালিক",
+      "<b class='kw blue'>সিউরিটি</b> — পারফরম্যান্সের নিশ্চয়তাদানকারী বন্ডিং কোম্পানি"]},
+
+{cat:"fundamentals", label:"Bond Fundamentals · বন্ডের মূলনীতি", page:4,
+ qEn:"Who typically issues surety bonds, and through whom do contractors obtain them?",
+ qBn:"সাধারণত সিকিউরিটি বন্ড কারা ইস্যু করে এবং ঠিকাদাররা কার মাধ্যমে তা সংগ্রহ করেন?",
+ aEn:["Issued by <b class='kw'>surety companies</b>, often affiliated with insurance companies",
+      "Obtained through licensed <b class='kw'>bond producers</b> — known as agents or brokers",
+      "Surety evaluates: <b class='kw blue'>financial stability, technical expertise, past experience, ability to complete the project</b>"],
+ aBn:["<b class='kw'>সিকিউরিটি কোম্পানি</b> ইস্যু করে, যা প্রায়ই বীমা কোম্পানির সাথে সম্পর্কিত",
+      "লাইসেন্সপ্রাপ্ত <b class='kw'>বন্ড প্রডিউসার</b> (এজেন্ট/ব্রোকার)-এর মাধ্যমে সংগ্রহ করা হয়",
+      "সিউরিটি মূল্যায়ন করে: <b class='kw blue'>আর্থিক স্থিতিশীলতা, কারিগরি দক্ষতা, পূর্ব অভিজ্ঞতা, প্রকল্প সম্পন্ন করার সক্ষমতা</b>"]},
+
+{cat:"fundamentals", label:"Bond Fundamentals · বন্ডের মূলনীতি", page:5,
+ qEn:"What happens if the contractor (principal) fails to meet obligations under a surety bond?",
+ qBn:"সিকিউরিটি বন্ডের অধীনে ঠিকাদার (প্রিন্সিপাল) বাধ্যবাধকতা পূরণে ব্যর্থ হলে কী ঘটে?",
+ aEn:["The surety company may <b class='kw'>compensate the project owner</b>",
+      "Or <b class='kw'>arrange for completion</b> of the work",
+      "The surety guarantees to the obligee that the principal will fulfill obligations"],
+ aBn:["সিউরিটি কোম্পানি প্রকল্প মালিককে <b class='kw'>ক্ষতিপূরণ</b> দিতে পারে",
+      "অথবা কাজ <b class='kw'>সম্পন্ন করার ব্যবস্থা</b> করতে পারে",
+      "সিউরিটি অবলিজিকে নিশ্চয়তা দেয় যে প্রিন্সিপাল বাধ্যবাধকতা পূরণ করবে"]},
+
+{cat:"fundamentals", label:"Bond Fundamentals · বন্ডের মূলনীতি", page:6,
+ qEn:"What is the “penal sum” of a surety bond and what determines it?",
+ qBn:"সিকিউরিটি বন্ডের “পেনাল সাম” কী এবং এটি কীসের দ্বারা নির্ধারিত হয়?",
+ aEn:["The <b class='kw'>penal sum</b> is the amount for which a bond is issued — the surety's <b class='kw blue'>maximum financial liability</b>",
+      "Liability is generally limited to this sum, unless the surety itself breaches bond terms",
+      "It defines the extent of protection for the obligee and helps assess risk",
+      "Based on this risk assessment, the surety sets the <b class='kw'>premium</b>"],
+ aBn:["<b class='kw'>পেনাল সাম</b> হলো যে পরিমাণে বন্ড ইস্যু করা হয় — সিউরিটির <b class='kw blue'>সর্বোচ্চ আর্থিক দায়</b>",
+      "সিউরিটির দায় সাধারণত এই পরিমাণে সীমাবদ্ধ, যদি না সিউরিটি নিজেই বন্ডের শর্ত ভঙ্গ করে",
+      "এটি অবলিজির সুরক্ষার পরিসীমা নির্ধারণ করে এবং ঝুঁকি মূল্যায়নে সাহায্য করে",
+      "এই ঝুঁকি মূল্যায়নের ভিত্তিতে সিউরিটি <b class='kw'>প্রিমিয়াম</b> নির্ধারণ করে"]},
+
+{cat:"fundamentals", label:"Bond Fundamentals · বন্ডের মূলনীতি", page:7,
+ qEn:"What factors determine the bond premium, and how does credit rating affect it?",
+ qBn:"বন্ড প্রিমিয়াম কী কী বিষয়ের ওপর নির্ভর করে এবং ক্রেডিট রেটিং এটিকে কীভাবে প্রভাবিত করে?",
+ aEn:["Determined mainly by the <b class='kw'>bond amount (penal sum)</b>, contractor's <b class='kw'>credit rating</b>, financial strength, and business history",
+      "Strong financial records / good credit → <b class='kw blue'>lower premiums</b> (low-risk applicants)",
+      "Poor credit / weak financial position → higher risk → restricted maximum bond amount & <b class='kw blue'>much higher premiums</b>"],
+ aBn:["মূলত <b class='kw'>বন্ডের পরিমাণ (পেনাল সাম)</b>, ঠিকাদারের <b class='kw'>ক্রেডিট রেটিং</b>, আর্থিক শক্তি ও ব্যবসায়িক ইতিহাসের ওপর নির্ভর করে",
+      "ভালো আর্থিক রেকর্ড/ক্রেডিট স্কোর → <b class='kw blue'>কম প্রিমিয়াম</b> (কম ঝুঁকিপূর্ণ প্রার্থী)",
+      "দুর্বল ক্রেডিট/আর্থিক অবস্থান → বেশি ঝুঁকি → সর্বোচ্চ বন্ড পরিমাণে সীমাবদ্ধতা এবং <b class='kw blue'>অনেক বেশি প্রিমিয়াম</b>"]},
+
+{cat:"fundamentals", label:"Bond Fundamentals · বন্ডের মূলনীতি", page:8,
+ qEn:"What is the typical premium range for a surety bond, and how is the cost calculated? Give an example.",
+ qBn:"সিকিউরিটি বন্ডের সাধারণ প্রিমিয়াম রেঞ্জ কত এবং খরচ কীভাবে হিসাব করা হয়? একটি উদাহরণ দিন।",
+ aEn:["Bond premium typically ranges from <b class='kw'>1% to 15%</b> of the total bond value",
+      "Example: a <b class='kw blue'>$10,000</b> bond at a 1% premium rate = <b class='kw blue'>$100</b> cost",
+      "For higher-risk large construction projects, premium may be 10%+ → a $10,000 bond could cost <b class='kw blue'>$1,000 or more</b>"],
+ aBn:["বন্ড প্রিমিয়াম সাধারণত মোট বন্ড মূল্যের <b class='kw'>১% থেকে ১৫%</b> পর্যন্ত হয়",
+      "উদাহরণ: <b class='kw blue'>$১০,০০০</b> বন্ডে ১% প্রিমিয়ামে খরচ = <b class='kw blue'>$১০০</b>",
+      "বড় নির্মাণ প্রকল্পের মতো উচ্চ-ঝুঁকির ক্ষেত্রে প্রিমিয়াম ১০%+ হতে পারে → $১০,০০০ বন্ডে খরচ <b class='kw blue'>$১,০০০+</b> হতে পারে"]},
+
+{cat:"fundamentals", label:"Bond Fundamentals · বন্ডের মূলনীতি", page:9,
+ qEn:"What is the purpose of the prequalification process conducted by surety companies?",
+ qBn:"সিকিউরিটি কোম্পানি কর্তৃক পরিচালিত প্রি-কোয়ালিফিকেশন প্রক্রিয়ার উদ্দেশ্য কী?",
+ aEn:["To assess whether the contractor is <b class='kw'>capable of successfully completing</b> the contract",
+      "Evaluation covers: <b class='kw blue'>financial stability, credit history, technical expertise, past project performance, management/organizational capability</b>"],
+ aBn:["ঠিকাদার সফলভাবে চুক্তি <b class='kw'>সম্পন্ন করতে সক্ষম</b> কিনা তা মূল্যায়ন করা",
+      "মূল্যায়নে অন্তর্ভুক্ত: <b class='kw blue'>আর্থিক স্থিতিশীলতা, ক্রেডিট ইতিহাস, কারিগরি দক্ষতা, অতীত প্রকল্পের কর্মক্ষমতা, ব্যবস্থাপনা ও সাংগঠনিক সক্ষমতা</b>"]},
+
+{cat:"fundamentals", label:"Bond Fundamentals · বন্ডের মূলনীতি", page:10,
+ qEn:"Beyond assessing capability, what other purposes does the prequalification process serve?",
+ qBn:"সক্ষমতা মূল্যায়নের পাশাপাশি প্রি-কোয়ালিফিকেশন প্রক্রিয়া আর কী উদ্দেশ্য সাধন করে?",
+ aEn:["Reduces the risk of <b class='kw'>project failure or contractor default</b>",
+      "Protects the project owner (obligee) from <b class='kw'>potential financial loss</b>",
+      "Serves as a measure of the contractor's <b class='kw'>reliability and credibility</b> in the industry"],
+ aBn:["<b class='kw'>প্রকল্প ব্যর্থতা বা ঠিকাদারের ডিফল্টের ঝুঁকি</b> কমায়",
+      "সম্ভাব্য <b class='kw'>আর্থিক ক্ষতি</b> থেকে প্রকল্প মালিক (অবলিজি)-কে রক্ষা করে",
+      "শিল্পে ঠিকাদারের <b class='kw'>নির্ভরযোগ্যতা ও বিশ্বাসযোগ্যতার</b> পরিমাপ হিসেবে কাজ করে"]},
+
+{cat:"fundamentals", label:"Bond Fundamentals · বন্ডের মূলনীতি", page:11,
+ qEn:"Explain the “3 Cs” of prequalification used by surety companies.",
+ qBn:"সিকিউরিটি কোম্পানি কর্তৃক ব্যবহৃত প্রি-কোয়ালিফিকেশনের “৩টি C” ব্যাখ্যা করুন।",
+ aEn:["<b class='kw'>Capital</b> — contractor's financial strength",
+      "<b class='kw'>Capacity</b> — contractor's ability to perform the work",
+      "<b class='kw'>Character</b> — contractor's reputation among subcontractors, suppliers, and other project owners"],
+ aBn:["<b class='kw'>ক্যাপিটাল</b> — ঠিকাদারের আর্থিক শক্তি",
+      "<b class='kw'>ক্যাপাসিটি</b> — ঠিকাদারের কাজ সম্পাদনের সক্ষমতা",
+      "<b class='kw'>ক্যারেক্টার</b> — সাবকন্ট্রাক্টর, সরবরাহকারী ও অন্যান্য প্রকল্প মালিকদের কাছে ঠিকাদারের সুনাম"]},
+
+{cat:"fundamentals", label:"Bond Fundamentals · বন্ডের মূলনীতি", page:12,
+ qEn:"Name the various parties who receive protection from surety bonds in a construction project.",
+ qBn:"একটি নির্মাণ প্রকল্পে সিকিউরিটি বন্ড থেকে সুরক্ষা পাওয়া বিভিন্ন পক্ষের নাম বলুন।",
+ aEn:["<b class='kw'>Owner, Lenders, Attorneys, Engineers, Subs (subcontractors), Contractor, CPAs, Architects, Risk managers, Developers</b>"],
+ aBn:["<b class='kw'>মালিক, ঋণদাতা, আইনজীবী, প্রকৌশলী, সাবকন্ট্রাক্টর, ঠিকাদার, সিপিএ, স্থপতি, রিস্ক ম্যানেজার, ডেভেলপার</b>"]},
+
+{cat:"types", label:"Types of Bonds · বন্ডের প্রকারভেদ", page:13,
+ qEn:"List the four main types of construction bonds discussed.",
+ qBn:"আলোচিত চারটি প্রধান ধরনের নির্মাণ বন্ডের তালিকা দিন।",
+ aEn:["<b class='kw'>Bid Bond</b>","<b class='kw'>Performance Bond</b>","<b class='kw'>Payment Bond</b>","<b class='kw'>Lien Bond</b>"],
+ aBn:["<b class='kw'>বিড বন্ড</b>","<b class='kw'>পারফরম্যান্স বন্ড</b>","<b class='kw'>পেমেন্ট বন্ড</b>","<b class='kw'>লিয়েন বন্ড</b>"]},
+
+{cat:"types", label:"Types of Bonds · বন্ডের প্রকারভেদ", page:14,
+ qEn:"What does a bid bond guarantee to the project owner?",
+ qBn:"বিড বন্ড প্রকল্প মালিককে কী নিশ্চয়তা দেয়?",
+ aEn:["Assures the bidding contractor will <b class='kw'>honor the bid price</b> and enter the contract if selected",
+      "Guarantees the contractor will provide the required <b class='kw'>performance bond and payment bond</b> once awarded"],
+ aBn:["নিশ্চিত করে যে বিড জমাদানকারী ঠিকাদার <b class='kw'>বিড মূল্য বজায়</b> রাখবে এবং নির্বাচিত হলে চুক্তিতে প্রবেশ করবে",
+      "নিশ্চয়তা দেয় যে চুক্তি প্রদানের পর ঠিকাদার প্রয়োজনীয় <b class='kw'>পারফরম্যান্স ও পেমেন্ট বন্ড</b> প্রদান করবে"]},
+
+{cat:"types", label:"Types of Bonds · বন্ডের প্রকারভেদ", page:15,
+ qEn:"Under what circumstances is a contractor considered “in default” on a bid bond?",
+ qBn:"বিড বন্ডে ঠিকাদারকে কখন “ডিফল্ট” বলে বিবেচনা করা হয়?",
+ aEn:["Contractor <b class='kw'>refuses to sign</b> the contract",
+      "Contractor <b class='kw'>withdraws the bid</b>",
+      "Contractor <b class='kw'>fails to provide</b> the required performance/payment bonds"],
+ aBn:["ঠিকাদার চুক্তিতে <b class='kw'>স্বাক্ষর করতে অস্বীকার</b> করলে",
+      "<b class='kw'>বিড প্রত্যাহার</b> করলে",
+      "প্রয়োজনীয় পারফরম্যান্স/পেমেন্ট বন্ড <b class='kw'>প্রদানে ব্যর্থ</b> হলে"]},
+
+{cat:"types", label:"Types of Bonds · বন্ডের প্রকারভেদ", page:16,
+ qEn:"How does a bid bond protect the project owner financially in case of contractor default?",
+ qBn:"ঠিকাদার ডিফল্ট করলে বিড বন্ড কীভাবে প্রকল্প মালিককে আর্থিকভাবে রক্ষা করে?",
+ aEn:["Owner can <b class='kw'>make a claim</b> against the bid bond",
+      "Allows recovery of the <b class='kw'>additional cost</b> of awarding to the next-lowest qualified bidder",
+      "If the contractor cannot reimburse, the surety pays compensation up to the bond's <b class='kw blue'>penal sum</b>",
+      "Ensures contractors submit <b class='kw'>serious and realistic bids</b>"],
+ aBn:["মালিক বিড বন্ডের বিরুদ্ধে <b class='kw'>দাবি করতে</b> পারে",
+      "পরবর্তী সর্বনিম্ন যোগ্য বিডারকে চুক্তি প্রদানের <b class='kw'>অতিরিক্ত খরচ</b> পুনরুদ্ধার করতে দেয়",
+      "ঠিকাদার প্রতিদান দিতে না পারলে সিউরিটি <b class='kw blue'>পেনাল সাম</b> পর্যন্ত ক্ষতিপূরণ দেয়",
+      "ঠিকাদাররা যেন <b class='kw'>গুরুত্ব সহকারে ও বাস্তবসম্মত বিড</b> জমা দেয় তা নিশ্চিত করে"]},
+
+{cat:"types", label:"Types of Bonds · বন্ডের প্রকারভেদ", page:"13–16",
+ qEn:"Explain the relationship between a Bid Bond and a Performance/Payment Bond in the bidding process.",
+ qBn:"বিডিং প্রক্রিয়ায় বিড বন্ড এবং পারফরম্যান্স/পেমেন্ট বন্ডের মধ্যে সম্পর্ক ব্যাখ্যা করুন।",
+ aEn:["A bid bond is submitted with the bid during <b class='kw'>tendering</b>",
+      "It guarantees that if selected, the contractor will enter the contract at the bid price <b class='kw'>AND</b> provide the required performance and payment bonds",
+      "Thus the bid bond acts as a <b class='kw blue'>gateway</b> ensuring the winning bidder actually follows through with the subsequent bonds"],
+ aBn:["টেন্ডারিং প্রক্রিয়ার সময় বিডের সাথে বিড বন্ড <b class='kw'>জমা</b> দেওয়া হয়",
+      "এটি নিশ্চয়তা দেয় যে নির্বাচিত হলে ঠিকাদার বিড মূল্যে চুক্তিতে প্রবেশ করবে <b class='kw'>এবং</b> প্রয়োজনীয় পারফরম্যান্স ও পেমেন্ট বন্ড প্রদান করবে",
+      "এভাবে বিড বন্ড একটি <b class='kw blue'>প্রবেশদ্বার</b> হিসেবে কাজ করে যা নিশ্চিত করে বিজয়ী বিডার পরবর্তী বন্ডগুলো প্রকৃতপক্ষে অনুসরণ করবে"]},
+
+{cat:"types", label:"Types of Bonds · বন্ডের প্রকারভেদ", page:17,
+ qEn:"What does a performance bond guarantee, and where is it most commonly used?",
+ qBn:"পারফরম্যান্স বন্ড কী নিশ্চয়তা দেয় এবং এটি সাধারণত কোথায় ব্যবহৃত হয়?",
+ aEn:["Guarantees <b class='kw'>completion of the project</b>; if the contractor defaults, the surety steps in to complete the work or compensate the employer",
+      "More commonly used in <b class='kw'>large-scale projects</b>",
+      "Key parties: <b class='kw blue'>Principal (contractor), Obligee (project owner), Surety (bonding company)</b>"],
+ aBn:["প্রকল্প <b class='kw'>সম্পূর্ণ হওয়ার নিশ্চয়তা</b> দেয়; ঠিকাদার ডিফল্ট করলে সিউরিটি কাজ সম্পন্ন করতে বা মালিককে ক্ষতিপূরণ দিতে হস্তক্ষেপ করে",
+      "<b class='kw'>বড় মাপের প্রকল্পে</b> বেশি ব্যবহৃত হয়",
+      "মূল পক্ষ: <b class='kw blue'>প্রিন্সিপাল (ঠিকাদার), অবলিজি (প্রকল্প মালিক), সিউরিটি (বন্ডিং কোম্পানি)</b>"]},
+
+{cat:"types", label:"Types of Bonds · বন্ডের প্রকারভেদ", page:18,
+ qEn:"If a contractor is terminated for default under a performance bond, what options does the surety have?",
+ qBn:"পারফরম্যান্স বন্ডের অধীনে ঠিকাদারকে ডিফল্টের জন্য বাতিল করা হলে সিউরিটির কী কী বিকল্প থাকে?",
+ aEn:["<b class='kw'>Take over</b> the project and complete the work",
+      "<b class='kw'>Hire another contractor</b> to finish the project",
+      "Select a <b class='kw'>new contractor</b> to contract directly with the owner",
+      "<b class='kw'>Negotiate a cash settlement</b> with the owner"],
+ aBn:["প্রকল্প নিজেই <b class='kw'>গ্রহণ করে</b> কাজ সম্পন্ন করা",
+      "কাজ শেষ করতে <b class='kw'>অন্য ঠিকাদার</b> নিয়োগ করা",
+      "মালিকের সাথে সরাসরি চুক্তির জন্য <b class='kw'>নতুন ঠিকাদার</b> নির্বাচন করা",
+      "মালিকের সাথে <b class='kw'>নগদ নিষ্পত্তির</b> আলোচনা করা"]},
+
+{cat:"types", label:"Types of Bonds · বন্ডের প্রকারভেদ", page:19,
+ qEn:"Why might a surety prefer to help a financially struggling contractor rather than declare default?",
+ qBn:"আর্থিকভাবে সংকটাপন্ন ঠিকাদারকে ডিফল্ট ঘোষণার পরিবর্তে সাহায্য করা সিউরিটি কেন পছন্দ করতে পারে?",
+ aEn:["To help the contractor <b class='kw'>avoid default</b> so the surety is not required to take over the project",
+      "If the <b class='kw'>owner consents</b>, the surety can provide the contractor funds needed to complete the project"],
+ aBn:["ঠিকাদারকে <b class='kw'>ডিফল্ট এড়াতে</b> সাহায্য করা যাতে সিউরিটিকে প্রকল্প নিজে গ্রহণ করতে না হয়",
+      "<b class='kw'>মালিক সম্মত</b> হলে সিউরিটি ঠিকাদারকে প্রকল্প সম্পন্ন করার জন্য প্রয়োজনীয় তহবিল দিতে পারে"]},
+
+{cat:"types", label:"Types of Bonds · বন্ডের প্রকারভেদ", page:20,
+ qEn:"List the general remedial options available to a surety under performance bond protection.",
+ qBn:"পারফরম্যান্স বন্ড সুরক্ষার অধীনে সিউরিটির সাধারণ প্রতিকারমূলক বিকল্পগুলো তালিকা করুন।",
+ aEn:["<b class='kw'>Re-bid</b> the job for completion",
+      "Arrange for a <b class='kw'>replacement contractor</b>",
+      "<b class='kw'>Retain</b> the original contractor",
+      "<b class='kw'>Refund</b> the owner as required by the bond"],
+ aBn:["সম্পন্ন করার জন্য কাজ <b class='kw'>পুনরায় বিড</b> করা",
+      "<b class='kw'>প্রতিস্থাপন ঠিকাদার</b> নিয়োগের ব্যবস্থা করা",
+      "মূল ঠিকাদার <b class='kw'>বহাল রাখা</b>",
+      "বন্ডের শর্ত অনুযায়ী মালিককে <b class='kw'>অর্থ ফেরত</b> দেওয়া"]},
+
+{cat:"types", label:"Types of Bonds · বন্ডের প্রকারভেদ", page:"17–20",
+ qEn:"Scenario: a contractor abandons a large project midway. Which bond protects the owner, and what can the surety do?",
+ qBn:"পরিস্থিতি: একজন ঠিকাদার একটি বড় প্রকল্প মাঝপথে ছেড়ে দিলে কোন বন্ড মালিককে রক্ষা করে এবং সিউরিটি কী করতে পারে?",
+ aEn:["The <b class='kw'>Performance Bond</b> protects the owner in this scenario",
+      "Surety's options: <b class='kw blue'>take over and complete</b> the work, hire a replacement contractor, help select a new contractor, or negotiate a cash settlement",
+      "Alternatively: <b class='kw blue'>re-bid</b> the job, arrange a replacement, retain the original contractor if feasible, or refund the owner per bond terms"],
+ aBn:["এই পরিস্থিতিতে <b class='kw'>পারফরম্যান্স বন্ড</b> মালিককে রক্ষা করে",
+      "সিউরিটির বিকল্প: কাজ <b class='kw blue'>নিজে গ্রহণ করে সম্পন্ন করা</b>, প্রতিস্থাপন ঠিকাদার নিয়োগ, নতুন ঠিকাদার নির্বাচনে সহায়তা, অথবা নগদ নিষ্পত্তি",
+      "বিকল্পভাবে: কাজ <b class='kw blue'>পুনরায় বিড</b> করা, প্রতিস্থাপন ব্যবস্থা, সম্ভব হলে মূল ঠিকাদার বহাল রাখা, অথবা বন্ডের শর্তানুযায়ী অর্থ ফেরত"]},
+
+{cat:"types", label:"Types of Bonds · বন্ডের প্রকারভেদ", page:21,
+ qEn:"What is a payment bond, and by what other name is it known?",
+ qBn:"পেমেন্ট বন্ড কী এবং এটি আর কী নামে পরিচিত?",
+ aEn:["Also called a <b class='kw'>labor and material bond</b>",
+      "Guarantees that the contractor will <b class='kw blue'>pay its subcontractors and suppliers</b>"],
+ aBn:["একে <b class='kw'>লেবার অ্যান্ড ম্যাটেরিয়াল বন্ডও</b> বলা হয়",
+      "নিশ্চয়তা দেয় যে ঠিকাদার তার <b class='kw blue'>সাবকন্ট্রাক্টর ও সরবরাহকারীদের</b> পরিশোধ করবে"]},
+
+{cat:"types", label:"Types of Bonds · বন্ডের প্রকারভেদ", page:22,
+ qEn:"How does a payment bond protect different stakeholders?",
+ qBn:"পেমেন্ট বন্ড বিভিন্ন স্টেকহোল্ডারদের কীভাবে রক্ষা করে?",
+ aEn:["Surety pays <b class='kw'>eligible subcontractors and suppliers</b>",
+      "Protects the owner from <b class='kw'>mechanics' liens</b>",
+      "Protects subcontractors from <b class='kw'>nonpayment</b>"],
+ aBn:["সিউরিটি যোগ্য <b class='kw'>সাবকন্ট্রাক্টর ও সরবরাহকারীদের</b> অর্থ পরিশোধ করে",
+      "মালিককে <b class='kw'>মেকানিক্স লিয়েন</b> থেকে রক্ষা করে",
+      "সাবকন্ট্রাক্টরদের <b class='kw'>অর্থ না পাওয়া</b> থেকে রক্ষা করে"]},
+
+{cat:"types", label:"Types of Bonds · বন্ডের প্রকারভেদ", page:"21–23",
+ qEn:"Scenario: a subcontractor was not paid by the general contractor. Which bond addresses this, and what recourse exists?",
+ qBn:"একজন সাবকন্ট্রাক্টরকে জেনারেল কন্ট্রাক্টর অর্থ পরিশোধ করেননি। কোন বন্ড এটির সমাধান করে এবং কী প্রতিকার আছে?",
+ aEn:["The <b class='kw'>Payment Bond</b> addresses this situation",
+      "It guarantees the contractor pays subcontractors and suppliers (<b class='kw blue'>labor and material bond</b>)",
+      "The surety <b class='kw blue'>pays eligible subs and suppliers directly</b> if the contractor fails to pay",
+      "This also protects the owner from mechanics' liens — related to the <b class='kw'>Lien Bond</b> used to remove liens from the property"],
+ aBn:["<b class='kw'>পেমেন্ট বন্ড</b> এই পরিস্থিতির সমাধান করে",
+      "এটি নিশ্চিত করে ঠিকাদার সাবকন্ট্রাক্টর ও সরবরাহকারীদের পরিশোধ করবে (<b class='kw blue'>লেবার অ্যান্ড ম্যাটেরিয়াল বন্ড</b>)",
+      "ঠিকাদার ব্যর্থ হলে সিউরিটি <b class='kw blue'>সরাসরি যোগ্য সাবকন্ট্রাক্টর ও সরবরাহকারীদের</b> পরিশোধ করে",
+      "এটি মালিককেও মেকানিক্স লিয়েন থেকে রক্ষা করে — যা সম্পত্তি থেকে লিয়েন অপসারণে ব্যবহৃত <b class='kw'>লিয়েন বন্ডের</b> সাথে সম্পর্কিত"]},
+
+{cat:"types", label:"Types of Bonds · বন্ডের প্রকারভেদ", page:23,
+ qEn:"What is the purpose of a construction lien bond, and how does the process work?",
+ qBn:"নির্মাণ লিয়েন বন্ডের উদ্দেশ্য কী এবং প্রক্রিয়াটি কীভাবে কাজ করে?",
+ aEn:["Required in many <b class='kw'>large construction projects</b>",
+      "Ensures the general contractor <b class='kw'>removes any liens</b> from the owner's property",
+      "Posted with the <b class='kw'>court</b>; liens are removed from the property's title",
+      "Serves as security for the lien until the <b class='kw'>dispute is resolved</b>"],
+ aBn:["অনেক বড় নির্মাণ প্রকল্পে <b class='kw'>প্রয়োজন</b> হয়",
+      "জেনারেল কন্ট্রাক্টর মালিকের সম্পত্তি থেকে যেকোনো <b class='kw'>লিয়েন অপসারণ</b> নিশ্চিত করে",
+      "<b class='kw'>আদালতে</b> জমা দেওয়া হয়; সম্পত্তির শিরোনাম থেকে লিয়েন অপসারণ করা হয়",
+      "<b class='kw'>বিরোধ নিষ্পত্তি</b> না হওয়া পর্যন্ত জামানত হিসেবে কাজ করে"]},
+
+{cat:"types", label:"Types of Bonds · বন্ডের প্রকারভেদ", page:24,
+ qEn:"What is a warranty (maintenance) bond and what does it guarantee?",
+ qBn:"ওয়ারেন্টি (মেইনটেন্যান্স) বন্ড কী এবং এটি কী নিশ্চয়তা দেয়?",
+ aEn:["A contractual agreement guaranteeing contractors will <b class='kw'>rectify any issues or defects</b> from their initial project work",
+      "Assures clients the contractor will uphold quality, including repairs/corrections during a specified <b class='kw blue'>warranty period</b>"],
+ aBn:["একটি চুক্তিগত ব্যবস্থা যা নিশ্চিত করে ঠিকাদার প্রাথমিক কাজ থেকে উদ্ভূত যেকোনো <b class='kw'>সমস্যা বা ত্রুটি সংশোধন</b> করবে",
+      "ক্লায়েন্টদের নিশ্চয়তা দেয় নির্দিষ্ট <b class='kw blue'>ওয়ারেন্টি সময়ে</b> মান বজায় রাখা ও প্রয়োজনীয় মেরামত করা হবে"]},
+
+{cat:"insurance", label:"Bonds vs Insurance · বন্ড বনাম বীমা", page:25,
+ qEn:"Compare surety bonds and traditional insurance across key features.",
+ qBn:"সিকিউরিটি বন্ড ও প্রথাগত বীমার মধ্যে মূল বৈশিষ্ট্যের তুলনা করুন।",
+ aEn:["<b class='kw blue'>Parties:</b> Surety bonds are 3-party; insurance is 2-party",
+      "<b class='kw blue'>Duty:</b> Surety owes duty to the obligee; insurance owes duty to the insured",
+      "<b class='kw blue'>Premium:</b> Surety premium is a fee for prequalification services; insurance premium is actuarially determined",
+      "<b class='kw blue'>Scope:</b> Surety bonds are project-specific with a penal sum; insurance is usually term-specific with policy limits",
+      "<b class='kw blue'>Loss expectation:</b> Surety expects no loss; insurance expects loss",
+      "<b class='kw blue'>Qualification:</b> One must qualify for a surety bond; insurance can simply be purchased"],
+ aBn:["<b class='kw blue'>পক্ষ:</b> সিকিউরিটি বন্ড ৩-পক্ষীয়; বীমা ২-পক্ষীয়",
+      "<b class='kw blue'>দায়িত্ব:</b> সিউরিটির দায়িত্ব অবলিজির প্রতি; বীমার দায়িত্ব বীমাকৃত ব্যক্তির প্রতি",
+      "<b class='kw blue'>প্রিমিয়াম:</b> সিউরিটি প্রিমিয়াম প্রি-কোয়ালিফিকেশন সেবার ফি; বীমা প্রিমিয়াম অ্যাকচুয়ারিয়ালি নির্ধারিত",
+      "<b class='kw blue'>পরিসর:</b> সিকিউরিটি বন্ড প্রকল্প-নির্দিষ্ট, পেনাল সাম আছে; বীমা মেয়াদ-নির্দিষ্ট, পলিসি লিমিট আছে",
+      "<b class='kw blue'>ক্ষতির প্রত্যাশা:</b> সিউরিটি কোনো ক্ষতির প্রত্যাশা করে না; বীমা ক্ষতির প্রত্যাশা করে",
+      "<b class='kw blue'>যোগ্যতা:</b> সিকিউরিটি বন্ডের জন্য যোগ্য হতে হয়; বীমা শুধু কিনে নেওয়া যায়"]},
+
+{cat:"loc", label:"Letter of Credit · লেটার অফ ক্রেডিট", page:26,
+ qEn:"Define a Letter of Credit (LOC) and list its key characteristics.",
+ qBn:"লেটার অফ ক্রেডিট (এলওসি) সংজ্ঞায়িত করুন এবং এর মূল বৈশিষ্ট্যগুলো তালিকা করুন।",
+ aEn:["A <b class='kw'>bank-issued financial guarantee</b> that ensures payment",
+      "Three parties: <b class='kw blue'>Issuer (bank), Applicant, Beneficiary</b>",
+      "Provides payment up to a specified amount, released when agreed conditions/documents are fulfilled",
+      "Reduces payment risk for the beneficiary",
+      "<b class='kw'>Independent of the underlying contract</b> — payment isn't delayed by disputes between applicant and beneficiary",
+      "Commonly used in construction, international trade, and large commercial contracts"],
+ aBn:["ব্যাংক কর্তৃক ইস্যুকৃত একটি <b class='kw'>আর্থিক নিশ্চয়তা</b> যা পরিশোধ নিশ্চিত করে",
+      "তিনটি পক্ষ: <b class='kw blue'>ইস্যুয়ার (ব্যাংক), আবেদনকারী, সুবিধাভোগী</b>",
+      "নির্দিষ্ট পরিমাণ পর্যন্ত পরিশোধ প্রদান করে, সম্মত শর্ত/নথি পূরণ হলে মুক্ত করা হয়",
+      "সুবিধাভোগীর জন্য পরিশোধ ঝুঁকি কমায়",
+      "<b class='kw'>মূল চুক্তি থেকে স্বতন্ত্র</b> — আবেদনকারী ও সুবিধাভোগীর বিরোধে পরিশোধ বিলম্বিত হয় না",
+      "নির্মাণ, আন্তর্জাতিক বাণিজ্য ও বড় বাণিজ্যিক চুক্তিতে সাধারণত ব্যবহৃত হয়"]},
+
+{cat:"loc", label:"Letter of Credit · লেটার অফ ক্রেডিট", page:27,
+ qEn:"What are the parties and payment requirements involved in an LOC?",
+ qBn:"এলওসি-তে জড়িত পক্ষ এবং পরিশোধের শর্তাবলী কী কী?",
+ aEn:["Parties: <b class='kw blue'>Issuer</b> (bank), <b class='kw blue'>Applicant</b> (requesting customer), <b class='kw blue'>Beneficiary</b> (entitled to payment)",
+      "Beneficiary must submit required <b class='kw'>documents</b> (invoice, shipping docs)",
+      "Documents must be presented within the <b class='kw'>specified time limit</b>",
+      "Documents must <b class='kw'>exactly comply</b> with the LOC terms and conditions",
+      "Documents must be submitted to the <b class='kw'>designated bank/location</b>"],
+ aBn:["পক্ষ: <b class='kw blue'>ইস্যুয়ার</b> (ব্যাংক), <b class='kw blue'>আবেদনকারী</b> (অনুরোধকারী গ্রাহক), <b class='kw blue'>সুবিধাভোগী</b> (পরিশোধ পাওয়ার অধিকারী)",
+      "সুবিধাভোগীকে প্রয়োজনীয় <b class='kw'>নথি</b> (ইনভয়েস, শিপিং নথি) জমা দিতে হবে",
+      "নথি <b class='kw'>নির্দিষ্ট সময়সীমার</b> মধ্যে উপস্থাপন করতে হবে",
+      "নথি এলওসি-র শর্তের সাথে <b class='kw'>হুবহু মিলতে</b> হবে",
+      "নথি <b class='kw'>নির্ধারিত ব্যাংক/স্থানে</b> জমা দিতে হবে"]},
+
+{cat:"loc", label:"Letter of Credit · লেটার অফ ক্রেডিট", page:28,
+ qEn:"Describe the general mechanism/flow of an LOC transaction between importer and exporter.",
+ qBn:"আমদানিকারক ও রপ্তানিকারকের মধ্যে লেটার অফ ক্রেডিট লেনদেনের সাধারণ প্রক্রিয়া বর্ণনা করুন।",
+ aEn:["Importer's <b class='kw'>opening bank</b> opens credit and issues the LOC to the <b class='kw'>advising bank</b>",
+      "Advising bank informs the exporter; goods and documents move between exporter and importer via shipment",
+      "Documents pass through the <b class='kw'>negotiating/confirming bank</b>",
+      "Payment flows back through the <b class='kw'>reimbursing bank</b> to the opening bank, completing the cycle"],
+ aBn:["আমদানিকারকের <b class='kw'>ওপেনিং ব্যাংক</b> ক্রেডিট খুলে <b class='kw'>অ্যাডভাইজিং ব্যাংকে</b> এলওসি ইস্যু করে",
+      "অ্যাডভাইজিং ব্যাংক রপ্তানিকারককে জানায়; পণ্য ও নথি চালানের মাধ্যমে আদান-প্রদান হয়",
+      "নথি <b class='kw'>নেগোশিয়েটিং/কনফার্মিং ব্যাংকের</b> মাধ্যমে যায়",
+      "পরিশোধ <b class='kw'>রিইম্বার্সিং ব্যাংক</b> হয়ে ওপেনিং ব্যাংকে ফিরে আসে, চক্র সম্পন্ন হয়"]},
+
+{cat:"loc", label:"Letter of Credit · লেটার অফ ক্রেডিট", page:29,
+ qEn:"What is a Commercial LOC used for and what benefits does it provide?",
+ qBn:"কমার্শিয়াল এলওসি কী কাজে ব্যবহৃত হয় এবং এটি কী সুবিধা প্রদান করে?",
+ aEn:["Facilitates the <b class='kw'>sale and purchase of goods</b>, commonly in international trade",
+      "Provides a <b class='kw'>bank guarantee for payment</b>",
+      "Reduces the risk of non-payment for the seller; builds trust between buyers/sellers in different countries",
+      "Enables secure transactions when parties are <b class='kw'>unfamiliar with each other</b>"],
+ aBn:["পণ্যের <b class='kw'>ক্রয়-বিক্রয় সহজতর</b> করে, সাধারণত আন্তর্জাতিক বাণিজ্যে",
+      "পরিশোধের জন্য <b class='kw'>ব্যাংক গ্যারান্টি</b> প্রদান করে",
+      "বিক্রেতার জন্য অ-পরিশোধের ঝুঁকি কমায়; ভিন্ন দেশের ক্রেতা-বিক্রেতার মধ্যে আস্থা তৈরি করে",
+      "পক্ষরা <b class='kw'>পরস্পরের অপরিচিত</b> হলেও নিরাপদ লেনদেন সম্ভব করে"]},
+
+{cat:"loc", label:"Letter of Credit · লেটার অফ ক্রেডিট", page:30,
+ qEn:"What is a Standby Letter of Credit (SBLC) and when is it used?",
+ qBn:"স্ট্যান্ডবাই লেটার অফ ক্রেডিট (এসবিএলসি) কী এবং এটি কখন ব্যবহৃত হয়?",
+ aEn:["Acts as a <b class='kw'>backup payment guarantee</b>",
+      "Used when the applicant <b class='kw'>fails to fulfill</b> the contract or payment obligation",
+      "Strengthens the applicant's <b class='kw'>creditworthiness</b>; guarantees contract performance or payment",
+      "Beneficiary can claim payment by submitting required documents to the bank",
+      "If the applicant performs successfully, the <b class='kw blue'>SBLC is never used</b>"],
+ aBn:["একটি <b class='kw'>ব্যাকআপ পরিশোধ গ্যারান্টি</b> হিসেবে কাজ করে",
+      "আবেদনকারী চুক্তি বা পরিশোধ বাধ্যবাধকতা পূরণে <b class='kw'>ব্যর্থ</b> হলে ব্যবহৃত হয়",
+      "আবেদনকারীর <b class='kw'>ঋণযোগ্যতা</b> শক্তিশালী করে; চুক্তি পারফরম্যান্স বা পরিশোধের নিশ্চয়তা দেয়",
+      "সুবিধাভোগী ব্যাংকে প্রয়োজনীয় নথি জমা দিয়ে পরিশোধ দাবি করতে পারে",
+      "আবেদনকারী সফল হলে <b class='kw blue'>এসবিএলসি কখনো ব্যবহৃত হয় না</b>"]},
+
+{cat:"loc", label:"Letter of Credit · লেটার অফ ক্রেডিট", page:"29–30",
+ qEn:"Distinguish between a Commercial LOC and a Standby LOC (SBLC).",
+ qBn:"কমার্শিয়াল এলওসি ও স্ট্যান্ডবাই এলওসি (এসবিএলসি)-র মধ্যে পার্থক্য করুন।",
+ aEn:["<b class='kw blue'>Commercial LOC:</b> a primary payment method used directly to facilitate a sale of goods — the bank pays upon presentation of trade documents as the normal method of payment",
+      "<b class='kw blue'>Standby LOC:</b> a backup/secondary guarantee used only if the applicant fails to fulfill their obligation; if performance is successful, it is never drawn upon"],
+ aBn:["<b class='kw blue'>কমার্শিয়াল এলওসি:</b> পণ্য বিক্রয় সহজতর করতে সরাসরি ব্যবহৃত একটি প্রাথমিক পরিশোধ পদ্ধতি — ব্যাংক বাণিজ্য নথি উপস্থাপনের সাথে সাথে স্বাভাবিক পরিশোধ হিসেবে পরিশোধ করে",
+      "<b class='kw blue'>স্ট্যান্ডবাই এলওসি:</b> একটি ব্যাকআপ/গৌণ গ্যারান্টি, শুধু আবেদনকারী বাধ্যবাধকতা পূরণে ব্যর্থ হলে ব্যবহৃত হয়; সফল হলে কখনো ব্যবহৃত হয় না"]},
+
+{cat:"compare", label:"LOC vs Surety Bond · এলওসি বনাম সিকিউরিটি বন্ড", page:32,
+ qEn:"Why is a surety bond/guarantee considered a “secondary obligation”?",
+ qBn:"সিকিউরিটি বন্ড/গ্যারান্টিকে কেন “সেকেন্ডারি অবলিগেশন” (গৌণ বাধ্যবাধকতা) বলা হয়?",
+ aEn:["It is a <b class='kw'>backup promise</b> — the surety only owes payment once the principal has <b class='kw blue'>actually defaulted</b> on the underlying agreement",
+      "<b class='kw'>Default must occur first:</b> a real default is verified before any obligation to pay arises",
+      "<b class='kw'>Facts & circumstances are checked:</b> the guarantor investigates and withholds payment until default is factually established",
+      "Surety bonds are typically issued for <b class='kw blue'>100% of the contract price</b>, providing maximum protection"],
+ aBn:["এটি একটি <b class='kw'>ব্যাকআপ প্রতিশ্রুতি</b> — মূল চুক্তিতে প্রিন্সিপাল প্রকৃতপক্ষে <b class='kw blue'>ডিফল্ট করলেই</b> সিউরিটির পরিশোধের বাধ্যবাধকতা তৈরি হয়",
+      "<b class='kw'>প্রথমে ডিফল্ট ঘটতে হবে:</b> পরিশোধের বাধ্যবাধকতা তৈরির আগে প্রকৃত ডিফল্ট যাচাই করা হয়",
+      "<b class='kw'>তথ্য ও পরিস্থিতি যাচাই:</b> ডিফল্ট প্রমাণিত না হওয়া পর্যন্ত গ্যারান্টর তদন্ত করে ও পরিশোধ স্থগিত রাখে",
+      "সিকিউরিটি বন্ড সাধারণত চুক্তি মূল্যের <b class='kw blue'>১০০%</b> এর জন্য ইস্যু করা হয়, যা সর্বোচ্চ সুরক্ষা প্রদান করে"]},
+
+{cat:"compare", label:"LOC vs Surety Bond · এলওসি বনাম সিকিউরিটি বন্ড", page:33,
+ qEn:"Why is an LOC considered a “primary obligation,” and why is proof of default irrelevant?",
+ qBn:"এলওসিকে কেন “প্রাইমারি অবলিগেশন” (মুখ্য বাধ্যবাধকতা) বলা হয় এবং ডিফল্টের প্রমাণ কেন অপ্রাসঙ্গিক?",
+ aEn:["The bank <b class='kw'>MUST pay</b> upon presentation of specified documents, regardless of whether a default occurred",
+      "Process: (1) terms & conditions set → (2) beneficiary presents documents → (3) bank verifies <b class='kw blue'>only document compliance</b> — not default → (4) bank pays",
+      "Proof of default is <b class='kw'>irrelevant</b> to the bank's payment obligation",
+      "LOCs are often <b class='kw'>NOT</b> drafted for the full contract price, unlike surety bonds (100% of contract value)"],
+ aBn:["নির্দিষ্ট নথি উপস্থাপনের সাথে সাথে, ডিফল্ট ঘটুক বা না ঘটুক, ব্যাংককে <b class='kw'>অবশ্যই পরিশোধ</b> করতে হয়",
+      "প্রক্রিয়া: (১) শর্তাবলী নির্ধারণ → (২) সুবিধাভোগী নথি উপস্থাপন → (৩) ব্যাংক শুধু <b class='kw blue'>নথির সম্মতি</b> যাচাই করে, ডিফল্ট নয় → (৪) ব্যাংক পরিশোধ করে",
+      "ব্যাংকের পরিশোধ বাধ্যবাধকতায় ডিফল্টের প্রমাণ <b class='kw'>অপ্রাসঙ্গিক</b>",
+      "সিকিউরিটি বন্ডের (১০০%) বিপরীতে এলওসি প্রায়ই <b class='kw'>পূর্ণ চুক্তি মূল্যের</b> জন্য তৈরি করা হয় না"]},
+
+{cat:"compare", label:"LOC vs Surety Bond · এলওসি বনাম সিকিউরিটি বন্ড", page:33,
+ qEn:"Compare a Surety Bond/Guarantee and a Letter of Credit across obligation type, trigger, and payment timing.",
+ qBn:"বাধ্যবাধকতার ধরন, ট্রিগার এবং পরিশোধের সময়ের ভিত্তিতে সিকিউরিটি বন্ড ও লেটার অফ ক্রেডিটের তুলনা করুন।",
+ aEn:["<b class='kw blue'>Obligation type:</b> Surety bond = secondary; LOC = primary",
+      "<b class='kw blue'>Triggered by:</b> Surety bond = actual default; LOC = presentation of compliant documents",
+      "<b class='kw blue'>Proof of default:</b> Required for surety bonds; irrelevant for LOC",
+      "<b class='kw blue'>Coverage amount:</b> Surety bonds typically 100% of contract price; LOC often less",
+      "<b class='kw blue'>Who benefits:</b> Surety bond → owner (protection against default); LOC → contractor (guaranteed payment)",
+      "<b class='kw blue'>Payment timing:</b> Surety bond pays after default is established; LOC pays immediately on documents, before litigation",
+      "<b class='kw blue'>Risk investigated:</b> Yes for surety bonds; No for LOC (documents only)"],
+ aBn:["<b class='kw blue'>বাধ্যবাধকতার ধরন:</b> সিকিউরিটি বন্ড = গৌণ; এলওসি = মুখ্য",
+      "<b class='kw blue'>ট্রিগার:</b> সিকিউরিটি বন্ড = প্রকৃত ডিফল্ট; এলওসি = সঙ্গতিপূর্ণ নথি উপস্থাপন",
+      "<b class='kw blue'>ডিফল্টের প্রমাণ:</b> সিকিউরিটি বন্ডে প্রয়োজন; এলওসিতে অপ্রাসঙ্গিক",
+      "<b class='kw blue'>কভারেজ পরিমাণ:</b> সিকিউরিটি বন্ড সাধারণত ১০০%; এলওসি প্রায়ই কম",
+      "<b class='kw blue'>সুবিধাভোগী:</b> সিকিউরিটি বন্ড → মালিক (ডিফল্ট থেকে সুরক্ষা); এলওসি → ঠিকাদার (নিশ্চিত পরিশোধ)",
+      "<b class='kw blue'>পরিশোধের সময়:</b> সিকিউরিটি বন্ড ডিফল্ট প্রতিষ্ঠিত হওয়ার পর; এলওসি নথির ভিত্তিতে সাথে সাথে, মামলার আগেই",
+      "<b class='kw blue'>ঝুঁকি তদন্ত:</b> সিকিউরিটি বন্ডে হ্যাঁ; এলওসিতে না (শুধু নথি)"]},
+
+{cat:"compare", label:"LOC vs Surety Bond · এলওসি বনাম সিকিউরিটি বন্ড", page:34,
+ qEn:"Summarize the four key distinguishing points between surety bonds/guarantees and letters of credit.",
+ qBn:"সিকিউরিটি বন্ড ও লেটার অফ ক্রেডিটের মধ্যে চারটি মূল পার্থক্যকারী বিষয় সংক্ষেপে বলুন।",
+ aEn:["<b class='kw'>Primary vs Secondary:</b> LOC is primary (documents trigger payment); surety is secondary (default must be proven)",
+      "<b class='kw'>Proof of Default:</b> Irrelevant under an LOC; must be factually established under a surety bond",
+      "<b class='kw'>Who Benefits & When:</b> LOC benefits contractors (guaranteed payment) and owners (payment before litigation); surety bonds protect owners from contractor failure",
+      "<b class='kw'>Scope of Coverage:</b> Surety bonds usually cover 100% of the contract price; LOCs may be for a lesser amount"],
+ aBn:["<b class='kw'>মুখ্য বনাম গৌণ:</b> এলওসি মুখ্য (নথি পরিশোধ ট্রিগার করে); সিউরিটি গৌণ (ডিফল্ট প্রমাণ করতে হয়)",
+      "<b class='kw'>ডিফল্টের প্রমাণ:</b> এলওসিতে অপ্রাসঙ্গিক; সিকিউরিটি বন্ডে বাস্তবিকভাবে প্রতিষ্ঠিত হতে হবে",
+      "<b class='kw'>সুবিধাভোগী ও সময়:</b> এলওসি ঠিকাদার ও মালিক উভয়কে উপকৃত করে; সিকিউরিটি বন্ড মালিককে ঠিকাদারের ব্যর্থতা থেকে রক্ষা করে",
+      "<b class='kw'>কভারেজের পরিসর:</b> সিকিউরিটি বন্ড সাধারণত চুক্তি মূল্যের ১০০% কভার করে; এলওসি কম পরিমাণের জন্য হতে পারে"]}
+];
+
+const container = document.getElementById('cardContainer');
+const filterBar = document.getElementById('filterBar');
+const searchInput = document.getElementById('searchInput');
+const countTag = document.getElementById('countTag');
+const noResults = document.getElementById('noResults');
+let activeCat = 'all';
+
+function renderCards(){
+  const term = searchInput.value.trim().toLowerCase();
+  container.innerHTML = '';
+  let lastLabel = null;
+  let shown = 0;
+
+  DATA.forEach((item, idx) => {
+    const matchesCat = activeCat === 'all' || item.cat === activeCat;
+    const haystack = (item.qEn + ' ' + item.qBn).toLowerCase();
+    const matchesSearch = term === '' || haystack.includes(term);
+    if(!matchesCat || !matchesSearch) return;
+
+    if(item.label !== lastLabel){
+      const secLabel = document.createElement('div');
+      secLabel.className = 'section-label';
+      secLabel.textContent = item.label;
+      container.appendChild(secLabel);
+      lastLabel = item.label;
+    }
+
+    shown++;
+    const card = document.createElement('div');
+    card.className = 'card';
+
+    const btn = document.createElement('button');
+    btn.className = 'q-btn';
+    btn.innerHTML = `
+      <div class="q-num">${shown}</div>
+      <div class="q-text-wrap">
+        <div class="q-en">${item.qEn}</div>
+        <div class="q-bn">${item.qBn}</div>
+        <span class="page-chip">Page ${item.page}</span>
+      </div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    `;
+
+    const answer = document.createElement('div');
+    answer.className = 'answer';
+    const enList = item.aEn.map(li => `<li>${li}</li>`).join('');
+    const bnList = item.aBn.map(li => `<li>${li}</li>`).join('');
+    answer.innerHTML = `
+      <div class="answer-inner">
+        <div class="answer-block">
+          <span class="lang-tag">Answer</span>
+          <ul class="ans-list">${enList}</ul>
+        </div>
+        <div class="answer-block">
+          <span class="lang-tag bn">উত্তর</span>
+          <ul class="ans-list bn-list">${bnList}</ul>
+        </div>
+      </div>
+    `;
+
+    btn.addEventListener('click', () => {
+      card.classList.toggle('open');
+    });
+
+    card.appendChild(btn);
+    card.appendChild(answer);
+    container.appendChild(card);
+  });
+
+  noResults.style.display = shown === 0 ? 'block' : 'none';
+  countTag.textContent = shown + ' question' + (shown===1?'':'s') + ' shown · ' + shown + 'টি প্রশ্ন প্রদর্শিত হচ্ছে';
+}
+
+filterBar.addEventListener('click', (e) => {
+  const btn = e.target.closest('.filter-btn');
+  if(!btn) return;
+  filterBar.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  activeCat = btn.dataset.cat;
+  renderCards();
+});
+
+searchInput.addEventListener('input', renderCards);
+
+renderCards();
+</script>
+</body>
+</html>

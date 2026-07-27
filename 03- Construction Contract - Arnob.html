@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Construction Contract — BECM 3107 | Interactive Q&A</title>
+<style>
+  :root{
+    --navy:#0b1f3a;
+    --navy-2:#122a4d;
+    --accent:#8a4b08;
+    --accent-2:#1f5fa8;
+    --gold:#c98a1f;
+    --bg:#f4f6fb;
+    --card:#ffffff;
+    --text:#1c2530;
+    --muted:#5c6b7a;
+    --bn:#3a4a5a;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Segoe UI', Tahoma, Verdana, sans-serif;
+    background:linear-gradient(180deg,#eef2f9 0%, #f4f6fb 100%);
+    color:var(--text);
+    padding-bottom:60px;
+  }
+  header{
+    background:linear-gradient(135deg,var(--navy) 0%, var(--navy-2) 60%, #1a3a63 100%);
+    color:#fff;
+    padding:44px 20px 34px;
+    text-align:center;
+    box-shadow:0 6px 18px rgba(0,0,0,0.18);
+  }
+  header h1{
+    margin:0 0 6px;
+    font-size:1.9rem;
+    letter-spacing:0.5px;
+  }
+  header .course-code{
+    color:var(--gold);
+    font-weight:600;
+    font-size:1.05rem;
+    letter-spacing:1px;
+  }
+  header p.subtitle{
+    margin:10px auto 0;
+    max-width:680px;
+    color:#cfd9e8;
+    font-size:0.95rem;
+    line-height:1.5;
+  }
+  .container{
+    max-width:920px;
+    margin:0 auto;
+    padding:28px 16px 0;
+  }
+  .stats{
+    display:flex;
+    justify-content:center;
+    gap:14px;
+    flex-wrap:wrap;
+    margin:-22px auto 24px;
+    max-width:920px;
+    padding:0 16px;
+  }
+  .stat-pill{
+    background:var(--card);
+    border-radius:30px;
+    padding:8px 18px;
+    font-size:0.85rem;
+    box-shadow:0 4px 14px rgba(20,40,80,0.10);
+    color:var(--navy-2);
+    font-weight:600;
+  }
+  .controls{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    margin-bottom:18px;
+    flex-wrap:wrap;
+  }
+  .search-box{
+    flex:1;
+    min-width:220px;
+    position:relative;
+  }
+  .search-box input{
+    width:100%;
+    padding:11px 14px 11px 38px;
+    border-radius:10px;
+    border:1px solid #d6dde8;
+    font-size:0.92rem;
+    background:#fff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%235c6b7a"><circle cx="6.5" cy="6.5" r="5" fill="none" stroke="%235c6b7a" stroke-width="1.5"/><line x1="10.2" y1="10.2" x2="15" y2="15" stroke="%235c6b7a" stroke-width="1.5"/></svg>') no-repeat 12px center;
+    outline:none;
+    transition:border-color .2s;
+  }
+  .search-box input:focus{ border-color:var(--accent-2); }
+  .toggle-btn{
+    background:var(--navy);
+    color:#fff;
+    border:none;
+    padding:11px 18px;
+    border-radius:10px;
+    font-size:0.85rem;
+    cursor:pointer;
+    font-weight:600;
+    white-space:nowrap;
+    transition:background .2s, transform .15s;
+  }
+  .toggle-btn:hover{ background:var(--navy-2); transform:translateY(-1px); }
+
+  .qa-card{
+    background:var(--card);
+    border-radius:14px;
+    margin-bottom:14px;
+    box-shadow:0 3px 12px rgba(20,40,80,0.08);
+    overflow:hidden;
+    border-left:5px solid var(--accent-2);
+    transition:box-shadow .2s, transform .15s;
+  }
+  .qa-card:hover{ box-shadow:0 8px 22px rgba(20,40,80,0.14); }
+  .qa-card.open{ border-left-color:var(--accent); }
+
+  .qa-question{
+    padding:18px 20px;
+    cursor:pointer;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:14px;
+    user-select:none;
+  }
+  .q-index{
+    color:var(--accent-2);
+    font-weight:800;
+    margin-right:8px;
+    font-size:0.95rem;
+  }
+  .q-text-wrap{ flex:1; }
+  .q-en{
+    font-size:1.02rem;
+    font-weight:650;
+    color:var(--navy-2);
+    line-height:1.45;
+  }
+  .q-bn{
+    font-size:0.92rem;
+    color:var(--bn);
+    margin-top:4px;
+    line-height:1.5;
+    font-family:'Noto Sans Bengali','Segoe UI',sans-serif;
+  }
+  .chevron{
+    flex-shrink:0;
+    width:26px;
+    height:26px;
+    border-radius:50%;
+    background:#eef2f9;
+    color:var(--navy-2);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1rem;
+    transition:transform .3s, background .3s, color .3s;
+    margin-top:2px;
+  }
+  .qa-card.open .chevron{
+    transform:rotate(180deg);
+    background:var(--accent);
+    color:#fff;
+  }
+
+  .qa-answer{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .38s ease;
+    background:#fbfcfe;
+    border-top:1px dashed #dfe6ef;
+  }
+  .qa-answer-inner{
+    padding:18px 22px 20px 22px;
+  }
+  .answer-block-en, .answer-block-bn{
+    margin-bottom:10px;
+  }
+  .answer-label{
+    font-size:0.72rem;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    color:var(--muted);
+    font-weight:700;
+    margin-bottom:6px;
+  }
+  ul.ans-list{
+    margin:0 0 4px 0;
+    padding-left:20px;
+  }
+  ul.ans-list li{
+    margin-bottom:7px;
+    line-height:1.55;
+    font-size:0.95rem;
+  }
+  ul.ans-list.bn li{
+    font-family:'Noto Sans Bengali','Segoe UI',sans-serif;
+    font-size:0.93rem;
+    color:var(--bn);
+  }
+  .kw-red{ color:#8a4b08; font-weight:700; }
+  .kw-blue{ color:#1f5fa8; font-weight:700; }
+  .case-tag{
+    display:inline-block;
+    background:#111827;
+    color:#fff;
+    padding:2px 10px;
+    border-radius:6px;
+    font-size:0.72rem;
+    font-weight:700;
+    letter-spacing:0.5px;
+    margin-bottom:8px;
+  }
+  .page-ref{
+    display:inline-block;
+    margin-top:6px;
+    background:var(--navy);
+    color:#fff;
+    padding:3px 12px;
+    border-radius:20px;
+    font-size:0.75rem;
+    font-weight:600;
+  }
+  footer{
+    text-align:center;
+    color:var(--muted);
+    font-size:0.8rem;
+    margin-top:40px;
+  }
+  @media (max-width:600px){
+    header h1{ font-size:1.5rem; }
+    .q-en{ font-size:0.95rem; }
+    .controls{ flex-direction:column; align-items:stretch; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="course-code">BECM 3107 — Construction Contract &amp; Law</div>
+  <h1>Construction Contract — Interactive Q&amp; A</h1>
+  <div class="course-code" style="font-family:'Noto Sans Bengali','Segoe UI',sans-serif; font-weight:400; color:#cfd9e8; font-size:0.95rem;">নির্মাণ চুক্তি — ইন্টারঅ্যাকটিভ প্রশ্নোত্তর</div>
+  <p class="subtitle">Based on the lecture by Sanjida Afrin Sworna, Lecturer (Adjunct), Department of BECM, KUET. Click any question to reveal the answer.</p>
+</header>
+
+<div class="stats">
+  <div class="stat-pill" id="totalCount">Loading...</div>
+  <div class="stat-pill">📄 26 Slides Covered</div>
+  <div class="stat-pill">🌐 English + বাংলা</div>
+</div>
+
+<div class="container">
+  <div class="controls">
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Search questions... / প্রশ্ন খুঁজুন...">
+    </div>
+    <button class="toggle-btn" id="toggleAllBtn">Expand All</button>
+  </div>
+
+  <div id="qaContainer"></div>
+</div>
+
+<footer>Prepared from "BECM 3107 – Construction Contract" slide deck • For study purposes</footer>
+
+<script>
+const qaData = [
+{
+  q_en: "What is a 'contract' in legal terms, and what two reciprocal promises make up a construction contract?",
+  q_bn: "আইনি অর্থে 'চুক্তি' কী, এবং একটি নির্মাণ চুক্তি গঠনকারী দুটি পারস্পরিক প্রতিশ্রুতি কী কী?",
+  ans_en: [
+    "In legal terms, a <span class='kw-red'>contract</span> is <span class='kw-blue'>a promise that the law will enforce</span>.",
+    "A construction contract contains at least <span class='kw-red'>two reciprocal promises</span>:",
+    "The <span class='kw-blue'>contractor promises to perform</span> the work specified in the contract.",
+    "The <span class='kw-blue'>owner promises to pay</span> the contractor for that work."
+  ],
+  ans_bn: [
+    "আইনি অর্থে, একটি <span class='kw-red'>চুক্তি</span> হলো <span class='kw-blue'>এমন একটি প্রতিশ্রুতি যা আইন কার্যকর করবে</span>।",
+    "একটি নির্মাণ চুক্তিতে অন্তত <span class='kw-red'>দুটি পারস্পরিক প্রতিশ্রুতি</span> থাকে:",
+    "<span class='kw-blue'>কন্ট্রাক্টর চুক্তিতে উল্লিখিত কাজ সম্পাদনের প্রতিশ্রুতি</span> দেয়।",
+    "<span class='kw-blue'>মালিক সেই কাজের জন্য কন্ট্রাক্টরকে অর্থ প্রদানের প্রতিশ্রুতি</span> দেয়।"
+  ],
+  page: 2
+},
+{
+  q_en: "List the five key components a construction contract should establish in the legal relationship between owner and contractor.",
+  q_bn: "মালিক ও কন্ট্রাক্টরের মধ্যকার আইনি সম্পর্কে একটি নির্মাণ চুক্তিতে যে পাঁচটি মূল উপাদান প্রতিষ্ঠিত হওয়া উচিত তার তালিকা দাও।",
+  ans_en: [
+    "The <span class='kw-red'>scope of work</span>.",
+    "The <span class='kw-blue'>quality of the work</span>.",
+    "The <span class='kw-red'>project schedule</span>.",
+    "The <span class='kw-blue'>project budget</span>.",
+    "Each party's <span class='kw-red'>rights and remedies</span> if the other party breaches its obligations."
+  ],
+  ans_bn: [
+    "<span class='kw-red'>কাজের পরিধি (scope of work)</span>।",
+    "<span class='kw-blue'>কাজের গুণগত মান (quality)</span>।",
+    "<span class='kw-red'>প্রকল্পের সময়সূচি (schedule)</span>।",
+    "<span class='kw-blue'>প্রকল্পের বাজেট (budget)</span>।",
+    "অন্য পক্ষ তার বাধ্যবাধকতা লঙ্ঘন করলে প্রতিটি পক্ষের <span class='kw-red'>অধিকার ও প্রতিকার (rights and remedies)</span>।"
+  ],
+  page: 3
+},
+{
+  q_en: "What is the purpose of a prebid conference, and what happens if a bidder fails to attend a mandatory one?",
+  q_bn: "প্রি-বিড কনফারেন্সের উদ্দেশ্য কী, এবং একজন বিডার যদি বাধ্যতামূলক প্রি-বিড কনফারেন্সে উপস্থিত না হন তবে কী ঘটে?",
+  ans_en: [
+    "Owners often conduct a <span class='kw-red'>prebid conference</span> with prospective bidders to <span class='kw-blue'>answer questions</span> and ensure all bidders are <span class='kw-blue'>provided the same information</span>.",
+    "Some owners <span class='kw-red'>require attendance</span> at these conferences.",
+    "<span class='kw-blue'>Failure to attend a mandatory prebid conference</span> may <span class='kw-red'>preclude the bidder from submitting a bid</span>."
+  ],
+  ans_bn: [
+    "মালিকরা প্রায়ই সম্ভাব্য বিডারদের সাথে একটি <span class='kw-red'>প্রি-বিড কনফারেন্স</span> পরিচালনা করে যাতে <span class='kw-blue'>প্রশ্নের উত্তর দেওয়া যায়</span> এবং সব বিডারকে <span class='kw-blue'>একই তথ্য দেওয়া নিশ্চিত করা যায়</span>।",
+    "কিছু মালিক এই কনফারেন্সে <span class='kw-red'>উপস্থিতি বাধ্যতামূলক</span> করেন।",
+    "একটি <span class='kw-blue'>বাধ্যতামূলক প্রি-বিড কনফারেন্সে উপস্থিত না হলে</span> সেই বিডারকে <span class='kw-red'>বিড জমা দেওয়া থেকে বিরত রাখা</span> হতে পারে।"
+  ],
+  page: 4
+},
+{
+  q_en: "Compare the owner's right to reject bids on private construction projects versus public projects.",
+  q_bn: "প্রাইভেট নির্মাণ প্রকল্প বনাম পাবলিক প্রকল্পে বিড প্রত্যাখ্যানের অধিকার নিয়ে মালিকের অবস্থান তুলনা করো।",
+  ans_en: [
+    "On <span class='kw-red'>private construction projects</span>: the owner has <span class='kw-blue'>no obligation to the bidders</span> — the owner may <span class='kw-blue'>reject any or all bids without giving a reason</span>.",
+    "On <span class='kw-red'>public projects</span>: applicable <span class='kw-blue'>procurement regulations</span> may limit the owner's right to reject bids, but the owner can typically reject bids if there is a <span class='kw-blue'>compelling reason</span> to do so."
+  ],
+  ans_bn: [
+    "<span class='kw-red'>প্রাইভেট নির্মাণ প্রকল্পে</span>: মালিকের বিডারদের প্রতি <span class='kw-blue'>কোনো বাধ্যবাধকতা নেই</span> — মালিক <span class='kw-blue'>কোনো কারণ ছাড়াই যেকোনো বা সব বিড প্রত্যাখ্যান</span> করতে পারেন।",
+    "<span class='kw-red'>পাবলিক প্রকল্পে</span>: প্রযোজ্য <span class='kw-blue'>ক্রয় নিয়মাবলী (procurement regulations)</span> মালিকের বিড প্রত্যাখ্যানের অধিকার সীমিত করতে পারে, তবে কোনো <span class='kw-blue'>যুক্তিসঙ্গত কারণ</span> থাকলে মালিক সাধারণত বিড প্রত্যাখ্যান করতে পারেন।"
+  ],
+  page: 5
+},
+{
+  q_en: "Why might a contractor want its bid included as a contract document, and what conflicts can this create?",
+  q_bn: "একজন কন্ট্রাক্টর কেন তার বিডকে চুক্তির দলিল হিসেবে অন্তর্ভুক্ত করতে চাইতে পারেন, এবং এতে কী দ্বন্দ্ব সৃষ্টি হতে পারে?",
+  ans_en: [
+    "The contractor's bid includes the <span class='kw-red'>project price, schedule, and conditions of work</span>.",
+    "Contractors may request to include the bid as a <span class='kw-blue'>contract document to protect their assumptions and agreed terms</span>.",
+    "However, this can create <span class='kw-red'>conflicts</span> if the bid's <span class='kw-blue'>qualifications contradict the drawings or specifications</span>."
+  ],
+  ans_bn: [
+    "কন্ট্রাক্টরের বিডে <span class='kw-red'>প্রকল্পের মূল্য, সময়সূচি এবং কাজের শর্তাবলী</span> অন্তর্ভুক্ত থাকে।",
+    "কন্ট্রাক্টর তাদের <span class='kw-blue'>অনুমান ও সম্মত শর্তাবলী রক্ষার জন্য</span> বিডটিকে চুক্তির দলিল হিসেবে অন্তর্ভুক্ত করার অনুরোধ করতে পারেন।",
+    "তবে, বিডের <span class='kw-blue'>শর্তাবলী যদি ড্রয়িং বা স্পেসিফিকেশনের সাথে সাংঘর্ষিক হয়</span>, তাহলে এটি <span class='kw-red'>দ্বন্দ্ব</span> সৃষ্টি করতে পারে।"
+  ],
+  page: 6
+},
+{
+  q_en: "Why do owners usually refuse to include approved shop drawings and submittals as part of the contract?",
+  q_bn: "মালিকরা সাধারণত অনুমোদিত শপ ড্রয়িং ও সাবমিটালকে চুক্তির অংশ হিসেবে অন্তর্ভুক্ত করতে কেন অস্বীকার করেন?",
+  ans_en: [
+    "Contractors may want approved <span class='kw-red'>shop drawings and submittals included in the contract</span>.",
+    "Owners usually refuse because it may make them <span class='kw-blue'>legally responsible for errors in those documents</span>.",
+    "Thus, while including them <span class='kw-red'>protects the contractor</span>, it <span class='kw-blue'>increases legal risk for the owner</span>."
+  ],
+  ans_bn: [
+    "কন্ট্রাক্টররা অনুমোদিত <span class='kw-red'>শপ ড্রয়িং ও সাবমিটাল চুক্তিতে অন্তর্ভুক্ত</span> করতে চাইতে পারেন।",
+    "মালিকরা সাধারণত এতে অস্বীকৃতি জানান, কারণ এটি তাদেরকে সেই দলিলের ত্রুটির জন্য <span class='kw-blue'>আইনগতভাবে দায়ী করতে পারে</span>।",
+    "তাই, এটি অন্তর্ভুক্ত করা <span class='kw-red'>কন্ট্রাক্টরকে রক্ষা করলেও</span>, এটি <span class='kw-blue'>মালিকের জন্য আইনি ঝুঁকি বাড়ায়</span>।"
+  ],
+  page: 6
+},
+{
+  q_en: "What is meant by a 'hierarchy of documents' in a construction contract, and what is the typical order of priority?",
+  q_bn: "একটি নির্মাণ চুক্তিতে 'দলিলের ক্রমপর্যায় (hierarchy of documents)' বলতে কী বোঝায়, এবং এর সাধারণ অগ্রাধিকার ক্রম কী?",
+  ans_en: [
+    "Many contracts establish a <span class='kw-red'>hierarchy of documents</span>, where some documents take priority over others in case of <span class='kw-blue'>inconsistency</span>.",
+    "Typically, <span class='kw-red'>change orders and modifications</span> have the highest priority, followed by <span class='kw-blue'>supplementary conditions, general conditions, drawings, and specifications</span>.",
+    "<span class='kw-red'>Larger-scale drawings</span> may also govern over smaller-scale ones.",
+    "If inconsistencies occur within the same document, the contractor is usually required to follow the <span class='kw-blue'>more stringent requirement</span>, or provide better quality/greater quantity of work based on the owner's interpretation."
+  ],
+  ans_bn: [
+    "অনেক চুক্তিতে <span class='kw-red'>দলিলের ক্রমপর্যায়</span> প্রতিষ্ঠিত হয়, যেখানে <span class='kw-blue'>অসামঞ্জস্যতার</span> ক্ষেত্রে কিছু দলিল অন্যদের চেয়ে অগ্রাধিকার পায়।",
+    "সাধারণত, <span class='kw-red'>পরিবর্তন আদেশ ও পরিবর্তন (change orders and modifications)</span>-এর সর্বোচ্চ অগ্রাধিকার থাকে, এরপর <span class='kw-blue'>সাপ্লিমেন্টারি কন্ডিশন, জেনারেল কন্ডিশন, ড্রয়িং এবং স্পেসিফিকেশন</span>।",
+    "<span class='kw-red'>বড় স্কেলের ড্রয়িংও</span> ছোট স্কেলের ড্রয়িংয়ের উপর প্রাধান্য পেতে পারে।",
+    "একই দলিলের মধ্যে অসামঞ্জস্যতা দেখা দিলে, কন্ট্রাক্টরকে সাধারণত <span class='kw-blue'>আরও কঠোর শর্ত</span> অনুসরণ করতে হয়, অথবা মালিকের ব্যাখ্যা অনুযায়ী ভালো মান বা বেশি পরিমাণ কাজ প্রদান করতে হয়।"
+  ],
+  page: 7
+},
+{
+  q_en: "How does AIA A201 address the potential issues of a fixed document hierarchy?",
+  q_bn: "একটি নির্দিষ্ট দলিল ক্রমপর্যায়ের সম্ভাব্য সমস্যা AIA A201 কীভাবে সমাধান করে?",
+  ans_en: [
+    "A fixed hierarchy can sometimes lead to issues if the <span class='kw-red'>error exists in a higher-priority document</span>.",
+    "Therefore, some contracts require <span class='kw-blue'>all documents to be read together and interpreted as a whole</span>.",
+    "For example, <span class='kw-red'>AIA A201</span> states that contract documents are <span class='kw-blue'>complementary</span>, meaning a requirement in one is <span class='kw-blue'>binding as if included in all</span>."
+  ],
+  ans_bn: [
+    "<span class='kw-red'>উচ্চ-অগ্রাধিকারযুক্ত দলিলে ত্রুটি</span> থাকলে একটি নির্দিষ্ট ক্রমপর্যায় সমস্যা সৃষ্টি করতে পারে।",
+    "তাই, কিছু চুক্তিতে <span class='kw-blue'>সব দলিল একসাথে পড়া ও সামগ্রিকভাবে ব্যাখ্যা করার</span> প্রয়োজন হয়।",
+    "উদাহরণস্বরূপ, <span class='kw-red'>AIA A201</span> বলে যে চুক্তির দলিলগুলো <span class='kw-blue'>পরিপূরক (complementary)</span>, অর্থাৎ একটিতে থাকা কোনো শর্ত <span class='kw-blue'>সব দলিলে অন্তর্ভুক্ত থাকার মতোই বাধ্যতামূলক</span>।"
+  ],
+  page: 7
+},
+{
+  q_en: "What is the Patent Ambiguity Rule?",
+  q_bn: "প্যাটেন্ট অ্যাম্বিগুইটি রুল (Patent Ambiguity Rule) কী?",
+  ans_en: [
+    "On most projects, the bidding instructions require bidders to request <span class='kw-red'>clarification of patent (obvious) discrepancies</span> in the bid materials before submitting their bids.",
+    "Even without such a requirement, courts will typically hold that a bidder has an <span class='kw-blue'>obligation to notify the Owner of any obvious discrepancies</span>.",
+    "This is referred to as the <span class='kw-red'>patent ambiguity rule</span>."
+  ],
+  ans_bn: [
+    "বেশিরভাগ প্রকল্পে, বিডিং নির্দেশনায় বিডারদের বিড জমা দেওয়ার আগে বিড উপকরণে <span class='kw-red'>স্পষ্ট (obvious) অসামঞ্জস্যতার স্পষ্টীকরণ</span> চাইতে বলা হয়।",
+    "এমন কোনো শর্ত না থাকলেও, আদালত সাধারণত মনে করে যে একজন বিডারের <span class='kw-blue'>যেকোনো স্পষ্ট অসামঞ্জস্যতা মালিককে জানানোর বাধ্যবাধকতা</span> রয়েছে।",
+    "একে বলা হয় <span class='kw-red'>প্যাটেন্ট অ্যাম্বিগুইটি রুল</span>।"
+  ],
+  page: 8
+},
+{
+  q_en: "What happens if a contractor makes erroneous assumptions about a patent discrepancy instead of asking for clarification?",
+  q_bn: "যদি একজন কন্ট্রাক্টর স্পষ্টীকরণ না চেয়ে একটি প্যাটেন্ট অসামঞ্জস্যতা সম্পর্কে ভুল ধারণা করেন, তাহলে কী ঘটে?",
+  ans_en: [
+    "Under the patent ambiguity rule, a contractor that makes erroneous assumptions about a patent discrepancy will be held <span class='kw-red'>responsible for any extra costs</span> that result.",
+    "When bidding documents indicate a <span class='kw-blue'>contract hierarchy</span>, some courts have held that <span class='kw-blue'>bidders are entitled to rely on the stated hierarchy</span> to resolve patent ambiguities."
+  ],
+  ans_bn: [
+    "প্যাটেন্ট অ্যাম্বিগুইটি রুলের অধীনে, একজন কন্ট্রাক্টর যিনি একটি প্যাটেন্ট অসামঞ্জস্যতা সম্পর্কে ভুল ধারণা করেন, তিনি এর ফলে সৃষ্ট <span class='kw-red'>অতিরিক্ত খরচের জন্য দায়ী</span> থাকবেন।",
+    "বিডিং দলিলে <span class='kw-blue'>চুক্তির ক্রমপর্যায় (contract hierarchy)</span> নির্দেশিত থাকলে, কিছু আদালত মনে করে যে <span class='kw-blue'>বিডাররা প্যাটেন্ট অস্পষ্টতা সমাধানের জন্য উল্লিখিত ক্রমপর্যায়ের উপর নির্ভর করতে পারেন</span>।"
+  ],
+  page: 9
+},
+{
+  q_en: "Describe the facts and final outcome of the case Fortec Constructors v. United States [760 F.2d 1288 (Fed. Cir. 1985)].",
+  q_bn: "Fortec Constructors v. United States [760 F.2d 1288 (Fed. Cir. 1985)] মামলার ঘটনা ও চূড়ান্ত ফলাফল বর্ণনা করো।",
+  ans_en: [
+    "<span class='case-tag'>CASE STUDY</span>",
+    "A contractor was hired to <span class='kw-red'>build a medical clinic</span> on an army base, but the drawings contained <span class='kw-blue'>two conflicting details for rebar laps</span>.",
+    "Instead of asking for clarification, the contractor used its <span class='kw-red'>own judgment</span> and followed one of the details.",
+    "The owner later found the chosen detail <span class='kw-blue'>did not meet local standards</span>, so the contractor was ordered to <span class='kw-red'>demolish and reconstruct</span> the work.",
+    "The contractor claimed <span class='kw-blue'>extra payment</span>, but the court <span class='kw-red'>denied it</span>, holding that the ambiguity was <span class='kw-blue'>obvious (patent)</span> and the contractor should have sought clarification — so the loss had to be borne by the contractor."
+  ],
+  ans_bn: [
+    "<span class='case-tag'>কেস স্টাডি</span>",
+    "একজন কন্ট্রাক্টরকে সেনাবাহিনীর ঘাঁটিতে একটি <span class='kw-red'>মেডিকেল ক্লিনিক নির্মাণ</span> করার জন্য নিয়োগ দেওয়া হয়, কিন্তু ড্রয়িংয়ে রিবার ল্যাপের জন্য <span class='kw-blue'>দুটি পরস্পরবিরোধী বিবরণ</span> ছিল।",
+    "স্পষ্টীকরণ না চেয়ে, কন্ট্রাক্টর তার <span class='kw-red'>নিজস্ব বিচারবুদ্ধি</span> ব্যবহার করে একটি বিবরণ অনুসরণ করেন।",
+    "মালিক পরে দেখেন যে নির্বাচিত বিবরণটি <span class='kw-blue'>স্থানীয় মান পূরণ করেনি</span>, তাই কন্ট্রাক্টরকে কাজ <span class='kw-red'>ভেঙে পুনর্নির্মাণ</span> করার নির্দেশ দেওয়া হয়।",
+    "কন্ট্রাক্টর <span class='kw-blue'>অতিরিক্ত অর্থ প্রদানের</span> দাবি করেন, কিন্তু আদালত তা <span class='kw-red'>প্রত্যাখ্যান</span> করে, বলে যে অসামঞ্জস্যতাটি <span class='kw-blue'>স্পষ্ট (patent)</span> ছিল এবং কন্ট্রাক্টরের স্পষ্টীকরণ চাওয়া উচিত ছিল — তাই ক্ষতিটি কন্ট্রাক্টরকেই বহন করতে হয়েছিল।"
+  ],
+  page: "10-11"
+},
+{
+  q_en: "What are Latent Discrepancies, and how do they differ from patent (obvious) ambiguities?",
+  q_bn: "ল্যাটেন্ট ডিসক্রেপেন্সি (Latent Discrepancies) কী, এবং এটি প্যাটেন্ট (স্পষ্ট) অস্পষ্টতা থেকে কীভাবে আলাদা?",
+  ans_en: [
+    "In many cases, errors or discrepancies in the documents <span class='kw-red'>do not become apparent until construction has started</span>.",
+    "Such discrepancies are referred to as <span class='kw-blue'>latent ambiguities</span> — unlike patent ambiguities, which are obvious from the outset, latent ones only surface once work is underway."
+  ],
+  ans_bn: [
+    "অনেক ক্ষেত্রে, দলিলের ত্রুটি বা অসামঞ্জস্যতা <span class='kw-red'>নির্মাণ কাজ শুরু না হওয়া পর্যন্ত স্পষ্ট হয় না</span>।",
+    "এই ধরনের অসামঞ্জস্যতাকে <span class='kw-blue'>ল্যাটেন্ট অ্যাম্বিগুইটি (latent ambiguities)</span> বলা হয় — প্যাটেন্ট অস্পষ্টতার বিপরীতে, যা শুরু থেকেই স্পষ্ট, ল্যাটেন্ট অস্পষ্টতা কাজ শুরু হওয়ার পরই প্রকাশ পায়।"
+  ],
+  page: 12
+},
+{
+  q_en: "What must a contractor do if it discovers or is made aware of a possible code or statutory violation during construction?",
+  q_bn: "নির্মাণের সময় সম্ভাব্য কোড বা আইনি লঙ্ঘন আবিষ্কার করলে বা সে সম্পর্কে জানানো হলে একজন কন্ট্রাক্টরের কী করা উচিত?",
+  ans_en: [
+    "Most contracts do <span class='kw-red'>not require</span> the contractor to ensure the documents comply with applicable laws and codes.",
+    "However, if the contractor discovers or is made aware of a possible <span class='kw-blue'>code or statutory violation</span>, it must <span class='kw-red'>notify the A/E before starting the work in question</span>.",
+    "If the contractor performs work it <span class='kw-blue'>knows is not in compliance</span> with statutory or code requirements, it may be <span class='kw-red'>liable for the cost of any corrections</span>."
+  ],
+  ans_bn: [
+    "বেশিরভাগ চুক্তিতে কন্ট্রাক্টরকে দলিলগুলো প্রযোজ্য আইন ও কোড মেনে চলা নিশ্চিত করার <span class='kw-red'>প্রয়োজন হয় না</span>।",
+    "তবে, কন্ট্রাক্টর যদি কোনো সম্ভাব্য <span class='kw-blue'>কোড বা আইনি লঙ্ঘন</span> আবিষ্কার করেন বা তা সম্পর্কে অবগত হন, তাহলে তাকে সংশ্লিষ্ট কাজ শুরু করার আগে <span class='kw-red'>A/E-কে অবহিত করতে হবে</span>।",
+    "কন্ট্রাক্টর যদি এমন কাজ করেন যা <span class='kw-blue'>আইনি বা কোড প্রয়োজনীয়তা মেনে চলে না বলে তিনি জানেন</span>, তাহলে তিনি সংশোধনের খরচের জন্য <span class='kw-red'>দায়ী হতে পারেন</span>।"
+  ],
+  page: 12
+},
+{
+  q_en: "Explain the 'specific over general' rule in contract interpretation, using the example of concrete grades (M20/M25/M30).",
+  q_bn: "কংক্রিট গ্রেডের উদাহরণ (M20/M25/M30) ব্যবহার করে চুক্তি ব্যাখ্যায় 'নির্দিষ্ট বনাম সাধারণ (specific over general)' নিয়মটি ব্যাখ্যা করো।",
+  ans_en: [
+    "When interpreting a contract, a <span class='kw-red'>specific clause will prevail over a general one</span>.",
+    "Example conflict: the <span class='kw-blue'>printed clause</span> says \"All concrete shall be M20 grade,\" a <span class='kw-blue'>typed clause</span> says \"Concrete for foundations shall be M25 grade,\" and a <span class='kw-blue'>handwritten note</span> says \"Use M30 grade for foundation due to soil condition.\"",
+    "Here, the more <span class='kw-red'>specific instruction (foundation-specific)</span> would prevail over the general one covering all concrete."
+  ],
+  ans_bn: [
+    "একটি চুক্তি ব্যাখ্যা করার সময়, একটি <span class='kw-red'>নির্দিষ্ট ধারা একটি সাধারণ ধারার উপর প্রাধান্য পাবে</span>।",
+    "উদাহরণস্বরূপ দ্বন্দ্ব: <span class='kw-blue'>প্রিন্টেড ধারায়</span> বলা আছে \"সব কংক্রিট M20 গ্রেডের হবে,\" একটি <span class='kw-blue'>টাইপ করা ধারায়</span> বলা আছে \"ফাউন্ডেশনের কংক্রিট M25 গ্রেডের হবে,\" এবং একটি <span class='kw-blue'>হাতে লেখা নোটে</span> বলা আছে \"মাটির অবস্থার কারণে ফাউন্ডেশনে M30 গ্রেড ব্যবহার করুন।\"",
+    "এখানে, সব কংক্রিট কভার করা সাধারণ ধারার চেয়ে <span class='kw-red'>নির্দিষ্ট (ফাউন্ডেশন-নির্দিষ্ট) নির্দেশনাই</span> প্রাধান্য পাবে।"
+  ],
+  page: 13
+},
+{
+  q_en: "What is the hierarchy among handwritten, typewritten, and preprinted contract language when there is a conflict?",
+  q_bn: "দ্বন্দ্ব দেখা দিলে হাতে লেখা, টাইপ করা এবং প্রিপ্রিন্টেড চুক্তির ভাষার মধ্যে ক্রমপর্যায় কী?",
+  ans_en: [
+    "If a contract contains <span class='kw-red'>handwritten and typewritten language</span> as well as <span class='kw-blue'>preprinted language</span>:",
+    "The <span class='kw-red'>handwritten language controls over the typewritten language</span>.",
+    "Both the <span class='kw-red'>handwritten and typewritten language control over the preprinted form</span>."
+  ],
+  ans_bn: [
+    "যদি একটি চুক্তিতে <span class='kw-red'>হাতে লেখা ও টাইপ করা ভাষার</span> পাশাপাশি <span class='kw-blue'>প্রিপ্রিন্টেড ভাষাও</span> থাকে:",
+    "<span class='kw-red'>হাতে লেখা ভাষা টাইপ করা ভাষার উপর প্রাধান্য পায়</span>।",
+    "<span class='kw-red'>হাতে লেখা ও টাইপ করা উভয় ভাষাই প্রিপ্রিন্টেড ফর্মের উপর প্রাধান্য পায়</span>।"
+  ],
+  page: 14
+},
+{
+  q_en: "What is the rule of 'contra proferentem' (interpretation against drafter), and when is it particularly likely to be applied?",
+  q_bn: "'কনট্রা প্রোফারেন্টাম (contra proferentem)' নিয়ম (খসড়াকারীর বিরুদ্ধে ব্যাখ্যা) কী, এবং এটি বিশেষভাবে কখন প্রয়োগ হওয়ার সম্ভাবনা থাকে?",
+  ans_en: [
+    "If ambiguities in the contract <span class='kw-red'>cannot be resolved with the standard rules</span> of contract interpretation, the contract will be interpreted <span class='kw-blue'>against the party that drafted it</span>.",
+    "This rule is known as <span class='kw-red'>contra proferentem</span> (against the drafter).",
+    "It is particularly likely to be applied when the drafting party says the agreement <span class='kw-blue'>relieves it of liability for its own acts</span>."
+  ],
+  ans_bn: [
+    "চুক্তির মানক ব্যাখ্যা পদ্ধতি দিয়ে অস্পষ্টতা <span class='kw-red'>সমাধান করা না গেলে</span>, চুক্তিটি <span class='kw-blue'>যে পক্ষ খসড়া তৈরি করেছে তার বিরুদ্ধে</span> ব্যাখ্যা করা হবে।",
+    "এই নিয়মকে বলা হয় <span class='kw-red'>কনট্রা প্রোফারেন্টাম</span> (খসড়াকারীর বিরুদ্ধে)।",
+    "খসড়াকারী পক্ষ যদি বলে যে চুক্তিটি তার <span class='kw-blue'>নিজের কাজের দায়বদ্ধতা থেকে মুক্তি দেয়</span>, তখন এই নিয়ম প্রয়োগ হওয়ার সম্ভাবনা বেশি থাকে।"
+  ],
+  page: 15
+},
+{
+  q_en: "Why does the contra proferentem rule typically favor the contractor in construction contracts?",
+  q_bn: "নির্মাণ চুক্তিতে কনট্রা প্রোফারেন্টাম নিয়ম সাধারণত কেন কন্ট্রাক্টরের পক্ষে যায়?",
+  ans_en: [
+    "Most construction contracts are <span class='kw-red'>drafted by the A/E</span>, acting as an <span class='kw-blue'>agent for the owner</span>.",
+    "Since the owner's agent (A/E) is the drafter, <span class='kw-red'>ambiguities will be resolved in favor of the contractor</span>, provided the <span class='kw-blue'>contractor's interpretation is reasonable</span>."
+  ],
+  ans_bn: [
+    "বেশিরভাগ নির্মাণ চুক্তি <span class='kw-red'>A/E দ্বারা খসড়া তৈরি</span> করা হয়, যিনি <span class='kw-blue'>মালিকের এজেন্ট</span> হিসেবে কাজ করেন।",
+    "যেহেতু মালিকের এজেন্ট (A/E) খসড়াকারী, তাই <span class='kw-red'>অস্পষ্টতাগুলো কন্ট্রাক্টরের পক্ষে সমাধান করা হবে</span>, যদি <span class='kw-blue'>কন্ট্রাক্টরের ব্যাখ্যাটি যুক্তিসঙ্গত হয়</span>।"
+  ],
+  page: 15
+},
+{
+  q_en: "Describe the facts and final outcome of the case Interstate General Government Contractors, Inc. v. Stone [980 F.2d 1433 (Fed. Cir. 1992)].",
+  q_bn: "Interstate General Government Contractors, Inc. v. Stone [980 F.2d 1433 (Fed. Cir. 1992)] মামলার ঘটনা ও চূড়ান্ত ফলাফল বর্ণনা করো।",
+  ans_en: [
+    "<span class='case-tag'>CASE STUDY</span>",
+    "A government contractor was awarded a contract to install <span class='kw-red'>heating and air-conditioning equipment</span> for three buildings on an army base.",
+    "The contract was <span class='kw-blue'>ambiguous</span> — some parts required <span class='kw-red'>conventional motor starters</span>, others required more expensive <span class='kw-blue'>variable-speed fan power controllers</span>.",
+    "The contractor <span class='kw-red'>assumed the cheaper option</span> without seeking clarification, and later requested extra payment when the government required the costlier controllers.",
+    "The contractor argued for <span class='kw-blue'>contra proferentem</span> (ambiguity resolved against the government as drafter), but the court applied the <span class='kw-red'>patent ambiguity rule</span> instead — since the ambiguity was obvious, the contractor had a <span class='kw-blue'>duty to seek clarification before bidding</span>.",
+    "The court <span class='kw-red'>denied the claim</span> for extra cost, and the contractor had to bear the additional expense."
+  ],
+  ans_bn: [
+    "<span class='case-tag'>কেস স্টাডি</span>",
+    "একজন সরকারি কন্ট্রাক্টরকে সেনাবাহিনীর ঘাঁটিতে তিনটি ভবনের জন্য <span class='kw-red'>হিটিং ও এয়ার-কন্ডিশনিং যন্ত্রপাতি স্থাপনের</span> চুক্তি দেওয়া হয়।",
+    "চুক্তিটি <span class='kw-blue'>অস্পষ্ট</span> ছিল — কিছু অংশে <span class='kw-red'>প্রচলিত মোটর স্টার্টারের</span> প্রয়োজন ছিল, অন্য অংশে আরও ব্যয়বহুল <span class='kw-blue'>ভেরিয়েবল-স্পিড ফ্যান পাওয়ার কন্ট্রোলারের</span> প্রয়োজন ছিল।",
+    "কন্ট্রাক্টর স্পষ্টীকরণ না চেয়ে <span class='kw-red'>সস্তা বিকল্পটি ধরে নেয়</span>, এবং পরে সরকার যখন ব্যয়বহুল কন্ট্রোলার চায় তখন অতিরিক্ত অর্থ দাবি করে।",
+    "কন্ট্রাক্টর <span class='kw-blue'>কনট্রা প্রোফারেন্টাম</span> (খসড়াকারী হিসেবে সরকারের বিরুদ্ধে অস্পষ্টতা সমাধান)-এর যুক্তি দেয়, কিন্তু আদালত এর পরিবর্তে <span class='kw-red'>প্যাটেন্ট অ্যাম্বিগুইটি রুল</span> প্রয়োগ করে — যেহেতু অস্পষ্টতাটি স্পষ্ট ছিল, তাই কন্ট্রাক্টরের বিড করার আগে <span class='kw-blue'>স্পষ্টীকরণ চাওয়ার দায়িত্ব ছিল</span>।",
+    "আদালত অতিরিক্ত খরচের দাবি <span class='kw-red'>প্রত্যাখ্যান করে</span>, এবং কন্ট্রাক্টরকেই সেই অতিরিক্ত খরচ বহন করতে হয়েছিল।"
+  ],
+  page: "16-17"
+},
+{
+  q_en: "Distinguish between design (prescriptive) specifications and performance specifications, and explain how courts tell them apart.",
+  q_bn: "ডিজাইন (প্রেসক্রিপটিভ) স্পেসিফিকেশন ও পারফরম্যান্স স্পেসিফিকেশনের মধ্যে পার্থক্য করো, এবং আদালত কীভাবে এগুলো আলাদা করে তা ব্যাখ্যা করো।",
+  ans_en: [
+    "<span class='kw-red'>Design (prescriptive) specifications</span>: set forth <span class='kw-blue'>detailed and precise requirements</span> for materials, equipment, tolerances, and finishes. Deviating from these could be considered a <span class='kw-blue'>breach of contract</span>.",
+    "<span class='kw-red'>Performance specifications</span>: merely indicate the <span class='kw-blue'>results to be obtained</span>; the contractor determines <span class='kw-blue'>how to achieve those results</span>.",
+    "Courts generally distinguish the two by looking at <span class='kw-red'>how much discretion the contractor is given</span> — under a design specification, the contractor typically has <span class='kw-blue'>little or no discretion</span>."
+  ],
+  ans_bn: [
+    "<span class='kw-red'>ডিজাইন (প্রেসক্রিপটিভ) স্পেসিফিকেশন</span>: উপকরণ, যন্ত্রপাতি, সহনশীলতা ও ফিনিশের জন্য <span class='kw-blue'>বিস্তারিত ও সুনির্দিষ্ট প্রয়োজনীয়তা</span> নির্ধারণ করে। এগুলো থেকে বিচ্যুত হলে তা <span class='kw-blue'>চুক্তির লঙ্ঘন</span> হিসেবে গণ্য হতে পারে।",
+    "<span class='kw-red'>পারফরম্যান্স স্পেসিফিকেশন</span>: শুধু <span class='kw-blue'>প্রাপ্ত ফলাফল</span> নির্দেশ করে; কন্ট্রাক্টর নির্ধারণ করেন <span class='kw-blue'>সেই ফলাফল কীভাবে অর্জন করবেন</span>।",
+    "আদালত সাধারণত এই দুটি <span class='kw-red'>কন্ট্রাক্টরকে কতটা স্বাধীনতা দেওয়া হয়েছে তা দেখে</span> আলাদা করে — ডিজাইন স্পেসিফিকেশনের অধীনে, কন্ট্রাক্টরের সাধারণত <span class='kw-blue'>সামান্য বা কোনো স্বাধীনতা থাকে না</span>।"
+  ],
+  page: 18
+},
+{
+  q_en: "What is the rule regarding submittals and work not indicated in the plans and specifications?",
+  q_bn: "প্ল্যান ও স্পেসিফিকেশনে উল্লেখ না থাকা কাজ এবং সাবমিটাল সম্পর্কিত নিয়ম কী?",
+  ans_en: [
+    "Construction contracts often state that the <span class='kw-red'>contract documents intend to include all items necessary</span> for the proper execution and completion of the work.",
+    "When work not indicated in the plans/specifications involves <span class='kw-blue'>considerable extra cost</span> or involves <span class='kw-blue'>design work that requires a submittal</span>, it is generally <span class='kw-red'>not considered reasonably deduceable</span> from the work shown."
+  ],
+  ans_bn: [
+    "নির্মাণ চুক্তিতে প্রায়ই বলা থাকে যে <span class='kw-red'>চুক্তির দলিলগুলো কাজের সঠিক সম্পাদন ও সমাপ্তির জন্য প্রয়োজনীয় সব আইটেম অন্তর্ভুক্ত করার উদ্দেশ্যে তৈরি</span>।",
+    "প্ল্যান/স্পেসিফিকেশনে উল্লেখ না থাকা কাজ যদি <span class='kw-blue'>উল্লেখযোগ্য অতিরিক্ত খরচ</span> জড়িত করে বা <span class='kw-blue'>সাবমিটাল প্রয়োজন এমন ডিজাইন কাজ</span> জড়িত করে, তাহলে তা সাধারণত প্রদর্শিত কাজ থেকে <span class='kw-red'>যুক্তিসঙ্গতভাবে অনুমানযোগ্য বলে গণ্য হয় না</span>।"
+  ],
+  page: 19
+},
+{
+  q_en: "What options do parties have when making a construction contract, and what are some examples of standard contract forms?",
+  q_bn: "একটি নির্মাণ চুক্তি তৈরি করার সময় পক্ষগুলোর কী কী অপশন থাকে, এবং কিছু স্ট্যান্ডার্ড চুক্তি ফর্মের উদাহরণ কী কী?",
+  ans_en: [
+    "Parties can write a <span class='kw-red'>custom (manuscript) contract</span>, or use <span class='kw-blue'>standard contract forms</span> already prepared by organizations like:",
+    "The <span class='kw-red'>American Institute of Architects (AIA)</span>.",
+    "<span class='kw-red'>ConsensusDOCS</span>.",
+    "The <span class='kw-red'>Engineers Joint Contract Documents Committee</span>.",
+    "Standard forms come as a <span class='kw-blue'>set (family) of related documents</span> — owner-contractor agreement, designer agreement, and subcontracts — all <span class='kw-blue'>coordinated</span> so risks/responsibilities are consistent and there are no contradictions between agreements."
+  ],
+  ans_bn: [
+    "পক্ষগুলো একটি <span class='kw-red'>কাস্টম (ম্যানুস্ক্রিপ্ট) চুক্তি</span> লিখতে পারে, অথবা নিম্নলিখিত সংস্থাগুলো কর্তৃক প্রস্তুতকৃত <span class='kw-blue'>স্ট্যান্ডার্ড চুক্তি ফর্ম</span> ব্যবহার করতে পারে:",
+    "<span class='kw-red'>আমেরিকান ইনস্টিটিউট অফ আর্কিটেক্টস (AIA)</span>।",
+    "<span class='kw-red'>ConsensusDOCS</span>।",
+    "<span class='kw-red'>ইঞ্জিনিয়ার্স জয়েন্ট কন্ট্রাক্ট ডকুমেন্টস কমিটি</span>।",
+    "স্ট্যান্ডার্ড ফর্ম একটি <span class='kw-blue'>সেট (পরিবার) সম্পর্কিত দলিল</span> হিসেবে আসে — মালিক-কন্ট্রাক্টর চুক্তি, ডিজাইনার চুক্তি এবং সাবকন্ট্রাক্ট — সবগুলো <span class='kw-blue'>সমন্বিত</span> থাকে যাতে ঝুঁকি/দায়িত্ব সামঞ্জস্যপূর্ণ থাকে এবং চুক্তিগুলোর মধ্যে কোনো বিরোধ না থাকে।"
+  ],
+  page: 20
+},
+{
+  q_en: "List the advantages and disadvantages of using industry standard contract forms.",
+  q_bn: "শিল্প স্ট্যান্ডার্ড চুক্তি ফর্ম ব্যবহারের সুবিধা ও অসুবিধাগুলো তালিকাভুক্ত করো।",
+  ans_en: [
+    "<span class='kw-red'>Advantages</span>: faster negotiations (saves time and money); <span class='kw-blue'>clear roles and responsibilities</span>; already tested in courts, making interpretation easier; generally legally valid.",
+    "<span class='kw-red'>Disadvantages</span>: may not fit <span class='kw-blue'>local laws</span> of a specific state/country; may be <span class='kw-blue'>outdated</span>; not suitable for special or complex projects; may be slightly <span class='kw-blue'>biased</span> toward the organization that created them."
+  ],
+  ans_bn: [
+    "<span class='kw-red'>সুবিধা</span>: দ্রুত আলোচনা (সময় ও অর্থ সাশ্রয়); <span class='kw-blue'>স্পষ্ট ভূমিকা ও দায়িত্ব</span>; আদালতে ইতিমধ্যে পরীক্ষিত, যা ব্যাখ্যা সহজ করে; সাধারণত আইনগতভাবে বৈধ।",
+    "<span class='kw-red'>অসুবিধা</span>: নির্দিষ্ট রাজ্য/দেশের <span class='kw-blue'>স্থানীয় আইনের সাথে</span> নাও মিলতে পারে; <span class='kw-blue'>পুরনো</span> হতে পারে; বিশেষ বা জটিল প্রকল্পের জন্য উপযুক্ত নয়; যে সংস্থা এগুলো তৈরি করেছে তার প্রতি সামান্য <span class='kw-blue'>পক্ষপাতিত্ব</span> থাকতে পারে।"
+  ],
+  page: 21
+},
+{
+  q_en: "List the advantages and disadvantages of custom construction contracts.",
+  q_bn: "কাস্টম নির্মাণ চুক্তির সুবিধা ও অসুবিধাগুলো তালিকাভুক্ত করো।",
+  ans_en: [
+    "Custom contracts are prepared for a <span class='kw-red'>specific project</span> or used repeatedly by developers/contractors, often <span class='kw-blue'>adapted from standard forms</span> with modifications.",
+    "<span class='kw-red'>Advantages</span>: can be <span class='kw-blue'>tailored to specific project needs</span>; clearly defines roles, risks, and responsibilities; eliminates possible bias found in standard forms.",
+    "<span class='kw-red'>Disadvantages</span>: the other party may be <span class='kw-blue'>unfamiliar with the terms</span>; takes more time to negotiate; involves higher legal costs; contractors may increase bids due to perceived risks."
+  ],
+  ans_bn: [
+    "কাস্টম চুক্তি একটি <span class='kw-red'>নির্দিষ্ট প্রকল্পের জন্য</span> তৈরি করা হয় বা ডেভেলপার/কন্ট্রাক্টররা বারবার ব্যবহার করে, প্রায়ই <span class='kw-blue'>স্ট্যান্ডার্ড ফর্ম থেকে পরিবর্তন করে অভিযোজিত</span> করা হয়।",
+    "<span class='kw-red'>সুবিধা</span>: নির্দিষ্ট প্রকল্পের প্রয়োজন অনুযায়ী <span class='kw-blue'>সাজানো যায়</span>; ভূমিকা, ঝুঁকি ও দায়িত্ব স্পষ্টভাবে সংজ্ঞায়িত করে; স্ট্যান্ডার্ড ফর্মে থাকা সম্ভাব্য পক্ষপাতিত্ব দূর করে।",
+    "<span class='kw-red'>অসুবিধা</span>: অন্য পক্ষ শর্তাবলীর সাথে <span class='kw-blue'>অপরিচিত হতে পারে</span>; আলোচনায় বেশি সময় লাগে; বেশি আইনি খরচ জড়িত থাকে; সম্ভাব্য ঝুঁকির কারণে কন্ট্রাক্টররা বিড বাড়াতে পারে।"
+  ],
+  page: 22
+},
+{
+  q_en: "Why might construction work commence before the final contract is signed, and what is an 'early-start letter'?",
+  q_bn: "চূড়ান্ত চুক্তি স্বাক্ষরের আগে নির্মাণ কাজ কেন শুরু হতে পারে, এবং 'আর্লি-স্টার্ট লেটার' কী?",
+  ans_en: [
+    "Starting work before finalizing the contract is common on large/complex projects because <span class='kw-red'>contract negotiations can take a long time</span>; delays can increase costs and affect the schedule, especially with <span class='kw-blue'>custom-made materials with long lead times</span>.",
+    "To avoid such delays, owners may want to <span class='kw-red'>secure materials, lock in prices, or ensure subcontractor availability early</span>; some loan agreements require construction to begin by a certain date or face <span class='kw-blue'>financial penalties</span>.",
+    "To handle this, the owner may issue an <span class='kw-red'>early-start letter</span>, allowing limited work to begin with a <span class='kw-blue'>defined scope, cost, and timeline</span>.",
+    "If the final contract is not agreed upon, the arrangement can be <span class='kw-red'>terminated</span>; if finalized, the contract <span class='kw-blue'>replaces the early-start agreement</span>."
+  ],
+  ans_bn: [
+    "বড় বা জটিল প্রকল্পে চূড়ান্ত চুক্তির আগে কাজ শুরু করা সাধারণ, কারণ <span class='kw-red'>চুক্তি আলোচনায় দীর্ঘ সময় লাগতে পারে</span>; বিলম্ব খরচ বাড়াতে পারে ও সময়সূচি প্রভাবিত করতে পারে, বিশেষত <span class='kw-blue'>দীর্ঘ লিড টাইমের কাস্টম-তৈরি উপকরণের ক্ষেত্রে</span>।",
+    "এই বিলম্ব এড়াতে, মালিকরা <span class='kw-red'>উপকরণ সুরক্ষিত করতে, দাম নির্ধারণ করতে, বা সাবকন্ট্রাক্টরের প্রাপ্যতা আগেভাগে নিশ্চিত করতে</span> চাইতে পারেন; কিছু ঋণ চুক্তিতে নির্দিষ্ট তারিখের মধ্যে নির্মাণ শুরু করতে হয়, নাহলে <span class='kw-blue'>আর্থিক জরিমানা</span> হতে পারে।",
+    "এটি সামলাতে, মালিক একটি <span class='kw-red'>আর্লি-স্টার্ট লেটার</span> ইস্যু করতে পারেন, যা <span class='kw-blue'>নির্দিষ্ট পরিধি, খরচ ও সময়সীমা</span> নিয়ে সীমিত কাজ শুরু করার অনুমতি দেয়।",
+    "চূড়ান্ত চুক্তিতে সম্মত না হলে, এই ব্যবস্থাটি <span class='kw-red'>বাতিল</span> করা যেতে পারে; চূড়ান্ত হলে, চুক্তিটি <span class='kw-blue'>আর্লি-স্টার্ট চুক্তির স্থলাভিষিক্ত হয়</span>।"
+  ],
+  page: 23
+},
+{
+  q_en: "What is a Letter of Intent (LOI) in construction projects?",
+  q_bn: "নির্মাণ প্রকল্পে লেটার অফ ইনটেন্ট (LOI) কী?",
+  ans_en: [
+    "A <span class='kw-red'>Letter of Intent (LOI)</span> is a document used in construction projects to show that the <span class='kw-blue'>owner and contractor intend to work together</span>, even before the final contract is fully signed."
+  ],
+  ans_bn: [
+    "<span class='kw-red'>লেটার অফ ইনটেন্ট (LOI)</span> হলো নির্মাণ প্রকল্পে ব্যবহৃত একটি দলিল, যা দেখায় যে <span class='kw-blue'>মালিক ও কন্ট্রাক্টর একসাথে কাজ করার ইচ্ছা প্রকাশ করছেন</span>, এমনকি চূড়ান্ত চুক্তি সম্পূর্ণরূপে স্বাক্ষরিত হওয়ার আগেও।"
+  ],
+  page: 24
+},
+{
+  q_en: "What are 'third-party beneficiaries' in a construction contract, and how do most contracts typically treat them?",
+  q_bn: "একটি নির্মাণ চুক্তিতে 'তৃতীয় পক্ষের সুবিধাভোগী (third-party beneficiaries)' কারা, এবং বেশিরভাগ চুক্তি সাধারণত তাদের সাথে কেমন আচরণ করে?",
+  ans_en: [
+    "References in the contract document recognize the role of <span class='kw-red'>other parties in the project</span> and ensure the construction contract is <span class='kw-blue'>consistent with these parties' rights and obligations</span> under their separate agreements with the owner or contractor.",
+    "Most construction contracts <span class='kw-red'>specifically prohibit</span> a third party from <span class='kw-blue'>claiming rights under the contract as a third-party beneficiary</span>."
+  ],
+  ans_bn: [
+    "চুক্তির দলিলে থাকা রেফারেন্সগুলো প্রকল্পে <span class='kw-red'>অন্যান্য পক্ষের ভূমিকা</span> স্বীকৃতি দেয় এবং নিশ্চিত করে যে নির্মাণ চুক্তি মালিক বা কন্ট্রাক্টরের সাথে তাদের পৃথক চুক্তির অধীনে সেই পক্ষগুলোর <span class='kw-blue'>অধিকার ও বাধ্যবাধকতার সাথে সামঞ্জস্যপূর্ণ</span>।",
+    "বেশিরভাগ নির্মাণ চুক্তি একটি তৃতীয় পক্ষকে <span class='kw-blue'>তৃতীয় পক্ষের সুবিধাভোগী হিসেবে চুক্তির অধীনে অধিকার দাবি করা থেকে</span> <span class='kw-red'>নির্দিষ্টভাবে নিষিদ্ধ করে</span>।"
+  ],
+  page: 25
+}
+];
+
+// Build cards
+const container = document.getElementById('qaContainer');
+qaData.forEach((item, idx) => {
+  const card = document.createElement('div');
+  card.className = 'qa-card';
+
+  const q = document.createElement('div');
+  q.className = 'qa-question';
+  q.innerHTML = `
+    <div class="q-text-wrap">
+      <div class="q-en"><span class="q-index">Q${idx+1}.</span>${item.q_en}</div>
+      <div class="q-bn">${item.q_bn}</div>
+    </div>
+    <div class="chevron">▾</div>
+  `;
+
+  const ansEnList = item.ans_en.map(li => `<li>${li}</li>`).join('');
+  const ansBnList = item.ans_bn.map(li => `<li>${li}</li>`).join('');
+
+  const a = document.createElement('div');
+  a.className = 'qa-answer';
+  a.innerHTML = `
+    <div class="qa-answer-inner">
+      <div class="answer-block-en">
+        <div class="answer-label">Answer</div>
+        <ul class="ans-list">${ansEnList}</ul>
+      </div>
+      <div class="answer-block-bn">
+        <div class="answer-label">উত্তর (বাংলা)</div>
+        <ul class="ans-list bn">${ansBnList}</ul>
+      </div>
+      <span class="page-ref">Page ${item.page}</span>
+    </div>
+  `;
+
+  q.addEventListener('click', () => {
+    const isOpen = card.classList.contains('open');
+    if(isOpen){
+      card.classList.remove('open');
+      a.style.maxHeight = null;
+    } else {
+      card.classList.add('open');
+      a.style.maxHeight = a.scrollHeight + 'px';
+    }
+  });
+
+  card.appendChild(q);
+  card.appendChild(a);
+  container.appendChild(card);
+});
+
+document.getElementById('totalCount').textContent = qaData.length + ' Questions Included';
+
+// Expand / Collapse all
+let allOpen = false;
+document.getElementById('toggleAllBtn').addEventListener('click', function(){
+  allOpen = !allOpen;
+  const cards = document.querySelectorAll('.qa-card');
+  cards.forEach(card => {
+    const answer = card.querySelector('.qa-answer');
+    if(allOpen){
+      card.classList.add('open');
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+    } else {
+      card.classList.remove('open');
+      answer.style.maxHeight = null;
+    }
+  });
+  this.textContent = allOpen ? 'Collapse All' : 'Expand All';
+});
+
+// Search filter
+document.getElementById('searchInput').addEventListener('input', function(e){
+  const term = e.target.value.toLowerCase();
+  const cards = document.querySelectorAll('.qa-card');
+  cards.forEach(card => {
+    const text = card.textContent.toLowerCase();
+    card.style.display = text.includes(term) ? '' : 'none';
+  });
+});
+
+// Recalculate max-height on window resize for open cards (responsiveness)
+window.addEventListener('resize', () => {
+  document.querySelectorAll('.qa-card.open .qa-answer').forEach(a => {
+    a.style.maxHeight = a.scrollHeight + 'px';
+  });
+});
+</script>
+
+</body>
+</html>

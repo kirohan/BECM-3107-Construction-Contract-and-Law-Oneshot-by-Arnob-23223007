@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BECM 3107 — Dispute Resolution | Case File</title>
+<style>
+  :root{
+    --navy:#152238;
+    --navy-2:#1e3350;
+    --parchment:#F2EAD8;
+    --parchment-2:#E9DEC4;
+    --brass:#A9812F;
+    --brass-light:#CBA24B;
+    --red:#7C2A2A;
+    --ink:#26241E;
+    --ink-soft:#514A3D;
+    --line:#c9bb95;
+    --shadow: rgba(21,34,56,0.18);
+    --font-display: Georgia, 'Times New Roman', 'Noto Serif Bengali', serif;
+    --font-body: 'Segoe UI', -apple-system, 'Noto Sans Bengali', 'Vrinda', 'Shonar Bangla', sans-serif;
+    --font-bn: 'Noto Sans Bengali', 'Vrinda', 'Shonar Bangla', 'Segoe UI', sans-serif;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(1200px 600px at 10% -10%, #24314a 0%, transparent 60%),
+      var(--navy);
+    font-family:var(--font-body);
+    color:var(--ink);
+    min-height:100vh;
+  }
+
+  /* ============ HEADER / COVER ============ */
+  .cover{
+    position:relative;
+    padding:64px 24px 46px;
+    text-align:center;
+    color:var(--parchment);
+    overflow:hidden;
+  }
+  .cover::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image:
+      repeating-linear-gradient(90deg, rgba(255,255,255,0.02) 0 1px, transparent 1px 90px),
+      repeating-linear-gradient(0deg, rgba(255,255,255,0.02) 0 1px, transparent 1px 90px);
+    pointer-events:none;
+  }
+  .seal{
+    width:92px;height:92px;margin:0 auto 20px;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, var(--brass-light), var(--brass) 60%, #7d611f 100%);
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 8px 24px rgba(0,0,0,0.35), inset 0 0 0 4px rgba(21,34,56,0.35);
+    position:relative;
+    z-index:1;
+  }
+  .seal svg{width:46px;height:46px;fill:var(--navy);}
+  .eyebrow{
+    letter-spacing:0.32em;
+    text-transform:uppercase;
+    font-size:12px;
+    color:var(--brass-light);
+    font-weight:600;
+    margin-bottom:10px;
+    position:relative; z-index:1;
+  }
+  .cover h1{
+    font-family:var(--font-display);
+    font-size:clamp(28px, 5vw, 46px);
+    margin:0 0 8px;
+    font-weight:700;
+    letter-spacing:0.01em;
+    position:relative; z-index:1;
+  }
+  .cover .sub{
+    font-size:15px;
+    color:#c9d2e0;
+    max-width:620px;
+    margin:0 auto;
+    line-height:1.6;
+    position:relative; z-index:1;
+  }
+  .cover .meta{
+    margin-top:22px;
+    display:flex;
+    gap:10px;
+    justify-content:center;
+    flex-wrap:wrap;
+    position:relative; z-index:1;
+  }
+  .meta span{
+    border:1px solid rgba(203,162,75,0.5);
+    color:var(--brass-light);
+    padding:6px 14px;
+    border-radius:30px;
+    font-size:12px;
+    letter-spacing:0.04em;
+  }
+
+  /* ============ CONTROLS ============ */
+  .controls{
+    background:var(--parchment);
+    border-top:1px solid rgba(0,0,0,0.15);
+    padding:22px 20px 18px;
+    position:sticky;
+    top:0;
+    z-index:20;
+    box-shadow:0 6px 18px rgba(0,0,0,0.25);
+  }
+  .controls-inner{
+    max-width:980px;
+    margin:0 auto;
+  }
+  .search-row{
+    display:flex;
+    gap:10px;
+    margin-bottom:14px;
+  }
+  .search-row input{
+    flex:1;
+    padding:12px 16px;
+    border-radius:8px;
+    border:1.5px solid var(--line);
+    background:#fffdf7;
+    font-size:14px;
+    font-family:inherit;
+    color:var(--ink);
+    outline:none;
+    transition:border-color .2s, box-shadow .2s;
+  }
+  .search-row input:focus{
+    border-color:var(--brass);
+    box-shadow:0 0 0 3px rgba(169,129,47,0.15);
+  }
+  .tabs{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .tab{
+    border:1.5px solid var(--line);
+    background:#fffdf7;
+    color:var(--ink-soft);
+    padding:8px 16px 7px;
+    font-size:12.5px;
+    font-weight:600;
+    letter-spacing:0.02em;
+    border-radius:6px 6px 2px 2px;
+    cursor:pointer;
+    font-family:inherit;
+    position:relative;
+    transition:all .18s ease;
+  }
+  .tab:hover{ color:var(--navy); border-color:var(--brass);}
+  .tab.active{
+    background:var(--navy);
+    border-color:var(--navy);
+    color:var(--parchment);
+  }
+  .tab .count{
+    opacity:0.65;
+    font-weight:400;
+    margin-left:4px;
+  }
+
+  /* ============ LIST ============ */
+  .wrap{
+    max-width:980px;
+    margin:0 auto;
+    padding:30px 20px 70px;
+  }
+  .stat-line{
+    color:var(--parchment-2);
+    font-size:13px;
+    margin:0 0 16px;
+    padding-left:2px;
+    letter-spacing:0.02em;
+  }
+  .stat-line b{color:var(--brass-light);}
+
+  .card{
+    background:var(--parchment);
+    border-radius:10px;
+    margin-bottom:14px;
+    box-shadow:0 4px 14px rgba(0,0,0,0.28);
+    overflow:hidden;
+    border:1px solid rgba(0,0,0,0.06);
+    transition:box-shadow .2s ease;
+  }
+  .card:hover{box-shadow:0 8px 22px rgba(0,0,0,0.35);}
+
+  .q-btn{
+    width:100%;
+    text-align:left;
+    background:transparent;
+    border:none;
+    cursor:pointer;
+    padding:18px 20px;
+    display:flex;
+    align-items:flex-start;
+    gap:14px;
+    font-family:inherit;
+    position:relative;
+  }
+  .q-num{
+    flex:0 0 auto;
+    width:34px;height:34px;
+    border-radius:50%;
+    background:var(--navy);
+    color:var(--brass-light);
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:14px;
+    display:flex;align-items:center;justify-content:center;
+    margin-top:2px;
+  }
+  .q-text{flex:1;}
+  .q-en{
+    font-size:15.5px;
+    font-weight:600;
+    color:var(--ink);
+    line-height:1.45;
+  }
+  .q-bn{
+    font-family:var(--font-bn);
+    font-size:14px;
+    color:var(--ink-soft);
+    margin-top:4px;
+    line-height:1.6;
+  }
+  .tag-row{
+    margin-top:8px;
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    align-items:center;
+  }
+  .cat-tag{
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    color:var(--red);
+    background:rgba(124,42,42,0.08);
+    border:1px solid rgba(124,42,42,0.25);
+    padding:2px 9px;
+    border-radius:20px;
+    font-weight:700;
+  }
+  .page-tag{
+    font-size:11px;
+    color:var(--brass);
+    font-weight:700;
+    border:1px solid var(--line);
+    padding:2px 9px;
+    border-radius:20px;
+    font-family:var(--font-display);
+  }
+  .chevron{
+    flex:0 0 auto;
+    width:22px;height:22px;
+    color:var(--brass);
+    transition:transform .28s ease;
+    margin-top:6px;
+  }
+  .card.open .chevron{ transform:rotate(180deg); }
+
+  .answer{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .38s ease;
+    background:#fffaf0;
+    border-top:1px dashed var(--line);
+  }
+  .answer-inner{
+    padding:6px 20px 22px 68px;
+  }
+  .ans-block{ margin-bottom:14px; }
+  .ans-label{
+    font-size:11px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--navy);
+    font-weight:700;
+    margin-bottom:8px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .ans-label::before{
+    content:"";
+    width:16px;height:2px;
+    background:var(--brass);
+    display:inline-block;
+  }
+  .ans-en ul, .ans-bn ul{
+    margin:0;
+    padding-left:20px;
+  }
+  .ans-en li{
+    font-size:14.5px;
+    line-height:1.6;
+    margin-bottom:6px;
+    color:var(--ink);
+  }
+  .ans-bn{
+    font-family:var(--font-bn);
+  }
+  .ans-bn li{
+    font-size:13.5px;
+    line-height:1.75;
+    margin-bottom:6px;
+    color:var(--ink-soft);
+  }
+  .ans-en p, .ans-bn p{
+    font-size:14.5px;
+    line-height:1.65;
+    margin:0 0 8px;
+  }
+  .kw-red{ color:#a5333c; font-weight:700; }
+  .kw-blue{ color:#28577f; font-weight:700; }
+
+  .empty-state{
+    text-align:center;
+    color:var(--parchment-2);
+    padding:60px 20px;
+    font-size:14px;
+  }
+
+  footer{
+    text-align:center;
+    padding:26px 20px 40px;
+    color:#8695ac;
+    font-size:12px;
+    letter-spacing:0.03em;
+  }
+
+  @media (max-width:560px){
+    .cover{padding:44px 16px 34px;}
+    .q-btn{padding:15px 14px;gap:10px;}
+    .answer-inner{padding:6px 14px 18px 58px;}
+    .q-num{width:28px;height:28px;font-size:12px;}
+  }
+
+  ::selection{ background:var(--brass-light); color:var(--navy); }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="seal">
+    <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+  </div>
+  <div class="eyebrow">BECM 3107 · Case File No. 04</div>
+  <h1>Dispute Resolution</h1>
+  <div class="sub">
+    A bilingual question bank distilled from the full lecture — ADR, adjudication, arbitration, FIDIC &amp; the New York Convention.
+    <br><span lang="bn" style="font-family:var(--font-bn)">সম্পূর্ণ লেকচার থেকে তৈরি দ্বিভাষিক প্রশ্নভাণ্ডার — এডিআর, অ্যাডজুডিকেশন, আরবিট্রেশন, ফিডিক ও নিউ ইয়র্ক কনভেনশন।</span>
+  </div>
+  <div class="meta">
+    <span>30 Questions</span>
+    <span>5 Sections</span>
+    <span>Dr. Mizanoor Rahman, P.Eng. · KUET</span>
+  </div>
+</div>
+
+<div class="controls">
+  <div class="controls-inner">
+    <div class="search-row">
+      <input id="searchBox" type="text" placeholder="Search a question, keyword, or page number… / প্রশ্ন বা কিওয়ার্ড খুঁজুন…">
+    </div>
+    <div class="tabs" id="tabRow"></div>
+  </div>
+</div>
+
+<div class="wrap">
+  <p class="stat-line">Showing <b id="visCount">0</b> of <b>30</b> exhibits</p>
+  <div id="cardList"></div>
+  <div class="empty-state" id="emptyState" style="display:none;">No matching questions found. Try another term. / কোনো মিল পাওয়া যায়নি।</div>
+</div>
+
+<footer>BECM 3107 — Dispute Resolution · Compiled study exhibits · © Dr. Mizanoor Rahman, P.Eng. | KUET</footer>
+
+<script>
+const DATA = [
+{
+  cat:"Foundations", page:4,
+  qEn:"What does the term “Dispute” mean, and what does “Resolution” mean in this context?",
+  qBn:"এই প্রসঙ্গে “ডিসপিউট” এবং “রেজোলিউশন” শব্দের অর্থ কী?",
+  aEn:["<span class='kw-red'>Dispute</span> means a disagreement or argument between parties.","<span class='kw-blue'>Resolution</span> means the act of resolving that disagreement."],
+  aBn:["<b>ডিসপিউট (Dispute)</b> অর্থ দুই পক্ষের মধ্যে মতানৈক্য বা তর্ক-বিতর্ক।","<b>রেজোলিউশন (Resolution)</b> অর্থ সেই মতানৈক্য সমাধান করা।"]
+},
+{
+  cat:"Foundations", page:6,
+  qEn:"Why do contractual disputes typically arise in construction projects?",
+  qBn:"নির্মাণ প্রকল্পে সাধারণত চুক্তিগত বিরোধ কেন সৃষ্টি হয়?",
+  aEn:["Contractual disputes tend to arise when <span class='kw-red'>one party alleges</span> that the <span class='kw-blue'>other party has not kept to the bargain</span> — i.e., has not fulfilled its contractual obligations."],
+  aBn:["চুক্তিগত বিরোধ সাধারণত তখন সৃষ্টি হয় যখন <b>এক পক্ষ অভিযোগ করে</b> যে <b>অন্য পক্ষ চুক্তির শর্ত রক্ষা করেনি</b>, অর্থাৎ নিজের দায়বদ্ধতা পালন করেনি।"]
+},
+{
+  cat:"Foundations", page:"7-8",
+  qEn:"What are the main categories describing the nature of construction disputes?",
+  qBn:"নির্মাণ বিরোধের প্রকৃতি বর্ণনাকারী প্রধান শ্রেণিগুলো কী কী?",
+  aEn:["<span class='kw-red'>Enforceable promises</span> — the terms of the contract.","<span class='kw-blue'>Technical matters</span> — e.g. was a building collapse due to foundation failure or wind?","<span class='kw-red'>Legal matters</span> — arising from interpreting/applying the law, inconsistencies between contracts.","<span class='kw-blue'>Entitlement and magnitude</span> — is the party eligible for the claim, and if so, how much?"],
+  aBn:["<b>বলবৎযোগ্য প্রতিশ্রুতি (Enforceable promises)</b> — চুক্তির শর্তাবলি।","<b>কারিগরি বিষয় (Technical matters)</b> — যেমন ভবন ধসে পড়া কি ফাউন্ডেশন ব্যর্থতার কারণে নাকি ঝড়ের কারণে?","<b>আইনি বিষয় (Legal matters)</b> — আইন ব্যাখ্যা ও প্রয়োগ, বিভিন্ন চুক্তির মধ্যে অসামঞ্জস্য থেকে সৃষ্ট।","<b>দাবির অধিকার ও পরিমাণ (Entitlement and magnitude)</b> — দাবি পাওয়ার যোগ্য কিনা, হলে কত পরিমাণ।"]
+},
+{
+  cat:"Foundations", page:9,
+  qEn:"List all the methods of dispute resolution mentioned in the lecture.",
+  qBn:"লেকচারে উল্লেখিত বিরোধ নিষ্পত্তির সব পদ্ধতির তালিকা দাও।",
+  aEn:["Under <span class='kw-red'>ADR (Alternative Dispute Resolution)</span>: Conciliation, Quasi-conciliation, Mediation, Private Enquiry, Mini-trial, Adjudication, Arbitration.","Outside ADR: <span class='kw-blue'>Litigation</span> (i.e., a Court case)."],
+  aBn:["<b>এডিআর (ADR)</b>-এর আওতায়: কনসিলিয়েশন, কোয়াসি-কনসিলিয়েশন, মিডিয়েশন, প্রাইভেট এনকোয়ারি, মিনি-ট্রায়াল, অ্যাডজুডিকেশন, আরবিট্রেশন।","এডিআরের বাইরে: <b>লিটিগেশন</b> (অর্থাৎ আদালতের মামলা)।"]
+},
+{
+  cat:"Foundations", page:10,
+  qEn:"Define Alternative Dispute Resolution (ADR).",
+  qBn:"অল্টারনেটিভ ডিসপিউট রেজোলিউশন (ADR)-এর সংজ্ঞা দাও।",
+  aEn:["ADR (also known as <span class='kw-blue'>External Dispute Resolution</span> in some countries) includes dispute resolution <span class='kw-red'>processes and techniques that fall outside of the governmental judicial process</span>.","ADR varies by country and culture, but shares common elements."],
+  aBn:["<b>এডিআর</b> (কিছু দেশে <b>এক্সটার্নাল ডিসপিউট রেজোলিউশন</b> নামেও পরিচিত) হলো এমন প্রক্রিয়া ও কৌশল যা <b>সরকারি বিচার-ব্যবস্থার বাইরে</b> বিরোধ নিষ্পত্তি করে।","দেশ ও সংস্কৃতিভেদে এডিআর ভিন্ন হলেও এতে কিছু সাধারণ বৈশিষ্ট্য থাকে।"]
+},
+{
+  cat:"Foundations", page:"11-12",
+  qEn:"What are the key advantages of ADR compared to going to court?",
+  qBn:"আদালতে যাওয়ার তুলনায় এডিআরের প্রধান সুবিধাগুলো কী কী?",
+  aEn:["Saves a lot of <span class='kw-red'>time & money</span>.","Puts the <span class='kw-blue'>parties in control</span> instead of lawyers/the court, letting them tell their side and shape the outcome.","Focuses on the <span class='kw-red'>issues important to the people</span>, not just legal rights and obligations.","Helps produce <span class='kw-blue'>flexible and creative</span> outcomes.","<span class='kw-red'>Preserves relationships</span> by encouraging cooperation instead of a winner/loser dynamic.","Produces good results — <span class='kw-blue'>settlement rates up to 85%</span>.","Gives more people <span class='kw-red'>access to justice</span>, since it is affordable even without court/legal fees."],
+  aBn:["অনেক <b>সময় ও অর্থ</b> বাঁচায়।","আইনজীবী বা আদালতের পরিবর্তে <b>পক্ষগুলোকে নিয়ন্ত্রণে রাখে</b>, নিজেদের বক্তব্য বলার ও সিদ্ধান্তে অংশ নেওয়ার সুযোগ দেয়।","শুধু আইনি অধিকার-দায়িত্ব নয়, বরং <b>পক্ষগুলোর কাছে গুরুত্বপূর্ণ বিষয়গুলোর</b> ওপর গুরুত্ব দেয়।","<b>নমনীয় ও সৃজনশীল</b> সমাধান বের করতে সহায়তা করে।","জয়ী-পরাজিত সম্পর্কের বদলে সহযোগিতা তৈরি করে <b>সম্পর্ক রক্ষা</b> করে।","ভালো ফলাফল দেয় — নিষ্পত্তির হার প্রায় <b>৮৫ শতাংশ পর্যন্ত</b>।","আদালত বা আইনি ফি বহন করতে না পারা মানুষদেরও <b>ন্যায়বিচার প্রাপ্তির সুযোগ</b> দেয়।"]
+},
+{
+  cat:"Standard Contracts", page:13,
+  qEn:"Name the standard forms of contract published by the Joint Contract Tribunal (JCT-UK).",
+  qBn:"জয়েন্ট কন্ট্রাক্ট ট্রাইব্যুনাল (JCT-UK) প্রকাশিত স্ট্যান্ডার্ড চুক্তিপত্রগুলোর নাম বলো।",
+  aEn:["<span class='kw-red'>Design and Build Contract (DB)</span>","<span class='kw-blue'>Minor Works Building Contract (MW)</span>","<span class='kw-red'>Short Form of Sub-Contract (ShortSub)</span>","<span class='kw-blue'>Standard Building Contract With Quantities (SBC/Q)</span>"],
+  aBn:["<b>ডিজাইন অ্যান্ড বিল্ড কন্ট্রাক্ট (DB)</b>","<b>মাইনর ওয়ার্কস বিল্ডিং কন্ট্রাক্ট (MW)</b>","<b>শর্ট ফর্ম অব সাব-কন্ট্রাক্ট (ShortSub)</b>","<b>স্ট্যান্ডার্ড বিল্ডিং কন্ট্রাক্ট উইথ কোয়ান্টিটিজ (SBC/Q)</b>"]
+},
+{
+  cat:"Standard Contracts", page:14,
+  qEn:"What is FIDIC, and how many countries does its membership cover?",
+  qBn:"FIDIC কী, এবং এর সদস্যপদ কতটি দেশজুড়ে বিস্তৃত?",
+  aEn:["FIDIC = <span class='kw-red'>International Federation of Consulting Engineers</span> (from its French name, Fédération Internationale Des Ingénieurs-Conseils).","Today, FIDIC membership covers <span class='kw-blue'>97 countries</span> of the world."],
+  aBn:["FIDIC অর্থ <b>ইন্টারন্যাশনাল ফেডারেশন অব কনসাল্টিং ইঞ্জিনিয়ার্স</b> (এর ফরাসি নাম থেকে সংক্ষিপ্ত রূপ)।","বর্তমানে FIDIC-এর সদস্যপদ বিশ্বের <b>৯৭টি দেশ</b>জুড়ে বিস্তৃত।"]
+},
+{
+  cat:"Standard Contracts", page:"15-19",
+  qEn:"What is the FIDIC “Rainbow Suite,” and what are its four main books?",
+  qBn:"FIDIC-এর “রেইনবো স্যুট” কী, এবং এর চারটি প্রধান বই কী কী?",
+  aEn:["In <span class='kw-red'>1999</span>, FIDIC published a completely new suite of contracts called the “Rainbow Suite.”","<span class='kw-blue'>Red Book</span> — Conditions of Contract for Construction (works designed by the Employer).","<span class='kw-blue'>Yellow Book</span> — Conditions of Contract for Plant and Design-Build.","<span class='kw-blue'>Silver Book</span> — Conditions of Contract for EPC / Turnkey Projects.","<span class='kw-blue'>Green Book</span> — Short Form of Contract."],
+  aBn:["<b>১৯৯৯ সালে</b> FIDIC “রেইনবো স্যুট” নামে একটি সম্পূর্ণ নতুন চুক্তির সিরিজ প্রকাশ করে।","<b>রেড বুক</b> — নির্মাণ কাজের জন্য চুক্তির শর্তাবলি (এমপ্লয়ার কর্তৃক ডিজাইন করা কাজ)।","<b>ইয়েলো বুক</b> — প্ল্যান্ট ও ডিজাইন-বিল্ডের জন্য চুক্তির শর্তাবলি।","<b>সিলভার বুক</b> — EPC / টার্নকি প্রকল্পের জন্য চুক্তির শর্তাবলি।","<b>গ্রিন বুক</b> — চুক্তির সংক্ষিপ্ত রূপ (Short Form of Contract)।"]
+},
+{
+  cat:"Adjudication", page:20,
+  qEn:"What is adjudication, and what kind of disputes is it primarily used for?",
+  qBn:"অ্যাডজুডিকেশন কী, এবং এটি মূলত কোন ধরনের বিরোধের জন্য ব্যবহৃত হয়?",
+  aEn:["Adjudication is a procedure <span class='kw-red'>mandated by legislation</span> for speeding up <span class='kw-blue'>payment disputes</span>.","The <span class='kw-red'>Adjudicator</span> is an independent, mutually agreed third party.","The Adjudicator makes <span class='kw-blue'>binding decisions</span> on construction contract disputes."],
+  aBn:["অ্যাডজুডিকেশন হলো <b>আইন দ্বারা বাধ্যতামূলক</b> একটি প্রক্রিয়া, যা <b>পেমেন্ট সংক্রান্ত বিরোধ</b> দ্রুত নিষ্পত্তির জন্য ব্যবহৃত হয়।","<b>অ্যাডজুডিকেটর</b> হলেন একজন স্বাধীন, উভয় পক্ষের সম্মতিতে নির্বাচিত তৃতীয় পক্ষ।","অ্যাডজুডিকেটর নির্মাণ চুক্তি বিরোধে <b>বাধ্যতামূলক সিদ্ধান্ত</b> প্রদান করেন।"]
+},
+{
+  cat:"Adjudication", page:21,
+  qEn:"What are the key characteristics of the adjudication process?",
+  qBn:"অ্যাডজুডিকেশন প্রক্রিয়ার প্রধান বৈশিষ্ট্যগুলো কী কী?",
+  aEn:["It is <span class='kw-red'>quick and inexpensive</span>.","It domestically applies to <span class='kw-blue'>construction contracts and supply contracts</span>."],
+  aBn:["এটি <b>দ্রুত ও সাশ্রয়ী</b>।","এটি অভ্যন্তরীণভাবে <b>নির্মাণ চুক্তি ও সরবরাহ চুক্তির</b> ক্ষেত্রে প্রযোজ্য।"]
+},
+{
+  cat:"Adjudication", page:22,
+  qEn:"What is the role of the adjudicator in a dispute?",
+  qBn:"বিরোধ নিষ্পত্তিতে অ্যাডজুডিকেটরের ভূমিকা কী?",
+  aEn:["To <span class='kw-red'>act impartially</span>.","To follow the <span class='kw-blue'>rules of natural justice</span>.","To <span class='kw-red'>apply the governing law</span>.","To exercise <span class='kw-blue'>extensive powers and discretion</span>.","To hold <span class='kw-red'>immunity</span> for actions, except for an act or omission in bad faith."],
+  aBn:["<b>নিরপেক্ষভাবে কাজ করা</b>।","<b>ন্যাচারাল জাস্টিসের নিয়ম</b> অনুসরণ করা।","<b>প্রযোজ্য আইন প্রয়োগ</b> করা।","ব্যাপক <b>ক্ষমতা ও বিবেচনার অধিকার</b> প্রয়োগ করা।","খারাপ বিশ্বাসে (bad faith) কাজ ব্যতীত অন্য কাজের জন্য <b>দায়মুক্তি (immunity)</b> ভোগ করা।"]
+},
+{
+  cat:"Adjudication", page:23,
+  qEn:"Trace at least five milestones in the history of construction adjudication.",
+  qBn:"নির্মাণ অ্যাডজুডিকেশনের ইতিহাসে অন্তত পাঁচটি গুরুত্বপূর্ণ ঘটনার উল্লেখ করো।",
+  aEn:["<span class='kw-red'>1975</span> — USA Colorado State Eisenhower Tunnel DRB (Dispute Review Board).","<span class='kw-blue'>1980</span> — World Bank Honduras El Canyon Hydroelectric power plant DRB.","<span class='kw-red'>1982</span> — FIDIC adopted DRB for Red Book 4th Edition as an option.","<span class='kw-blue'>1995</span> — World Bank adopted DRB for Standard Bidding Documents (SBDs).","<span class='kw-red'>1999</span> — FIDIC adopted DRB for the 1999 Red Book Rainbow Edition.","<span class='kw-blue'>2005</span> — World Bank and MDBs obtained copyright agreement from FIDIC for the Pink Book “Harmonised Edition.”","<span class='kw-red'>2009</span> — JICA adopted the FIDIC Harmonised Edition as standard bid documents for ODA projects, spreading DABs in Asia."],
+  aBn:["<b>১৯৭৫</b> — USA কলোরাডো স্টেট আইজেনহাওয়ার টানেল DRB (ডিসপিউট রিভিউ বোর্ড)।","<b>১৯৮০</b> — বিশ্বব্যাংক, হন্ডুরাস এল ক্যানিয়ন জলবিদ্যুৎ কেন্দ্র DRB।","<b>১৯৮২</b> — FIDIC রেড বুক চতুর্থ সংস্করণে ঐচ্ছিক হিসেবে DRB গ্রহণ।","<b>১৯৯৫</b> — বিশ্বব্যাংক স্ট্যান্ডার্ড বিডিং ডকুমেন্টসের (SBDs) জন্য DRB গ্রহণ করে।","<b>১৯৯৯</b> — FIDIC ১৯৯৯ রেড বুক রেইনবো সংস্করণে DRB গ্রহণ করে।","<b>২০০৫</b> — বিশ্বব্যাংক ও MDB-গুলো FIDIC থেকে “পিংক বুক হারমোনাইজড এডিশন”-এর কপিরাইট চুক্তি লাভ করে।","<b>২০০৯</b> — JICA ODA প্রকল্পের জন্য FIDIC হারমোনাইজড সংস্করণ গ্রহণ করে, এশিয়ায় DAB-এর প্রসার ঘটে।"]
+},
+{
+  cat:"Adjudication", page:24,
+  qEn:"Which legislation governs adjudication in the UK, Australia (NSW & Victoria), New Zealand, and Singapore?",
+  qBn:"যুক্তরাজ্য, অস্ট্রেলিয়া (NSW ও ভিক্টোরিয়া), নিউজিল্যান্ড এবং সিঙ্গাপুরে অ্যাডজুডিকেশন কোন আইন দ্বারা নিয়ন্ত্রিত হয়?",
+  aEn:["<span class='kw-red'>UK</span> — Housing Grants, Construction and Regeneration Act 1996.","<span class='kw-blue'>Australia NSW</span> — Building and Construction Industry Security of Payment Act 1999.","<span class='kw-red'>Australia Victoria</span> — Building and Construction Industry Security of Payment Act 2002.","<span class='kw-blue'>New Zealand</span> — Construction Contracts Act 2002.","<span class='kw-red'>Singapore</span> — Building and Construction Industry Security of Payment Act 2004.","(International contracts: governed contractually by <span class='kw-blue'>all FIDIC Rainbow Forms</span>, sometimes mandated by the lender.)"],
+  aBn:["<b>যুক্তরাজ্য</b> — Housing Grants, Construction and Regeneration Act 1996।","<b>অস্ট্রেলিয়া NSW</b> — Building and Construction Industry Security of Payment Act 1999।","<b>অস্ট্রেলিয়া ভিক্টোরিয়া</b> — একই আইনের ২০০২ সংস্করণ।","<b>নিউজিল্যান্ড</b> — Construction Contracts Act 2002।","<b>সিঙ্গাপুর</b> — Building and Construction Industry Security of Payment Act 2004।","(আন্তর্জাতিক ক্ষেত্রে সব <b>FIDIC রেইনবো ফর্ম</b> চুক্তির মাধ্যমে এটি নির্ধারণ করে, কখনো ঋণদাতা কর্তৃক বাধ্যতামূলক করা হয়।)"]
+},
+{
+  cat:"Adjudication", page:25,
+  qEn:"What advantages does adjudication offer over litigation?",
+  qBn:"লিটিগেশনের তুলনায় অ্যাডজুডিকেশনের সুবিধাগুলো কী কী?",
+  aEn:["Litigation is <span class='kw-red'>time-consuming and expensive</span> — adjudication avoids this.","Litigation <span class='kw-blue'>creates conflict</span> between parties.","Litigation <span class='kw-red'>uses up resources</span>.","Litigation <span class='kw-blue'>damages business relationships</span>.","Litigation procedures are <span class='kw-red'>complicated</span>, especially interlocutory matters (not directly related to resolving the dispute).","Litigation offers <span class='kw-blue'>little opportunity for early settlement</span>."],
+  aBn:["লিটিগেশন <b>সময়সাপেক্ষ ও ব্যয়বহুল</b> — অ্যাডজুডিকেশন এটি এড়ায়।","লিটিগেশন পক্ষগুলোর মধ্যে <b>দ্বন্দ্ব তৈরি করে</b>।","লিটিগেশন প্রচুর <b>সম্পদ ব্যয় করে</b>।","লিটিগেশন <b>ব্যবসায়িক সম্পর্কের ক্ষতি করে</b>।","লিটিগেশন প্রক্রিয়া <b>জটিল</b>, বিশেষত ইন্টারলোকেটরি বিষয়গুলো (যা সরাসরি বিরোধ নিষ্পত্তির সঙ্গে সম্পর্কিত নয়)।","লিটিগেশনে <b>প্রাথমিক পর্যায়ে নিষ্পত্তির সুযোগ কম</b>।"]
+},
+{
+  cat:"Arbitration", page:27,
+  qEn:"What is arbitration, and on what is it based?",
+  qBn:"আরবিট্রেশন কী, এবং এটি কীসের ওপর ভিত্তি করে গঠিত হয়?",
+  aEn:["Arbitration is an <span class='kw-red'>alternative to litigation</span> as a means of resolving disputes (a form of ADR).","It is based on the <span class='kw-blue'>agreement in the contract</span>.","The <span class='kw-red'>award (decision)</span> of an arbitrator is final and binding in most cases.","It may also be governed by <span class='kw-blue'>institutional rules</span> (e.g., SIAC, HKIAC, KIAC, JCAA) agreed by the parties, or as recommended by the arbitrator."],
+  aBn:["আরবিট্রেশন হলো বিরোধ নিষ্পত্তির জন্য <b>লিটিগেশনের বিকল্প</b> (একটি এডিআর পদ্ধতি)।","এটি <b>চুক্তির মধ্যে থাকা সম্মতির</b> ওপর ভিত্তি করে হয়।","আরবিট্রেটরের <b>রায় (award)</b> অধিকাংশ ক্ষেত্রে চূড়ান্ত ও বাধ্যতামূলক।","এটি পক্ষগুলোর সম্মত <b>প্রাতিষ্ঠানিক নিয়ম</b> (যেমন SIAC, HKIAC, KIAC, JCAA) দ্বারাও পরিচালিত হতে পারে, বা আরবিট্রেটরের সুপারিশক্রমে।"]
+},
+{
+  cat:"Arbitration", page:27,
+  qEn:"Expand the acronyms HKIAC, KIAC, JCAA, and SIAC.",
+  qBn:"HKIAC, KIAC, JCAA এবং SIAC সংক্ষিপ্ত রূপগুলোর পূর্ণ নাম কী?",
+  aEn:["<span class='kw-red'>HKIAC</span> — Hong Kong International Arbitration Centre.","<span class='kw-blue'>KIAC</span> — Kigali International Arbitration Centre.","<span class='kw-red'>JCAA</span> — Japan Commercial Arbitration Association.","<span class='kw-blue'>SIAC</span> — Singapore International Arbitration Centre."],
+  aBn:["<b>HKIAC</b> — হংকং ইন্টারন্যাশনাল আরবিট্রেশন সেন্টার।","<b>KIAC</b> — কিগালি ইন্টারন্যাশনাল আরবিট্রেশন সেন্টার।","<b>JCAA</b> — জাপান কমার্শিয়াল আরবিট্রেশন অ্যাসোসিয়েশন।","<b>SIAC</b> — সিঙ্গাপুর ইন্টারন্যাশনাল আরবিট্রেশন সেন্টার।"]
+},
+{
+  cat:"Arbitration", page:28,
+  qEn:"What is BIAC, and what core values does it promote?",
+  qBn:"BIAC কী এবং এটি কোন মূল বৈশিষ্ট্যগুলো তুলে ধরে?",
+  aEn:["<span class='kw-red'>BIAC</span> is the Bangladesh International Arbitration Centre (biac.org.bd).","It positions itself as “the institution for Alternative Dispute Resolution,” promoting <span class='kw-blue'>expeditious justice, cost-effectiveness, confidentiality, and neutrality</span>."],
+  aBn:["<b>BIAC</b> হলো বাংলাদেশ ইন্টারন্যাশনাল আরবিট্রেশন সেন্টার (biac.org.bd)।","এটি নিজেকে “এডিআরের প্রতিষ্ঠান” হিসেবে উপস্থাপন করে, যা <b>দ্রুত ন্যায়বিচার, সাশ্রয়ী খরচ, গোপনীয়তা ও নিরপেক্ষতা</b>কে গুরুত্ব দেয়।"]
+},
+{
+  cat:"Arbitration", page:29,
+  qEn:"Who can serve as an arbitrator, and what qualifications are typical?",
+  qBn:"কারা আরবিট্রেটর হতে পারেন এবং সাধারণত তাদের কী যোগ্যতা থাকে?",
+  aEn:["An arbitrator is an <span class='kw-red'>independent, impartial third party</span>.","Arbitrators can be <span class='kw-blue'>anyone chosen by the parties</span>.","Normally arbitrators are <span class='kw-red'>specialist technical experts</span> in the subject of the dispute, typically professionally qualified with an industry background."],
+  aBn:["আরবিট্রেটর হলেন একজন <b>স্বাধীন, নিরপেক্ষ তৃতীয় পক্ষ</b>।","আরবিট্রেটর <b>পক্ষগুলোর দ্বারা নির্বাচিত যেকেউ</b> হতে পারেন।","সাধারণত আরবিট্রেটররা বিরোধের বিষয়ে <b>বিশেষজ্ঞ কারিগরি ব্যক্তি</b>, যাদের সাধারণত পেশাগত যোগ্যতা ও শিল্প-অভিজ্ঞতা থাকে।"]
+},
+{
+  cat:"Arbitration", page:30,
+  qEn:"In a dispute over variations and delay damages between an Employer and Contractor, what kind of sole arbitrator or three-member panel might be appointed?",
+  qBn:"এমপ্লয়ার ও কন্ট্রাক্টরের মধ্যে ভ্যারিয়েশন ও বিলম্ব ক্ষতিপূরণ নিয়ে বিরোধে কী ধরনের একক আরবিট্রেটর বা তিন-সদস্যের প্যানেল নিয়োগ করা যেতে পারে?",
+  aEn:["A <span class='kw-red'>sole arbitrator</span> in such a case might be a qualified <span class='kw-blue'>quantity surveyor</span>.","If there are <span class='kw-red'>three arbitrators</span>, two might be <span class='kw-blue'>engineers</span> and one a <span class='kw-blue'>lawyer</span>."],
+  aBn:["এমন ক্ষেত্রে একজন <b>একক আরবিট্রেটর</b> হতে পারেন একজন যোগ্য <b>কোয়ান্টিটি সার্ভেয়ার</b>।","যদি <b>তিনজন আরবিট্রেটর</b> থাকেন, তবে দুজন <b>ইঞ্জিনিয়ার</b> এবং একজন <b>আইনজীবী</b> হতে পারেন।"]
+},
+{
+  cat:"Arbitration", page:31,
+  qEn:"Describe the arbitrator's process leading up to an award, and its legal effect.",
+  qBn:"রায় প্রদানের আগে আরবিট্রেটরের প্রক্রিয়া এবং এর আইনি প্রভাব বর্ণনা করো।",
+  aEn:["The arbitrator will <span class='kw-red'>study the evidence</span>, may <span class='kw-blue'>visit the site</span>, and hear the parties.","Then they decide the issues in dispute and <span class='kw-red'>publish an award</span>.","The award is <span class='kw-blue'>binding upon the parties</span>.","The award may be <span class='kw-red'>enforced in the same way as a judgment of a court</span>."],
+  aBn:["আরবিট্রেটর <b>প্রমাণ পর্যালোচনা করেন</b>, প্রয়োজনে <b>সাইট পরিদর্শন করেন</b>, এবং পক্ষগুলোর বক্তব্য শোনেন।","তারপর বিরোধীয় বিষয়ে সিদ্ধান্ত নিয়ে <b>একটি রায় (award) প্রকাশ করেন</b>।","এই রায় পক্ষগুলোর জন্য <b>বাধ্যতামূলক</b>।","রায়টি <b>আদালতের রায়ের মতোই কার্যকর করা যায়</b>।"]
+},
+{
+  cat:"Arbitration", page:"32-35",
+  qEn:"What are the main features of arbitration as an ADR process?",
+  qBn:"একটি এডিআর প্রক্রিয়া হিসেবে আরবিট্রেশনের প্রধান বৈশিষ্ট্যগুলো কী কী?",
+  aEn:["A <span class='kw-red'>fair resolution</span> of disputes by an independent third party.","A <span class='kw-blue'>consensual process</span> — only proceeds with agreement between the parties.","<span class='kw-red'>Private and confidential</span>.","Potentially <span class='kw-blue'>cheaper and quicker</span> than litigation (“maybe!”).","<span class='kw-red'>Flexible</span> for disputes involving heavy documentary/physical evidence, law, and fact.","<span class='kw-blue'>Autonomy of parties</span> — freedom to choose the arbitrator, rules, governing law, procedures, and evidence.","Award is <span class='kw-red'>enforceable by courts</span>, domestically and internationally (via the NY Convention).","If there is an arbitration agreement, <span class='kw-blue'>courts will require arbitration</span>.","<span class='kw-red'>Limited right of appeal</span>, both domestically and internationally."],
+  aBn:["একজন স্বাধীন তৃতীয় পক্ষ দ্বারা <b>ন্যায্য নিষ্পত্তি</b>।","<b>সম্মতিমূলক প্রক্রিয়া</b> — কেবল পক্ষগুলোর সম্মতিতেই এগোয়।","<b>গোপনীয় ও ব্যক্তিগত</b>।","লিটিগেশনের তুলনায় সম্ভবত <b>সাশ্রয়ী ও দ্রুততর</b> (“হয়তো!”)।","প্রচুর ডকুমেন্টারি/ভৌত প্রমাণ, আইন ও তথ্য সংশ্লিষ্ট বিরোধে <b>নমনীয়তা</b>।","<b>পক্ষগুলোর স্বায়ত্তশাসন</b> — আরবিট্রেটর, নিয়ম, প্রযোজ্য আইন, পদ্ধতি ও প্রমাণ বেছে নেওয়ার স্বাধীনতা।","রায় দেশীয় ও আন্তর্জাতিকভাবে (NY কনভেনশনের মাধ্যমে) <b>আদালতে কার্যকরযোগ্য</b>।","আরবিট্রেশন চুক্তি থাকলে <b>আদালত আরবিট্রেশনের প্রতি নির্দেশ দেবে</b>।","দেশীয় ও আন্তর্জাতিকভাবে <b>আপিলের সীমিত সুযোগ</b>।"]
+},
+{
+  cat:"Arbitration", page:34,
+  qEn:"What does “Autonomy of Parties” mean in the context of arbitration?",
+  qBn:"আরবিট্রেশনের প্রসঙ্গে “পক্ষগুলোর স্বায়ত্তশাসন (Autonomy of Parties)” বলতে কী বোঝায়?",
+  aEn:["It means the parties' freedom to choose the <span class='kw-red'>arbitrator</span>, the <span class='kw-blue'>rules and governing law</span>, the <span class='kw-red'>procedures</span>, and the <span class='kw-blue'>evidence</span> used in the process."],
+  aBn:["এর অর্থ হলো পক্ষগুলোর <b>আরবিট্রেটর</b>, <b>নিয়ম ও প্রযোজ্য আইন</b>, <b>পদ্ধতি</b> এবং প্রক্রিয়ায় ব্যবহৃত <b>প্রমাণ</b> বেছে নেওয়ার স্বাধীনতা।"]
+},
+{
+  cat:"Conventions & Clauses", page:"36-37",
+  qEn:"What is the New York Convention (1958), and why is it significant for arbitration?",
+  qBn:"নিউ ইয়র্ক কনভেনশন (১৯৫৮) কী এবং আরবিট্রেশনের জন্য এটি কেন গুরুত্বপূর্ণ?",
+  aEn:["It is the <span class='kw-red'>1958 UN Convention on the Recognition and Enforcement of Foreign Arbitral Awards</span> (the “NY Convention”).","It makes <span class='kw-blue'>international arbitration awards legally valid and enforceable</span> across member countries.","This has given arbitration for international commercial disputes <span class='kw-red'>almost global enforceability</span>, making it a major attraction of arbitration today."],
+  aBn:["এটি হলো <b>বৈদেশিক আরবিট্রাল রায়ের স্বীকৃতি ও প্রয়োগ সংক্রান্ত ১৯৫৮ সালের জাতিসংঘ কনভেনশন</b> (“NY কনভেনশন”)।","এটি সদস্য দেশগুলোর মধ্যে <b>আন্তর্জাতিক আরবিট্রেশন রায়কে আইনগতভাবে বৈধ ও কার্যকরযোগ্য</b> করে তোলে।","এর ফলে আন্তর্জাতিক বাণিজ্যিক বিরোধে আরবিট্রেশন প্রায় <b>বৈশ্বিকভাবে প্রয়োগযোগ্য</b> হয়ে উঠেছে, যা বর্তমানে আরবিট্রেশনের প্রধান আকর্ষণ।"]
+},
+{
+  cat:"Conventions & Clauses", page:38,
+  qEn:"Which FIDIC clause governs dispute resolution in the Rainbow Forms?",
+  qBn:"FIDIC রেইনবো ফর্মে কোন ক্লজ বিরোধ নিষ্পত্তি নিয়ন্ত্রণ করে?",
+  aEn:["<span class='kw-red'>FIDIC Clause 20</span> governs dispute resolution across the FIDIC Rainbow Forms (Conditions of Contract for Construction)."],
+  aBn:["<b>FIDIC ক্লজ ২০</b> FIDIC রেইনবো ফর্মে (নির্মাণ চুক্তির শর্তাবলি) বিরোধ নিষ্পত্তি নিয়ন্ত্রণ করে।"]
+},
+{
+  cat:"Conventions & Clauses", page:39,
+  qEn:"In the PW3 (PWD) form of contract, what does Clause 92 — Settlement of Disputes — cover?",
+  qBn:"PW3 (PWD) চুক্তির ক্লজ ৯২ — বিরোধ নিষ্পত্তি — কী কী বিষয় নিয়ে গঠিত?",
+  aEn:["<span class='kw-red'>Clause 92.1</span> — Amicable settlement.","<span class='kw-blue'>Clause 92.2</span> — Adjudication.","<span class='kw-red'>Clause 92.3</span> — Arbitration."],
+  aBn:["<b>ক্লজ ৯২.১</b> — সৌহার্দ্যপূর্ণ নিষ্পত্তি (Amicable settlement)।","<b>ক্লজ ৯২.২</b> — অ্যাডজুডিকেশন।","<b>ক্লজ ৯২.৩</b> — আরবিট্রেশন।"]
+},
+{
+  cat:"Comparative", page:"20-31",
+  qEn:"Compare adjudication and arbitration — how do they differ in speed, formality, and typical use?",
+  qBn:"অ্যাডজুডিকেশন ও আরবিট্রেশনের তুলনা করো — গতি, আনুষ্ঠানিকতা ও ব্যবহারে এগুলো কীভাবে আলাদা?",
+  aEn:["<span class='kw-red'>Adjudication</span>: legislation-driven, quick and inexpensive, mainly for payment disputes, applies to construction and supply contracts, and decisions are typically binding for the project's duration.","<span class='kw-blue'>Arbitration</span>: contract/agreement-driven, more formal, uses institutional rules where needed (SIAC, HKIAC, KIAC, JCAA), produces a final and binding award enforceable like a court judgment, and benefits from international enforceability via the NY Convention.","Both are forms of <span class='kw-red'>ADR</span> and sit alongside conciliation, mediation, and mini-trial as alternatives to litigation."],
+  aBn:["<b>অ্যাডজুডিকেশন</b>: আইন দ্বারা পরিচালিত, দ্রুত ও সাশ্রয়ী, মূলত পেমেন্ট বিরোধের জন্য, নির্মাণ ও সরবরাহ চুক্তিতে প্রযোজ্য, এবং সিদ্ধান্ত সাধারণত প্রকল্প চলাকালীন বাধ্যতামূলক থাকে।","<b>আরবিট্রেশন</b>: চুক্তি/সম্মতি দ্বারা পরিচালিত, অধিক আনুষ্ঠানিক, প্রয়োজনে প্রাতিষ্ঠানিক নিয়ম (SIAC, HKIAC, KIAC, JCAA) ব্যবহার করে, চূড়ান্ত ও বাধ্যতামূলক রায় দেয় যা আদালতের রায়ের মতো কার্যকর, এবং NY কনভেনশনের মাধ্যমে আন্তর্জাতিকভাবে প্রয়োগযোগ্য।","উভয়ই <b>এডিআর</b>-এর অংশ এবং কনসিলিয়েশন, মিডিয়েশন ও মিনি-ট্রায়ালের পাশাপাশি লিটিগেশনের বিকল্প হিসেবে কাজ করে।"]
+}
+];
+
+// ---------- render ----------
+const cardList = document.getElementById('cardList');
+const tabRow = document.getElementById('tabRow');
+const searchBox = document.getElementById('searchBox');
+const visCount = document.getElementById('visCount');
+const emptyState = document.getElementById('emptyState');
+
+const categories = ["All", ...Array.from(new Set(DATA.map(d=>d.cat)))];
+let activeCat = "All";
+let query = "";
+
+function catCount(cat){
+  return cat === "All" ? DATA.length : DATA.filter(d=>d.cat===cat).length;
+}
+
+function renderTabs(){
+  tabRow.innerHTML = "";
+  categories.forEach(cat=>{
+    const btn = document.createElement('button');
+    btn.className = 'tab' + (cat===activeCat ? ' active' : '');
+    btn.innerHTML = cat + ` <span class="count">${catCount(cat)}</span>`;
+    btn.onclick = ()=>{ activeCat = cat; renderTabs(); renderCards(); };
+    tabRow.appendChild(btn);
+  });
+}
+
+function matchesQuery(item, q){
+  if(!q) return true;
+  const hay = (item.qEn + " " + item.qBn + " " + item.cat + " " + item.page).toLowerCase();
+  return hay.includes(q.toLowerCase());
+}
+
+function renderCards(){
+  const filtered = DATA.filter(d => (activeCat==="All" || d.cat===activeCat) && matchesQuery(d, query));
+  cardList.innerHTML = "";
+  visCount.textContent = filtered.length;
+  emptyState.style.display = filtered.length ? 'none' : 'block';
+
+  filtered.forEach((item, idx)=>{
+    const originalIndex = DATA.indexOf(item) + 1;
+    const card = document.createElement('div');
+    card.className = 'card';
+
+    const enList = item.aEn.map(li=>`<li>${li}</li>`).join('');
+    const bnList = item.aBn.map(li=>`<li>${li}</li>`).join('');
+
+    card.innerHTML = `
+      <button class="q-btn">
+        <div class="q-num">${originalIndex}</div>
+        <div class="q-text">
+          <div class="q-en">${item.qEn}</div>
+          <div class="q-bn" lang="bn">${item.qBn}</div>
+          <div class="tag-row">
+            <span class="cat-tag">${item.cat}</span>
+            <span class="page-tag">Page ${item.page}</span>
+          </div>
+        </div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </button>
+      <div class="answer">
+        <div class="answer-inner">
+          <div class="ans-block">
+            <div class="ans-label">Answer</div>
+            <div class="ans-en"><ul>${enList}</ul></div>
+          </div>
+          <div class="ans-block">
+            <div class="ans-label" lang="bn">উত্তর</div>
+            <div class="ans-bn" lang="bn"><ul>${bnList}</ul></div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    const qBtn = card.querySelector('.q-btn');
+    const answer = card.querySelector('.answer');
+    qBtn.addEventListener('click', ()=>{
+      const isOpen = card.classList.contains('open');
+      if(isOpen){
+        card.classList.remove('open');
+        answer.style.maxHeight = null;
+      } else {
+        card.classList.add('open');
+        answer.style.maxHeight = answer.scrollHeight + "px";
+      }
+    });
+
+    cardList.appendChild(card);
+  });
+}
+
+searchBox.addEventListener('input', (e)=>{
+  query = e.target.value;
+  renderCards();
+});
+
+renderTabs();
+renderCards();
+</script>
+</body>
+</html>

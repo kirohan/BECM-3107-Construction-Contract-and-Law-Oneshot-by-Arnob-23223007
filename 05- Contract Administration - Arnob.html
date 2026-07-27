@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BECM 3107 — Contract Administration | Case File</title>
+<style>
+  :root{
+    --navy:#152238;
+    --navy-2:#1e3350;
+    --parchment:#F2EAD8;
+    --parchment-2:#E9DEC4;
+    --brass:#A9812F;
+    --brass-light:#CBA24B;
+    --red:#7C2A2A;
+    --ink:#26241E;
+    --ink-soft:#514A3D;
+    --line:#c9bb95;
+    --shadow: rgba(21,34,56,0.18);
+    --font-display: Georgia, 'Times New Roman', 'Noto Serif Bengali', serif;
+    --font-body: 'Segoe UI', -apple-system, 'Noto Sans Bengali', 'Vrinda', 'Shonar Bangla', sans-serif;
+    --font-bn: 'Noto Sans Bengali', 'Vrinda', 'Shonar Bangla', 'Segoe UI', sans-serif;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(1200px 600px at 10% -10%, #24314a 0%, transparent 60%),
+      var(--navy);
+    font-family:var(--font-body);
+    color:var(--ink);
+    min-height:100vh;
+  }
+
+  /* ============ HEADER / COVER ============ */
+  .cover{
+    position:relative;
+    padding:64px 24px 46px;
+    text-align:center;
+    color:var(--parchment);
+    overflow:hidden;
+  }
+  .cover::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image:
+      repeating-linear-gradient(90deg, rgba(255,255,255,0.02) 0 1px, transparent 1px 90px),
+      repeating-linear-gradient(0deg, rgba(255,255,255,0.02) 0 1px, transparent 1px 90px);
+    pointer-events:none;
+  }
+  .seal{
+    width:92px;height:92px;margin:0 auto 20px;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, var(--brass-light), var(--brass) 60%, #7d611f 100%);
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 8px 24px rgba(0,0,0,0.35), inset 0 0 0 4px rgba(21,34,56,0.35);
+    position:relative;
+    z-index:1;
+  }
+  .seal svg{width:46px;height:46px;fill:var(--navy);}
+  .eyebrow{
+    letter-spacing:0.32em;
+    text-transform:uppercase;
+    font-size:12px;
+    color:var(--brass-light);
+    font-weight:600;
+    margin-bottom:10px;
+    position:relative; z-index:1;
+  }
+  .cover h1{
+    font-family:var(--font-display);
+    font-size:clamp(28px, 5vw, 46px);
+    margin:0 0 8px;
+    font-weight:700;
+    letter-spacing:0.01em;
+    position:relative; z-index:1;
+  }
+  .cover .sub{
+    font-size:15px;
+    color:#c9d2e0;
+    max-width:640px;
+    margin:0 auto;
+    line-height:1.6;
+    position:relative; z-index:1;
+  }
+  .cover .meta{
+    margin-top:22px;
+    display:flex;
+    gap:10px;
+    justify-content:center;
+    flex-wrap:wrap;
+    position:relative; z-index:1;
+  }
+  .meta span{
+    border:1px solid rgba(203,162,75,0.5);
+    color:var(--brass-light);
+    padding:6px 14px;
+    border-radius:30px;
+    font-size:12px;
+    letter-spacing:0.04em;
+  }
+
+  /* ============ CONTROLS ============ */
+  .controls{
+    background:var(--parchment);
+    border-top:1px solid rgba(0,0,0,0.15);
+    padding:22px 20px 18px;
+    position:sticky;
+    top:0;
+    z-index:20;
+    box-shadow:0 6px 18px rgba(0,0,0,0.25);
+  }
+  .controls-inner{
+    max-width:980px;
+    margin:0 auto;
+  }
+  .search-row{
+    display:flex;
+    gap:10px;
+    margin-bottom:14px;
+  }
+  .search-row input{
+    flex:1;
+    padding:12px 16px;
+    border-radius:8px;
+    border:1.5px solid var(--line);
+    background:#fffdf7;
+    font-size:14px;
+    font-family:inherit;
+    color:var(--ink);
+    outline:none;
+    transition:border-color .2s, box-shadow .2s;
+  }
+  .search-row input:focus{
+    border-color:var(--brass);
+    box-shadow:0 0 0 3px rgba(169,129,47,0.15);
+  }
+  .tabs{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .tab{
+    border:1.5px solid var(--line);
+    background:#fffdf7;
+    color:var(--ink-soft);
+    padding:8px 16px 7px;
+    font-size:12.5px;
+    font-weight:600;
+    letter-spacing:0.02em;
+    border-radius:6px 6px 2px 2px;
+    cursor:pointer;
+    font-family:inherit;
+    position:relative;
+    transition:all .18s ease;
+  }
+  .tab:hover{ color:var(--navy); border-color:var(--brass);}
+  .tab.active{
+    background:var(--navy);
+    border-color:var(--navy);
+    color:var(--parchment);
+  }
+  .tab .count{
+    opacity:0.65;
+    font-weight:400;
+    margin-left:4px;
+  }
+
+  /* ============ LIST ============ */
+  .wrap{
+    max-width:980px;
+    margin:0 auto;
+    padding:30px 20px 70px;
+  }
+  .stat-line{
+    color:var(--parchment-2);
+    font-size:13px;
+    margin:0 0 16px;
+    padding-left:2px;
+    letter-spacing:0.02em;
+  }
+  .stat-line b{color:var(--brass-light);}
+
+  .card{
+    background:var(--parchment);
+    border-radius:10px;
+    margin-bottom:14px;
+    box-shadow:0 4px 14px rgba(0,0,0,0.28);
+    overflow:hidden;
+    border:1px solid rgba(0,0,0,0.06);
+    transition:box-shadow .2s ease;
+  }
+  .card:hover{box-shadow:0 8px 22px rgba(0,0,0,0.35);}
+
+  .q-btn{
+    width:100%;
+    text-align:left;
+    background:transparent;
+    border:none;
+    cursor:pointer;
+    padding:18px 20px;
+    display:flex;
+    align-items:flex-start;
+    gap:14px;
+    font-family:inherit;
+    position:relative;
+  }
+  .q-num{
+    flex:0 0 auto;
+    width:34px;height:34px;
+    border-radius:50%;
+    background:var(--navy);
+    color:var(--brass-light);
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:14px;
+    display:flex;align-items:center;justify-content:center;
+    margin-top:2px;
+  }
+  .q-text{flex:1;}
+  .q-en{
+    font-size:15.5px;
+    font-weight:600;
+    color:var(--ink);
+    line-height:1.45;
+  }
+  .q-bn{
+    font-family:var(--font-bn);
+    font-size:14px;
+    color:var(--ink-soft);
+    margin-top:4px;
+    line-height:1.6;
+  }
+  .tag-row{
+    margin-top:8px;
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    align-items:center;
+  }
+  .cat-tag{
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    color:var(--red);
+    background:rgba(124,42,42,0.08);
+    border:1px solid rgba(124,42,42,0.25);
+    padding:2px 9px;
+    border-radius:20px;
+    font-weight:700;
+  }
+  .page-tag{
+    font-size:11px;
+    color:var(--brass);
+    font-weight:700;
+    border:1px solid var(--line);
+    padding:2px 9px;
+    border-radius:20px;
+    font-family:var(--font-display);
+  }
+  .chevron{
+    flex:0 0 auto;
+    width:22px;height:22px;
+    color:var(--brass);
+    transition:transform .28s ease;
+    margin-top:6px;
+  }
+  .card.open .chevron{ transform:rotate(180deg); }
+
+  .answer{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .38s ease;
+    background:#fffaf0;
+    border-top:1px dashed var(--line);
+  }
+  .answer-inner{
+    padding:6px 20px 22px 68px;
+  }
+  .ans-block{ margin-bottom:14px; }
+  .ans-label{
+    font-size:11px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--navy);
+    font-weight:700;
+    margin-bottom:8px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .ans-label::before{
+    content:"";
+    width:16px;height:2px;
+    background:var(--brass);
+    display:inline-block;
+  }
+  .ans-en ul, .ans-bn ul{
+    margin:0;
+    padding-left:20px;
+  }
+  .ans-en li{
+    font-size:14.5px;
+    line-height:1.6;
+    margin-bottom:6px;
+    color:var(--ink);
+  }
+  .ans-bn{
+    font-family:var(--font-bn);
+  }
+  .ans-bn li{
+    font-size:13.5px;
+    line-height:1.75;
+    margin-bottom:6px;
+    color:var(--ink-soft);
+  }
+  .ans-en p, .ans-bn p{
+    font-size:14.5px;
+    line-height:1.65;
+    margin:0 0 8px;
+  }
+  .kw-red{ color:#a5333c; font-weight:700; }
+  .kw-blue{ color:#28577f; font-weight:700; }
+
+  .empty-state{
+    text-align:center;
+    color:var(--parchment-2);
+    padding:60px 20px;
+    font-size:14px;
+  }
+
+  footer{
+    text-align:center;
+    padding:26px 20px 40px;
+    color:#8695ac;
+    font-size:12px;
+    letter-spacing:0.03em;
+  }
+
+  @media (max-width:560px){
+    .cover{padding:44px 16px 34px;}
+    .q-btn{padding:15px 14px;gap:10px;}
+    .answer-inner{padding:6px 14px 18px 58px;}
+    .q-num{width:28px;height:28px;font-size:12px;}
+  }
+
+  ::selection{ background:var(--brass-light); color:var(--navy); }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="seal">
+    <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM7 7h10v2H7V7zm0 4h10v2H7v-2zm0 4h7v2H7v-2z"/></svg>
+  </div>
+  <div class="eyebrow">BECM 3107 · Case File No. 05</div>
+  <h1>Contract Administration</h1>
+  <div class="sub">
+    A bilingual question bank distilled from the full lecture — LOA/LOI, variations, architect's authority, notices &amp; conditions precedent, the FIDIC 20.1 EOT procedure, and record-keeping.
+    <br><span lang="bn" style="font-family:var(--font-bn)">সম্পূর্ণ লেকচার থেকে তৈরি দ্বিভাষিক প্রশ্নভাণ্ডার — LOA/LOI, ভ্যারিয়েশন, আর্কিটেক্টের কর্তৃত্ব, নোটিশ ও কন্ডিশন প্রিসিডেন্ট, FIDIC ২০.১ EOT প্রক্রিয়া এবং রেকর্ড রক্ষণ।</span>
+  </div>
+  <div class="meta">
+    <span>25 Questions</span>
+    <span>5 Sections</span>
+    <span>Dr. Mizanoor Rahman, P.Eng. · KUET</span>
+  </div>
+</div>
+
+<div class="controls">
+  <div class="controls-inner">
+    <div class="search-row">
+      <input id="searchBox" type="text" placeholder="Search a question, keyword, or page number… / প্রশ্ন বা কিওয়ার্ড খুঁজুন…">
+    </div>
+    <div class="tabs" id="tabRow"></div>
+  </div>
+</div>
+
+<div class="wrap">
+  <p class="stat-line">Showing <b id="visCount">0</b> of <b>25</b> exhibits</p>
+  <div id="cardList"></div>
+  <div class="empty-state" id="emptyState" style="display:none;">No matching questions found. Try another term. / কোনো মিল পাওয়া যায়নি।</div>
+</div>
+
+<footer>BECM 3107 — Contract Administration · Compiled study exhibits · © Dr. Mizanoor Rahman, P.Eng. | KUET</footer>
+
+<script>
+const DATA = [
+{
+  cat:"Award & Intent Letters", page:2,
+  qEn:"What is a Letter of Award (LOA), and what is recommended once it is issued?",
+  qBn:"লেটার অব অ্যাওয়ার্ড (LOA) কী, এবং এটি জারি হওয়ার পর কী করা সুপারিশ করা হয়?",
+  aEn:["A <span class='kw-red'>Letter of Award (LOA)</span> is a <span class='kw-blue'>binding contract</span> once it is issued to the contractor.","It may be advantageous to <span class='kw-red'>both parties</span> that the proper contract documents be <span class='kw-blue'>executed as soon as possible</span> to avoid any dispute that may arise."],
+  aBn:["<b>লেটার অব অ্যাওয়ার্ড (LOA)</b> কন্ট্রাক্টরকে জারি করার সাথে সাথেই একটি <b>বাধ্যতামূলক চুক্তি</b>তে পরিণত হয়।","বিরোধ এড়াতে <b>উভয় পক্ষের জন্যই</b> সুবিধাজনক যে যথাযথ চুক্তি দলিল <b>যত দ্রুত সম্ভব সম্পাদন করা</b> হোক।"]
+},
+{
+  cat:"Award & Intent Letters", page:"3-4",
+  qEn:"Why can't a Letter of Award include all the details of a standard construction contract, and what are its typical contents?",
+  qBn:"লেটার অব অ্যাওয়ার্ডে কেন স্ট্যান্ডার্ড নির্মাণ চুক্তির সব বিবরণ থাকতে পারে না, এবং এতে সাধারণত কী কী থাকে?",
+  aEn:["Since the LoA <span class='kw-red'>cannot include all the details</span> of a standard construction contract, it must carry the <span class='kw-blue'>most important terms and conditions</span>.","Typical contents: <span class='kw-red'>the price</span>, <span class='kw-blue'>scope of works</span>, <span class='kw-red'>terms of payment</span>, <span class='kw-blue'>preliminary contract requirements</span> (e.g. performance bond), <span class='kw-red'>construction programme/scheduling</span>, <span class='kw-blue'>date of possession of site</span>, and <span class='kw-red'>the contract period</span>."],
+  aBn:["যেহেতু LoA-তে স্ট্যান্ডার্ড নির্মাণ চুক্তির <b>সব বিবরণ অন্তর্ভুক্ত করা যায় না</b>, তাই এতে <b>সবচেয়ে গুরুত্বপূর্ণ শর্তাবলি</b> থাকতে হয়।","সাধারণ বিষয়বস্তু: <b>মূল্য</b>, <b>কাজের পরিধি (scope of works)</b>, <b>পেমেন্টের শর্ত</b>, <b>প্রাথমিক চুক্তির প্রয়োজনীয়তা</b> (যেমন পারফরম্যান্স বন্ড), <b>নির্মাণ কর্মসূচি/সময়সূচি</b>, <b>সাইট দখলের তারিখ</b>, এবং <b>চুক্তির মেয়াদ</b>।"]
+},
+{
+  cat:"Award & Intent Letters", page:5,
+  qEn:"Define a Letter of Intent (LOI). How is it different from a Letter of Award?",
+  qBn:"লেটার অব ইনটেন্ট (LOI)-এর সংজ্ঞা দাও। এটি লেটার অব অ্যাওয়ার্ড থেকে কীভাবে আলাদা?",
+  aEn:["A <span class='kw-red'>Letter of Intent (LOI)</span>, as the name suggests, indicates only the <span class='kw-blue'>intention</span> of the party issuing it.","It merely informs the other party that the writer (usually the <span class='kw-red'>Employer</span>) wishes to enter into a contract with them (usually the <span class='kw-blue'>Contractor</span>) at a future date — <span class='kw-red'>nothing more than this intention</span>.","Unlike an LOA, an LOI is <span class='kw-blue'>not itself a binding contract to perform the works</span>."],
+  aBn:["<b>লেটার অব ইনটেন্ট (LOI)</b>, নাম অনুযায়ীই, শুধু জারিকারী পক্ষের <b>অভিপ্রায় (intention)</b> নির্দেশ করে।","এটি কেবল অন্য পক্ষকে জানায় যে লেখক (সাধারণত <b>এমপ্লয়ার</b>) ভবিষ্যতে তাদের (সাধারণত <b>কন্ট্রাক্টর</b>) সঙ্গে চুক্তি করতে চান — <b>এর বেশি কিছু নয়</b>।","LOA-এর মতো নয়, LOI নিজে <b>কাজ সম্পাদনের জন্য বাধ্যতামূলক চুক্তি নয়</b>।"]
+},
+{
+  cat:"Award & Intent Letters", page:6,
+  qEn:"How is a Letter of Intent (LOI) commonly used between a main contractor and a sub-contractor?",
+  qBn:"মূল কন্ট্রাক্টর ও সাবকন্ট্রাক্টরের মধ্যে LOI সাধারণত কীভাবে ব্যবহৃত হয়?",
+  aEn:["The <span class='kw-red'>main contractor</span> often issues an LOI to the <span class='kw-blue'>sub-contractor</span> with the same intention — to enter into the sub-contract agreement in the near future.","This typically happens for <span class='kw-red'>present works that the main contractor has already started</span>, allowing work to proceed before the formal sub-contract is signed."],
+  aBn:["<b>মূল কন্ট্রাক্টর</b> প্রায়ই <b>সাবকন্ট্রাক্টরকে</b> একই উদ্দেশ্যে LOI ইস্যু করে — অদূর ভবিষ্যতে সাব-কন্ট্রাক্ট চুক্তিতে প্রবেশের অভিপ্রায়ে।","এটি সাধারণত সেই <b>বর্তমান কাজের জন্য</b> ঘটে যা মূল কন্ট্রাক্টর ইতিমধ্যে শুরু করে দিয়েছে, যাতে আনুষ্ঠানিক সাব-কন্ট্রাক্ট স্বাক্ষরের আগেই কাজ এগিয়ে যেতে পারে।"]
+},
+{
+  cat:"Variations & Authority", page:7,
+  qEn:"If a contractor is required to change the construction method from what was assumed at tender, what may they be entitled to claim?",
+  qBn:"যদি একজন কন্ট্রাক্টরকে টেন্ডারের সময় ধরে নেওয়া পদ্ধতি থেকে ভিন্ন নির্মাণ পদ্ধতি ব্যবহার করতে বলা হয়, তবে তিনি কী দাবি করার অধিকারী হতে পারেন?",
+  aEn:["If a contractor is required to use a <span class='kw-red'>different construction method</span> from that which he had been led to assume at the time of tender, he may be entitled to treat the change in construction method as a <span class='kw-blue'>variation</span>."],
+  aBn:["যদি একজন কন্ট্রাক্টরকে টেন্ডারের সময় ধরে নেওয়া পদ্ধতি থেকে <b>ভিন্ন নির্মাণ পদ্ধতি</b> ব্যবহার করতে হয়, তবে তিনি সেই পরিবর্তনকে একটি <b>ভ্যারিয়েশন</b> হিসেবে গণ্য করার অধিকারী হতে পারেন।"]
+},
+{
+  cat:"Variations & Authority", page:9,
+  qEn:"In the absence of specific contractual provisions, what is any unilateral variation in a party's contractual obligation considered to be?",
+  qBn:"নির্দিষ্ট চুক্তিগত বিধানের অনুপস্থিতিতে, কোনো পক্ষের চুক্তিগত দায়বদ্ধতায় একতরফা পরিবর্তনকে কী হিসেবে গণ্য করা হয়?",
+  aEn:["In the absence of specific contractual provisions to the contrary, any variation or change in the contractual obligation of either party is a <span class='kw-red'>breach of contract</span>."],
+  aBn:["বিপরীত কোনো নির্দিষ্ট চুক্তিগত বিধান না থাকলে, যেকোনো পক্ষের চুক্তিগত দায়বদ্ধতায় কোনো পরিবর্তন বা ভ্যারিয়েশনকে <b>চুক্তি লঙ্ঘন (breach of contract)</b> হিসেবে গণ্য করা হয়।"]
+},
+{
+  cat:"Variations & Authority", page:10,
+  qEn:"Through whom must the employer exercise the right to change the contractor's obligations, and can the contractor accept instructions directly from the employer?",
+  qBn:"কন্ট্রাক্টরের দায়বদ্ধতা পরিবর্তনের অধিকার এমপ্লয়ারকে কার মাধ্যমে প্রয়োগ করতে হয়, এবং কন্ট্রাক্টর কি সরাসরি এমপ্লয়ারের নির্দেশ গ্রহণ করতে পারেন?",
+  aEn:["Under all standard forms, the employer is required to exercise his right to change the contractor's obligations through the agency of the <span class='kw-red'>Architect</span> (or Superintendent, Engineer, or Supervising Officer).","The contractor is generally under <span class='kw-blue'>no obligation to accept instructions direct from the employer</span>, except under some <span class='kw-red'>governmental forms</span> where such a right of direct communication is retained for reasons of <span class='kw-blue'>national security</span>."],
+  aBn:["সব স্ট্যান্ডার্ড ফর্মের অধীনে এমপ্লয়ারকে কন্ট্রাক্টরের দায়বদ্ধতা পরিবর্তনের অধিকার <b>আর্কিটেক্ট</b> (বা সুপারিনটেনডেন্ট, ইঞ্জিনিয়ার, বা সুপারভাইজিং অফিসার)-এর মাধ্যমে প্রয়োগ করতে হয়।","কন্ট্রাক্টর সাধারণত <b>সরাসরি এমপ্লয়ারের নির্দেশ গ্রহণে বাধ্য নন</b>, তবে কিছু <b>সরকারি ফর্মে</b> ব্যতিক্রম রয়েছে, যেখানে <b>জাতীয় নিরাপত্তার</b> কারণে সরাসরি যোগাযোগের অধিকার রক্ষিত থাকে।"]
+},
+{
+  cat:"Variations & Authority", page:11,
+  qEn:"What is the nature of an architect's use of the powers of control given to him under a building contract?",
+  qBn:"নির্মাণ চুক্তির অধীনে আর্কিটেক্টকে দেওয়া নিয়ন্ত্রণ ক্ষমতার ব্যবহারের প্রকৃতি কী?",
+  aEn:["Whatever the range of powers of control given to an architect by the contract, his use of them as agent of the employer is, as far as the building contract is concerned, <span class='kw-red'>purely discretionary</span>."],
+  aBn:["চুক্তির মাধ্যমে আর্কিটেক্টকে যে পরিমাণ নিয়ন্ত্রণ ক্ষমতাই দেওয়া হোক না কেন, নির্মাণ চুক্তির ক্ষেত্রে এমপ্লয়ারের এজেন্ট হিসেবে সেই ক্ষমতা প্রয়োগ <b>সম্পূর্ণরূপে বিবেচনামূলক (discretionary)</b>।"]
+},
+{
+  cat:"Variations & Authority", page:12,
+  qEn:"What is a “condition precedent” in relation to written variation orders, and can a contractor still recover payment without one?",
+  qBn:"লিখিত ভ্যারিয়েশন অর্ডারের প্রেক্ষিতে “কন্ডিশন প্রিসিডেন্ট (condition precedent)” বলতে কী বোঝায়, এবং এটি ছাড়াই কি কন্ট্রাক্টর পেমেন্ট আদায় করতে পারেন?",
+  aEn:["Where a <span class='kw-red'>written variation order is a condition precedent</span> to a right to additional payment, the contractor may nevertheless be able to <span class='kw-blue'>recover payment</span> in the absence of such an order, under certain specific situations."],
+  aBn:["যেখানে অতিরিক্ত পেমেন্টের অধিকারের জন্য <b>লিখিত ভ্যারিয়েশন অর্ডার একটি কন্ডিশন প্রিসিডেন্ট</b>, সেখানেও কন্ট্রাক্টর নির্দিষ্ট কিছু পরিস্থিতিতে সেই অর্ডার ছাড়াই <b>পেমেন্ট আদায়</b> করতে সক্ষম হতে পারেন।"]
+},
+{
+  cat:"Variations & Authority", page:"12(cont.)",
+  qEn:"List the five situations in which a contractor may recover payment for variation work even without a written order.",
+  qBn:"কোন পাঁচটি পরিস্থিতিতে কন্ট্রাক্টর লিখিত অর্ডার ছাড়াই ভ্যারিয়েশন কাজের পেমেন্ট আদায় করতে পারেন, তার তালিকা দাও।",
+  aEn:["Where the <span class='kw-red'>additional work is outside the scope</span> of the contract.","Where a condition precedent has been <span class='kw-blue'>expressly waived</span>.","Where there has been <span class='kw-red'>interference by the employer</span> in issuing the written order.","Where a <span class='kw-blue'>final and conclusive certificate</span> includes the work claimed.","Where a written order has been <span class='kw-red'>improperly withheld</span>."],
+  aBn:["যেখানে <b>অতিরিক্ত কাজ চুক্তির পরিধির বাইরে</b>।","যেখানে কন্ডিশন প্রিসিডেন্ট <b>স্পষ্টভাবে মওকুফ (waived)</b> করা হয়েছে।","যেখানে লিখিত অর্ডার জারিতে <b>এমপ্লয়ারের হস্তক্ষেপ</b> ঘটেছে।","যেখানে <b>চূড়ান্ত ও সিদ্ধান্তমূলক সার্টিফিকেটে</b> দাবিকৃত কাজ অন্তর্ভুক্ত রয়েছে।","যেখানে লিখিত অর্ডার <b>অনুচিতভাবে আটকে রাখা হয়েছে</b>।"]
+},
+{
+  cat:"Notices & Conditions Precedent", page:14,
+  qEn:"Why must contract notice provisions be followed strictly, and what may happen if a party is unfamiliar with them?",
+  qBn:"চুক্তির নোটিশ বিধান কেন কঠোরভাবে অনুসরণ করতে হবে, এবং কোনো পক্ষ এতে অপরিচিত থাকলে কী ঘটতে পারে?",
+  aEn:["Parties must ensure familiarity with the <span class='kw-red'>contract notice provisions</span> and follow them strictly; otherwise, <span class='kw-blue'>claims may fail</span>.","Some contracts include notice provisions that are <span class='kw-red'>conditions precedent</span> to the recovery of time and money — e.g. <span class='kw-blue'>NEC3 clause 61.3</span> and <span class='kw-blue'>FIDIC Red Book Sub-Clause 20.1</span>."],
+  aBn:["পক্ষগুলোকে <b>চুক্তির নোটিশ বিধানের</b> সঙ্গে পরিচিত থাকতে হবে এবং তা কঠোরভাবে অনুসরণ করতে হবে; নাহলে <b>দাবি ব্যর্থ হতে পারে</b>।","কিছু চুক্তিতে নোটিশ বিধান সময় ও অর্থ আদায়ের <b>কন্ডিশন প্রিসিডেন্ট</b> হিসেবে বিবেচিত হয় — যেমন <b>NEC3 ক্লজ ৬১.৩</b> এবং <b>FIDIC রেড বুক সাব-ক্লজ ২০.১</b>।"]
+},
+{
+  cat:"Notices & Conditions Precedent", page:14,
+  qEn:"What form and content should a proper contractual notice have?",
+  qBn:"একটি যথাযথ চুক্তিগত নোটিশের গঠন ও বিষয়বস্তু কেমন হওয়া উচিত?",
+  aEn:["Notices must be <span class='kw-red'>in writing</span>, <span class='kw-blue'>simple, and non-emotive</span>.","They must state the <span class='kw-red'>relevant clause, facts, dates, reasons, and effects</span>."],
+  aBn:["নোটিশ অবশ্যই <b>লিখিতভাবে</b>, <b>সহজ ও আবেগহীন (non-emotive)</b> হতে হবে।","এতে <b>প্রাসঙ্গিক ক্লজ, তথ্য, তারিখ, কারণ এবং প্রভাব</b> উল্লেখ করতে হবে।"]
+},
+{
+  cat:"Notices & Conditions Precedent", page:14,
+  qEn:"What kind of notice is required for continuing events, and what does “you snooze, you lose” mean here?",
+  qBn:"চলমান (continuing) ঘটনার জন্য কী ধরনের নোটিশ প্রয়োজন, এবং এখানে “you snooze, you lose” বলতে কী বোঝায়?",
+  aEn:["<span class='kw-red'>Continuing events</span> require <span class='kw-blue'>ongoing notices</span>, for example monthly reports.","“<span class='kw-red'>You snooze, you lose</span>” means: <span class='kw-blue'>no notice, no claim</span> — failing to give the required notice in time forfeits the right to claim."],
+  aBn:["<b>চলমান ঘটনার</b> জন্য <b>নিয়মিত/অব্যাহত নোটিশ</b> প্রয়োজন, যেমন মাসিক প্রতিবেদন।","“<b>ঘুমালে হারাতে হবে</b>” অর্থ: <b>নোটিশ না দিলে দাবিও নেই</b> — সময়মতো প্রয়োজনীয় নোটিশ না দিলে দাবির অধিকার হারাতে হয়।"]
+},
+{
+  cat:"FIDIC EOT Claim Procedure", page:15,
+  qEn:"In the general procedure for claims, what are the two main categories a claim can fall into?",
+  qBn:"দাবির সাধারণ প্রক্রিয়ায়, একটি দাবি কোন দুটি প্রধান শ্রেণিতে পড়তে পারে?",
+  aEn:["<span class='kw-red'>Time</span> — leading to an Extension of Time (<span class='kw-blue'>EOT</span>).","<span class='kw-red'>Money</span> — leading to a Variation Order (<span class='kw-blue'>VO</span>)."],
+  aBn:["<b>সময় (Time)</b> — যার ফলে টাইমের সম্প্রসারণ (<b>EOT</b>) ঘটে।","<b>অর্থ (Money)</b> — যার ফলে ভ্যারিয়েশন অর্ডার (<b>VO</b>) ঘটে।"]
+},
+{
+  cat:"FIDIC EOT Claim Procedure", page:16,
+  qEn:"Under FIDIC Sub-Clause 20.1 (“Foot in the Door Notice”), what must the contractor do upon believing he is entitled to an EOT or additional payment, and what is the deadline?",
+  qBn:"FIDIC সাব-ক্লজ ২০.১ (“Foot in the Door Notice”) অনুযায়ী, নিজেকে EOT বা অতিরিক্ত পেমেন্টের অধিকারী মনে করলে কন্ট্রাক্টরকে কী করতে হবে, এবং সময়সীমা কত?",
+  aEn:["The Contractor shall give <span class='kw-red'>notice to the Engineer</span>, describing the event or circumstance giving rise to the claim.","The notice shall be given <span class='kw-blue'>as soon as practicable</span>, and <span class='kw-red'>not later than 28 days</span> after the Contractor became aware (or should have become aware) of the event/circumstance.","<span class='kw-blue'>Consequence of failure</span>: the Time for Completion shall not be extended, the Contractor shall not be entitled to additional payment, and the Employer is discharged from all liability related to the claim."],
+  aBn:["কন্ট্রাক্টরকে দাবির উৎস ঘটনা/পরিস্থিতি বর্ণনা করে <b>ইঞ্জিনিয়ারকে নোটিশ</b> দিতে হবে।","নোটিশ <b>যত দ্রুত সম্ভব</b>, এবং ঘটনা/পরিস্থিতি সম্পর্কে অবগত হওয়ার (বা অবগত হওয়া উচিত ছিল) পর <b>সর্বোচ্চ ২৮ দিনের</b> মধ্যে দিতে হবে।","<b>ব্যর্থতার পরিণতি</b>: সম্পন্নের সময় বর্ধিত হবে না, কন্ট্রাক্টর অতিরিক্ত পেমেন্টের অধিকারী হবেন না, এবং এমপ্লয়ার দাবি সংক্রান্ত সব দায় থেকে মুক্ত হয়ে যাবেন।"]
+},
+{
+  cat:"FIDIC EOT Claim Procedure", page:17,
+  qEn:"Besides the initial notice, what further submissions and record-keeping duties does Sub-Clause 20.1 place on the contractor and the Engineer?",
+  qBn:"প্রাথমিক নোটিশ ছাড়াও, সাব-ক্লজ ২০.১ কন্ট্রাক্টর ও ইঞ্জিনিয়ারের ওপর আর কী কী দায়িত্ব আরোপ করে?",
+  aEn:["The Contractor shall submit any <span class='kw-red'>other notices required by the Contract</span>, and <span class='kw-blue'>supporting particulars for the claim</span>.","The Contractor shall keep <span class='kw-red'>contemporary records</span> necessary to substantiate any claim, on the Site or at another location acceptable to the Engineer.","Without admitting the Employer's liability, the <span class='kw-blue'>Engineer may monitor the record-keeping</span> and/or instruct the Contractor to keep further contemporary records.","The Contractor shall permit the Engineer to <span class='kw-red'>inspect all these records</span>, and submit copies if instructed."],
+  aBn:["কন্ট্রাক্টরকে <b>চুক্তি অনুযায়ী প্রয়োজনীয় অন্যান্য নোটিশ</b> এবং <b>দাবির সহায়ক বিবরণ (particulars)</b> জমা দিতে হবে।","কন্ট্রাক্টরকে দাবি প্রমাণ করার জন্য প্রয়োজনীয় <b>সমসাময়িক রেকর্ড (contemporary records)</b> সাইটে বা ইঞ্জিনিয়ারের গ্রহণযোগ্য অন্য কোনো স্থানে সংরক্ষণ করতে হবে।","এমপ্লয়ারের দায় স্বীকার না করেই <b>ইঞ্জিনিয়ার রেকর্ড রক্ষণ পর্যবেক্ষণ করতে পারেন</b> এবং/অথবা আরও রেকর্ড রাখার নির্দেশ দিতে পারেন।","কন্ট্রাক্টরকে ইঞ্জিনিয়ারকে <b>এই সব রেকর্ড পরিদর্শনের</b> অনুমতি দিতে হবে, এবং নির্দেশ পেলে অনুলিপি জমা দিতে হবে।"]
+},
+{
+  cat:"FIDIC EOT Claim Procedure", page:18,
+  qEn:"Under “Submission of Particulars,” what must the contractor send within 42 days, and what must it contain?",
+  qBn:"“Submission of Particulars” অনুযায়ী, কন্ট্রাক্টরকে ৪২ দিনের মধ্যে কী পাঠাতে হবে, এবং এতে কী থাকতে হবে?",
+  aEn:["Within <span class='kw-red'>42 days</span> after the Contractor became (or should have become) aware of the event/circumstance — or another period approved by the Engineer — the Contractor shall send a <span class='kw-blue'>fully detailed claim</span> to the Engineer.","This claim must include <span class='kw-red'>full supporting particulars of the basis of the claim</span> and of the extension of time and/or additional payment claimed."],
+  aBn:["ঘটনা/পরিস্থিতি সম্পর্কে অবগত হওয়ার (বা অবগত হওয়া উচিত ছিল) পর <b>৪২ দিনের মধ্যে</b> — বা ইঞ্জিনিয়ার-অনুমোদিত অন্য কোনো সময়ে — কন্ট্রাক্টরকে ইঞ্জিনিয়ারের কাছে একটি <b>সম্পূর্ণ বিস্তারিত দাবি (fully detailed claim)</b> পাঠাতে হবে।","এই দাবিতে <b>দাবির ভিত্তির পূর্ণ সহায়ক বিবরণ</b> এবং দাবিকৃত সময় সম্প্রসারণ ও/অথবা অতিরিক্ত পেমেন্টের বিবরণ থাকতে হবে।"]
+},
+{
+  cat:"FIDIC EOT Claim Procedure", page:19,
+  qEn:"If the event or circumstance giving rise to the claim has a continuing effect, what three steps (a, b, c) must the contractor follow?",
+  qBn:"যদি দাবির উৎস ঘটনা/পরিস্থিতির একটি চলমান প্রভাব থাকে, তবে কন্ট্রাক্টরকে কোন তিনটি ধাপ (a, b, c) অনুসরণ করতে হবে?",
+  aEn:["<span class='kw-red'>(a)</span> The fully detailed claim shall be considered as <span class='kw-blue'>interim</span>.","<span class='kw-red'>(b)</span> The Contractor shall send further <span class='kw-blue'>interim claims at monthly intervals</span>, giving the accumulated delay and/or amount claimed, plus any further particulars the Engineer may reasonably require.","<span class='kw-red'>(c)</span> The Contractor shall send a <span class='kw-blue'>final claim within 28 days</span> after the end of the effects resulting from the event/circumstance, or another period approved by the Engineer."],
+  aBn:["<b>(a)</b> সম্পূর্ণ বিস্তারিত দাবিটিকে <b>অন্তর্বর্তীকালীন (interim)</b> হিসেবে গণ্য করা হবে।","<b>(b)</b> কন্ট্রাক্টরকে <b>প্রতি মাসে অন্তর্বর্তী দাবি</b> পাঠাতে হবে, যাতে সঞ্চিত বিলম্ব ও/অথবা দাবিকৃত পরিমাণ এবং ইঞ্জিনিয়ারের যুক্তিসঙ্গতভাবে চাওয়া অতিরিক্ত বিবরণ থাকবে।","<b>(c)</b> ঘটনা/পরিস্থিতির প্রভাব শেষ হওয়ার <b>২৮ দিনের মধ্যে চূড়ান্ত দাবি</b> পাঠাতে হবে, বা ইঞ্জিনিয়ার-অনুমোদিত অন্য কোনো সময়ে।"]
+},
+{
+  cat:"FIDIC EOT Claim Procedure", page:20,
+  qEn:"Within what period must the Engineer respond to a claim, and what must that response contain?",
+  qBn:"ইঞ্জিনিয়ারকে কত সময়ের মধ্যে দাবির জবাব দিতে হবে, এবং সেই জবাবে কী থাকতে হবে?",
+  aEn:["Within <span class='kw-red'>42 days</span> after receiving a claim or any further supporting particulars — or another agreed period — the Engineer shall respond with <span class='kw-blue'>approval, or disapproval and detailed comments</span>.","The Engineer may request further particulars, but must <span class='kw-red'>still give a response on the principles of the claim</span> within the defined time period."],
+  aBn:["দাবি বা এর অতিরিক্ত সহায়ক বিবরণ পাওয়ার <b>৪২ দিনের মধ্যে</b> — বা সম্মত অন্য কোনো সময়ে — ইঞ্জিনিয়ারকে <b>অনুমোদন বা অনুমোদন-অস্বীকার ও বিস্তারিত মন্তব্য</b> দিয়ে জবাব দিতে হবে।","ইঞ্জিনিয়ার আরও বিবরণ চাইতে পারেন, তবে নির্ধারিত সময়ের মধ্যে <b>দাবির মূলনীতির ওপর জবাব দিতেই হবে</b>।"]
+},
+{
+  cat:"FIDIC EOT Claim Procedure", page:21,
+  qEn:"According to “Engineer's Determination,” what two matters must the Engineer agree or determine within the 42-day period, and under which sub-clauses?",
+  qBn:"“Engineer's Determination” অনুযায়ী, ৪২ দিনের মধ্যে ইঞ্জিনিয়ারকে কোন দুটি বিষয় সম্মত বা নির্ধারণ করতে হবে, এবং কোন সাব-ক্লজের অধীনে?",
+  aEn:["The Engineer shall proceed in accordance with <span class='kw-red'>Sub-Clause 3.5 [Determinations]</span> to agree or determine:","<span class='kw-blue'>(i)</span> the extension (if any) of the Time for Completion, before or after its expiry, under <span class='kw-red'>Sub-Clause 8.4 [Extension of Time for Completion]</span>, and/or","<span class='kw-blue'>(ii)</span> the additional payment (if any) to which the Contractor is entitled under the Contract."],
+  aBn:["ইঞ্জিনিয়ারকে <b>সাব-ক্লজ ৩.৫ [Determinations]</b> অনুযায়ী নিম্নোক্ত বিষয়গুলো সম্মত বা নির্ধারণ করতে হবে:","<b>(i)</b> <b>সাব-ক্লজ ৮.৪ [Extension of Time for Completion]</b>-এর অধীনে সম্পন্নের সময়ের সম্প্রসারণ (যদি থাকে), তার মেয়াদ শেষ হওয়ার আগে বা পরে, এবং/অথবা","<b>(ii)</b> চুক্তির অধীনে কন্ট্রাক্টরের প্রাপ্য অতিরিক্ত পেমেন্ট (যদি থাকে)।"]
+},
+{
+  cat:"FIDIC EOT Claim Procedure", page:22,
+  qEn:"If the particulars supplied are only partially sufficient, or the Engineer fails to respond in time, what happens under Sub-Clause 20.1?",
+  qBn:"যদি প্রদত্ত বিবরণ শুধু আংশিকভাবে যথেষ্ট হয়, বা ইঞ্জিনিয়ার সময়মতো জবাব দিতে ব্যর্থ হন, তবে সাব-ক্লজ ২০.১-এর অধীনে কী ঘটে?",
+  aEn:["Unless and until the particulars supplied are sufficient to substantiate the <span class='kw-red'>whole of the claim</span>, the Contractor shall only be entitled to payment for <span class='kw-blue'>such part of the claim as he has been able to substantiate</span>.","If the Engineer does not respond within the defined time frame, <span class='kw-red'>either Party may consider the claim rejected</span> and refer it to the <span class='kw-blue'>Dispute Board</span> under Sub-Clause 20.4 [Obtaining Dispute Board's Decision].","If the Contractor fails to comply with this or another Sub-Clause, any EOT/additional payment shall take account of the <span class='kw-red'>extent to which the failure prevented or prejudiced proper investigation</span> of the claim, unless the claim is excluded under the second paragraph of this Sub-Clause."],
+  aBn:["যতক্ষণ না প্রদত্ত বিবরণ <b>সম্পূর্ণ দাবিটি প্রমাণ করতে</b> যথেষ্ট হয়, ততক্ষণ কন্ট্রাক্টর কেবল তার <b>প্রমাণযোগ্য অংশের পেমেন্ট</b> পাওয়ার অধিকারী।","ইঞ্জিনিয়ার নির্ধারিত সময়ের মধ্যে জবাব না দিলে, <b>যেকোনো পক্ষ দাবিটি প্রত্যাখ্যাত বলে গণ্য করতে পারে</b> এবং সাব-ক্লজ ২০.৪ [Obtaining Dispute Board's Decision] অনুযায়ী <b>ডিসপিউট বোর্ডে</b> পাঠাতে পারে।","কন্ট্রাক্টর এই বা অন্য কোনো সাব-ক্লজ পালনে ব্যর্থ হলে, EOT/অতিরিক্ত পেমেন্ট নির্ধারণে বিবেচনা করা হবে যে <b>এই ব্যর্থতা দাবির যথাযথ তদন্তে কতটা বাধা বা ক্ষতি সাধন করেছে</b>, যদি না দাবি এই সাব-ক্লজের দ্বিতীয় অনুচ্ছেদের অধীনে বাদ পড়ে।"]
+},
+{
+  cat:"FIDIC EOT Claim Procedure", page:23,
+  qEn:"Which FIDIC clauses should be read together when applying for an Extension of Time (EOT)?",
+  qBn:"টাইম এক্সটেনশন (EOT)-এর আবেদনের সময় FIDIC-এর কোন ক্লজগুলো একসঙ্গে পড়া উচিত?",
+  aEn:["Refer to <span class='kw-red'>Clause 3.5</span> [Determinations], <span class='kw-blue'>Clause 8.4</span> [Extension of Time for Completion], and <span class='kw-red'>Clause 20.1</span> [Contractor's Claims] of FIDIC for the application of EOT."],
+  aBn:["EOT আবেদনের জন্য FIDIC-এর <b>ক্লজ ৩.৫</b> [Determinations], <b>ক্লজ ৮.৪</b> [Extension of Time for Completion], এবং <b>ক্লজ ২০.১</b> [Contractor's Claims] দেখতে হবে।"]
+},
+{
+  cat:"Records & Tender Documents", page:24,
+  qEn:"What three basic elements are said to be most important in supporting or defending a claim, and what does Max Abrahamson's quote emphasize?",
+  qBn:"একটি দাবি সমর্থন বা প্রতিরক্ষায় কোন তিনটি মৌলিক উপাদান সবচেয়ে গুরুত্বপূর্ণ বলা হয়েছে, এবং ম্যাক্স আব্রাহামসনের উক্তিটি কী গুরুত্ব দেয়?",
+  aEn:["The three basic elements are: <span class='kw-red'>Records, Records, and More Records</span>.","<span class='kw-blue'>Without evidence, arguments will fail, whatever the contract says.</span>","Max Abrahamson (author of Engineering Law and the ICE Contract) noted that a party to a dispute — particularly in arbitration — learns three lessons, <span class='kw-red'>often too late</span>: the importance of records, the importance of records, and the importance of records."],
+  aBn:["তিনটি মৌলিক উপাদান হলো: <b>রেকর্ড, রেকর্ড এবং আরও রেকর্ড</b>।","<b>প্রমাণ ছাড়া, চুক্তিতে যাই লেখা থাকুক না কেন, যুক্তি ব্যর্থ হবে।</b>","ম্যাক্স আব্রাহামসন (Engineering Law and the ICE Contract বইয়ের লেখক) বলেছেন, বিরোধের একটি পক্ষ — বিশেষত আরবিট্রেশনে — <b>প্রায়ই অনেক দেরিতে</b> তিনটি শিক্ষা পায়: রেকর্ডের গুরুত্ব, রেকর্ডের গুরুত্ব, এবং রেকর্ডের গুরুত্ব।"]
+},
+{
+  cat:"Records & Tender Documents", page:25,
+  qEn:"List the nine sections of the PW3 Standard Tender Document.",
+  qBn:"PW3 স্ট্যান্ডার্ড টেন্ডার ডকুমেন্টের নয়টি সেকশনের তালিকা দাও।",
+  aEn:["<span class='kw-red'>Section 1</span> — Instructions to Tenderers (ITT).","<span class='kw-blue'>Section 2</span> — Tender Data Sheet (TDS).","<span class='kw-red'>Section 3</span> — General Conditions of Contract (GCC).","<span class='kw-blue'>Section 4</span> — Particular Conditions of Contract (PCC).","<span class='kw-red'>Section 5</span> — Tender and Contract Forms.","<span class='kw-blue'>Section 6</span> — Bill of Quantities (BOQ).","<span class='kw-red'>Section 7</span> — General Specifications.","<span class='kw-blue'>Section 8</span> — Particular Specifications.","<span class='kw-red'>Section 9</span> — Drawings."],
+  aBn:["<b>সেকশন ১</b> — Instructions to Tenderers (ITT)।","<b>সেকশন ২</b> — Tender Data Sheet (TDS)।","<b>সেকশন ৩</b> — General Conditions of Contract (GCC)।","<b>সেকশন ৪</b> — Particular Conditions of Contract (PCC)।","<b>সেকশন ৫</b> — Tender and Contract Forms।","<b>সেকশন ৬</b> — Bill of Quantities (BOQ)।","<b>সেকশন ৭</b> — General Specifications।","<b>সেকশন ৮</b> — Particular Specifications।","<b>সেকশন ৯</b> — Drawings।"]
+}
+];
+
+// ---------- render ----------
+const cardList = document.getElementById('cardList');
+const tabRow = document.getElementById('tabRow');
+const searchBox = document.getElementById('searchBox');
+const visCount = document.getElementById('visCount');
+const emptyState = document.getElementById('emptyState');
+
+const categories = ["All", ...Array.from(new Set(DATA.map(d=>d.cat)))];
+let activeCat = "All";
+let query = "";
+
+function catCount(cat){
+  return cat === "All" ? DATA.length : DATA.filter(d=>d.cat===cat).length;
+}
+
+function renderTabs(){
+  tabRow.innerHTML = "";
+  categories.forEach(cat=>{
+    const btn = document.createElement('button');
+    btn.className = 'tab' + (cat===activeCat ? ' active' : '');
+    btn.innerHTML = cat + ` <span class="count">${catCount(cat)}</span>`;
+    btn.onclick = ()=>{ activeCat = cat; renderTabs(); renderCards(); };
+    tabRow.appendChild(btn);
+  });
+}
+
+function matchesQuery(item, q){
+  if(!q) return true;
+  const hay = (item.qEn + " " + item.qBn + " " + item.cat + " " + item.page).toLowerCase();
+  return hay.includes(q.toLowerCase());
+}
+
+function renderCards(){
+  const filtered = DATA.filter(d => (activeCat==="All" || d.cat===activeCat) && matchesQuery(d, query));
+  cardList.innerHTML = "";
+  visCount.textContent = filtered.length;
+  emptyState.style.display = filtered.length ? 'none' : 'block';
+
+  filtered.forEach((item)=>{
+    const originalIndex = DATA.indexOf(item) + 1;
+    const card = document.createElement('div');
+    card.className = 'card';
+
+    const enList = item.aEn.map(li=>`<li>${li}</li>`).join('');
+    const bnList = item.aBn.map(li=>`<li>${li}</li>`).join('');
+
+    card.innerHTML = `
+      <button class="q-btn">
+        <div class="q-num">${originalIndex}</div>
+        <div class="q-text">
+          <div class="q-en">${item.qEn}</div>
+          <div class="q-bn" lang="bn">${item.qBn}</div>
+          <div class="tag-row">
+            <span class="cat-tag">${item.cat}</span>
+            <span class="page-tag">Page ${item.page}</span>
+          </div>
+        </div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </button>
+      <div class="answer">
+        <div class="answer-inner">
+          <div class="ans-block">
+            <div class="ans-label">Answer</div>
+            <div class="ans-en"><ul>${enList}</ul></div>
+          </div>
+          <div class="ans-block">
+            <div class="ans-label" lang="bn">উত্তর</div>
+            <div class="ans-bn" lang="bn"><ul>${bnList}</ul></div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    const qBtn = card.querySelector('.q-btn');
+    const answer = card.querySelector('.answer');
+    qBtn.addEventListener('click', ()=>{
+      const isOpen = card.classList.contains('open');
+      if(isOpen){
+        card.classList.remove('open');
+        answer.style.maxHeight = null;
+      } else {
+        card.classList.add('open');
+        answer.style.maxHeight = answer.scrollHeight + "px";
+      }
+    });
+
+    cardList.appendChild(card);
+  });
+}
+
+searchBox.addEventListener('input', (e)=>{
+  query = e.target.value;
+  renderCards();
+});
+
+renderTabs();
+renderCards();
+</script>
+</body>
+</html>

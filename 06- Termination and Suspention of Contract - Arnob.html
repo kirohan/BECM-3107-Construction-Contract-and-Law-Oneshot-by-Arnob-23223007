@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Termination &amp; Suspension of Construction Contract — Exam Casebook</title>
+<style>
+:root{
+  --parchment:#f4efe4;
+  --parchment-deep:#ece3d2;
+  --ink:#1f2a37;
+  --ink-soft:#4a5568;
+  --navy:#16233d;
+  --navy-2:#223454;
+  --seal-red:#8c2f2f;
+  --seal-red-soft:#b34848;
+  --brass:#a9812f;
+  --line:#d8cdb4;
+  --paper-white:#fbf8f1;
+  --shadow: 0 10px 30px rgba(22,35,61,0.12);
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:
+    radial-gradient(1200px 600px at 10% -10%, #fffdf7 0%, transparent 60%),
+    radial-gradient(1000px 500px at 100% 0%, #efe6d1 0%, transparent 55%),
+    var(--parchment);
+  color:var(--ink);
+  font-family: "Iowan Old Style","Georgia","Noto Serif Bengali", serif;
+  line-height:1.55;
+  min-height:100vh;
+}
+.texture-rule{
+  height:6px;
+  background: repeating-linear-gradient(90deg, var(--navy) 0 18px, var(--brass) 18px 20px, transparent 20px 24px);
+  opacity:.85;
+}
+header.masthead{
+  padding: 54px 6vw 34px;
+  background: linear-gradient(180deg, var(--navy) 0%, var(--navy-2) 100%);
+  color: var(--paper-white);
+  position:relative;
+  overflow:hidden;
+}
+header.masthead::after{
+  content:"";
+  position:absolute; inset:0;
+  background-image: radial-gradient(circle at 85% 20%, rgba(169,129,47,0.18), transparent 45%);
+  pointer-events:none;
+}
+.eyebrow{
+  font-family:"Helvetica Neue", Arial, sans-serif;
+  text-transform:uppercase;
+  letter-spacing:.22em;
+  font-size:.72rem;
+  color:#cbb877;
+  margin-bottom:14px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.eyebrow::before{content:"§"; font-family:Georgia,serif; font-size:1rem; color:var(--brass);}
+h1.title{
+  font-family:"Playfair Display","Iowan Old Style", Georgia, serif;
+  font-weight:700;
+  font-size: clamp(1.9rem, 4.2vw, 3.1rem);
+  margin:0 0 10px;
+  letter-spacing:.01em;
+  max-width: 900px;
+}
+h1.title .bn{
+  display:block;
+  font-size:.5em;
+  font-weight:400;
+  font-style:italic;
+  color:#d9cfa9;
+  margin-top:8px;
+  font-family: "Noto Serif Bengali","Georgia",serif;
+}
+.subtitle{
+  color:#c9cddb;
+  font-family:"Helvetica Neue", Arial, sans-serif;
+  font-size:.95rem;
+  max-width:640px;
+  margin-top:6px;
+}
+.course-tag{
+  margin-top:26px;
+  display:inline-flex;
+  gap:18px;
+  flex-wrap:wrap;
+  font-family:"Helvetica Neue", Arial, sans-serif;
+  font-size:.78rem;
+  color:#e7e1c9;
+}
+.course-tag span{
+  border:1px solid rgba(231,225,201,0.35);
+  padding:6px 12px;
+  border-radius:2px;
+  background:rgba(255,255,255,0.04);
+}
+
+.toolbar{
+  max-width:1040px;
+  margin: -26px auto 0;
+  padding: 0 6vw;
+  position:relative;
+  z-index:3;
+}
+.toolbar-inner{
+  background:var(--paper-white);
+  border:1px solid var(--line);
+  box-shadow:var(--shadow);
+  border-radius:4px;
+  padding:16px 20px;
+  display:flex;
+  gap:14px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+.toolbar-inner input[type="search"]{
+  flex:1 1 240px;
+  border:1px solid var(--line);
+  background:var(--parchment);
+  padding:10px 14px;
+  font-family:"Helvetica Neue", Arial, sans-serif;
+  font-size:.92rem;
+  border-radius:2px;
+  color:var(--ink);
+}
+.filter-btn{
+  font-family:"Helvetica Neue", Arial, sans-serif;
+  font-size:.78rem;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+  border:1px solid var(--navy);
+  background:transparent;
+  color:var(--navy);
+  padding:9px 14px;
+  border-radius:2px;
+  cursor:pointer;
+  transition:.2s;
+  white-space:nowrap;
+}
+.filter-btn.active, .filter-btn:hover{
+  background:var(--navy);
+  color:var(--paper-white);
+}
+.counter{
+  font-family:"Helvetica Neue", Arial, sans-serif;
+  font-size:.76rem;
+  color:var(--ink-soft);
+  white-space:nowrap;
+}
+
+main{
+  max-width:1040px;
+  margin: 40px auto 90px;
+  padding: 0 6vw;
+}
+
+.chapter{
+  margin-bottom:46px;
+}
+.chapter-head{
+  display:flex;
+  align-items:baseline;
+  gap:16px;
+  border-bottom:2px solid var(--navy);
+  padding-bottom:10px;
+  margin-bottom:6px;
+}
+.chapter-num{
+  font-family:"Playfair Display",Georgia,serif;
+  font-weight:700;
+  font-size:2.1rem;
+  color:var(--seal-red);
+  line-height:1;
+}
+.chapter-titles h2{
+  font-family:"Playfair Display",Georgia,serif;
+  margin:0;
+  font-size:1.5rem;
+  color:var(--navy);
+}
+.chapter-titles .bn-sub{
+  font-family:"Noto Serif Bengali", serif;
+  font-style:italic;
+  color:var(--ink-soft);
+  font-size:.92rem;
+  margin-top:2px;
+}
+.chapter-desc{
+  font-family:"Helvetica Neue", Arial, sans-serif;
+  font-size:.85rem;
+  color:var(--ink-soft);
+  margin: 8px 0 22px;
+  max-width:720px;
+}
+
+.card{
+  background:var(--paper-white);
+  border:1px solid var(--line);
+  border-left:4px solid var(--brass);
+  border-radius:3px;
+  margin-bottom:14px;
+  overflow:hidden;
+  transition: box-shadow .25s ease, border-color .25s ease;
+}
+.card.open{
+  box-shadow:var(--shadow);
+  border-left-color:var(--seal-red);
+}
+.card-q{
+  width:100%;
+  text-align:left;
+  background:transparent;
+  border:none;
+  cursor:pointer;
+  padding:18px 20px;
+  display:flex;
+  gap:16px;
+  align-items:flex-start;
+  font-family:inherit;
+  color:inherit;
+}
+.q-index{
+  font-family:"Playfair Display",Georgia,serif;
+  font-weight:700;
+  color:var(--seal-red-soft);
+  font-size:1.05rem;
+  min-width:34px;
+}
+.q-body{flex:1;}
+.q-en{
+  font-size:1.02rem;
+  font-weight:600;
+  color:var(--navy);
+  margin:0;
+}
+.q-bn{
+  font-family:"Noto Serif Bengali", serif;
+  font-size:.94rem;
+  color:var(--ink-soft);
+  margin:5px 0 0;
+  font-style:italic;
+}
+.q-page{
+  font-family:"Helvetica Neue", Arial, sans-serif;
+  font-size:.68rem;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color:#8a7c53;
+  margin-top:8px;
+  display:inline-block;
+  border:1px solid var(--line);
+  padding:2px 8px;
+  border-radius:10px;
+  background:var(--parchment);
+}
+.chev{
+  flex-shrink:0;
+  width:22px;height:22px;
+  margin-top:2px;
+  transition: transform .25s ease;
+  color:var(--navy);
+}
+.card.open .chev{ transform: rotate(135deg); }
+
+.answer-wrap{
+  max-height:0;
+  overflow:hidden;
+  transition: max-height .38s cubic-bezier(.4,0,.2,1);
+  background: linear-gradient(180deg, #fffef9, var(--parchment-deep));
+}
+.answer-inner{
+  padding: 4px 24px 24px 70px;
+  border-top:1px dashed var(--line);
+  margin-top:2px;
+}
+.answer-block{margin-top:14px;}
+.answer-block .label{
+  font-family:"Helvetica Neue", Arial, sans-serif;
+  font-size:.68rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--brass);
+  font-weight:700;
+  margin-bottom:8px;
+}
+.answer-block ul{
+  margin:0; padding-left:20px;
+}
+.answer-block li{
+  margin-bottom:7px;
+  color:var(--ink);
+}
+.answer-block.bn ul, .answer-block.bn p{
+  font-family:"Noto Serif Bengali", serif;
+  color:var(--ink-soft);
+}
+.answer-block p{margin:0 0 8px;}
+.hl-red{color:var(--seal-red); font-weight:700;}
+.hl-blue{color:#1c4a8a; font-weight:700;}
+
+.legend{
+  max-width:1040px;
+  margin: 0 auto;
+  padding: 0 6vw;
+  display:flex;
+  gap:22px;
+  flex-wrap:wrap;
+  font-family:"Helvetica Neue", Arial, sans-serif;
+  font-size:.76rem;
+  color:var(--ink-soft);
+  margin-top:8px;
+}
+.legend span b{font-weight:700;}
+
+footer{
+  text-align:center;
+  padding: 30px 6vw 50px;
+  font-family:"Helvetica Neue", Arial, sans-serif;
+  font-size:.78rem;
+  color:var(--ink-soft);
+}
+
+.empty-state{
+  text-align:center;
+  padding:50px 20px;
+  color:var(--ink-soft);
+  font-family:"Helvetica Neue", Arial, sans-serif;
+  display:none;
+}
+
+@media (max-width:640px){
+  .answer-inner{padding:4px 16px 20px 16px;}
+  .toolbar-inner{padding:14px;}
+  .card-q{padding:14px;}
+}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="eyebrow">Construction Contract &amp; Law — BECM 3107 · KUET</div>
+  <h1 class="title">Termination &amp; Suspension of Construction Contracts
+    <span class="bn">নির্মাণ চুক্তির অবসান ও স্থগিতকরণ — প্রশ্নোত্তর সংকলন</span>
+  </h1>
+  <p class="subtitle">A complete question bank drawn from every slide of the lecture deck — built for revision, recall, and applied understanding. Tap any question to reveal a point-based answer with a Bangla translation beneath it.</p>
+  <div class="course-tag">
+    <span>39 Questions</span>
+    <span>2 Chapters</span>
+    <span>Bilingual EN / BN</span>
+    <span>Source: Sanjida Afrin Sworna, KUET</span>
+  </div>
+</header>
+<div class="texture-rule"></div>
+
+<div class="toolbar">
+  <div class="toolbar-inner">
+    <input type="search" id="searchBox" placeholder="Search a question, keyword, or clause… (e.g. 'material breach', 'notice period')">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="termination">Termination</button>
+    <button class="filter-btn" data-filter="suspension">Suspension</button>
+    <span class="counter" id="counter"></span>
+  </div>
+</div>
+
+<div class="legend">
+  <span><b class="hl-red" style="color:#8c2f2f;">Red bold</b> = party / consequence / legal outcome</span>
+  <span><b class="hl-blue" style="color:#1c4a8a;">Blue bold</b> = doctrine / procedural term</span>
+</div>
+
+<main id="mainContent"></main>
+<p class="empty-state" id="emptyState">No questions match your search. Try a different keyword.</p>
+
+<footer>
+  Compiled for exam revision from the slide deck "Termination of Construction Contract" (BECM 3107, KUET). Page numbers refer to the original slide numbers.
+</footer>
+
+<script>
+const DATA = [
+/* ============ CHAPTER 1 : TERMINATION ============ */
+{
+  ch:"termination", page:2,
+  qEn:"What is meant by termination of a construction contract by mutual agreement?",
+  qBn:"পারস্পরিক সম্মতিতে নির্মাণ চুক্তির অবসান বলতে কী বোঝায়?",
+  aEn:[
+    "A contract is a <b class='hl-blue'>voluntary agreement</b> between two parties, so those same parties can voluntarily agree to end it.",
+    "This mutual ending of a contract is legally called a <b class='hl-red'>rescission</b>.",
+    "A valid rescission requires the parties to reach a fresh agreement — essentially, they are entering into a new (opposite) contract to undo the old one."
+  ],
+  aBn:[
+    "চুক্তি যেহেতু দুই পক্ষের <b class='hl-blue'>স্বেচ্ছামূলক সম্মতি</b>র ভিত্তিতে তৈরি হয়, তাই একই পক্ষ পারস্পরিক সম্মতিতে তা বাতিলও করতে পারে।",
+    "এই পারস্পরিক অবসানকে আইনি ভাষায় <b class='hl-red'>রেসিশন (Rescission)</b> বলা হয়।",
+    "বৈধ রেসিশনের জন্য পক্ষগুলোকে নতুন করে একটি চুক্তিতে (পুরনোটি বাতিলের জন্য) সম্মত হতে হয়।"
+  ]
+},
+{
+  ch:"termination", page:2,
+  qEn:"What are the essential legal requirements for a valid mutual rescission of a contract?",
+  qBn:"চুক্তির বৈধ পারস্পরিক রেসিশনের জন্য প্রয়োজনীয় আইনি শর্তগুলো কী কী?",
+  aEn:[
+    "Both parties must give <b class='hl-blue'>mutual assent</b> — i.e., both must agree.",
+    "There must be a <b class='hl-blue'>meeting of the minds</b> — both parties understand and agree to the same terms of ending the contract.",
+    "Each party must provide <b class='hl-red'>consideration</b> — something of value exchanged as part of ending the agreement."
+  ],
+  aBn:[
+    "উভয় পক্ষের <b class='hl-blue'>পারস্পরিক সম্মতি (Mutual Assent)</b> থাকতে হবে।",
+    "উভয় পক্ষের মধ্যে <b class='hl-blue'>মিটিং অব দ্য মাইন্ডস</b> — অর্থাৎ একই শর্তে সম্মত হতে হবে।",
+    "প্রতিটি পক্ষকে অবশ্যই কিছু <b class='hl-red'>প্রতিদান (Consideration)</b> প্রদান করতে হবে।"
+  ]
+},
+{
+  ch:"termination", page:3,
+  qEn:"In the textbook example, why did the contractor agree to rescind the contract even though the owner had not paid for the work, and how do courts view the sufficiency of consideration?",
+  qBn:"উদাহরণে ঠিকাদার কেন কাজের টাকা না পেয়েও চুক্তি রেসাইন্ড করতে রাজি হলো, এবং আদালত প্রতিদানের পর্যাপ্ততা নিয়ে কী মনোভাব রাখে?",
+  aEn:[
+    "In the example, the contractor had already started work but still agreed to rescind the contract even though payment had not yet been made by the owner.",
+    "Courts <b class='hl-blue'>typically do not examine whether the consideration is sufficient or reasonable</b> — the agreement to rescind is enough on its own.",
+    "This shows courts favor honoring what the parties themselves freely agreed to, rather than second-guessing the fairness of the trade."
+  ],
+  aBn:[
+    "উদাহরণে ঠিকাদার কাজ শুরু করলেও মালিকের কাছ থেকে টাকা না পেয়েও চুক্তি বাতিল করতে সম্মত হয়।",
+    "আদালত সাধারণত <b class='hl-blue'>প্রতিদান পর্যাপ্ত বা যুক্তিসঙ্গত কিনা তা যাচাই করে না</b> — শুধু পারস্পরিক সম্মতিই যথেষ্ট।",
+    "এটি প্রমাণ করে যে আদালত পক্ষগুলোর স্বেচ্ছা সিদ্ধান্তকেই প্রাধান্য দেয়, ন্যায্যতা নিয়ে প্রশ্ন তোলে না।"
+  ]
+},
+{
+  ch:"termination", page:3,
+  qEn:"Under what circumstances will a court refuse to enforce a mutual agreement to rescind a contract?",
+  qBn:"কোন পরিস্থিতিতে আদালত পারস্পরিক রেসিশনের চুক্তি কার্যকর করতে অস্বীকার করবে?",
+  aEn:[
+    "Courts will enforce a mutual rescission agreement <b class='hl-blue'>unless</b> one party can show it acted under:",
+    "<b class='hl-red'>Duress</b> — meaning the party was coerced or threatened into agreeing.",
+    "<b class='hl-red'>Fraudulent inducement</b> — meaning the party was deceived into agreeing to the rescission."
+  ],
+  aBn:[
+    "আদালত পারস্পরিক রেসিশন <b class='hl-blue'>কার্যকর করবে, যদি না</b> কোনো পক্ষ প্রমাণ করতে পারে যে সে:",
+    "<b class='hl-red'>জবরদস্তি বা হুমকি (Duress)</b>-র শিকার হয়ে সম্মত হয়েছিল।",
+    "<b class='hl-red'>প্রতারণামূলকভাবে (Fraud)</b> রাজি করানো হয়েছিল।"
+  ]
+},
+{
+  ch:"termination", page:4,
+  qEn:"Define unilateral termination of a contract and explain what triggers it.",
+  qBn:"চুক্তির একতরফা অবসান (Unilateral Termination) সংজ্ঞায়িত করুন এবং এর কারণ ব্যাখ্যা করুন।",
+  aEn:[
+    "<b class='hl-red'>Unilateral termination</b> means one party ends the contract without the agreement of the other party.",
+    "It usually occurs when one party seriously fails to perform its contractual duties — legally called a <b class='hl-blue'>material breach of contract</b>.",
+    "A material breach happens when a party is <b class='hl-blue'>unwilling or unable</b> to fulfill important obligations under the agreement.",
+    "In such cases, the non-breaching party may have the legal right to terminate the contract."
+  ],
+  aBn:[
+    "<b class='hl-red'>একতরফা অবসান</b> মানে একটি পক্ষ অপর পক্ষের সম্মতি ছাড়াই চুক্তি বাতিল করে।",
+    "এটি সাধারণত ঘটে যখন কোনো পক্ষ তার চুক্তিগত দায়িত্ব পালনে গুরুতরভাবে ব্যর্থ হয় — একে <b class='hl-blue'>মেটেরিয়াল ব্রীচ (Material Breach)</b> বলা হয়।",
+    "মেটেরিয়াল ব্রীচ ঘটে যখন কোনো পক্ষ গুরুত্বপূর্ণ দায়িত্ব পালনে <b class='hl-blue'>অনিচ্ছুক বা অক্ষম</b>।",
+    "এমন ক্ষেত্রে, লঙ্ঘনকারী নয় এমন পক্ষ চুক্তি বাতিল করার আইনি অধিকার পেতে পারে।"
+  ]
+},
+{
+  ch:"termination", page:4,
+  qEn:"What is \"termination for convenience,\" and why can it still lead to legal disputes? How can such disputes be minimized?",
+  qBn:"\"টার্মিনেশন ফর কনভেনিয়েন্স\" কী, এবং এটি কেন আইনি বিরোধের কারণ হতে পারে? কীভাবে এই বিরোধ কমানো যায়?",
+  aEn:[
+    "Many contracts allow the owner to terminate <b class='hl-red'>for convenience</b>, meaning without any cause or fault by the contractor.",
+    "Even so, termination can be <b class='hl-blue'>costly for both parties</b>, so it is likely to give rise to legal disputes.",
+    "To minimize disputes, the contract should clearly state both the <b class='hl-blue'>grounds for termination</b> and the <b class='hl-blue'>procedure</b> to follow when terminating."
+  ],
+  aBn:[
+    "অনেক চুক্তিতে মালিককে কোনো কারণ ছাড়াই চুক্তি বাতিলের অধিকার দেওয়া হয়, যাকে <b class='hl-red'>কনভেনিয়েন্সের জন্য অবসান</b> বলা হয়।",
+    "তবুও, অবসান উভয় পক্ষের জন্য <b class='hl-blue'>ব্যয়বহুল</b> হতে পারে, ফলে আইনি বিরোধ দেখা দিতে পারে।",
+    "বিরোধ কমাতে চুক্তিতে স্পষ্টভাবে <b class='hl-blue'>অবসানের কারণ</b> ও <b class='hl-blue'>পদ্ধতি</b> উল্লেখ থাকা উচিত।"
+  ]
+},
+{
+  ch:"termination", page:5,
+  qEn:"What does \"termination for cause\" mean, and who bears the burden of proof when a contract is terminated for cause?",
+  qBn:"\"কারণসহ অবসান (Termination for Cause)\" বলতে কী বোঝায়, এবং প্রমাণের দায়িত্ব কার উপর বর্তায়?",
+  aEn:[
+    "\"<b class='hl-red'>For cause</b>\" means there was a serious reason for the termination — usually because the other party committed a <b class='hl-blue'>material breach</b> of the contract.",
+    "When a contract is unilaterally terminated for cause, the party ending the contract must <b class='hl-blue'>prove the termination was legally justified</b>.",
+    "The <b class='hl-red'>burden of proof</b> lies on the terminating party — they must show evidence that the other side failed to fulfill important contractual obligations."
+  ],
+  aBn:[
+    "\"<b class='hl-red'>কারণসহ (For Cause)</b>\" মানে অবসানের পেছনে একটি গুরুতর কারণ ছিল — সাধারণত অপর পক্ষের <b class='hl-blue'>মেটেরিয়াল ব্রীচ</b>।",
+    "কারণসহ একতরফা অবসানের ক্ষেত্রে, অবসানকারী পক্ষকে <b class='hl-blue'>প্রমাণ করতে হবে যে অবসান আইনগতভাবে যুক্তিসঙ্গত ছিল</b>।",
+    "<b class='hl-red'>প্রমাণের দায়িত্ব (Burden of Proof)</b> অবসানকারী পক্ষের উপরই বর্তায়।"
+  ]
+},
+{
+  ch:"termination", page:5,
+  qEn:"Once a party has materially breached a contract, what happens to the non-breaching party's obligations, and what procedural requirement must still be followed?",
+  qBn:"একটি পক্ষ মেটেরিয়াল ব্রীচ করলে অপর পক্ষের দায়িত্বের কী হয়, এবং কোন পদ্ধতিগত শর্ত তখনও মানতে হয়?",
+  aEn:[
+    "Once a party has materially breached the contract, the <b class='hl-blue'>non-breaching party is excused from its duties</b> under the contract and may terminate it.",
+    "This means the non-breaching party no longer has to continue performing and may legally end the agreement.",
+    "However, the terminating party must <b class='hl-red'>strictly follow the termination procedures</b> stated in the contract.",
+    "Failure to follow the correct procedure may amount to a <b class='hl-red'>wrongful termination</b>."
+  ],
+  aBn:[
+    "একটি পক্ষ মেটেরিয়াল ব্রীচ করলে, <b class='hl-blue'>অপর পক্ষ তার দায়িত্ব থেকে অব্যাহতি পায়</b> এবং চুক্তি বাতিল করতে পারে।",
+    "অর্থাৎ অলঙ্ঘনকারী পক্ষকে আর কাজ চালিয়ে যেতে হয় না।",
+    "তবে অবসানকারী পক্ষকে চুক্তিতে বর্ণিত <b class='hl-red'>অবসান পদ্ধতি কঠোরভাবে অনুসরণ</b> করতে হবে।",
+    "সঠিক পদ্ধতি না মানলে তা <b class='hl-red'>ভুল/অন্যায্য অবসান (Wrongful Termination)</b> হিসেবে বিবেচিত হতে পারে।"
+  ]
+},
+{
+  ch:"termination", page:6,
+  qEn:"List the grounds under which a contractor may terminate the contract if work is stopped for 30 consecutive days.",
+  qBn:"৩০ দিন একটানা কাজ বন্ধ থাকলে কোন কোন কারণে ঠিকাদার চুক্তি বাতিল করতে পারে তার তালিকা দিন।",
+  aEn:[
+    "The contractor may terminate the contract if work is stopped for <b class='hl-red'>30 consecutive days</b> for any of these reasons:",
+    "A <b class='hl-blue'>court order or act of government</b> requires that all work be stopped.",
+    "The <b class='hl-blue'>Architect/Engineer (A/E) has not issued a certificate for payment</b> and has not explained why it is being withheld.",
+    "The <b class='hl-blue'>owner has not made payment</b> on a certificate for payment within the time stated in the contract documents.",
+    "The <b class='hl-blue'>owner has not furnished evidence of financing</b>."
+  ],
+  aBn:[
+    "নিচের যেকোনো কারণে ৩০ দিন একটানা কাজ বন্ধ থাকলে ঠিকাদার চুক্তি বাতিল করতে পারে:",
+    "<b class='hl-blue'>আদালতের আদেশ বা সরকারি নির্দেশ</b> দ্বারা সব কাজ বন্ধের নির্দেশ দেওয়া হলে।",
+    "<b class='hl-blue'>আর্কিটেক্ট/ইঞ্জিনিয়ার (A/E) পেমেন্ট সার্টিফিকেট ইস্যু না করলে</b> এবং কারণও না জানালে।",
+    "<b class='hl-blue'>মালিক নির্ধারিত সময়ের মধ্যে পেমেন্ট সার্টিফিকেটের অর্থ পরিশোধ না করলে</b>।",
+    "<b class='hl-blue'>মালিক অর্থায়নের প্রমাণ সরবরাহ না করলে</b>।"
+  ]
+},
+{
+  ch:"termination", page:7,
+  qEn:"Beyond the 30-day rule, under what additional conditions may the contractor terminate the contract, and what notice must be given first?",
+  qBn:"৩০ দিনের নিয়ম ছাড়াও আর কোন শর্তে ঠিকাদার চুক্তি বাতিল করতে পারে, এবং প্রথমে কী নোটিশ দিতে হয়?",
+  aEn:[
+    "The contractor may also terminate if the owner <b class='hl-blue'>suspends or delays the work for more than 120 days</b> in any 365-day period.",
+    "Or if work is stopped for <b class='hl-blue'>60 consecutive days</b> because the owner failed to comply with its contractual obligations.",
+    "Before terminating, the contractor must give <b class='hl-red'>seven days' written notice</b> to both the owner and the A/E."
+  ],
+  aBn:[
+    "মালিক যদি ৩৬৫ দিনের মধ্যে <b class='hl-blue'>১২০ দিনের বেশি কাজ স্থগিত বা বিলম্বিত করে</b>, তবেও ঠিকাদার চুক্তি বাতিল করতে পারে।",
+    "অথবা মালিকের চুক্তিগত বাধ্যবাধকতা পালনে ব্যর্থতার কারণে <b class='hl-blue'>৬০ দিন একটানা কাজ বন্ধ থাকলে</b>।",
+    "বাতিলের আগে ঠিকাদারকে মালিক ও A/E উভয়কে <b class='hl-red'>৭ দিনের লিখিত নোটিশ</b> দিতে হবে।"
+  ]
+},
+{
+  ch:"termination", page:7,
+  qEn:"After the seven-day notice period expires, what can the contractor recover upon terminating the contract?",
+  qBn:"৭ দিনের নোটিশ সময় শেষ হওয়ার পর চুক্তি বাতিল করলে ঠিকাদার কী কী আদায় করতে পারে?",
+  aEn:[
+    "After the seven-day notice period, the contractor may terminate the contract and recover:",
+    "Payment for the <b class='hl-blue'>work it has already done</b>.",
+    "<b class='hl-blue'>Reasonable overhead and profit</b>.",
+    "The <b class='hl-red'>costs of the termination</b>, as well as <b class='hl-red'>damages</b>."
+  ],
+  aBn:[
+    "৭ দিনের নোটিশ শেষে ঠিকাদার চুক্তি বাতিল করে নিচেরগুলো আদায় করতে পারে:",
+    "ইতিমধ্যে সম্পন্ন <b class='hl-blue'>কাজের মূল্য</b>।",
+    "<b class='hl-blue'>যুক্তিসঙ্গত ওভারহেড ও মুনাফা</b>।",
+    "<b class='hl-red'>অবসানের খরচ</b> এবং <b class='hl-red'>ক্ষতিপূরণ</b>।"
+  ]
+},
+{
+  ch:"termination", page:8,
+  qEn:"How do courts limit a contractor's right to terminate the contract, and when does the contractor lose that right entirely?",
+  qBn:"আদালত কীভাবে ঠিকাদারের চুক্তি বাতিলের অধিকার সীমিত করে, এবং কখন ঠিকাদার এই অধিকার পুরোপুরি হারায়?",
+  aEn:[
+    "Courts limit the contractor's right to terminate to only the <b class='hl-blue'>specific reasons provided</b> in the contract, which can benefit the owner.",
+    "If the contractor is <b class='hl-red'>even partially at fault</b> for the delays, or for the owner's failure to fulfill its obligations, the contractor <b class='hl-red'>does not have the right to terminate</b>."
+  ],
+  aBn:[
+    "আদালত ঠিকাদারের বাতিলের অধিকারকে শুধু চুক্তিতে <b class='hl-blue'>নির্দিষ্ট কারণগুলোর</b> মধ্যেই সীমাবদ্ধ রাখে, যা মালিকের জন্য উপকারী হতে পারে।",
+    "যদি বিলম্ব বা মালিকের ব্যর্থতার জন্য ঠিকাদার <b class='hl-red'>আংশিকভাবেও দায়ী</b> থাকে, তাহলে ঠিকাদার <b class='hl-red'>বাতিলের অধিকার হারায়</b>।"
+  ]
+},
+{
+  ch:"termination", page:9,
+  qEn:"List the grounds under which an owner may terminate a contractor for cause.",
+  qBn:"কোন কোন কারণে মালিক ঠিকাদারকে কারণসহ চুক্তি থেকে বাদ দিতে পারে তার তালিকা দিন।",
+  aEn:[
+    "The owner may terminate the contractor for cause if the contractor:",
+    "<b class='hl-blue'>Repeatedly fails to supply</b> enough properly skilled workers or proper materials.",
+    "<b class='hl-blue'>Fails to pay subcontractors</b> for materials or labor as agreed.",
+    "<b class='hl-blue'>Repeatedly disregards</b> applicable laws, ordinances, codes, rules, and regulations.",
+    "Is otherwise guilty of a <b class='hl-red'>substantial breach</b> of the contract documents."
+  ],
+  aBn:[
+    "নিচের যেকোনো কারণে মালিক ঠিকাদারকে কারণসহ বাতিল করতে পারে:",
+    "পর্যাপ্ত দক্ষ শ্রমিক বা সঠিক উপকরণ <b class='hl-blue'>বারবার সরবরাহ করতে ব্যর্থ</b> হলে।",
+    "সাবকন্ট্রাক্টরদের চুক্তি অনুযায়ী <b class='hl-blue'>পাওনা পরিশোধ না করলে</b>।",
+    "প্রযোজ্য আইন, বিধিমালা, কোড ইত্যাদি <b class='hl-blue'>বারবার অমান্য করলে</b>।",
+    "চুক্তির <b class='hl-red'>উল্লেখযোগ্য লঙ্ঘন (Substantial Breach)</b> ঘটালে।"
+  ]
+},
+{
+  ch:"termination", page:10,
+  qEn:"What condition must be satisfied before an owner can legally terminate the contractor for cause, and what can the owner do once termination occurs?",
+  qBn:"মালিক আইনগতভাবে ঠিকাদারকে কারণসহ বাতিল করার আগে কোন শর্ত পূরণ করতে হয়, এবং বাতিলের পর মালিক কী করতে পারে?",
+  aEn:[
+    "The owner cannot terminate the contractor for cause until the <b class='hl-red'>initial decision maker (IDM) certifies</b> that the termination is justified.",
+    "Once the contractor is terminated, the owner is allowed to take <b class='hl-blue'>immediate action to mitigate its damages</b>.",
+    "Subject to the rights of the <b class='hl-blue'>surety</b>, the owner may <b class='hl-red'>exclude the contractor from the site</b> and take possession of construction equipment, tools, or materials still on-site."
+  ],
+  aBn:[
+    "<b class='hl-red'>প্রাথমিক সিদ্ধান্ত গ্রহণকারী (Initial Decision Maker)</b> অবসানকে যুক্তিসঙ্গত বলে প্রত্যয়ন না করা পর্যন্ত মালিক ঠিকাদারকে কারণসহ বাতিল করতে পারে না।",
+    "ঠিকাদার বাতিল হওয়ার পর মালিক তার <b class='hl-blue'>ক্ষতি কমাতে তাৎক্ষণিক পদক্ষেপ</b> নিতে পারে।",
+    "<b class='hl-blue'>সিওরিটির অধিকার সাপেক্ষে</b>, মালিক <b class='hl-red'>ঠিকাদারকে সাইট থেকে বাদ দিতে</b> এবং সেখানে থাকা যন্ত্রপাতি, সরঞ্জাম বা উপকরণের দখল নিতে পারে।"
+  ]
+},
+{
+  ch:"termination", page:11,
+  qEn:"After an owner terminates a contractor for cause, what happens to the contractor's entitlement to payment, and who is liable if completion costs exceed the remaining contract balance?",
+  qBn:"মালিক কারণসহ ঠিকাদার বাতিল করলে পেমেন্টের অধিকারের কী হয়, এবং সমাপ্তির খরচ বাকি চুক্তির অর্থের চেয়ে বেশি হলে কে দায়ী থাকে?",
+  aEn:[
+    "Unless the termination is deemed wrongful, the contractor <b class='hl-red'>loses its entitlement to payment</b> until the work is finished.",
+    "The contractor is still entitled to any funds that remain once construction is complete.",
+    "However, the cost to complete the project with another contractor is <b class='hl-blue'>almost always greater</b> than the balance remaining — in which case the <b class='hl-red'>contractor is liable for the difference</b>.",
+    "The <b class='hl-blue'>A/E must certify</b> the amounts due to either party at the end of construction, and the owner must give the contractor a <b class='hl-blue'>detailed accounting</b> of completion costs upon request."
+  ],
+  aBn:[
+    "অবসান ভুল/অন্যায্য প্রমাণিত না হলে, কাজ শেষ না হওয়া পর্যন্ত ঠিকাদার <b class='hl-red'>পেমেন্টের অধিকার হারায়</b>।",
+    "নির্মাণ সম্পন্ন হলে অবশিষ্ট তহবিলে ঠিকাদারের অধিকার থাকে।",
+    "তবে নতুন ঠিকাদার দিয়ে কাজ শেষ করার খরচ সাধারণত <b class='hl-blue'>অবশিষ্ট অর্থের চেয়ে বেশি হয়</b> — এক্ষেত্রে <b class='hl-red'>ঠিকাদার সেই পার্থক্যের জন্য দায়ী</b> থাকে।",
+    "নির্মাণ শেষে <b class='hl-blue'>A/E-কে পাওনা অর্থ প্রত্যয়ন করতে হয়</b>, এবং মালিককে অনুরোধে <b class='hl-blue'>বিস্তারিত হিসাব</b> দিতে হয়।"
+  ]
+},
+{
+  ch:"termination", page:12,
+  qEn:"What is a Notice of Termination, and what five pieces of information must it include?",
+  qBn:"নোটিশ অব টার্মিনেশন কী, এবং এতে কোন পাঁচটি তথ্য থাকতে হয়?",
+  aEn:[
+    "The <b class='hl-red'>contracting officer</b> terminates contracts for convenience or default via <b class='hl-blue'>written notice</b> to the contractor.",
+    "The notice must include:",
+    "The <b class='hl-blue'>contract clause authorizing</b> the termination.",
+    "The <b class='hl-blue'>effective date</b> of termination.",
+    "The <b class='hl-blue'>extent of termination</b> (full or partial).",
+    "Any <b class='hl-blue'>special instructions</b>.",
+    "The <b class='hl-blue'>steps the contractor should take</b> to minimize the impact on personnel if there will be a drastic workforce reduction."
+  ],
+  aBn:[
+    "<b class='hl-red'>কন্ট্রাক্টিং অফিসার</b> কনভেনিয়েন্স বা ডিফল্টের কারণে <b class='hl-blue'>লিখিত নোটিশের</b> মাধ্যমে চুক্তি বাতিল করেন।",
+    "নোটিশে থাকতে হবে:",
+    "<b class='hl-blue'>যে ধারার অধীনে</b> অবসান করা হচ্ছে তার উল্লেখ।",
+    "অবসানের <b class='hl-blue'>কার্যকর তারিখ</b>।",
+    "অবসানের <b class='hl-blue'>ব্যাপ্তি</b> (সম্পূর্ণ নাকি আংশিক)।",
+    "যেকোনো <b class='hl-blue'>বিশেষ নির্দেশনা</b>।",
+    "কর্মীবাহিনীতে বড় ধরনের হ্রাস ঘটলে প্রভাব কমাতে ঠিকাদারের <b class='hl-blue'>করণীয় পদক্ষেপ</b>।"
+  ]
+},
+{
+  ch:"termination", page:13,
+  qEn:"Based on the sample termination letter shown, what sequence of events and steps must be documented when terminating a contractor for a substantial breach?",
+  qBn:"নমুনা টার্মিনেশন লেটার অনুযায়ী, উল্লেখযোগ্য লঙ্ঘনের জন্য ঠিকাদার বাতিলের সময় কোন ঘটনাক্রম ও পদক্ষেপ নথিভুক্ত করতে হয়?",
+  aEn:[
+    "The letter records that the contractor was earlier <b class='hl-blue'>notified of a substantial breach</b> and asked to respond within <b class='hl-red'>7 days</b> (per Clause 17.1/17.2).",
+    "It confirms the contractor <b class='hl-red'>did not provide a satisfactory response or remedy</b> within that 7-day period.",
+    "The Principal then <b class='hl-blue'>formally terminates</b> the contract (per Clause 17.4), stating the effective date of termination.",
+    "The contractor is instructed to attend a <b class='hl-blue'>site meeting</b> before the termination date to jointly take an inventory of plant/equipment and agree on what will be removed.",
+    "The letter is signed by the person issuing the notice, on behalf of the Principal."
+  ],
+  aBn:[
+    "চিঠিতে উল্লেখ থাকে যে ঠিকাদারকে আগেই <b class='hl-blue'>উল্লেখযোগ্য লঙ্ঘনের নোটিশ</b> দেওয়া হয়েছিল এবং <b class='hl-red'>৭ দিনের মধ্যে</b> জবাব চাওয়া হয়েছিল (ধারা ১৭.১/১৭.২ অনুযায়ী)।",
+    "ঠিকাদার সেই ৭ দিনের মধ্যে <b class='hl-red'>সন্তোষজনক জবাব বা প্রতিকার দিতে ব্যর্থ</b> হয়েছে তা নিশ্চিত করা হয়।",
+    "প্রিন্সিপাল তখন (ধারা ১৭.৪ অনুযায়ী) <b class='hl-blue'>আনুষ্ঠানিকভাবে চুক্তি বাতিল</b> করেন এবং কার্যকর তারিখ উল্লেখ করেন।",
+    "ঠিকাদারকে বাতিলের আগে একটি <b class='hl-blue'>সাইট মিটিংয়ে</b> উপস্থিত থেকে যন্ত্রপাতির তালিকা তৈরি ও অপসারণের বিষয়ে সম্মত হতে বলা হয়।",
+    "চিঠিতে প্রিন্সিপালের পক্ষে নোটিশ প্রদানকারীর স্বাক্ষর থাকে।"
+  ]
+},
+{
+  ch:"termination", page:14,
+  qEn:"Why should an owner give seven days' written notice before terminating a contractor, and to whom must it be given?",
+  qBn:"ঠিকাদারকে বাতিল করার আগে মালিক কেন ৭ দিনের লিখিত নোটিশ দেবেন, এবং তা কাদের দিতে হবে?",
+  aEn:[
+    "The owner should provide <b class='hl-red'>7 days' written notice</b> of the termination to both the <b class='hl-blue'>contractor and its surety</b>.",
+    "Often, this notice period gives the contractor enough time to <b class='hl-blue'>remedy the identified problems</b> and thus avoid termination altogether."
+  ],
+  aBn:[
+    "মালিককে <b class='hl-blue'>ঠিকাদার ও তার সিওরিটি</b> উভয়কে অবসানের <b class='hl-red'>৭ দিনের লিখিত নোটিশ</b> দিতে হবে।",
+    "অনেক সময় এই সময়টি ঠিকাদারকে <b class='hl-blue'>সমস্যা সমাধান করে</b> বাতিল এড়ানোর সুযোগ দেয়।"
+  ]
+},
+{
+  ch:"termination", page:14,
+  qEn:"How might a court interpret a notice period that is clearly too short to allow the contractor to cure its default?",
+  qBn:"ডিফল্ট সংশোধনের জন্য স্পষ্টত খুব কম সময়ের নোটিশ পিরিয়ডকে আদালত কীভাবে ব্যাখ্যা করতে পারে?",
+  aEn:[
+    "If the notice period specified in the contract is <b class='hl-red'>clearly too short</b> to allow the contractor to cure the default,",
+    "courts may interpret the notice simply as giving the contractor an opportunity to <b class='hl-blue'>mitigate its damages</b> — for example, by laying off employees, removing equipment from the premises, and canceling orders — rather than a genuine chance to fix the problem."
+  ],
+  aBn:[
+    "চুক্তিতে দেওয়া নোটিশ সময় যদি ডিফল্ট সংশোধনের জন্য <b class='hl-red'>স্পষ্টত খুব কম</b> হয়,",
+    "তবে আদালত এই নোটিশকে শুধু ঠিকাদারকে <b class='hl-blue'>ক্ষতি প্রশমনের সুযোগ</b> (যেমন কর্মী ছাঁটাই, যন্ত্রপাতি সরানো, অর্ডার বাতিল) হিসেবে ব্যাখ্যা করতে পারে, সমস্যা সমাধানের প্রকৃত সুযোগ হিসেবে নয়।"
+  ]
+},
+{
+  ch:"termination", page:15,
+  qEn:"What happens if the termination provisions are meant to give no chance to cure, or if the contract does not specify any notice period at all?",
+  qBn:"যদি অবসানের শর্তে সংশোধনের কোনো সুযোগ না রাখা হয়, বা চুক্তিতে কোনো নোটিশ সময়ই উল্লেখ না থাকে, তাহলে কী হয়?",
+  aEn:[
+    "If the notice period is <b class='hl-blue'>not intended to allow a cure</b>, the termination provisions should clearly state that termination will occur at the end of the notice period, <b class='hl-red'>regardless</b> of the contractor's attempt to fix the issue.",
+    "If the contract does <b class='hl-red'>not specify a notice period</b> at all, courts will generally find that one is still required, and that it gives the contractor the <b class='hl-blue'>opportunity to cure its default</b>."
+  ],
+  aBn:[
+    "যদি নোটিশ সময়টি সংশোধনের সুযোগ দেওয়ার জন্য <b class='hl-blue'>না রাখা হয়</b>, তাহলে চুক্তিতে স্পষ্ট থাকতে হবে যে ঠিকাদারের প্রতিকারের চেষ্টা <b class='hl-red'>যাই হোক না কেন</b>, নোটিশ শেষে অবসান কার্যকর হবে।",
+    "চুক্তিতে <b class='hl-red'>নোটিশ সময় উল্লেখ না থাকলে</b>, আদালত সাধারণত ধরে নেয় যে একটি নোটিশ সময় প্রয়োজন, যা ঠিকাদারকে <b class='hl-blue'>ডিফল্ট সংশোধনের সুযোগ</b> দেয়।"
+  ]
+},
+{
+  ch:"termination", page:16,
+  qEn:"What are a terminated contractor's immediate responsibilities regarding stopping work and handling subcontracts?",
+  qBn:"কাজ বন্ধ করা ও সাবকন্ট্রাক্ট পরিচালনার ক্ষেত্রে বাতিল হওয়া ঠিকাদারের তাৎক্ষণিক দায়িত্ব কী কী?",
+  aEn:[
+    "<b class='hl-blue'>Immediately cease</b> performing and issuing subcontracts on the terminated portion(s) of the contract.",
+    "<b class='hl-blue'>Terminate all subcontracts</b> related to the terminated portion(s) of the prime contract.",
+    "<b class='hl-blue'>Immediately alert the Contracting Officer</b> of any circumstances preventing the stoppage of work.",
+    "<b class='hl-blue'>Continue performing</b> on the non-terminated portion(s) of the contract.",
+    "<b class='hl-blue'>Promptly submit requests for equitable adjustment</b> for any continued portion(s) of the contract."
+  ],
+  aBn:[
+    "চুক্তির বাতিলকৃত অংশে কাজ ও সাবকন্ট্রাক্ট প্রদান <b class='hl-blue'>তাৎক্ষণিকভাবে বন্ধ</b> করা।",
+    "প্রধান চুক্তির বাতিলকৃত অংশ সংক্রান্ত <b class='hl-blue'>সকল সাবকন্ট্রাক্ট বাতিল</b> করা।",
+    "কাজ বন্ধে বাধা সৃষ্টিকারী যেকোনো পরিস্থিতি সম্পর্কে <b class='hl-blue'>কন্ট্রাক্টিং অফিসারকে তাৎক্ষণিক অবহিত</b> করা।",
+    "চুক্তির অ-বাতিলকৃত অংশে <b class='hl-blue'>কাজ চালিয়ে যাওয়া</b>।",
+    "চলমান অংশের জন্য দ্রুত <b class='hl-blue'>ন্যায্য সমন্বয়ের অনুরোধ</b> জমা দেওয়া।"
+  ]
+},
+{
+  ch:"termination", page:17,
+  qEn:"What further responsibilities does a terminated contractor have regarding property, legal proceedings, and final settlement?",
+  qBn:"সম্পত্তি, আইনি কার্যক্রম ও চূড়ান্ত নিষ্পত্তির ক্ষেত্রে বাতিল হওয়া ঠিকাদারের আরও কী কী দায়িত্ব রয়েছে?",
+  aEn:[
+    "<b class='hl-blue'>Preserve property</b> in the contractor's possession that the Government has or may take ownership of in the future.",
+    "<b class='hl-blue'>Notify the Government in writing</b> of any legal proceedings arising from a subcontract or other commitment related to the terminated portion.",
+    "<b class='hl-blue'>Settle outstanding liabilities and proposals</b> arising from termination of subcontracts.",
+    "<b class='hl-blue'>Promptly submit a settlement proposal</b>, supported by sufficient evidence.",
+    "<b class='hl-blue'>Dispose of terminated inventory</b>."
+  ],
+  aBn:[
+    "সরকারের বর্তমান বা ভবিষ্যৎ মালিকানাধীন হতে পারে এমন সম্পত্তি <b class='hl-blue'>সংরক্ষণ করা</b>।",
+    "বাতিলকৃত অংশ সংক্রান্ত সাবকন্ট্রাক্ট থেকে উদ্ভূত যেকোনো আইনি কার্যক্রম সম্পর্কে <b class='hl-blue'>সরকারকে লিখিতভাবে অবহিত</b> করা।",
+    "সাবকন্ট্রাক্ট বাতিল থেকে উদ্ভূত <b class='hl-blue'>বকেয়া দায় ও প্রস্তাব নিষ্পত্তি</b> করা।",
+    "পর্যাপ্ত প্রমাণসহ দ্রুত একটি <b class='hl-blue'>নিষ্পত্তি প্রস্তাব</b> জমা দেওয়া।",
+    "বাতিলকৃত ইনভেন্টরি <b class='hl-blue'>নিষ্পত্তি করা</b>।"
+  ]
+},
+{
+  ch:"termination", page:18,
+  qEn:"What are the three main reasons a termination could be considered wrongful?",
+  qBn:"কোন তিনটি প্রধান কারণে একটি অবসানকে ভুল/অন্যায্য (Wrongful) বলে গণ্য করা যেতে পারে?",
+  aEn:[
+    "A termination may be <b class='hl-red'>wrongful</b> because:",
+    "The <b class='hl-blue'>verification of inadequate performance was untrue</b> — the claimed failure never actually happened.",
+    "The inadequate performance <b class='hl-blue'>did not rise to the level of a material breach</b> — it was too minor to justify termination.",
+    "The non-breaching party had <b class='hl-blue'>waived</b> (excused) agreement with the requirements at issue."
+  ],
+  aBn:[
+    "নিচের কারণে একটি অবসান <b class='hl-red'>ভুল/অন্যায্য</b> বলে গণ্য হতে পারে:",
+    "অপর্যাপ্ত পারফরম্যান্সের <b class='hl-blue'>যাচাই সত্য ছিল না</b> — অভিযোগ আসলে সত্য নয়।",
+    "অপর্যাপ্ত পারফরম্যান্স <b class='hl-blue'>মেটেরিয়াল ব্রীচের মাত্রায় পৌঁছায়নি</b>।",
+    "অলঙ্ঘনকারী পক্ষ ইতিমধ্যে সেই শর্তের প্রতি <b class='hl-blue'>ওয়েভার (মওকুফ)</b> দিয়ে রেখেছিল।"
+  ]
+},
+{
+  ch:"termination", page:19,
+  qEn:"What damages is a wrongfully terminated contractor entitled to receive, and are punitive damages awarded?",
+  qBn:"ভুলভাবে বাতিল হওয়া ঠিকাদার কী ধরনের ক্ষতিপূরণ পায়, এবং শাস্তিমূলক ক্ষতিপূরণ কি দেওয়া হয়?",
+  aEn:[
+    "A wrongful termination entitles the terminated party to <b class='hl-red'>expectation damages</b>.",
+    "<b class='hl-red'>Punitive damages are NOT awarded</b> for wrongful termination.",
+    "A wrongfully terminated contractor is generally entitled to: its <b class='hl-blue'>termination costs</b>, the <b class='hl-blue'>reasonable cost of labor and materials</b> already incurred, and <b class='hl-blue'>lost profits</b> on the entire job."
+  ],
+  aBn:[
+    "ভুল/অন্যায্য অবসানের ফলে বাতিলকৃত পক্ষ <b class='hl-red'>এক্সপেক্টেশন ড্যামেজ</b> (প্রত্যাশিত ক্ষতিপূরণ) পাওয়ার অধিকারী হয়।",
+    "ভুল/অন্যায্য অবসানের জন্য <b class='hl-red'>শাস্তিমূলক ক্ষতিপূরণ দেওয়া হয় না</b>।",
+    "ভুলভাবে বাতিল হওয়া ঠিকাদার সাধারণত পায়: <b class='hl-blue'>অবসানের খরচ</b>, ইতিমধ্যে ব্যয়িত <b class='hl-blue'>শ্রম ও উপকরণের যুক্তিসঙ্গত খরচ</b>, এবং সম্পূর্ণ কাজের <b class='hl-blue'>মুনাফা হারানোর ক্ষতিপূরণ</b>।"
+  ]
+},
+{
+  ch:"termination", page:19,
+  qEn:"If a contract is wrongfully terminated by the contractor itself, what is the owner entitled to recover?",
+  qBn:"যদি ঠিকাদার নিজেই ভুলভাবে চুক্তি বাতিল করে, তাহলে মালিক কী আদায় করার অধিকারী?",
+  aEn:[
+    "If the contract was <b class='hl-red'>wrongfully terminated by the contractor</b>, the owner is entitled to the <b class='hl-blue'>extra costs incurred in completing the project</b> with another party."
+  ],
+  aBn:[
+    "যদি <b class='hl-red'>ঠিকাদার নিজেই ভুলভাবে চুক্তি বাতিল করে</b>, তাহলে মালিক প্রকল্প সম্পন্ন করতে <b class='hl-blue'>অতিরিক্ত যে খরচ হয়েছে</b> তা আদায়ের অধিকারী।"
+  ]
+},
+{
+  ch:"termination", page:20,
+  qEn:"In the pipeline case study, why did the Texas Supreme Court hold that the owner's termination of the contractor was NOT wrongful?",
+  qBn:"পাইপলাইন কেস স্টাডিতে টেক্সাস সুপ্রিম কোর্ট কেন সিদ্ধান্ত দিলো যে মালিকের অবসান ভুল/অন্যায্য ছিল না?",
+  aEn:[
+    "The owner required the 100-mile pipeline to be completed by <b class='hl-blue'>April 30, 1997</b>; the contractor even raised its bid ~10% because of this strict deadline.",
+    "After 8 of the 14 scheduled weeks, the contractor had completed only <b class='hl-red'>15 of 100 miles</b> — making it clear the deadline could not be met.",
+    "Because <b class='hl-blue'>\"time was of the essence\"</b> on this project, missing the deadline was ruled a <b class='hl-red'>material breach</b> of contract.",
+    "Therefore, the court held the termination was <b class='hl-red'>not wrongful</b>, and the contractor was NOT entitled to damages or lost profits."
+  ],
+  aBn:[
+    "মালিক ১০০ মাইল পাইপলাইন <b class='hl-blue'>৩০ এপ্রিল ১৯৯৭</b> এর মধ্যে শেষ করার শর্ত দিয়েছিলেন; কড়া সময়সীমার কারণে ঠিকাদার তার বিড প্রায় ১০% বাড়িয়েছিল।",
+    "নির্ধারিত ১৪ সপ্তাহের মধ্যে ৮ সপ্তাহ পরে ঠিকাদার মাত্র <b class='hl-red'>১০০ মাইলের মধ্যে ১৫ মাইল</b> কাজ সম্পন্ন করেছিল — সময়সীমা মানা অসম্ভব ছিল।",
+    "যেহেতু এই প্রকল্পে <b class='hl-blue'>\"সময়ই মুখ্য বিষয়\"</b> ছিল, তাই সময়সীমা মিস করাকে <b class='hl-red'>মেটেরিয়াল ব্রীচ</b> বলে রায় দেওয়া হয়।",
+    "তাই আদালত বলে যে অবসান <b class='hl-red'>ভুল/অন্যায্য ছিল না</b>, এবং ঠিকাদার ক্ষতিপূরণ বা হারানো মুনাফার অধিকারী নয়।"
+  ]
+},
+{
+  ch:"termination", page:20,
+  qEn:"In the same case study, why did the court reverse the damages that had been awarded to the owner?",
+  qBn:"একই কেস স্টাডিতে আদালত মালিককে দেওয়া ক্ষতিপূরণের রায় কেন বাতিল করলো?",
+  aEn:[
+    "The owner terminated the contractor and completed the work with another contractor, then sued to recover the <b class='hl-blue'>cost of completion</b>.",
+    "Although the termination itself was valid, the owner <b class='hl-red'>failed to show that its completion costs were reasonable</b>.",
+    "Because the owner could not prove the reasonableness of those costs, the court <b class='hl-red'>reversed the appeals court's award of damages</b> to the owner."
+  ],
+  aBn:[
+    "মালিক ঠিকাদারকে বাতিল করে অন্য ঠিকাদার দিয়ে কাজ শেষ করান, এরপর <b class='hl-blue'>সমাপ্তির খরচ</b> আদায়ের জন্য মামলা করেন।",
+    "অবসান বৈধ হলেও, মালিক তার <b class='hl-red'>সমাপ্তির খরচ যুক্তিসঙ্গত ছিল তা প্রমাণ করতে ব্যর্থ</b> হন।",
+    "খরচের যৌক্তিকতা প্রমাণ করতে না পারায় আদালত মালিককে দেওয়া <b class='hl-red'>ক্ষতিপূরণের রায় বাতিল</b> করে দেয়।"
+  ]
+},
+
+/* ============ CHAPTER 2 : SUSPENSION ============ */
+{
+  ch:"suspension", page:"S-1",
+  qEn:"Define suspension of a construction contract, and explain how it fundamentally differs from termination.",
+  qBn:"নির্মাণ চুক্তির স্থগিতকরণ (Suspension) সংজ্ঞায়িত করুন এবং এটি অবসান থেকে মূলত কীভাবে আলাদা তা ব্যাখ্যা করুন।",
+  aEn:[
+    "<b class='hl-red'>Suspension</b> refers to the <b class='hl-blue'>temporary cessation</b> of construction activities for a specified period, during which the contract <b class='hl-blue'>remains legally valid and enforceable</b>.",
+    "During suspension, the contractor is instructed to stop part or all of the work until certain problems or conditions are resolved.",
+    "Unlike termination, suspension is used to <b class='hl-blue'>protect the interests</b> of the owner, contractor, workers, and the project when continuing work may create financial, technical, legal, or safety problems."
+  ],
+  aBn:[
+    "<b class='hl-red'>স্থগিতকরণ</b> বলতে নির্দিষ্ট সময়ের জন্য নির্মাণকাজের <b class='hl-blue'>সাময়িক বন্ধ</b> থাকা বোঝায়, যেখানে চুক্তি <b class='hl-blue'>আইনগতভাবে বৈধ ও কার্যকর</b> থাকে।",
+    "স্থগিতকালে ঠিকাদারকে নির্দিষ্ট সমস্যা সমাধান না হওয়া পর্যন্ত আংশিক বা সম্পূর্ণ কাজ বন্ধ রাখতে বলা হয়।",
+    "অবসানের বিপরীতে, স্থগিতকরণ ব্যবহার করা হয় মালিক, ঠিকাদার, শ্রমিক ও প্রকল্পের <b class='hl-blue'>স্বার্থ রক্ষার</b> জন্য যখন কাজ চালিয়ে গেলে আর্থিক, প্রযুক্তিগত, আইনি বা নিরাপত্তাজনিত সমস্যা হতে পারে।"
+  ]
+},
+{
+  ch:"suspension", page:"S-2",
+  qEn:"List the key characteristics of suspension in a construction contract.",
+  qBn:"নির্মাণ চুক্তিতে স্থগিতকরণের প্রধান বৈশিষ্ট্যগুলো তালিকা করুন।",
+  aEn:[
+    "It is <b class='hl-blue'>temporary in nature</b>.",
+    "The <b class='hl-red'>contract is not terminated</b> — it stays in force.",
+    "Construction activities <b class='hl-blue'>may restart later</b>.",
+    "The <b class='hl-blue'>rights and obligations</b> of both parties still exist during the suspension."
+  ],
+  aBn:[
+    "এটি প্রকৃতিতে <b class='hl-blue'>সাময়িক</b>।",
+    "<b class='hl-red'>চুক্তি বাতিল হয় না</b> — তা বলবৎ থাকে।",
+    "নির্মাণকাজ <b class='hl-blue'>পরে পুনরায় শুরু হতে পারে</b>।",
+    "স্থগিতকালেও উভয় পক্ষের <b class='hl-blue'>অধিকার ও দায়িত্ব</b> বহাল থাকে।"
+  ]
+},
+{
+  ch:"suspension", page:"S-3",
+  qEn:"What is the most common financial reason for suspending a construction contract, and how does it affect the project?",
+  qBn:"নির্মাণ চুক্তি স্থগিত হওয়ার সবচেয়ে সাধারণ আর্থিক কারণ কী, এবং এটি প্রকল্পকে কীভাবে প্রভাবিত করে?",
+  aEn:[
+    "One of the most common reasons for suspension is <b class='hl-red'>non-payment by the owner</b> or <b class='hl-red'>financial insolvency of the contractor</b>.",
+    "A <b class='hl-blue'>lack of funds</b> can stop the supply of materials, labor payments, and overall project activities."
+  ],
+  aBn:[
+    "স্থগিতকরণের সবচেয়ে সাধারণ কারণগুলোর একটি হলো <b class='hl-red'>মালিকের অর্থ প্রদানে ব্যর্থতা</b> বা <b class='hl-red'>ঠিকাদারের আর্থিক দেউলিয়াত্ব</b>।",
+    "<b class='hl-blue'>তহবিলের অভাব</b> উপকরণ সরবরাহ, শ্রমিকের পারিশ্রমিক ও সামগ্রিক প্রকল্প কার্যক্রম বন্ধ করে দিতে পারে।"
+  ]
+},
+{
+  ch:"suspension", page:"S-4",
+  qEn:"Beyond financial reasons, what technical, safety, and force-majeure factors can also cause suspension of work?",
+  qBn:"আর্থিক কারণ ছাড়াও, প্রযুক্তিগত, নিরাপত্তাজনিত ও দৈব-দুর্বিপাক সংক্রান্ত কোন বিষয়গুলো কাজ স্থগিতের কারণ হতে পারে?",
+  aEn:[
+    "<b class='hl-blue'>Serious design errors, specification problems, or structural defects</b> — work is stopped to prevent further damage and ensure quality.",
+    "<b class='hl-blue'>Unsafe working conditions, accidents, or environmental hazards</b> — require immediate suspension to protect workers and nearby communities.",
+    "<b class='hl-red'>Force majeure events</b> beyond the parties' control — natural disasters, floods, earthquakes, political unrest, government restrictions, and material shortages.",
+    "<b class='hl-blue'>Violation of contract terms</b>, failure to follow project specifications, or disputes between parties."
+  ],
+  aBn:[
+    "<b class='hl-blue'>গুরুতর ডিজাইন ত্রুটি, স্পেসিফিকেশন সমস্যা বা স্ট্রাকচারাল ত্রুটি</b> — মান নিশ্চিত করতে ও আরও ক্ষতি এড়াতে কাজ বন্ধ রাখা হয়।",
+    "<b class='hl-blue'>অনিরাপদ কর্মপরিবেশ, দুর্ঘটনা বা পরিবেশগত ঝুঁকি</b> — শ্রমিক ও আশপাশের জনগোষ্ঠীকে রক্ষায় তাৎক্ষণিক স্থগিতকরণ প্রয়োজন হয়।",
+    "পক্ষগুলোর নিয়ন্ত্রণের বাইরের <b class='hl-red'>ফোর্স মাজিওর ঘটনা</b> — প্রাকৃতিক দুর্যোগ, বন্যা, ভূমিকম্প, রাজনৈতিক অস্থিরতা, সরকারি বিধিনিষেধ ও উপকরণ সংকট।",
+    "<b class='hl-blue'>চুক্তির শর্ত লঙ্ঘন</b>, প্রকল্প স্পেসিফিকেশন না মানা, বা পক্ষগুলোর মধ্যে বিরোধ।"
+  ]
+},
+{
+  ch:"suspension", page:"S-5",
+  qEn:"Describe the four types of suspension and how each differs from the others.",
+  qBn:"স্থগিতকরণের চার ধরনের বর্ণনা দিন এবং প্রতিটি কীভাবে অন্যদের থেকে আলাদা তা ব্যাখ্যা করুন।",
+  aEn:[
+    "<b class='hl-red'>Partial Suspension</b> — only a specific portion of the construction activities is stopped while the remaining work continues.",
+    "<b class='hl-red'>Total Suspension</b> — all construction activities at the project site are temporarily stopped.",
+    "<b class='hl-blue'>Voluntary Suspension</b> — initiated by the owner or contractor based on mutual agreement or project requirements.",
+    "<b class='hl-blue'>Involuntary Suspension</b> — caused by unavoidable external events, such as severe weather, war, or government actions."
+  ],
+  aBn:[
+    "<b class='hl-red'>আংশিক স্থগিতকরণ</b> — শুধু নির্দিষ্ট অংশের কাজ বন্ধ থাকে, বাকি কাজ চলতে থাকে।",
+    "<b class='hl-red'>সম্পূর্ণ স্থগিতকরণ</b> — প্রকল্প সাইটের সমস্ত নির্মাণকাজ সাময়িকভাবে বন্ধ থাকে।",
+    "<b class='hl-blue'>স্বেচ্ছা স্থগিতকরণ</b> — মালিক বা ঠিকাদারের পারস্পরিক সম্মতি বা প্রয়োজনে শুরু হয়।",
+    "<b class='hl-blue'>অনিচ্ছাকৃত স্থগিতকরণ</b> — যুদ্ধ, তীব্র আবহাওয়া বা সরকারি পদক্ষেপের মতো অনিবার্য বাহ্যিক ঘটনার কারণে হয়।"
+  ]
+},
+{
+  ch:"suspension", page:"S-6",
+  qEn:"Outline the standard step-by-step procedure followed when a construction contract is suspended.",
+  qBn:"নির্মাণ চুক্তি স্থগিত হলে অনুসরণীয় ধাপে ধাপে মানক পদ্ধতির রূপরেখা দিন।",
+  aEn:[
+    "<b class='hl-blue'>Identification of Problem</b> — a serious issue affecting safety, quality, finance, or contract compliance is identified.",
+    "<b class='hl-blue'>Issuing Notice</b> — the owner, engineer, or contractor formally issues a suspension notice per the contract conditions.",
+    "<b class='hl-blue'>Temporary Stoppage of Work</b> — construction activities are partially or completely halted.",
+    "<b class='hl-blue'>Investigation and Corrective Action</b> — the responsible parties investigate the issue and take corrective measures.",
+    "<b class='hl-blue'>Resumption of Work</b> — once the issue is resolved, permission is given to restart construction activities."
+  ],
+  aBn:[
+    "<b class='hl-blue'>সমস্যা চিহ্নিতকরণ</b> — নিরাপত্তা, মান, আর্থিক বা চুক্তি সংক্রান্ত গুরুতর সমস্যা শনাক্ত করা হয়।",
+    "<b class='hl-blue'>নোটিশ ইস্যু</b> — মালিক, ইঞ্জিনিয়ার বা ঠিকাদার চুক্তির শর্ত অনুযায়ী আনুষ্ঠানিক স্থগিতকরণ নোটিশ প্রদান করেন।",
+    "<b class='hl-blue'>কাজ সাময়িক বন্ধ</b> — নির্মাণকাজ আংশিক বা সম্পূর্ণভাবে থামানো হয়।",
+    "<b class='hl-blue'>তদন্ত ও সংশোধনমূলক পদক্ষেপ</b> — দায়িত্বশীল পক্ষরা সমস্যা তদন্ত করে সংশোধনমূলক ব্যবস্থা নেয়।",
+    "<b class='hl-blue'>কাজ পুনরায় শুরু</b> — সমস্যা সমাধান হলে কাজ পুনরায় শুরুর অনুমতি দেওয়া হয়।"
+  ]
+},
+{
+  ch:"suspension", page:"S-7",
+  qEn:"What financial consequences typically result from a suspension of construction work?",
+  qBn:"নির্মাণকাজ স্থগিত হলে সাধারণত কী কী আর্থিক পরিণতি হয়?",
+  aEn:[
+    "Suspension often causes <b class='hl-blue'>delays in project completion</b> and may require an <b class='hl-blue'>extension of contract time</b>.",
+    "Temporary stoppage <b class='hl-red'>increases project costs</b> due to:",
+    "<b class='hl-blue'>Idle labor and machinery</b>.",
+    "<b class='hl-blue'>Material storage costs</b>.",
+    "<b class='hl-blue'>Additional administrative expenses</b>.",
+    "<b class='hl-blue'>Reduced productivity</b>."
+  ],
+  aBn:[
+    "স্থগিতকরণ প্রায়শই <b class='hl-blue'>প্রকল্প সমাপ্তিতে বিলম্ব</b> ঘটায় এবং <b class='hl-blue'>চুক্তির সময় বৃদ্ধির</b> প্রয়োজন হতে পারে।",
+    "সাময়িক বন্ধের কারণে <b class='hl-red'>প্রকল্পের খরচ বৃদ্ধি</b> পায়, যেমন:",
+    "<b class='hl-blue'>অলস শ্রমিক ও যন্ত্রপাতি</b>।",
+    "<b class='hl-blue'>উপকরণ সংরক্ষণ খরচ</b>।",
+    "<b class='hl-blue'>অতিরিক্ত প্রশাসনিক ব্যয়</b>।",
+    "<b class='hl-blue'>উৎপাদনশীলতা হ্রাস</b>।"
+  ]
+},
+{
+  ch:"suspension", page:"S-8",
+  qEn:"What legal, contractual, and relational consequences can suspension of a construction contract create?",
+  qBn:"নির্মাণ চুক্তির স্থগিতকরণ কী কী আইনি, চুক্তিগত ও সম্পর্কগত পরিণতি সৃষ্টি করতে পারে?",
+  aEn:[
+    "Suspension may result in legal and contractual consequences such as <b class='hl-red'>claims for compensation</b>, <b class='hl-red'>contract disputes</b>, <b class='hl-red'>arbitration or litigation</b>, and <b class='hl-blue'>revision of the project schedule</b>.",
+    "Suspension affects <b class='hl-blue'>owners, contractors, subcontractors, suppliers, and workers</b> alike.",
+    "<b class='hl-red'>Long suspension periods</b> may damage professional relationships and business reputation."
+  ],
+  aBn:[
+    "স্থগিতকরণের ফলে <b class='hl-red'>ক্ষতিপূরণের দাবি</b>, <b class='hl-red'>চুক্তিগত বিরোধ</b>, <b class='hl-red'>সালিশি বা মামলা</b>, এবং <b class='hl-blue'>প্রকল্প সময়সূচি সংশোধনের</b> মতো আইনি ও চুক্তিগত পরিণতি হতে পারে।",
+    "স্থগিতকরণ <b class='hl-blue'>মালিক, ঠিকাদার, সাবকন্ট্রাক্টর, সরবরাহকারী ও শ্রমিক</b> সবাইকে প্রভাবিত করে।",
+    "<b class='hl-red'>দীর্ঘ স্থগিতকাল</b> পেশাগত সম্পর্ক ও ব্যবসায়িক সুনাম ক্ষতিগ্রস্ত করতে পারে।"
+  ]
+}
+];
+
+/* ---------- render ---------- */
+const chapters = {
+  termination: {
+    num:"I", title:"Termination of the Construction Contract",
+    bn:"নির্মাণ চুক্তির অবসান",
+    desc:"Covers mutual rescission, unilateral termination for cause and convenience, contractor's and owner's termination rights, notice requirements, a terminated contractor's duties, and wrongful termination doctrine — with the pipeline case study."
+  },
+  suspension: {
+    num:"II", title:"Suspension of the Construction Contract",
+    bn:"নির্মাণ চুক্তির স্থগিতকরণ",
+    desc:"Covers the definition, characteristics, causes, types, procedure, and financial/legal consequences of suspending — as opposed to terminating — a construction contract."
+  }
+};
+
+const main = document.getElementById('mainContent');
+let openCard = null;
+
+function buildAnswerHTML(item){
+  const enItems = item.aEn.map(t=>`<li>${t}</li>`).join('');
+  const bnItems = item.aBn.map(t=>`<li>${t}</li>`).join('');
+  return `
+    <div class="answer-block en">
+      <div class="label">Answer</div>
+      <ul>${enItems}</ul>
+    </div>
+    <div class="answer-block bn">
+      <div class="label">উত্তর (বাংলা)</div>
+      <ul>${bnItems}</ul>
+    </div>
+  `;
+}
+
+function render(filterCh, searchTerm){
+  main.innerHTML = '';
+  let totalShown = 0;
+
+  Object.keys(chapters).forEach(chKey=>{
+    if(filterCh !== 'all' && filterCh !== chKey) return;
+    const items = DATA.filter(d=>{
+      const matchesCh = d.ch === chKey;
+      if(!matchesCh) return false;
+      if(!searchTerm) return true;
+      const hay = (d.qEn + ' ' + d.qBn + ' ' + d.aEn.join(' ') + ' ' + d.aBn.join(' ')).toLowerCase();
+      return hay.includes(searchTerm);
+    });
+    if(items.length === 0) return;
+
+    const chapterEl = document.createElement('section');
+    chapterEl.className = 'chapter';
+    const meta = chapters[chKey];
+    chapterEl.innerHTML = `
+      <div class="chapter-head">
+        <div class="chapter-num">${meta.num}</div>
+        <div class="chapter-titles">
+          <h2>${meta.title}</h2>
+          <div class="bn-sub">${meta.bn}</div>
+        </div>
+      </div>
+      <p class="chapter-desc">${meta.desc}</p>
+    `;
+    const list = document.createElement('div');
+    list.className = 'card-list';
+
+    items.forEach((item, idx)=>{
+      totalShown++;
+      const card = document.createElement('article');
+      card.className = 'card';
+      card.innerHTML = `
+        <button class="card-q" aria-expanded="false">
+          <div class="q-index">${idx+1}.</div>
+          <div class="q-body">
+            <p class="q-en">${item.qEn}</p>
+            <p class="q-bn">${item.qBn}</p>
+            <span class="q-page">Page ${item.page}</span>
+          </div>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="answer-wrap">
+          <div class="answer-inner">
+            ${buildAnswerHTML(item)}
+          </div>
+        </div>
+      `;
+      const btn = card.querySelector('.card-q');
+      const wrap = card.querySelector('.answer-wrap');
+      btn.addEventListener('click', ()=>{
+        const isOpen = card.classList.contains('open');
+        if(isOpen){
+          card.classList.remove('open');
+          wrap.style.maxHeight = null;
+          btn.setAttribute('aria-expanded','false');
+        } else {
+          card.classList.add('open');
+          wrap.style.maxHeight = wrap.scrollHeight + 'px';
+          btn.setAttribute('aria-expanded','true');
+        }
+      });
+      list.appendChild(card);
+    });
+
+    chapterEl.appendChild(list);
+    main.appendChild(chapterEl);
+  });
+
+  document.getElementById('counter').textContent = totalShown + (totalShown===1 ? ' question shown' : ' questions shown');
+  document.getElementById('emptyState').style.display = totalShown === 0 ? 'block' : 'none';
+}
+
+let currentFilter = 'all';
+document.querySelectorAll('.filter-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    currentFilter = btn.dataset.filter;
+    render(currentFilter, document.getElementById('searchBox').value.trim().toLowerCase());
+  });
+});
+
+document.getElementById('searchBox').addEventListener('input', (e)=>{
+  render(currentFilter, e.target.value.trim().toLowerCase());
+});
+
+render('all','');
+</script>
+</body>
+</html>
