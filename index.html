@@ -82,7 +82,7 @@
       margin-bottom: 12px;
       border-bottom: 1px solid #444;
       padding-bottom: 6px;
-      white-space: normal; /* Fixes the cut-off text issue */
+      white-space: normal; 
       line-height: 1.5;
       letter-spacing: 0.5px;
     }
@@ -115,7 +115,7 @@
       display: flex;
       flex-direction: column;
       width: 100%;
-      position: relative; /* Allows the floating button to anchor here */
+      position: relative; 
     }
     
     /* FLOATING MENU BUTTON */
@@ -134,8 +134,17 @@
       align-items: center;
       justify-content: center;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-      transition: all 0.3s ease;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
       z-index: 10;
+      /* Hidden by default since the sidebar starts open */
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(0.5);
+    }
+    .open-btn.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: scale(1);
     }
     .open-btn:hover {
       background: #0056b3;
@@ -194,8 +203,8 @@
   <!-- MAIN CONTENT -->
   <div class="main-content">
     
-    <!-- FLOATING ICON BUTTON -->
-    <button class="open-btn" onclick="toggleSidebar()" title="Open Menu">
+    <!-- FLOATING ICON BUTTON (Now with an ID) -->
+    <button id="menuBtn" class="open-btn" onclick="toggleSidebar()" title="Open Menu">
       <svg viewBox="0 0 24 24">
         <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
       </svg>
@@ -209,7 +218,11 @@
   <script>
     function toggleSidebar() {
       const sidebar = document.getElementById("sidebar");
+      const menuBtn = document.getElementById("menuBtn");
+      
+      // Toggles the classes to open/close menu and show/hide the button
       sidebar.classList.toggle("closed");
+      menuBtn.classList.toggle("visible");
     }
   </script>
 
