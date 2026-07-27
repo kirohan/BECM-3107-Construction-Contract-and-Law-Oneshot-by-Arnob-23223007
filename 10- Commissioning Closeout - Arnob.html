@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Commissioning & Closeout | BECM 3107 Study Guide</title>
+<style>
+  :root{
+    --navy:#0f2544;
+    --navy-2:#16375f;
+    --accent:#c9a227;
+    --accent-2:#2e86ab;
+    --red:#c0392b;
+    --blue:#1f5fa8;
+    --bg:#f4f6fb;
+    --card:#ffffff;
+    --muted:#6b7280;
+    --border:#e3e7ef;
+    --green:#1f8a56;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Segoe UI', 'Noto Sans Bengali', 'Hind Siliguri', Tahoma, sans-serif;
+    background:linear-gradient(160deg,#eef1f8 0%, #e6ebf5 100%);
+    color:#1a1f2b;
+    min-height:100vh;
+  }
+  header{
+    background:linear-gradient(120deg, var(--navy) 0%, var(--navy-2) 60%, #1b4870 100%);
+    color:#fff;
+    padding:40px 20px 34px;
+    text-align:center;
+    box-shadow:0 6px 24px rgba(15,37,68,0.25);
+    position:relative;
+    overflow:hidden;
+  }
+  header::before{
+    content:"";
+    position:absolute;
+    top:-60px; right:-60px;
+    width:220px;height:220px;
+    background:radial-gradient(circle, rgba(201,162,39,0.25) 0%, transparent 70%);
+  }
+  header h1{
+    margin:0 0 6px;
+    font-size:2rem;
+    letter-spacing:0.3px;
+  }
+  header .bn-title{
+    font-size:1.15rem;
+    color:#f1e5c0;
+    margin:0 0 14px;
+  }
+  header .subtitle{
+    font-size:0.95rem;
+    color:#cfe0f2;
+    max-width:700px;
+    margin:0 auto;
+    line-height:1.5;
+  }
+  .course-tag{
+    display:inline-block;
+    margin-top:16px;
+    background:rgba(255,255,255,0.12);
+    border:1px solid rgba(255,255,255,0.35);
+    padding:6px 16px;
+    border-radius:20px;
+    font-size:0.82rem;
+    letter-spacing:0.5px;
+  }
+  .container{
+    max-width:920px;
+    margin:0 auto;
+    padding:26px 16px 70px;
+  }
+  .toolbar{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(244,246,251,0.92);
+    backdrop-filter:blur(6px);
+    padding:14px 0 16px;
+    margin-bottom:10px;
+  }
+  .search-box{
+    display:flex;
+    align-items:center;
+    background:#fff;
+    border:2px solid var(--border);
+    border-radius:14px;
+    padding:10px 16px;
+    box-shadow:0 2px 10px rgba(15,37,68,0.06);
+    transition:border-color .2s;
+  }
+  .search-box:focus-within{
+    border-color:var(--accent-2);
+  }
+  .search-box svg{flex-shrink:0; margin-right:10px;}
+  .search-box input{
+    border:none;
+    outline:none;
+    width:100%;
+    font-size:1rem;
+    background:transparent;
+    color:#1a1f2b;
+  }
+  .stats-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:10px;
+    font-size:0.85rem;
+    color:var(--muted);
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .stats-row span b{color:var(--navy-2);}
+  .expand-controls{
+    display:flex;
+    gap:8px;
+  }
+  .expand-controls button{
+    border:1px solid var(--border);
+    background:#fff;
+    color:var(--navy-2);
+    padding:6px 12px;
+    border-radius:8px;
+    font-size:0.8rem;
+    cursor:pointer;
+    transition:.2s;
+  }
+  .expand-controls button:hover{
+    background:var(--navy-2);
+    color:#fff;
+  }
+  .section-label{
+    margin:30px 0 14px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .section-label .num{
+    background:var(--navy-2);
+    color:#fff;
+    width:30px;height:30px;
+    border-radius:8px;
+    display:flex;align-items:center;justify-content:center;
+    font-weight:700;
+    font-size:0.9rem;
+    flex-shrink:0;
+  }
+  .section-label h2{
+    font-size:1.15rem;
+    margin:0;
+    color:var(--navy);
+  }
+  .section-label .bn{
+    font-size:0.85rem;
+    color:var(--muted);
+    display:block;
+  }
+  .card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:14px;
+    margin-bottom:14px;
+    overflow:hidden;
+    box-shadow:0 2px 8px rgba(15,37,68,0.05);
+    transition:box-shadow .25s, transform .2s;
+  }
+  .card:hover{
+    box-shadow:0 6px 18px rgba(15,37,68,0.12);
+  }
+  .q-btn{
+    width:100%;
+    text-align:left;
+    background:#fff;
+    border:none;
+    padding:18px 20px;
+    cursor:pointer;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:14px;
+    font-size:1rem;
+    color:#1a1f2b;
+    transition:background .2s;
+  }
+  .q-btn:hover{background:#f7f9fd;}
+  .q-btn.active{
+    background:linear-gradient(90deg, #eef3fb, #ffffff);
+    border-bottom:1px solid var(--border);
+  }
+  .q-text{flex:1;}
+  .q-text .en{
+    font-weight:600;
+    line-height:1.45;
+  }
+  .q-text .bn{
+    font-size:0.9rem;
+    color:var(--blue);
+    margin-top:4px;
+    line-height:1.5;
+  }
+  .q-meta{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-shrink:0;
+  }
+  .page-chip{
+    background:var(--accent);
+    color:#3a2c00;
+    font-size:0.72rem;
+    font-weight:700;
+    padding:3px 9px;
+    border-radius:20px;
+    white-space:nowrap;
+  }
+  .chevron{
+    width:20px;height:20px;
+    flex-shrink:0;
+    transition:transform .3s;
+    color:var(--navy-2);
+  }
+  .q-btn.active .chevron{
+    transform:rotate(180deg);
+  }
+  .answer{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .35s ease;
+    background:#fbfcff;
+  }
+  .answer-inner{
+    padding:4px 22px 22px;
+  }
+  .answer-block{
+    padding-top:14px;
+  }
+  .answer-block .label{
+    font-size:0.72rem;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    color:var(--muted);
+    font-weight:700;
+    margin-bottom:8px;
+  }
+  .answer-block.bn .label{color:var(--blue);}
+  .answer ul{
+    margin:0 0 6px;
+    padding-left:20px;
+  }
+  .answer li{
+    margin-bottom:7px;
+    line-height:1.55;
+  }
+  .answer p{
+    line-height:1.6;
+    margin:0 0 8px;
+  }
+  .divider{
+    height:1px;
+    background:var(--border);
+    margin:14px 0;
+  }
+  .kw-red{color:var(--red); font-weight:700;}
+  .kw-blue{color:var(--blue); font-weight:700;}
+  b{color:#14213d;}
+  .no-results{
+    text-align:center;
+    padding:50px 20px;
+    color:var(--muted);
+  }
+  footer{
+    text-align:center;
+    padding:26px 16px 40px;
+    color:var(--muted);
+    font-size:0.85rem;
+  }
+  @media (max-width:600px){
+    header h1{font-size:1.4rem;}
+    header .bn-title{font-size:1rem;}
+    .q-btn{padding:14px 14px;}
+    .q-text .en{font-size:0.95rem;}
+    .q-text .bn{font-size:0.83rem;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Project Commissioning &amp; Close-out</h1>
+  <div class="bn-title">প্রজেক্ট কমিশনিং ও ক্লোজ-আউট</div>
+  <div class="subtitle">Interactive bilingual (English/Bangla) study guide covering Commissioning and the full Project Closeout process — Construction Contract &amp; Law (BECM 3107), KUET.</div>
+  <span class="course-tag">BECM 3107 · Construction Contract &amp; Law · Roll 2223007</span>
+</header>
+
+<div class="container">
+
+  <div class="toolbar">
+    <div class="search-box">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="searchInput" placeholder="Search questions, keywords, page number... | প্রশ্ন বা কীওয়ার্ড খুঁজুন...">
+    </div>
+    <div class="stats-row">
+      <span>Showing <b id="countShown">0</b> of <b id="countTotal">0</b> questions</span>
+      <div class="expand-controls">
+        <button id="expandAll">Expand All</button>
+        <button id="collapseAll">Collapse All</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="content"></div>
+  <div class="no-results" id="noResults" style="display:none;">No matching questions found. Try a different search term.<br><span style="color:var(--blue)">কোনো মিল পাওয়া যায়নি। অন্য শব্দে খুঁজুন।</span></div>
+
+</div>
+
+<footer>
+  Study guide generated from "Project Commissioning &amp; Close-out" slide deck (Sanjida Afrin Sworna, KUET) · For exam revision purposes
+</footer>
+
+<script>
+const data = [
+{
+  section:"Commissioning", sectionBn:"কমিশনিং",
+  q:"What is Commissioning in a construction project?",
+  qBn:"নির্মাণ প্রকল্পে কমিশনিং বলতে কী বোঝায়?",
+  page:2,
+  a:`<ul>
+    <li>Commissioning is a <span class="kw-red">separate and distinct service</span> in a project.</li>
+    <li>It <b>may begin at the start of a project</b> and continue until — and sometimes after — <b>occupancy by the owner</b>.</li>
+    <li>It is often provided as an <span class="kw-blue">additional service by an independent third party</span>, known as a <b>commissioning agent</b>.</li>
+    <li>Large or complex projects often <b>require a commissioning agent</b> to manage and verify the design performance of all building components/systems, or at minimum those marked <b>critical or necessary</b>.</li>
+  </ul>`,
+  aBn:`<ul>
+    <li>কমিশনিং একটি <span class="kw-red">পৃথক ও স্বতন্ত্র সেবা</span>।</li>
+    <li>এটি প্রকল্পের শুরুতে আরম্ভ হতে পারে এবং <b>মালিকের দখল গ্রহণ পর্যন্ত</b>, এমনকি তার পরও চলতে পারে।</li>
+    <li>এটি সাধারণত একজন <span class="kw-blue">স্বতন্ত্র তৃতীয় পক্ষ</span> — <b>কমিশনিং এজেন্ট</b> — কর্তৃক অতিরিক্ত সেবা হিসেবে দেওয়া হয়।</li>
+    <li>বড় বা জটিল প্রকল্পে ভবনের সকল উপাদান ও সিস্টেমের ডিজাইন পারফরম্যান্স যাচাই করতে <b>কমিশনিং এজেন্ট প্রয়োজন</b> হয়।</li>
+  </ul>`
+},
+{
+  section:"Commissioning", sectionBn:"কমিশনিং",
+  q:"What activities and quality assurance functions does Commissioning include?",
+  qBn:"কমিশনিং-এর মধ্যে কী কী কার্যক্রম ও গুণগত মান নিশ্চিতকরণ অন্তর্ভুক্ত থাকে?",
+  page:3,
+  a:`<ul>
+    <li>Commissioning transforms the <b>design of a facility into a fully integrated and operating system</b>.</li>
+    <li>It is a <span class="kw-red">quality assurance process</span> that:
+      <ul>
+        <li>Begins with defining the <b>"design intent"</b> and ends with delivery of the building.</li>
+        <li><b>Confirms</b> the contractor's implementation of the consultant's design as per contract documents.</li>
+        <li><b>Confirms</b> the consultant's design satisfies the owner's defined requirements.</li>
+        <li><span class="kw-blue">Addresses any shortcomings</span> found.</li>
+      </ul>
+    </li>
+  </ul>`,
+  aBn:`<ul>
+    <li>কমিশনিং একটি স্থাপনার ডিজাইনকে <b>সম্পূর্ণ একীভূত ও কার্যকরী সিস্টেমে</b> রূপান্তরিত করে।</li>
+    <li>এটি একটি <span class="kw-red">গুণগত মান নিশ্চিতকরণ প্রক্রিয়া</span> যা—
+      <ul>
+        <li>"ডিজাইন ইনটেন্ট" নির্ধারণ থেকে শুরু হয় ও ভবন হস্তান্তরে শেষ হয়।</li>
+        <li>ঠিকাদার কনসালটেন্টের ডিজাইন সঠিকভাবে বাস্তবায়ন করেছে কিনা তা <b>নিশ্চিত করে</b>।</li>
+        <li>ডিজাইন মালিকের প্রয়োজনীয়তা পূরণ করছে কিনা তা যাচাই করে।</li>
+        <li>যেকোনো <span class="kw-blue">ত্রুটি সমাধান করে</span>।</li>
+      </ul>
+    </li>
+  </ul>`
+},
+{
+  section:"Commissioning", sectionBn:"কমিশনিং",
+  q:"What role does a Commissioning Agent play on large or complex projects?",
+  qBn:"বড় বা জটিল প্রকল্পে কমিশনিং এজেন্টের ভূমিকা কী?",
+  page:4,
+  a:`<ul>
+    <li>The owner may engage a commissioning agent as an <span class="kw-red">independent third party</span> to verify that both the <b>facility design</b> and the <b>resulting construction</b> satisfy the owner's objectives and requirements.</li>
+    <li>The agent also <b>verifies the contractor's performance</b> of the contract.</li>
+    <li><span class="kw-blue">Early involvement</span> of the commissioning agent as a project team member helps clearly communicate the design intent to both the consultant and the contractor.</li>
+  </ul>`,
+  aBn:`<ul>
+    <li>মালিক একজন <span class="kw-red">স্বতন্ত্র তৃতীয় পক্ষ</span> হিসেবে কমিশনিং এজেন্ট নিয়োগ করতে পারেন যিনি যাচাই করেন যে <b>ডিজাইন</b> ও <b>নির্মাণকাজ</b> উভয়ই মালিকের লক্ষ্য পূরণ করছে।</li>
+    <li>এজেন্ট ঠিকাদারের চুক্তি অনুযায়ী কর্মক্ষমতাও <b>যাচাই করেন</b>।</li>
+    <li>প্রকল্প দলের সদস্য হিসেবে এজেন্টের <span class="kw-blue">প্রাথমিক সম্পৃক্ততা</span> ডিজাইন ইনটেন্ট স্পষ্টভাবে যোগাযোগ করতে সহায়তা করে।</li>
+  </ul>`
+},
+{
+  section:"Commissioning", sectionBn:"কমিশনিং",
+  q:"Why should the commissioning agent's verification and testing procedures be explained in the bid documents?",
+  qBn:"কমিশনিং এজেন্টের যাচাই ও পরীক্ষা পদ্ধতি বিড ডকুমেন্টে ব্যাখ্যা করা কেন প্রয়োজন?",
+  page:5,
+  a:`<ul>
+    <li>The <b>contractor is usually a late arrival</b> to the project team, so they may be unfamiliar with commissioning requirements.</li>
+    <li>Explaining these procedures in <span class="kw-red">bid documents</span> helps bidders evaluate the <b>time and cost implications</b> of the commissioning agent's participation.</li>
+    <li>It also clarifies the agent's <span class="kw-blue">impact on acceptance of the work</span>.</li>
+  </ul>`,
+  aBn:`<ul>
+    <li>ঠিকাদার সাধারণত প্রকল্প দলে <b>পরে যুক্ত হন</b>, তাই কমিশনিং প্রয়োজনীয়তা সম্পর্কে অজ্ঞ থাকতে পারেন।</li>
+    <li><span class="kw-red">বিড ডকুমেন্টে</span> এই প্রক্রিয়া উল্লেখ থাকলে বিডাররা <b>সময় ও খরচের প্রভাব</b> মূল্যায়ন করতে পারেন।</li>
+    <li>এটি কাজের গ্রহণযোগ্যতার উপর এজেন্টের <span class="kw-blue">প্রভাবও স্পষ্ট করে</span>।</li>
+  </ul>`
+},
+{
+  section:"Commissioning", sectionBn:"কমিশনিং",
+  q:"What should bid documents prepared with commissioning agent input include?",
+  qBn:"কমিশনিং এজেন্টের ইনপুট সহ প্রস্তুত বিড ডকুমেন্টে কী কী থাকা উচিত?",
+  page:6,
+  a:`<ul>
+    <li>The <span class="kw-red">commissioning plan</span> — including the scope and sequence of the commissioning program.</li>
+    <li>The <b>commissioning specifications</b> — including a manual with sample verification forms, testing procedures, and probable duration.</li>
+    <li>Any <span class="kw-blue">specialized documentation</span> related to testing, such as <b>CSA Standards</b>, describing possible testing methods.</li>
+  </ul>`,
+  aBn:`<ul>
+    <li><span class="kw-red">কমিশনিং পরিকল্পনা</span> — কমিশনিং প্রোগ্রামের পরিধি ও ক্রম সহ।</li>
+    <li><b>কমিশনিং স্পেসিফিকেশন</b> — যাচাইকরণ ফর্মের নমুনা, পরীক্ষা পদ্ধতি ও সময়কাল সহ ম্যানুয়াল।</li>
+    <li>পরীক্ষা সংক্রান্ত <span class="kw-blue">বিশেষায়িত ডকুমেন্টেশন</span>, যেমন <b>CSA স্ট্যান্ডার্ড</b>।</li>
+  </ul>`
+},
+{
+  section:"Commissioning", sectionBn:"কমিশনিং",
+  q:"What standards for submission and acceptance should be established, and what activities must be completed before owner takeover?",
+  qBn:"জমাদান ও গ্রহণযোগ্যতার কী কী মান নির্ধারণ করতে হয় এবং মালিকের দখল নেওয়ার আগে কোন কার্যক্রম শেষ করতে হয়?",
+  page:7,
+  a:`<ul>
+    <li>Standards must be set for submission/acceptance of:
+      <ul>
+        <li><b>Shop drawings</b></li>
+        <li><b>Contractor's tests</b></li>
+        <li><b>Product, systems, operations and maintenance manuals</b></li>
+        <li><b>Training programs</b></li>
+        <li><span class="kw-blue">Post-occupancy or seasonal testing</span></li>
+      </ul>
+    </li>
+    <li>A <span class="kw-red">detailed list of commissioning activities</span> must be completed prior to the owner's <b>takeover and occupancy</b> of the building (or part of it).</li>
+  </ul>`,
+  aBn:`<ul>
+    <li>নিম্নলিখিত বিষয়ে জমাদান ও গ্রহণযোগ্যতার মান নির্ধারণ করতে হয়:
+      <ul>
+        <li><b>শপ ড্রয়িং</b></li>
+        <li><b>ঠিকাদারের পরীক্ষা</b></li>
+        <li><b>পণ্য, সিস্টেম, অপারেশন ও রক্ষণাবেক্ষণ ম্যানুয়াল</b></li>
+        <li><b>প্রশিক্ষণ কর্মসূচি</b></li>
+        <li><span class="kw-blue">দখলোত্তর বা মৌসুমি পরীক্ষা</span></li>
+      </ul>
+    </li>
+    <li>মালিকের <b>দখল গ্রহণের</b> আগে <span class="kw-red">কমিশনিং কার্যক্রমের বিস্তারিত তালিকা</span> সম্পন্ন করতে হবে।</li>
+  </ul>`
+},
+
+{
+  section:"Closeout Introduction", sectionBn:"ক্লোজআউট ভূমিকা",
+  q:"What is the Project Closeout Phase and when does it begin?",
+  qBn:"প্রজেক্ট ক্লোজআউট ফেজ কী এবং এটি কখন শুরু হয়?",
+  page:9,
+  a:`<ul>
+    <li>Project Closeout is the <span class="kw-red">last phase</span> in the project lifecycle.</li>
+    <li>It <b>begins when the user accepts</b> the project deliverables and the <b>project oversight authority</b> concludes that the project has met its established goals.</li>
+    <li>The major focus of closeout is <span class="kw-blue">administrative closure and logistics</span>.</li>
+  </ul>`,
+  aBn:`<ul>
+    <li>প্রজেক্ট ক্লোজআউট প্রকল্প জীবনচক্রের <span class="kw-red">শেষ ধাপ</span>।</li>
+    <li>এটি শুরু হয় যখন <b>ব্যবহারকারী ডেলিভারেবলস গ্রহণ করেন</b> এবং <b>প্রজেক্ট তদারকি কর্তৃপক্ষ</b> নিশ্চিত হয় যে লক্ষ্য পূরণ হয়েছে।</li>
+    <li>ক্লোজআউটের মূল লক্ষ্য হলো <span class="kw-blue">প্রশাসনিক সমাপ্তি ও লজিস্টিকস</span>।</li>
+  </ul>`
+},
+{
+  section:"Closeout Introduction", sectionBn:"ক্লোজআউট ভূমিকা",
+  q:"Describe the Project Closing Process flow shown in the diagram.",
+  qBn:"চিত্রে দেখানো প্রজেক্ট ক্লোজিং প্রসেস ফ্লো বর্ণনা কর।",
+  page:10,
+  a:`<ul>
+    <li><b>Project Execution and User Acceptance</b> → <b>Conduct Closeout Task</b> → <b>Lessons Learned</b></li>
+    <li>These feed into the <span class="kw-red">Project Transition Checklist</span>, which produces the <b>Project Closeout Report</b>.</li>
+    <li>From the Closeout Report, the process branches to:
+      <ul>
+        <li><span class="kw-blue">Operations &amp; Support</span> → Post Implementation Review → Post Implementation Report</li>
+        <li>Directly to the <b>Lessons Learned Archive</b></li>
+      </ul>
+    </li>
+  </ul>`,
+  aBn:`<ul>
+    <li><b>প্রজেক্ট এক্সিকিউশন ও ইউজার অ্যাকসেপ্টেন্স</b> → <b>ক্লোজআউট টাস্ক সম্পাদন</b> → <b>লেসনস লার্নড</b></li>
+    <li>এগুলো <span class="kw-red">প্রজেক্ট ট্রানজিশন চেকলিস্ট</span>-এ যায়, যা থেকে <b>প্রজেক্ট ক্লোজআউট রিপোর্ট</b> তৈরি হয়।</li>
+    <li>ক্লোজআউট রিপোর্ট থেকে দুটি শাখায় যায়:
+      <ul>
+        <li><span class="kw-blue">অপারেশনস অ্যান্ড সাপোর্ট</span> → পোস্ট ইমপ্লিমেন্টেশন রিভিউ → পোস্ট ইমপ্লিমেন্টেশন রিপোর্ট</li>
+        <li>সরাসরি <b>লেসনস লার্নড আর্কাইভ</b>-এ</li>
+      </ul>
+    </li>
+  </ul>`
+},
+{
+  section:"Closing Process", sectionBn:"ক্লোজিং প্রক্রিয়া",
+  q:"What historical record does the project closing process provide, and what does 'Project Completion' cover?",
+  qBn:"প্রজেক্ট ক্লোজিং প্রক্রিয়া কী ঐতিহাসিক রেকর্ড প্রদান করে এবং 'প্রজেক্ট কমপ্লিশন' কী কভার করে?",
+  page:11,
+  a:`<ul>
+    <li>It provides a historical record of:
+      <ul>
+        <li><b>Planned vs. actual budget and schedule</b></li>
+        <li><span class="kw-red">Recommendations</span> for future similar projects</li>
+        <li>Staffing/skills information, <b>customer expectation management</b>, lessons learned, and an <b>official project sign-off</b></li>
+      </ul>
+    </li>
+    <li><b>Project Background</b>: background info for future team members reviewing the project.</li>
+    <li><span class="kw-blue">Project Completion</span>: confirms whether objectives, benefits, and deliverables were met to the customer's satisfaction, and lists outstanding items for future phases.</li>
+  </ul>`,
+  aBn:`<ul>
+    <li>এটি নিম্নোক্ত বিষয়ে ঐতিহাসিক রেকর্ড দেয়:
+      <ul>
+        <li><b>পরিকল্পিত বনাম প্রকৃত বাজেট ও সময়সূচি</b></li>
+        <li>ভবিষ্যৎ প্রকল্পের জন্য <span class="kw-red">সুপারিশ</span></li>
+        <li>স্টাফিং তথ্য, <b>গ্রাহক প্রত্যাশা ব্যবস্থাপনা</b>, লেসনস লার্নড ও <b>আনুষ্ঠানিক সাইন-অফ</b></li>
+      </ul>
+    </li>
+    <li><b>প্রজেক্ট ব্যাকগ্রাউন্ড</b>: ভবিষ্যৎ দলের সদস্যদের জন্য পটভূমি তথ্য।</li>
+    <li><span class="kw-blue">প্রজেক্ট কমপ্লিশন</span>: লক্ষ্য, সুবিধা ও ডেলিভারেবলস গ্রাহকের সন্তুষ্টি অনুযায়ী পূরণ হয়েছে কিনা তা নিশ্চিত করে।</li>
+  </ul>`
+},
+{
+  section:"Closing Process", sectionBn:"ক্লোজিং প্রক্রিয়া",
+  q:"What is documented in the 'Deliverable Transition' and 'Other Resource Transition' sections?",
+  qBn:"'ডেলিভারেবল ট্রানজিশন' ও 'আদার রিসোর্স ট্রানজিশন' অংশে কী নথিভুক্ত করা হয়?",
+  page:12,
+  a:`<ul>
+    <li><span class="kw-red">Deliverable Transition</span>: identifies a <b>transition plan</b> for releasing all project deliverables to the customer (e.g., software product, design document, training program, or other asset required by the project plan).</li>
+    <li><span class="kw-blue">Other Resource Transition</span>: identifies <b>non-personnel resources</b> requiring transition — what they were used for, what's needed to transition them, the <b>target release date</b>, and the person responsible.</li>
+    <li>Also documented: <b>Final Budget vs. Actual</b> cost, with comments on overall budget/cost performance.</li>
+  </ul>`,
+  aBn:`<ul>
+    <li><span class="kw-red">ডেলিভারেবল ট্রানজিশন</span>: গ্রাহকের কাছে সব ডেলিভারেবলস হস্তান্তরের <b>পরিকল্পনা</b> চিহ্নিত করে।</li>
+    <li><span class="kw-blue">আদার রিসোর্স ট্রানজিশন</span>: <b>ব্যক্তি ব্যতীত অন্য সম্পদ</b>, তাদের ব্যবহার, ট্রানজিশনের জন্য প্রয়োজনীয়তা, <b>লক্ষ্য তারিখ</b> ও দায়িত্বপ্রাপ্ত ব্যক্তি নির্ধারণ করে।</li>
+    <li>এছাড়া <b>চূড়ান্ত বাজেট বনাম প্রকৃত খরচ</b>ও নথিভুক্ত করা হয়।</li>
+  </ul>`
+},
+{
+  section:"Closing Process", sectionBn:"ক্লোজিং প্রক্রিয়া",
+  q:"What does 'Technical Transition' involve, and what is 'Closure Communication'?",
+  qBn:"'টেকনিক্যাল ট্রানজিশন' কী নিয়ে গঠিত এবং 'ক্লোজার কমিউনিকেশন' কী?",
+  page:13,
+  a:`<ul>
+    <li><span class="kw-red">Technical Transition</span>: identifies details to transition support to a technical support group, including:
+      <ul>
+        <li><b>Support hours</b>, rollout plan to the support group</li>
+        <li>How <b>issues are escalated</b> and to whom</li>
+        <li>Supporting documentation, storage location, known Q&amp;A</li>
+      </ul>
+    </li>
+    <li><span class="kw-blue">Closure Communication</span>: a plan to <b>communicate project closure</b> to all stakeholders and interested parties.</li>
+  </ul>`,
+  aBn:`<ul>
+    <li><span class="kw-red">টেকনিক্যাল ট্রানজিশন</span>: টেকনিক্যাল সাপোর্ট গ্রুপে সাপোর্ট হস্তান্তরের বিস্তারিত চিহ্নিত করে—
+      <ul>
+        <li><b>সাপোর্ট আওয়ার</b>, রোলআউট পরিকল্পনা</li>
+        <li><b>সমস্যা কীভাবে ও কার কাছে এসকেলেট</b> হয়</li>
+        <li>ডকুমেন্টেশন, সংরক্ষণস্থল, প্রশ্নোত্তর</li>
+      </ul>
+    </li>
+    <li><span class="kw-blue">ক্লোজার কমিউনিকেশন</span>: সকল স্টেকহোল্ডারকে প্রকল্প সমাপ্তির কথা <b>জানানোর পরিকল্পনা</b>।</li>
+  </ul>`
+},
+
+{
+  section:"Staffing", sectionBn:"স্টাফিং",
+  q:"What is Staffing Transfer/Release and why is maintaining full staffing important until completion?",
+  qBn:"স্টাফিং ট্রান্সফার/রিলিজ কী এবং সমাপ্তি পর্যন্ত পূর্ণ স্টাফিং বজায় রাখা কেন গুরুত্বপূর্ণ?",
+  page:14,
+  a:`<ul>
+    <li><span class="kw-red">Staffing Transfer/Release</span> is the process to accommodate <b>staff changes</b> or shift staff responsibilities as the project nears completion.</li>
+    <li><b>Maintaining full project staffing</b> through project completion is important for project success.</li>
+    <li>Employees who know that <span class="kw-blue">management is actively managing their professional interests</span> are less likely to leave the project before it's finished.</li>
+  </ul>`,
+  aBn:`<ul>
+    <li><span class="kw-red">স্টাফিং ট্রান্সফার/রিলিজ</span> হলো প্রকল্প শেষ হওয়ার সময় <b>স্টাফ পরিবর্তন</b> বা দায়িত্ব স্থানান্তরের প্রক্রিয়া।</li>
+    <li>সমাপ্তি পর্যন্ত <b>পূর্ণ স্টাফিং বজায় রাখা</b> প্রকল্পের সাফল্যের জন্য গুরুত্বপূর্ণ।</li>
+    <li>যেসব কর্মী জানেন যে <span class="kw-blue">ব্যবস্থাপনা তাদের পেশাগত স্বার্থ দেখাশোনা করছে</span>, তারা প্রকল্প শেষ হওয়ার আগে ছেড়ে যাওয়ার সম্ভাবনা কম থাকে।</li>
+  </ul>`
+},
+{
+  section:"Staffing", sectionBn:"স্টাফিং",
+  q:"List the steps in the process of releasing project staff.",
+  qBn:"প্রজেক্ট স্টাফ রিলিজ করার প্রক্রিয়ার ধাপগুলো তালিকাভুক্ত কর।",
+  page:15,
+  a:`<ol>
+    <li><b>Plan for the next assignment</b> for project staff — don't wait until the last minute; plan ahead and be prepared.</li>
+    <li><span class="kw-red">Honor and thank</span> staff and contractors for their project contributions.</li>
+    <li>Consider current project employees for <b>ongoing Maintenance and Operations roles</b>.</li>
+    <li>Provide the resource manager with <span class="kw-blue">performance evaluation recommendations</span>.</li>
+  </ol>`,
+  aBn:`<ol>
+    <li>প্রজেক্ট স্টাফদের জন্য <b>পরবর্তী কার্যভার পরিকল্পনা</b> করা — শেষ মুহূর্ত পর্যন্ত অপেক্ষা না করে আগে থেকেই প্রস্তুত থাকা।</li>
+    <li>প্রকল্পে অবদানের জন্য স্টাফ ও ঠিকাদারদের <span class="kw-red">সম্মান ও ধন্যবাদ জ্ঞাপন</span>।</li>
+    <li>চলমান <b>রক্ষণাবেক্ষণ ও অপারেশন ভূমিকার</b> জন্য বর্তমান কর্মীদের বিবেচনা।</li>
+    <li>রিসোর্স ম্যানেজারকে <span class="kw-blue">পারফরম্যান্স মূল্যায়ন সুপারিশ</span> প্রদান।</li>
+  </ol>`
+},
+
+{
+  section:"Financial Closure", sectionBn:"আর্থিক সমাপ্তি",
+  q:"What is Financial Closure and why is it a prerequisite to project closure?",
+  qBn:"আর্থিক সমাপ্তি কী এবং এটি কেন প্রজেক্ট ক্লোজারের পূর্বশর্ত?",
+  page:16,
+  a:`<ul>
+    <li><span class="kw-red">Financial closure</span> is the process of:
+      <ul>
+        <li>Completing all <b>project-related financial transactions</b></li>
+        <li><b>Finalizing and closing</b> project financial accounts</li>
+        <li><span class="kw-blue">Disposing of project assets</span> and releasing the work site</li>
+      </ul>
+    </li>
+    <li>It is a <b>prerequisite to project closure and post-implementation review</b>.</li>
+    <li>It establishes <b>final project costs</b> for comparison against budgeted costs as part of the post review.</li>
+  </ul>`,
+  aBn:`<ul>
+    <li><span class="kw-red">আর্থিক সমাপ্তি</span> হলো—
+      <ul>
+        <li>সব <b>প্রকল্প সংক্রান্ত আর্থিক লেনদেন</b> সম্পন্ন করা</li>
+        <li>প্রকল্পের আর্থিক অ্যাকাউন্ট <b>চূড়ান্ত ও বন্ধ</b> করা</li>
+        <li><span class="kw-blue">প্রকল্পের সম্পদ বিলি</span> এবং কাজের স্থান হস্তান্তর</li>
+      </ul>
+    </li>
+    <li>এটি প্রজেক্ট ক্লোজার ও পোস্ট-ইমপ্লিমেন্টেশন রিভিউর <b>পূর্বশর্ত</b>।</li>
+    <li>এটি বাজেটের সাথে তুলনার জন্য <b>চূড়ান্ত প্রকল্প খরচ</b> নির্ধারণ করে।</li>
+  </ul>`
+},
+{
+  section:"Financial Closure", sectionBn:"আর্থিক সমাপ্তি",
+  q:"Outline the process/checklist for Financial Closure.",
+  qBn:"আর্থিক সমাপ্তির প্রক্রিয়া/চেকলিস্ট রূপরেখা দাও।",
+  page:17,
+  a:`<ul>
+    <li>Verify there are <span class="kw-red">no outstanding invoices</span> or unresolved financial obligations.</li>
+    <li>Close financial accounts per applicable <b>agency, state, and federal accounting procedures</b>.</li>
+    <li>Comply with funding source requirements for <span class="kw-blue">records retention and financial reporting</span>.</li>
+    <li>Publish a <b>deadline date</b> to all project staff and vendors for completing financial transactions and closing accounts (including timesheets).</li>
+    <li>Verify all <b>acceptance criteria in the Statement of Work</b> have been met before paying vendors/consultants.</li>
+  </ul>`,
+  aBn:`<ul>
+    <li>কোনো <span class="kw-red">বকেয়া চালান</span> বা অমীমাংসিত আর্থিক দায় নেই তা যাচাই করা।</li>
+    <li>প্রযোজ্য <b>এজেন্সি, রাজ্য ও ফেডারেল অ্যাকাউন্টিং পদ্ধতি</b> অনুযায়ী অ্যাকাউন্ট বন্ধ করা।</li>
+    <li>ফান্ডিং সোর্সের <span class="kw-blue">রেকর্ড সংরক্ষণ ও রিপোর্টিং</span> শর্ত মেনে চলা।</li>
+    <li>সব লেনদেন ও অ্যাকাউন্ট বন্ধের জন্য একটি <b>সময়সীমা</b> সবাইকে জানানো।</li>
+    <li>ভেন্ডর/কনসালট্যান্টদের পেমেন্টের আগে <b>স্টেটমেন্ট অব ওয়ার্কের গ্রহণযোগ্যতা মানদণ্ড</b> পূরণ হয়েছে কিনা যাচাই করা।</li>
+  </ul>`
+},
+
+{
+  section:"Lessons Learned", sectionBn:"লেসনস লার্নড",
+  q:"What is the purpose of the Lessons Learned session, and who participates in it?",
+  qBn:"লেসনস লার্নড সেশনের উদ্দেশ্য কী এবং কারা এতে অংশগ্রহণ করে?",
+  page:18,
+  a:`<ul>
+    <li>Valuable to the <span class="kw-red">closure and release mechanism</span> for team members, regardless of the project's success.</li>
+    <li>It is a meeting including the <b>project team, stakeholders' representation, management</b>, and (if applicable) the staff who will take over product operation.</li>
+    <li>Provides a forum for <span class="kw-blue">praise and recognition</span> and a chance to discuss improving future processes and procedures.</li>
+  </ul>`,
+  aBn:`<ul>
+    <li>প্রকল্পের সাফল্য নির্বিশেষে দলের সদস্যদের <span class="kw-red">সমাপ্তি ও অবমুক্তি</span> প্রক্রিয়ার জন্য মূল্যবান।</li>
+    <li>এতে অংশগ্রহণ করেন <b>প্রজেক্ট টিম, স্টেকহোল্ডার প্রতিনিধি, ব্যবস্থাপনা</b> এবং প্রযোজ্য ক্ষেত্রে অপারেশন গ্রহণকারী স্টাফ।</li>
+    <li>এটি <span class="kw-blue">প্রশংসা ও স্বীকৃতির</span> এবং ভবিষ্যৎ প্রক্রিয়া উন্নত করার আলোচনার সুযোগ দেয়।</li>
+  </ul>`
+},
+{
+  section:"Lessons Learned", sectionBn:"লেসনস লার্নড",
+  q:"What is the intention behind identifying both negative and positive lessons, and when should lessons be submitted?",
+  qBn:"নেতিবাচক ও ইতিবাচক উভয় শিক্ষা চিহ্নিত করার উদ্দেশ্য কী এবং শিক্ষাগুলো কখন জমা দেওয়া উচিত?",
+  page:19,
+  a:`<ul>
+    <li>Lessons should identify both <b>bad things</b> (with negative effect) and <b>good things</b> (with positive effect) on the project.</li>
+    <li>The intention is to <span class="kw-red">eliminate recurrence of negative items</span> in future endeavors, and increase success by <b>repeating what went right</b>.</li>
+    <li>Discussion should <b>not point a finger</b> at a target — instead identify <span class="kw-blue">ownership</span> of problem areas and develop useful recommendations.</li>
+    <li>Team members and customers should <b>submit lessons as they occur</b>, rather than waiting until the post-implementation review.</li>
+  </ul>`,
+  aBn:`<ul>
+    <li>শিক্ষাগুলোতে প্রকল্পে <b>নেতিবাচক প্রভাবযুক্ত বিষয়</b> এবং <b>ইতিবাচক প্রভাবযুক্ত বিষয়</b> উভয়ই চিহ্নিত করতে হবে।</li>
+    <li>উদ্দেশ্য হলো ভবিষ্যতে <span class="kw-red">নেতিবাচক বিষয়ের পুনরাবৃত্তি রোধ করা</span> এবং <b>সঠিক বিষয় পুনরাবৃত্তি</b> করে সাফল্য বাড়ানো।</li>
+    <li>আলোচনা কাউকে <b>দোষারোপ না করে</b> বরং সমস্যার <span class="kw-blue">মালিকানা চিহ্নিত</span> করা ও উপযোগী সুপারিশ তৈরি করা উচিত।</li>
+    <li>দলের সদস্য ও গ্রাহকদের <b>শিক্ষা ঘটনার সাথে সাথেই জমা</b> দেওয়া উচিত, পোস্ট-রিভিউ পর্যন্ত অপেক্ষা না করে।</li>
+  </ul>`
+},
+
+{
+  section:"Project Archive", sectionBn:"প্রজেক্ট আর্কাইভ",
+  q:"What is a Project Archive and what is the process of project archiving?",
+  qBn:"প্রজেক্ট আর্কাইভ কী এবং প্রজেক্ট আর্কাইভিং-এর প্রক্রিয়া কী?",
+  page:20,
+  a:`<ul>
+    <li>A <span class="kw-red">Project Archive</span> refers to gathering and storing project artifacts (e.g., project charter, working documents) at the project's close.</li>
+    <li>Retaining historical documents provides information for <b>future projects</b>, <b>ongoing operational support</b>, and answering questions about the project.</li>
+  </ul>
+  <div class="divider"></div>
+  <p><b>Archiving process</b> (Page 21):</p>
+  <ul>
+    <li>Use a <span class="kw-blue">documented folder structure</span> to store electronic artifacts.</li>
+    <li><b>Secure artifacts</b> so they cannot be modified.</li>
+    <li>Include a description of artifacts stored, software used, a <b>point of contact</b>, and folder structure description.</li>
+    <li>Ensure the <b>support team has access</b> to and knowledge of all project artifacts.</li>
+  </ul>`,
+  aBn:`<ul>
+    <li><span class="kw-red">প্রজেক্ট আর্কাইভ</span> বলতে প্রকল্প সমাপ্তিতে প্রকল্প আর্টিফ্যাক্ট (যেমন প্রজেক্ট চার্টার, কার্যকরী ডকুমেন্ট) সংগ্রহ ও সংরক্ষণ বোঝায়।</li>
+    <li>ঐতিহাসিক ডকুমেন্ট সংরক্ষণ <b>ভবিষ্যৎ প্রকল্প</b>, <b>চলমান অপারেশনাল সাপোর্ট</b> ও প্রশ্নোত্তরের জন্য তথ্য দেয়।</li>
+  </ul>
+  <div class="divider"></div>
+  <p><b>আর্কাইভিং প্রক্রিয়া</b> (পৃষ্ঠা ২১):</p>
+  <ul>
+    <li>ইলেকট্রনিক আর্টিফ্যাক্ট সংরক্ষণে <span class="kw-blue">নথিভুক্ত ফোল্ডার কাঠামো</span> ব্যবহার করা।</li>
+    <li>আর্টিফ্যাক্টগুলো যাতে পরিবর্তন করা না যায় তা <b>নিরাপদ রাখা</b>।</li>
+    <li>সংরক্ষিত আর্টিফ্যাক্টের বিবরণ, ব্যবহৃত সফটওয়্যার, <b>যোগাযোগের ব্যক্তি</b> ও ফোল্ডার কাঠামো অন্তর্ভুক্ত করা।</li>
+    <li><b>সাপোর্ট টিমের অ্যাক্সেস</b> নিশ্চিত করা।</li>
+  </ul>`
+},
+
+{
+  section:"Contractor Closing & Sign-off", sectionBn:"ঠিকাদার ক্লোজিং ও সাইন-অফ",
+  q:"What is a Contractor Closing Plan and what steps does it involve?",
+  qBn:"কন্ট্রাক্টর ক্লোজিং প্ল্যান কী এবং এতে কী কী ধাপ থাকে?",
+  page:22,
+  a:`<ul>
+    <li>Ensures <span class="kw-red">permissions are removed</span> from the project environment and that <b>knowledge transfer occurs</b> with the appropriate people.</li>
+    <li>Generally included in overall project closeout. Steps include:
+      <ul>
+        <li>Ensure <b>security badges</b> have been turned in.</li>
+        <li><span class="kw-blue">Access to applications disabled</span> — accounts disabled in applications and databases.</li>
+        <li>Submit an <b>account deletion form</b>.</li>
+        <li><b>Knowledge transfer</b> demonstrated.</li>
+      </ul>
+    </li>
+  </ul>`,
+  aBn:`<ul>
+    <li>প্রজেক্ট পরিবেশ থেকে <span class="kw-red">অনুমতি প্রত্যাহার</span> এবং যথাযথ ব্যক্তিদের সাথে <b>জ্ঞান হস্তান্তর</b> নিশ্চিত করে।</li>
+    <li>সাধারণত সামগ্রিক ক্লোজআউটে অন্তর্ভুক্ত থাকে। ধাপসমূহ:
+      <ul>
+        <li><b>সিকিউরিটি ব্যাজ</b> জমা দেওয়া হয়েছে তা নিশ্চিত করা।</li>
+        <li><span class="kw-blue">অ্যাপ্লিকেশন অ্যাক্সেস নিষ্ক্রিয়</span> — অ্যাপ্লিকেশন ও ডেটাবেজে অ্যাকাউন্ট নিষ্ক্রিয় করা।</li>
+        <li><b>অ্যাকাউন্ট ডিলিশন ফর্ম</b> জমা দেওয়া।</li>
+        <li><b>জ্ঞান হস্তান্তর</b> প্রদর্শন করা।</li>
+      </ul>
+    </li>
+  </ul>`
+},
+{
+  section:"Contractor Closing & Sign-off", sectionBn:"ঠিকাদার ক্লোজিং ও সাইন-অফ",
+  q:"What is Customer Project Sign-off, and what is the best way to resolve deliverable acceptance?",
+  qBn:"কাস্টমার প্রজেক্ট সাইন-অফ কী এবং ডেলিভারেবল গ্রহণযোগ্যতা সমাধানের সর্বোত্তম উপায় কী?",
+  page:23,
+  a:`<ul>
+    <li>An important task of project closing is <span class="kw-red">acceptance of project deliverables by the customer</span>.</li>
+    <li>The best resolution method: convene a <b>final customer review</b> of deliverables against requirements/specifications; any <b>deviations</b> should be documented and approved.</li>
+    <li>During the review, go over deviations/justifications and cover any <span class="kw-blue">open items</span> (action items, issues) to close them.</li>
+    <li>Bringing all stakeholders into a single meeting avoids closing open items individually.</li>
+    <li><b>Approval</b> — certification by both the customer and project managers that the project has been <b>officially closed</b>.</li>
+  </ul>`,
+  aBn:`<ul>
+    <li>প্রজেক্ট ক্লোজিং-এর একটি গুরুত্বপূর্ণ কাজ হলো <span class="kw-red">গ্রাহক কর্তৃক ডেলিভারেবলস গ্রহণ</span>।</li>
+    <li>সর্বোত্তম সমাধান: প্রয়োজনীয়তার বিপরীতে ডেলিভারেবলসের <b>চূড়ান্ত গ্রাহক পর্যালোচনা</b> আহ্বান করা; কোনো <b>বিচ্যুতি</b> নথিভুক্ত ও অনুমোদিত হতে হবে।</li>
+    <li>পর্যালোচনায় বিচ্যুতি/যুক্তি এবং <span class="kw-blue">খোলা আইটেমগুলো</span> (অ্যাকশন আইটেম, ইস্যু) বন্ধ করার চেষ্টা করা হয়।</li>
+    <li>সব স্টেকহোল্ডারকে একত্রিত করলে আলাদাভাবে আইটেম বন্ধ করা এড়ানো যায়।</li>
+    <li><b>অনুমোদন</b> — গ্রাহক ও প্রজেক্ট ম্যানেজার উভয়ের সনদায়ন যে প্রকল্প <b>আনুষ্ঠানিকভাবে বন্ধ</b> হয়েছে।</li>
+  </ul>`
+},
+
+{
+  section:"Templates & Checklists", sectionBn:"টেমপ্লেট ও চেকলিস্ট",
+  q:"What three components make up the 'Project Closing Process Templates'?",
+  qBn:"'প্রজেক্ট ক্লোজিং প্রসেস টেমপ্লেটস'-এর তিনটি উপাদান কী কী?",
+  page:24,
+  a:`<ul>
+    <li><span class="kw-red">Closeout Checklist</span> — a separate document covering <b>Project Implementation and Acceptance</b>, <b>Final Documentation</b>, <b>Staffing Plan</b>, and <b>Lessons Learned</b>.</li>
+    <li><span class="kw-blue">Project Closure Questionnaire</span></li>
+    <li><b>Transition Task Control Document</b></li>
+  </ul>`,
+  aBn:`<ul>
+    <li><span class="kw-red">ক্লোজআউট চেকলিস্ট</span> — একটি পৃথক ডকুমেন্ট যাতে <b>প্রজেক্ট ইমপ্লিমেন্টেশন ও অ্যাকসেপ্টেন্স</b>, <b>চূড়ান্ত ডকুমেন্টেশন</b>, <b>স্টাফিং প্ল্যান</b> ও <b>লেসনস লার্নড</b> থাকে।</li>
+    <li><span class="kw-blue">প্রজেক্ট ক্লোজার প্রশ্নাবলী</span></li>
+    <li><b>ট্রানজিশন টাস্ক কন্ট্রোল ডকুমেন্ট</b></li>
+  </ul>`
+},
+{
+  section:"Templates & Checklists", sectionBn:"টেমপ্লেট ও চেকলিস্ট",
+  q:"What basic project information does the Project Closeout Transition Checklist template capture?",
+  qBn:"প্রজেক্ট ক্লোজআউট ট্রানজিশন চেকলিস্ট টেমপ্লেট কী মৌলিক প্রকল্প তথ্য সংগ্রহ করে?",
+  page:25,
+  a:`<ul>
+    <li><b>Project Title</b> — the proper name identifying the project.</li>
+    <li><b>Project Working Title</b> — the working name/acronym used.</li>
+    <li><span class="kw-red">Proponent Secretary</span> — the Secretary to whom the sponsoring agency is assigned.</li>
+    <li><span class="kw-blue">Proponent Agency</span> — the agency responsible for managing the project.</li>
+    <li><b>Prepared by</b> and <b>Date/Control Number</b> — who prepared it, and the finalization date/control number.</li>
+    <li>The <b>Status column</b> is marked <i>Yes</i> (completed), <i>No</i> (not addressed/incomplete), or <i>N/A</i> (not applicable), with a Comments/Plan to Resolve column.</li>
+  </ul>`,
+  aBn:`<ul>
+    <li><b>প্রজেক্ট টাইটেল</b> — প্রকল্পের প্রকৃত নাম।</li>
+    <li><b>প্রজেক্ট ওয়ার্কিং টাইটেল</b> — ব্যবহৃত কার্যকরী নাম/সংক্ষিপ্তরূপ।</li>
+    <li><span class="kw-red">প্রপোনেন্ট সেক্রেটারি</span> — স্পনসরকারী এজেন্সি যে সেক্রেটারির অধীনে।</li>
+    <li><span class="kw-blue">প্রপোনেন্ট এজেন্সি</span> — প্রকল্প পরিচালনার দায়িত্বপ্রাপ্ত সংস্থা।</li>
+    <li><b>প্রস্তুতকারী</b> ও <b>তারিখ/কন্ট্রোল নম্বর</b>।</li>
+    <li><b>স্ট্যাটাস কলামে</b> Yes (সম্পন্ন), No (অসম্পূর্ণ) বা N/A (প্রযোজ্য নয়) লেখা হয়, পাশে মন্তব্য/সমাধান পরিকল্পনা কলাম থাকে।</li>
+  </ul>`
+},
+{
+  section:"Templates & Checklists", sectionBn:"টেমপ্লেট ও চেকলিস্ট",
+  q:"What checklist items verify performance, cost, and schedule baselines before closeout?",
+  qBn:"ক্লোজআউটের আগে পারফরম্যান্স, খরচ ও সময়সূচি বেসলাইন যাচাইয়ের চেকলিস্ট আইটেমগুলো কী কী?",
+  page:25,
+  a:`<ul>
+    <li>Have all <span class="kw-red">product/service deliverables</span> been accepted by the customer? Are there contingencies/conditions related to acceptance?</li>
+    <li>Has the project been <b>evaluated against each performance goal</b> established in the project performance plan?</li>
+    <li>Has the <b>actual cost</b> been tallied and compared to the <span class="kw-blue">approved cost baseline</span>?</li>
+    <li>Have all approved changes to the cost baseline been identified and their impact documented?</li>
+    <li>(Page 26) Have <b>actual milestone completion dates</b> been compared to the approved schedule, and have approved schedule/scope changes been identified with documented impact?</li>
+  </ul>`,
+  aBn:`<ul>
+    <li>সব <span class="kw-red">পণ্য/সেবা ডেলিভারেবলস</span> কি গ্রাহক গ্রহণ করেছেন? গ্রহণের সাথে কোনো শর্ত সংশ্লিষ্ট কিনা?</li>
+    <li>প্রকল্প পারফরম্যান্স পরিকল্পনায় নির্ধারিত প্রতিটি <b>পারফরম্যান্স লক্ষ্যের বিপরীতে মূল্যায়ন</b> হয়েছে কিনা?</li>
+    <li><b>প্রকৃত খরচ</b> গণনা করে <span class="kw-blue">অনুমোদিত কস্ট বেসলাইনের</span> সাথে তুলনা করা হয়েছে কিনা?</li>
+    <li>কস্ট বেসলাইনে অনুমোদিত পরিবর্তনগুলো চিহ্নিত ও প্রভাব নথিভুক্ত হয়েছে কিনা?</li>
+    <li>(পৃষ্ঠা ২৬) <b>প্রকৃত মাইলস্টোন সম্পন্নের তারিখ</b> অনুমোদিত সময়সূচির সাথে তুলনা করা হয়েছে কিনা, এবং সময়সূচি/স্কোপ পরিবর্তনের প্রভাব নথিভুক্ত হয়েছে কিনা?</li>
+  </ul>`
+},
+{
+  section:"Templates & Checklists", sectionBn:"টেমপ্লেট ও চেকলিস্ট",
+  q:"What does the checklist verify regarding Operations Management and Project Resources?",
+  qBn:"চেকলিস্ট অপারেশনস ম্যানেজমেন্ট ও প্রজেক্ট রিসোর্স সম্পর্কে কী যাচাই করে?",
+  page:26,
+  a:`<ul>
+    <li>Has <span class="kw-red">operations management formally accepted responsibility</span> for operating and maintaining the delivered product(s)/service(s)?</li>
+    <li>Has documentation for <b>operation and maintenance</b> been delivered to and accepted by operations management?</li>
+    <li>Has <span class="kw-blue">training and knowledge transfer</span> of the operations organization been completed?</li>
+    <li>Does the <b>projected annual cost</b> to operate/maintain differ from the project proposal estimate? (explain if so)</li>
+    <li>Have the <b>resources used by the project</b> been transferred to other units within the organization?</li>
+  </ul>`,
+  aBn:`<ul>
+    <li><span class="kw-red">অপারেশনস ম্যানেজমেন্ট আনুষ্ঠানিকভাবে দায়িত্ব গ্রহণ</span> করেছে কিনা ডেলিভার করা পণ্য/সেবা পরিচালনা ও রক্ষণাবেক্ষণের জন্য?</li>
+    <li><b>অপারেশন ও রক্ষণাবেক্ষণ</b> সংক্রান্ত ডকুমেন্টেশন হস্তান্তরিত ও গৃহীত হয়েছে কিনা?</li>
+    <li>অপারেশনস সংস্থার <span class="kw-blue">প্রশিক্ষণ ও জ্ঞান হস্তান্তর</span> সম্পন্ন হয়েছে কিনা?</li>
+    <li>বার্ষিক পরিচালনা/রক্ষণাবেক্ষণ খরচের <b>প্রক্ষেপণ</b> প্রস্তাবিত অনুমান থেকে ভিন্ন কিনা?</li>
+    <li>প্রকল্পে ব্যবহৃত <b>রিসোর্স</b> সংস্থার অন্য ইউনিটে হস্তান্তরিত হয়েছে কিনা?</li>
+  </ul>`
+},
+{
+  section:"Templates & Checklists", sectionBn:"টেমপ্লেট ও চেকলিস্ট",
+  q:"What final checklist items and signatures confirm the closeout is complete?",
+  qBn:"ক্লোজআউট সম্পূর্ণ নিশ্চিত করতে চূড়ান্ত চেকলিস্ট আইটেম ও স্বাক্ষর কী কী?",
+  page:27,
+  a:`<ul>
+    <li>Has project documentation been <span class="kw-red">archived or otherwise disposed</span> as described in the project plan?</li>
+    <li>Have <b>lessons learned</b> been documented per the Commonwealth Project Management guideline?</li>
+    <li>Has the date for the <span class="kw-blue">post-implementation review</span> been set, and has the responsible person/unit been identified?</li>
+    <li><b>Signatures</b>: the signatures of listed people relay an understanding that the Closeout Phase is complete and the project has been <b>formally closed</b> — captured with Position/Title, Name, Date, Phone Number.</li>
+  </ul>`,
+  aBn:`<ul>
+    <li>প্রকল্প ডকুমেন্টেশন প্রকল্প পরিকল্পনা অনুযায়ী <span class="kw-red">আর্কাইভ বা নিষ্পত্তি</span> হয়েছে কিনা?</li>
+    <li><b>লেসনস লার্নড</b> কমনওয়েলথ প্রজেক্ট ম্যানেজমেন্ট গাইডলাইন অনুযায়ী নথিভুক্ত হয়েছে কিনা?</li>
+    <li><span class="kw-blue">পোস্ট-ইমপ্লিমেন্টেশন রিভিউ</span>-এর তারিখ নির্ধারিত হয়েছে কিনা এবং দায়িত্বপ্রাপ্ত ব্যক্তি/ইউনিট চিহ্নিত হয়েছে কিনা?</li>
+    <li><b>স্বাক্ষর</b>: তালিকাভুক্ত ব্যক্তিদের স্বাক্ষর নিশ্চিত করে যে ক্লোজআউট ফেজ সম্পূর্ণ এবং প্রকল্প <b>আনুষ্ঠানিকভাবে বন্ধ</b> হয়েছে — পদবি, নাম, তারিখ, ফোন নম্বর সহ।</li>
+  </ul>`
+},
+{
+  section:"Templates & Checklists", sectionBn:"টেমপ্লেট ও চেকলিস্ট",
+  q:"What sections (A–L) make up the full Project Closeout Report template?",
+  qBn:"সম্পূর্ণ প্রজেক্ট ক্লোজআউট রিপোর্ট টেমপ্লেটে কোন কোন সেকশন (A–L) থাকে?",
+  page:28,
+  a:`<ul>
+    <li><b>A. General Information</b> — project title, working title, proponent secretary/agency, prepared by, date/control number. <i>(Page 28)</i></li>
+    <li><span class="kw-red">B. Project Deliverables</span> — lists all deliverables, date accepted, and any contingencies/conditions. <i>(Page 28)</i></li>
+    <li><b>C. Performance Baseline</b> — documents performance against each Project Business Objective and Performance Goal, with Results. <i>(Page 29)</i></li>
+    <li><span class="kw-blue">D. Cost (Budget) Baseline</span> — Planned vs Actual Expenditures and Funding Source, with Variance and Explanation. <i>(Page 30)</i></li>
+    <li><b>E. Schedule Baseline</b> — Planned/Actual Start &amp; Finish dates per WBS element, with Variance/Explanation. <i>(Page 31)</i></li>
+    <li><b>F. Scope</b> — documents Scope Changes and their Impact on Performance/Cost/Schedule. <i>(Page 32)</i></li>
+    <li><span class="kw-red">G. Operations and Maintenance</span> — the O&amp;M Plan and O&amp;M Cost (Expenditures/Funding). <i>(Pages 33–34)</i></li>
+    <li><b>H. Project Resources</b> — Resource, who received it, Turnover Date (Project Team, Customer Support, Facilities, Equipment, Software Tools, Other). <i>(Page 35)</i></li>
+    <li><span class="kw-blue">I. Project Documentation</span> — Report/Document, Media Used, Storage Location, Disposition. <i>(Page 36)</i></li>
+    <li><b>J. Lessons Learned</b> — Statement of Problem, Discussion, References, Corrective Actions. <i>(Page 37)</i></li>
+    <li><b>K. Dates for Post Implementation Review and Report</b> — Action, Date, Responsible Person. <i>(Page 37)</i></li>
+    <li><span class="kw-red">L. Approvals</span> — signatures of Project Manager, Project Sponsor, Program/Agency Management. <i>(Page 37)</i></li>
+  </ul>`,
+  aBn:`<ul>
+    <li><b>A. সাধারণ তথ্য</b> — প্রজেক্ট টাইটেল, ওয়ার্কিং টাইটেল, প্রপোনেন্ট সেক্রেটারি/এজেন্সি ইত্যাদি। <i>(পৃষ্ঠা ২৮)</i></li>
+    <li><span class="kw-red">B. প্রজেক্ট ডেলিভারেবলস</span> — সব ডেলিভারেবল, গ্রহণের তারিখ ও শর্তাবলীর তালিকা। <i>(পৃষ্ঠা ২৮)</i></li>
+    <li><b>C. পারফরম্যান্স বেসলাইন</b> — প্রতিটি লক্ষ্য অনুযায়ী ফলাফল নথিভুক্ত করে। <i>(পৃষ্ঠা ২৯)</i></li>
+    <li><span class="kw-blue">D. কস্ট (বাজেট) বেসলাইন</span> — পরিকল্পিত বনাম প্রকৃত ব্যয় ও ফান্ডিং সোর্স। <i>(পৃষ্ঠা ৩০)</i></li>
+    <li><b>E. সময়সূচি বেসলাইন</b> — WBS উপাদানভিত্তিক পরিকল্পিত/প্রকৃত শুরু ও শেষ তারিখ। <i>(পৃষ্ঠা ৩১)</i></li>
+    <li><b>F. স্কোপ</b> — স্কোপ পরিবর্তন ও তার প্রভাব। <i>(পৃষ্ঠা ৩২)</i></li>
+    <li><span class="kw-red">G. অপারেশন ও রক্ষণাবেক্ষণ</span> — O&M পরিকল্পনা ও খরচ। <i>(পৃষ্ঠা ৩৩–৩৪)</i></li>
+    <li><b>H. প্রজেক্ট রিসোর্স</b> — রিসোর্স, প্রাপক ও হস্তান্তরের তারিখ। <i>(পৃষ্ঠা ৩৫)</i></li>
+    <li><span class="kw-blue">I. প্রজেক্ট ডকুমেন্টেশন</span> — রিপোর্ট/ডকুমেন্ট, মিডিয়া, সংরক্ষণস্থল ও নিষ্পত্তি। <i>(পৃষ্ঠা ৩৬)</i></li>
+    <li><b>J. লেসনস লার্নড</b> — সমস্যার বিবৃতি, আলোচনা, রেফারেন্স, সংশোধনমূলক পদক্ষেপ। <i>(পৃষ্ঠা ৩৭)</i></li>
+    <li><b>K. পোস্ট ইমপ্লিমেন্টেশন রিভিউ ও রিপোর্টের তারিখ</b> — কার্যক্রম, তারিখ, দায়িত্বপ্রাপ্ত ব্যক্তি। <i>(পৃষ্ঠা ৩৭)</i></li>
+    <li><span class="kw-red">L. অনুমোদন</span> — প্রজেক্ট ম্যানেজার, প্রজেক্ট স্পনসর, প্রোগ্রাম/এজেন্সি ম্যানেজমেন্টের স্বাক্ষর। <i>(পৃষ্ঠা ৩৭)</i></li>
+  </ul>`
+},
+{
+  section:"Templates & Checklists", sectionBn:"টেমপ্লেট ও চেকলিস্ট",
+  q:"What does the Cost (Budget) Baseline section of the Closeout Report specifically require?",
+  qBn:"ক্লোজআউট রিপোর্টের কস্ট (বাজেট) বেসলাইন সেকশনে সুনির্দিষ্টভাবে কী প্রয়োজন?",
+  page:30,
+  a:`<ul>
+    <li>State the <span class="kw-red">Planned Cost and Funding</span> as approved in the <b>Initial Cost Baseline</b> and the <b>Project Charter</b>.</li>
+    <li>State the <b>Actual Cost and Funding</b> at completion.</li>
+    <li><span class="kw-blue">Document and explain</span> all cost and funding variances, including any approved changes to the cost baseline.</li>
+    <li>Broken down by category: <b>Internal Staff Labor, Services, Software Tools, Hardware, Materials and Supplies, Facilities, Telecommunications, Training, Contingency (Risk)</b>, and Total.</li>
+    <li>Funding sources tracked: <b>General Fund, Non-General Fund, Federal, Other</b>.</li>
+  </ul>`,
+  aBn:`<ul>
+    <li><b>ইনিশিয়াল কস্ট বেসলাইন</b> ও <b>প্রজেক্ট চার্টারে</b> অনুমোদিত <span class="kw-red">পরিকল্পিত খরচ ও ফান্ডিং</span> উল্লেখ করা।</li>
+    <li>সমাপ্তিতে <b>প্রকৃত খরচ ও ফান্ডিং</b> উল্লেখ করা।</li>
+    <li>সব খরচ ও ফান্ডিং তারতম্য <span class="kw-blue">নথিভুক্ত ও ব্যাখ্যা</span> করা, অনুমোদিত পরিবর্তনসহ।</li>
+    <li>বিভাগ অনুযায়ী: <b>অভ্যন্তরীণ স্টাফ শ্রম, সেবা, সফটওয়্যার টুলস, হার্ডওয়্যার, উপকরণ, সুবিধা, টেলিযোগাযোগ, প্রশিক্ষণ, ঝুঁকি (কন্টিনজেন্সি)</b>।</li>
+    <li>ফান্ডিং সোর্স: <b>জেনারেল ফান্ড, নন-জেনারেল ফান্ড, ফেডারেল, অন্যান্য</b>।</li>
+  </ul>`
+},
+{
+  section:"Templates & Checklists", sectionBn:"টেমপ্লেট ও চেকলিস্ট",
+  q:"What must the Lessons Learned section (J) of the Closeout Report document, and what is the structure of a Post Implementation Report?",
+  qBn:"ক্লোজআউট রিপোর্টের লেসনস লার্নড সেকশন (J) কী নথিভুক্ত করতে হয়, এবং পোস্ট ইমপ্লিমেন্টেশন রিপোর্টের কাঠামো কী?",
+  page:37,
+  a:`<ul>
+    <li>Lessons Learned should be stated in terms of <span class="kw-red">Problems (or issues)</span> and <b>Corrective Actions taken</b>.</li>
+    <li>Provide a brief discussion identifying the <b>nature, source, and impact</b> of the problem.</li>
+    <li>Cite <span class="kw-blue">references</span> for additional detail — project reports, plans, issue logs, change management documents, and general literature.</li>
+  </ul>
+  <div class="divider"></div>
+  <p><b>Post Implementation Report Format</b> (Page 38):</p>
+  <ul>
+    <li><b>Cover Page</b>: Title, Organization/Agency, Date, Author's Name (Address, Phone Number, Email Address)</li>
+    <li><b>Report Body</b>: Executive Summary, Table of Contents, Introduction, Background (review process/methodology, Project Proposal, Project Charter), <span class="kw-red">Findings</span>, <span class="kw-blue">Recommendations</span></li>
+  </ul>`,
+  aBn:`<ul>
+    <li>লেসনস লার্নড <span class="kw-red">সমস্যা (বা ইস্যু)</span> এবং <b>গৃহীত সংশোধনমূলক পদক্ষেপ</b> আকারে উল্লেখ করতে হবে।</li>
+    <li>সমস্যার <b>প্রকৃতি, উৎস ও প্রভাব</b> সংক্ষেপে আলোচনা করতে হবে।</li>
+    <li>অতিরিক্ত বিবরণের জন্য <span class="kw-blue">রেফারেন্স</span> উল্লেখ করা — রিপোর্ট, পরিকল্পনা, ইস্যু লগ, পরিবর্তন ব্যবস্থাপনা ডকুমেন্ট।</li>
+  </ul>
+  <div class="divider"></div>
+  <p><b>পোস্ট ইমপ্লিমেন্টেশন রিপোর্ট ফরম্যাট</b> (পৃষ্ঠা ৩৮):</p>
+  <ul>
+    <li><b>কভার পেজ</b>: শিরোনাম, সংস্থা, তারিখ, লেখকের নাম (ঠিকানা, ফোন, ইমেইল)</li>
+    <li><b>রিপোর্ট বডি</b>: এক্সিকিউটিভ সামারি, সূচিপত্র, ভূমিকা, পটভূমি, <span class="kw-red">ফাইন্ডিংস</span>, <span class="kw-blue">সুপারিশ</span></li>
+  </ul>`
+},
+
+{
+  section:"Synthesis", sectionBn:"সংশ্লেষণ",
+  q:"How do Commissioning and Project Closeout differ in purpose and timing?",
+  qBn:"উদ্দেশ্য ও সময়ের দিক থেকে কমিশনিং ও প্রজেক্ট ক্লোজআউট কীভাবে ভিন্ন?",
+  page:2,
+  a:`<ul>
+    <li><span class="kw-red">Commissioning</span>:
+      <ul>
+        <li>Focuses on <b>technical/quality verification</b> — confirming the building's systems function as designed and meet the owner's requirements.</li>
+        <li>Can start at the <b>beginning of the project</b> and may continue after occupancy.</li>
+        <li>Usually led by an independent <b>commissioning agent</b>.</li>
+      </ul>
+    </li>
+    <li><span class="kw-blue">Project Closeout</span>:
+      <ul>
+        <li>Focuses on <b>administrative closure and logistics</b> — financial closure, staffing release, documentation archiving, lessons learned, and sign-off.</li>
+        <li>Is the <b>last phase</b> of the project lifecycle, beginning only after <b>deliverable acceptance</b>.</li>
+        <li>Involves the <b>project manager, sponsor, and stakeholders</b> broadly, not just a technical specialist.</li>
+      </ul>
+    </li>
+    <li>In practice, <b>successful commissioning</b> (verified systems performance) is often a prerequisite input that feeds into the <b>deliverable acceptance</b> step of closeout.</li>
+  </ul>`,
+  aBn:`<ul>
+    <li><span class="kw-red">কমিশনিং</span>:
+      <ul>
+        <li><b>প্রযুক্তিগত/গুণগত যাচাই</b>-এর উপর কেন্দ্রীভূত — ভবনের সিস্টেম ডিজাইন অনুযায়ী কাজ করছে ও মালিকের প্রয়োজনীয়তা পূরণ করছে কিনা তা নিশ্চিত করা।</li>
+        <li>প্রকল্পের <b>শুরুতে শুরু</b> হতে পারে ও দখলের পরেও চলতে পারে।</li>
+        <li>সাধারণত স্বতন্ত্র <b>কমিশনিং এজেন্ট</b> দ্বারা পরিচালিত।</li>
+      </ul>
+    </li>
+    <li><span class="kw-blue">প্রজেক্ট ক্লোজআউট</span>:
+      <ul>
+        <li><b>প্রশাসনিক সমাপ্তি ও লজিস্টিকসের</b> উপর কেন্দ্রীভূত — আর্থিক সমাপ্তি, স্টাফিং রিলিজ, ডকুমেন্টেশন আর্কাইভিং, লেসনস লার্নড ও সাইন-অফ।</li>
+        <li>প্রকল্প জীবনচক্রের <b>শেষ ধাপ</b>, যা কেবল <b>ডেলিভারেবল গ্রহণের</b> পরে শুরু হয়।</li>
+        <li><b>প্রজেক্ট ম্যানেজার, স্পনসর ও স্টেকহোল্ডারদের</b> ব্যাপকভাবে জড়িত করে।</li>
+      </ul>
+    </li>
+    <li>বাস্তবে, <b>সফল কমিশনিং</b> প্রায়ই ক্লোজআউটের <b>ডেলিভারেবল গ্রহণ</b> ধাপের একটি পূর্বশর্ত ইনপুট হিসেবে কাজ করে।</li>
+  </ul>`
+}
+];
+
+const content = document.getElementById('content');
+const countShown = document.getElementById('countShown');
+const countTotal = document.getElementById('countTotal');
+const noResults = document.getElementById('noResults');
+countTotal.textContent = data.length;
+
+function render(list){
+  content.innerHTML = '';
+  if(list.length === 0){
+    noResults.style.display = 'block';
+    countShown.textContent = 0;
+    return;
+  }
+  noResults.style.display = 'none';
+  countShown.textContent = list.length;
+
+  let lastSection = null;
+  list.forEach((item, idx) => {
+    if(item.section !== lastSection){
+      lastSection = item.section;
+      const secIdx = [...new Set(list.map(d=>d.section))].indexOf(item.section) + 1;
+      const label = document.createElement('div');
+      label.className = 'section-label';
+      label.innerHTML = `<div class="num">${secIdx}</div><div><h2>${item.section}</h2><span class="bn">${item.sectionBn}</span></div>`;
+      content.appendChild(label);
+    }
+
+    const card = document.createElement('div');
+    card.className = 'card';
+
+    const btn = document.createElement('button');
+    btn.className = 'q-btn';
+    btn.innerHTML = `
+      <div class="q-text">
+        <div class="en">${item.q}</div>
+        <div class="bn">${item.qBn}</div>
+      </div>
+      <div class="q-meta">
+        <span class="page-chip">Page ${item.page}</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    `;
+
+    const answer = document.createElement('div');
+    answer.className = 'answer';
+    answer.innerHTML = `
+      <div class="answer-inner">
+        <div class="answer-block en">
+          <div class="label">Answer</div>
+          ${item.a}
+        </div>
+        <div class="divider"></div>
+        <div class="answer-block bn">
+          <div class="label">উত্তর (বাংলা)</div>
+          ${item.aBn}
+        </div>
+      </div>
+    `;
+
+    btn.addEventListener('click', () => {
+      const isActive = btn.classList.contains('active');
+      if(isActive){
+        btn.classList.remove('active');
+        answer.style.maxHeight = null;
+      } else {
+        btn.classList.add('active');
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+      }
+    });
+
+    card.appendChild(btn);
+    card.appendChild(answer);
+    content.appendChild(card);
+  });
+}
+
+render(data);
+
+document.getElementById('searchInput').addEventListener('input', (e) => {
+  const term = e.target.value.trim().toLowerCase();
+  if(!term){
+    render(data);
+    return;
+  }
+  const filtered = data.filter(item =>
+    item.q.toLowerCase().includes(term) ||
+    item.qBn.includes(term) ||
+    item.a.toLowerCase().includes(term) ||
+    item.aBn.includes(term) ||
+    item.section.toLowerCase().includes(term) ||
+    String(item.page).includes(term)
+  );
+  render(filtered);
+});
+
+document.getElementById('expandAll').addEventListener('click', () => {
+  document.querySelectorAll('.q-btn').forEach(btn => {
+    btn.classList.add('active');
+    const ans = btn.parentElement.querySelector('.answer');
+    ans.style.maxHeight = ans.scrollHeight + 'px';
+  });
+});
+
+document.getElementById('collapseAll').addEventListener('click', () => {
+  document.querySelectorAll('.q-btn').forEach(btn => {
+    btn.classList.remove('active');
+    const ans = btn.parentElement.querySelector('.answer');
+    ans.style.maxHeight = null;
+  });
+});
+</script>
+</body>
+</html>

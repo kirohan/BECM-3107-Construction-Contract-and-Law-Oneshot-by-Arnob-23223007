@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Construction Insurance — Policy Dossier Study Companion</title>
+<style>
+  :root{
+    --navy:#0e1a2b;
+    --navy-2:#152238;
+    --navy-mid:#1b2c45;
+    --gold:#c9a24b;
+    --gold-soft:#e6cf8f;
+    --cream:#f6f1e4;
+    --cream-2:#efe7d2;
+    --ink:#20293a;
+    --ink-soft:#4a5468;
+    --rust:#a8402a;
+    --steel:#2c5a86;
+    --line:rgba(15,27,46,0.14);
+    --line-soft:rgba(15,27,46,0.08);
+    --shadow: 0 10px 30px rgba(14,26,43,0.14);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(1200px 500px at 10% -10%, #16273f 0%, transparent 60%),
+      var(--cream);
+    background-attachment: fixed;
+    color:var(--ink);
+    font-family: Georgia, 'Iowan Old Style', 'Palatino Linotype', 'Noto Serif Bengali', serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .bn{
+    font-family: 'Noto Sans Bengali','Nirmala UI','Vrinda','Segoe UI',sans-serif;
+  }
+  body, .body-font{
+    font-family: Georgia, 'Iowan Old Style', 'Palatino Linotype', serif;
+  }
+  .sans{
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  /* ===== paper texture overlay ===== */
+  .paper-grain{
+    position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(15,27,46,0.025) 0px, rgba(15,27,46,0.025) 1px, transparent 1px, transparent 3px);
+    mix-blend-mode:multiply;
+    opacity:.5;
+  }
+
+  /* ===== HEADER ===== */
+  header{
+    position:relative;
+    background:
+      linear-gradient(180deg, var(--navy) 0%, #101d31 65%, #0d1826 100%);
+    color:var(--cream);
+    padding: 56px 24px 84px;
+    overflow:hidden;
+    border-bottom: 6px solid var(--gold);
+  }
+  header::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image:
+      linear-gradient(rgba(201,162,75,0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,162,75,0.08) 1px, transparent 1px);
+    background-size: 42px 42px;
+    opacity:.5;
+  }
+  .header-inner{
+    position:relative; z-index:2;
+    max-width:1080px; margin:0 auto;
+    display:flex; flex-direction:column; align-items:flex-start; gap:10px;
+  }
+  .eyebrow-row{
+    display:flex; align-items:center; gap:12px;
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    letter-spacing:.22em; text-transform:uppercase; font-size:11.5px;
+    color:var(--gold-soft);
+  }
+  .eyebrow-row .seal{
+    width:26px; height:26px; border-radius:50%;
+    border:1.5px solid var(--gold);
+    display:flex; align-items:center; justify-content:center;
+    font-size:11px; color:var(--gold);
+  }
+  header h1{
+    font-size: clamp(30px, 5vw, 48px);
+    margin:6px 0 0;
+    font-weight:400;
+    letter-spacing:.3px;
+    line-height:1.15;
+  }
+  header h1 em{ color:var(--gold-soft); font-style:normal; border-bottom:1px solid rgba(230,207,143,.4); }
+  .bn-title{
+    font-family:'Noto Sans Bengali','Nirmala UI','Vrinda','Segoe UI',sans-serif;
+    color: rgba(246,241,228,0.75);
+    font-size: clamp(15px,2.4vw,19px);
+    margin-top:2px;
+  }
+  .meta-line{
+    margin-top:18px;
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    font-size:13px;
+    color:rgba(246,241,228,0.6);
+    display:flex; flex-wrap:wrap; gap:18px;
+  }
+  .meta-line span{ display:flex; align-items:center; gap:6px;}
+  .meta-line b{ color:var(--gold-soft); font-weight:600;}
+
+  /* ribbon strip under header */
+  .ribbon{
+    max-width:1080px; margin:-46px auto 0; position:relative; z-index:3;
+    background:var(--cream);
+    border:1px solid var(--line);
+    box-shadow:var(--shadow);
+    border-radius:10px;
+    padding:18px 22px;
+    display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:14px;
+  }
+  .ribbon-left{ display:flex; gap:10px; align-items:baseline; flex-wrap:wrap;}
+  .ribbon-left .num{ font-family:-apple-system,sans-serif; font-size:34px; font-weight:700; color:var(--navy);}
+  .ribbon-left .lbl{ font-family:-apple-system,sans-serif; font-size:12.5px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.14em;}
+  .search-wrap{
+    flex:1; min-width:220px; max-width:360px;
+    position:relative;
+  }
+  .search-wrap input{
+    width:100%; padding:11px 14px 11px 36px;
+    border:1.5px solid var(--line); border-radius:8px;
+    font-family:-apple-system,sans-serif; font-size:14px;
+    background:#fff; color:var(--ink);
+    outline:none;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .search-wrap input:focus{ border-color:var(--gold); box-shadow:0 0 0 3px rgba(201,162,75,.18);}
+  .search-wrap svg{ position:absolute; left:11px; top:50%; transform:translateY(-50%); opacity:.45;}
+
+  /* ===== MAIN LAYOUT ===== */
+  main{
+    max-width:1080px; margin:40px auto 100px; padding:0 24px;
+    position:relative; z-index:1;
+  }
+
+  .filters{
+    display:flex; gap:10px; flex-wrap:wrap;
+    margin-bottom:34px;
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  }
+  .filter-btn{
+    border:1.5px solid var(--line);
+    background:#fff;
+    color:var(--ink-soft);
+    padding:9px 16px;
+    border-radius:999px;
+    font-size:13.5px;
+    cursor:pointer;
+    letter-spacing:.02em;
+    transition: all .18s ease;
+  }
+  .filter-btn:hover{ border-color:var(--gold); color:var(--navy);}
+  .filter-btn.active{
+    background:var(--navy);
+    border-color:var(--navy);
+    color:var(--gold-soft);
+  }
+  .filter-count{
+    opacity:.6; font-size:11.5px; margin-left:4px;
+  }
+
+  .section-title{
+    display:flex; align-items:center; gap:14px;
+    margin: 46px 0 20px;
+  }
+  .section-title .tag{
+    font-family:-apple-system,sans-serif;
+    font-size:11px; letter-spacing:.18em; text-transform:uppercase;
+    color:var(--gold);
+    background:var(--navy);
+    padding:6px 12px; border-radius:5px;
+    white-space:nowrap;
+  }
+  .section-title .rule{ flex:1; height:1px; background:var(--line);}
+  .section-title h2{
+    font-size:20px; margin:0; font-weight:400; color:var(--navy); white-space:nowrap;
+  }
+  .section-title .bn{ font-size:13.5px; color:var(--ink-soft);}
+
+  /* ===== CARD (clause) ===== */
+  .clause{
+    background:#fff;
+    border:1px solid var(--line);
+    border-left:4px solid var(--gold);
+    border-radius:10px;
+    margin-bottom:14px;
+    box-shadow: 0 1px 2px rgba(14,26,43,.04);
+    overflow:hidden;
+    transition: box-shadow .2s ease, transform .2s ease;
+  }
+  .clause:hover{ box-shadow: var(--shadow); }
+  .clause-head{
+    width:100%;
+    display:flex; align-items:flex-start; gap:16px;
+    padding:20px 22px;
+    background:none; border:none; text-align:left; cursor:pointer;
+    color:inherit;
+  }
+  .clause-index{
+    flex-shrink:0;
+    width:46px; height:46px;
+    border-radius:50%;
+    border:1.5px dashed var(--gold);
+    display:flex; align-items:center; justify-content:center;
+    font-family:-apple-system,sans-serif;
+    font-weight:700; font-size:14px; color:var(--navy);
+    background: repeating-linear-gradient(135deg, rgba(201,162,75,.08) 0 4px, transparent 4px 8px);
+  }
+  .clause-text{ flex:1; min-width:0; }
+  .clause-text .q-en{
+    font-size:17px; color:var(--navy); line-height:1.45; margin:0;
+  }
+  .clause-text .q-bn{
+    margin:6px 0 0; font-size:14.5px; color:var(--ink-soft); line-height:1.6;
+  }
+  .clause-tags{
+    display:flex; gap:8px; margin-top:10px; flex-wrap:wrap;
+    font-family:-apple-system,sans-serif;
+  }
+  .page-tag{
+    font-size:11px; letter-spacing:.06em;
+    color:var(--steel);
+    background:rgba(44,90,134,0.08);
+    border:1px solid rgba(44,90,134,0.22);
+    padding:3px 9px; border-radius:5px;
+  }
+  .cat-tag{
+    font-size:11px; letter-spacing:.06em;
+    color:var(--rust);
+    background:rgba(168,64,42,0.07);
+    border:1px solid rgba(168,64,42,0.2);
+    padding:3px 9px; border-radius:5px;
+    text-transform:uppercase;
+  }
+  .chevron{
+    flex-shrink:0; margin-top:8px;
+    width:20px; height:20px;
+    transition: transform .28s ease;
+    color:var(--gold);
+  }
+  .clause.open .chevron{ transform:rotate(135deg); }
+
+  .clause-body-wrap{
+    max-height:0;
+    overflow:hidden;
+    transition: max-height .38s cubic-bezier(.4,0,.2,1);
+  }
+  .clause-body{
+    padding: 0 22px 24px 84px;
+    border-top:1px dashed var(--line);
+    margin-top:0;
+  }
+  .answer-block{ padding-top:18px; }
+  .answer-label{
+    font-family:-apple-system,sans-serif;
+    font-size:11px; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--ink-soft); margin-bottom:10px;
+  }
+  .clause-body ul{
+    margin:0 0 6px; padding-left:20px;
+  }
+  .clause-body li{
+    margin-bottom:8px; line-height:1.6; font-size:15px; color:var(--ink);
+  }
+  .clause-body p{ line-height:1.65; font-size:15px; margin:0 0 10px;}
+  .answer-bn{
+    margin-top:16px; padding-top:16px; border-top:1px solid var(--line-soft);
+  }
+  .answer-bn ul{ margin:0; padding-left:20px;}
+  .answer-bn li{
+    margin-bottom:8px; line-height:1.75; font-size:14.5px; color:var(--ink-soft);
+  }
+  .kw-r{ color:var(--rust); font-weight:700; }
+  .kw-b{ color:var(--steel); font-weight:700; }
+  strong{ color:var(--navy); }
+
+  .no-results{
+    text-align:center; padding:60px 20px; color:var(--ink-soft);
+    font-family:-apple-system,sans-serif;
+    display:none;
+  }
+
+  /* ===== FOOTER ===== */
+  footer{
+    background:var(--navy);
+    color:rgba(246,241,228,0.55);
+    text-align:center;
+    padding:34px 20px 40px;
+    font-family:-apple-system,sans-serif;
+    font-size:12.5px;
+    letter-spacing:.03em;
+  }
+  footer .gold{ color:var(--gold-soft); }
+
+  /* scroll to top */
+  .totop{
+    position:fixed; right:22px; bottom:22px;
+    width:46px; height:46px; border-radius:50%;
+    background:var(--navy); color:var(--gold-soft);
+    border:1px solid var(--gold);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; box-shadow:var(--shadow);
+    opacity:0; pointer-events:none; transform:translateY(10px);
+    transition: opacity .25s, transform .25s;
+    z-index:50;
+  }
+  .totop.show{ opacity:1; pointer-events:auto; transform:translateY(0);}
+
+  @media (max-width:640px){
+    header{padding:44px 18px 74px;}
+    .ribbon{ margin-top:-40px; padding:16px;}
+    .clause-body{ padding-left:22px; }
+    .clause-head{ padding:16px; gap:12px;}
+    .clause-index{ width:38px; height:38px; font-size:12px;}
+    .section-title h2{ font-size:17px;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{ transition:none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="paper-grain"></div>
+
+<header>
+  <div class="header-inner">
+    <div class="eyebrow-row">
+      <span class="seal">§</span>
+      <span>Construction Contract &amp; Law · BECM 3107</span>
+    </div>
+    <h1>Construction <em>Insurance</em><br>Policy Dossier &amp; Study Companion</h1>
+    <div class="bn-title">নির্মাণ বীমা — পলিসি ডসিয়ার ও অধ্যয়ন সহায়িকা</div>
+    <div class="meta-line">
+      <span><b>Instructor</b> Sanjida Afrin Sworna</span>
+      <span><b>Dept.</b> Building Engineering &amp; Construction Management, KUET</span>
+      <span><b>Format</b> 44 Q&amp;A Clauses, bilingual EN / বাংলা</span>
+    </div>
+  </div>
+</header>
+
+<div class="ribbon">
+  <div class="ribbon-left">
+    <span class="num" id="totalCount">44</span>
+    <span class="lbl">Study Clauses<br>on record</span>
+  </div>
+  <div class="search-wrap sans">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input id="searchInput" type="text" placeholder="Search a term, e.g. CGL, indemnify, OCIP...">
+  </div>
+</div>
+
+<main>
+  <div class="filters" id="filters"></div>
+  <div id="sections"></div>
+  <div class="no-results sans" id="noResults">No clauses match your search. Try another term. — <span class="bn">কোনো ফলাফল পাওয়া যায়নি।</span></div>
+</main>
+
+<footer>
+  Compiled from “Construction Insurance” — <span class="gold">Construction Contract &amp; Law (BECM 3107)</span>, KUET.
+  <br>Self-contained study reference · No data leaves this page.
+</footer>
+
+<div class="totop sans" id="totop" title="Back to top">↑</div>
+
+<script>
+/* ======================= DATA ======================= */
+const CATEGORIES = [
+  {key:'risk', label:'Risk Management', bn:'ঝুঁকি ব্যবস্থাপনা'},
+  {key:'policy', label:'Policy Fundamentals', bn:'পলিসি মূলনীতি'},
+  {key:'types', label:'Types of Insurance & CGL', bn:'বীমার প্রকার ও CGL'},
+  {key:'specialty', label:'Specialty Coverages', bn:'বিশেষায়িত কভারেজ'},
+  {key:'programs', label:'Insurance Programs', bn:'বীমা কর্মসূচি'}
+];
+
+const DATA = [
+{cat:'risk', page:2,
+ qEn:'What is construction risk, and what problems can it cause?',
+ qBn:'নির্মাণ ঝুঁকি কী এবং এটি কী কী সমস্যা সৃষ্টি করতে পারে?',
+ aEn:['<span class="kw-r">Construction risk</span> is the chance that unexpected events may occur during a project.',
+      'It can cause <span class="kw-b">delays</span>, <span class="kw-b">increased costs</span>, <span class="kw-b">safety issues</span>, <span class="kw-b">quality problems</span>, or <span class="kw-b">contractual disputes</span>.'],
+ aBn:['<span class="kw-r">নির্মাণ ঝুঁকি</span> হলো প্রকল্প চলাকালে অপ্রত্যাশিত ঘটনা ঘটার সম্ভাবনা।',
+      'এটি <span class="kw-b">বিলম্ব</span>, <span class="kw-b">ব্যয় বৃদ্ধি</span>, <span class="kw-b">নিরাপত্তা সমস্যা</span>, <span class="kw-b">মান সংক্রান্ত সমস্যা</span> বা <span class="kw-b">চুক্তিগত বিরোধ</span> সৃষ্টি করতে পারে।']},
+
+{cat:'risk', page:3,
+ qEn:'Define “management” in the context of risk management.',
+ qBn:'ঝুঁকি ব্যবস্থাপনার প্রেক্ষাপটে “ম্যানেজমেন্ট” বলতে কী বোঝায়?',
+ aEn:['<span class="kw-r">Management</span> is the process of planning, organizing, leading, and controlling resources.',
+      'Its purpose is to achieve specific goals <span class="kw-b">efficiently and effectively</span>.'],
+ aBn:['<span class="kw-r">ম্যানেজমেন্ট</span> হলো পরিকল্পনা, সংগঠন, নেতৃত্বদান ও সম্পদ নিয়ন্ত্রণের প্রক্রিয়া।',
+      'এর লক্ষ্য হলো নির্দিষ্ট উদ্দেশ্য <span class="kw-b">দক্ষতা ও কার্যকারিতার</span> সাথে অর্জন করা।']},
+
+{cat:'risk', page:4,
+ qEn:'What are the five steps of applying risk management to a construction project?',
+ qBn:'একটি নির্মাণ প্রকল্পে ঝুঁকি ব্যবস্থাপনা প্রয়োগের পাঁচটি ধাপ কী কী?',
+ aEn:['<strong>1. Recognize</strong> — identify all the varied <span class="kw-r">risks</span> present in the project.',
+      '<strong>2. Measure</strong> — <span class="kw-b">quantify</span> the degree of financial exposure for each risk.',
+      '<strong>3. Protect</strong> — decide how to guard against identified risks (<span class="kw-b">transfer, avoid, retain</span>).',
+      '<strong>4. Control</strong> — conduct programs for <span class="kw-r">loss control and prevention</span>.',
+      '<strong>5. Monitor</strong> — track and evaluate the results of the risk program.'],
+ aBn:['<strong>১. চিহ্নিতকরণ (Recognize)</strong> — প্রকল্পে বিদ্যমান সকল <span class="kw-r">ঝুঁকি</span> শনাক্ত করা।',
+      '<strong>২. পরিমাপ (Measure)</strong> — প্রতিটি ঝুঁকির আর্থিক <span class="kw-b">ঝুঁকির মাত্রা</span> পরিমাপ করা।',
+      '<strong>৩. সুরক্ষা (Protect)</strong> — চিহ্নিত ঝুঁকির বিরুদ্ধে কীভাবে সুরক্ষা নেবে তা নির্ধারণ (<span class="kw-b">স্থানান্তর, পরিহার, বহন</span>)।',
+      '<strong>৪. নিয়ন্ত্রণ (Control)</strong> — <span class="kw-r">ক্ষতি নিয়ন্ত্রণ ও প্রতিরোধের</span> কর্মসূচি পরিচালনা।',
+      '<strong>৫. পর্যবেক্ষণ (Monitor)</strong> — ঝুঁকি কর্মসূচির ফলাফল ট্র্যাক ও মূল্যায়ন করা।']},
+
+{cat:'risk', page:5,
+ qEn:'Does insurance eliminate risk in construction contracting? Explain what it actually does.',
+ qBn:'নির্মাণ চুক্তিতে বীমা কি ঝুঁকি দূর করে দেয়? এটি প্রকৃতপক্ষে কী করে তা ব্যাখ্যা করুন।',
+ aEn:['<span class="kw-r">Insurance does NOT eliminate</span> the risks involved in construction contracting.',
+      'Instead, it <span class="kw-b">shifts most of the potential financial burden</span> to a professional risk-bearer (the insurer).'],
+ aBn:['<span class="kw-r">বীমা ঝুঁকি দূর করে না।</span>',
+      'বরং এটি সম্ভাব্য আর্থিক দায়ভারের বেশিরভাগ অংশ একজন পেশাদার ঝুঁকি-বহনকারীর (<span class="kw-b">বীমাকারী</span>) উপর স্থানান্তর করে।']},
+
+{cat:'risk', page:6,
+ qEn:'Besides paying for losses, what additional role do insurance companies play for construction companies?',
+ qBn:'ক্ষতি পরিশোধ করা ছাড়াও বীমা কোম্পানিগুলো নির্মাণ কোম্পানির জন্য আর কী ভূমিকা পালন করে?',
+ aEn:['Insurance companies <span class="kw-r">not only pay for losses</span>.',
+      'They also <span class="kw-b">work alongside construction companies</span> to help them with risk management, forming an active, ongoing partnership rather than a one-time transaction.'],
+ aBn:['বীমা কোম্পানিগুলো শুধু <span class="kw-r">ক্ষতি পরিশোধই করে না</span>।',
+      'তারা নির্মাণ কোম্পানির সাথে <span class="kw-b">একসাথে কাজ করে</span> ঝুঁকি ব্যবস্থাপনায় সহায়তা করার জন্য, যা একটি চলমান অংশীদারিত্ব তৈরি করে।']},
+
+{cat:'risk', page:7,
+ qEn:'What are the three key roles insurance plays in construction risk management?',
+ qBn:'নির্মাণ ঝুঁকি ব্যবস্থাপনায় বীমার তিনটি মূল ভূমিকা কী কী?',
+ aEn:['<strong>Risk Transfer</strong> — insurance shifts the potential <span class="kw-r">financial burden</span> to a professional risk-bearer, without eliminating the risk itself.',
+      '<strong>Active Partnership</strong> — insurers work <span class="kw-b">alongside</span> construction companies on risk management, not just paying claims after losses occur.',
+      '<strong>Support Services</strong> — insurers provide <span class="kw-b">safety assessments</span>, loss prevention programs, education/training, and site inspections.',
+      'Construction contracts require the contractor to assume the owner\'s and A/E\'s legal liability for accidents <em>and</em> provide insurance for the owner\'s protection.'],
+ aBn:['<strong>ঝুঁকি স্থানান্তর (Risk Transfer)</strong> — বীমা আর্থিক দায়ভার একজন পেশাদার ঝুঁকি-বহনকারীর কাছে স্থানান্তর করে, ঝুঁকি নিজেই দূর করে না।',
+      '<strong>সক্রিয় অংশীদারিত্ব (Active Partnership)</strong> — বীমাকারীরা শুধু ক্ষতির পরে দাবি পরিশোধ করে না, তারা নির্মাণ কোম্পানির সাথে ঝুঁকি ব্যবস্থাপনায় সহযোগিতা করে।',
+      '<strong>সহায়ক সেবা (Support Services)</strong> — বীমাকারী নিরাপত্তা মূল্যায়ন, ক্ষতি প্রতিরোধ কর্মসূচি, শিক্ষা-প্রশিক্ষণ ও সাইট পরিদর্শন প্রদান করে।',
+      'নির্মাণ চুক্তির শর্তে ঠিকাদারকে মালিক ও স্থপতি-প্রকৌশলীর আইনি দায় গ্রহণ করতে হয় এবং মালিকের সুরক্ষার জন্য বীমা প্রদান করতে হয়।']},
+
+{cat:'risk', page:8,
+ qEn:'List the risk management services that insurance companies typically offer construction companies.',
+ qBn:'বীমা কোম্পানিগুলো নির্মাণ কোম্পানিকে সাধারণত কী কী ঝুঁকি ব্যবস্থাপনা সেবা প্রদান করে?',
+ aEn:['<span class="kw-r">Safety assessment</span>',
+      '<span class="kw-r">Loss prevention</span>',
+      '<span class="kw-b">Education and training programs</span>',
+      '<span class="kw-b">Site inspections</span>'],
+ aBn:['<span class="kw-r">নিরাপত্তা মূল্যায়ন (Safety assessment)</span>',
+      '<span class="kw-r">ক্ষতি প্রতিরোধ (Loss prevention)</span>',
+      '<span class="kw-b">শিক্ষা ও প্রশিক্ষণ কর্মসূচি</span>',
+      '<span class="kw-b">সাইট পরিদর্শন (Site inspections)</span>']},
+
+{cat:'policy', page:14,
+ qEn:'What happens when an insured party purchases an insurance policy?',
+ qBn:'একটি বীমাকৃত পক্ষ যখন বীমা পলিসি ক্রয় করে, তখন কী ঘটে?',
+ aEn:['By purchasing an insurance policy, the insured party <span class="kw-r">shifts some of its risk</span> to the insurance company.'],
+ aBn:['একটি বীমা পলিসি ক্রয়ের মাধ্যমে বীমাকৃত পক্ষ তার <span class="kw-r">কিছু ঝুঁকি বীমা কোম্পানির উপর স্থানান্তর</span> করে।']},
+
+{cat:'policy', page:15,
+ qEn:'What does “indemnify” mean, and when must the insurer indemnify the insured?',
+ qBn:'“ইনডেমনিফাই (Indemnify)” শব্দের অর্থ কী, এবং কখন বীমাকারীকে বীমাকৃতকে ক্ষতিপূরণ দিতে হয়?',
+ aEn:['If the insured party suffers a loss that is <span class="kw-b">covered by the policy</span>, the insurance company must <span class="kw-r">indemnify (cover)</span> the party.',
+      'This payment is made <span class="kw-b">up to the amount of coverage</span> specified in the policy.'],
+ aBn:['বীমাকৃত পক্ষ যদি পলিসিতে <span class="kw-b">কভারকৃত ক্ষতির</span> সম্মুখীন হয়, তাহলে বীমা কোম্পানিকে তাকে <span class="kw-r">ইনডেমনিফাই (ক্ষতিপূরণ)</span> দিতে হবে।',
+      'এই পরিশোধ পলিসিতে উল্লেখিত <span class="kw-b">কভারেজের পরিমাণ পর্যন্ত</span> সীমাবদ্ধ থাকে।']},
+
+{cat:'policy', page:11,
+ qEn:'Explain the insurer\'s obligation regarding valid claims, and what happens at policy renewal.',
+ qBn:'বৈধ দাবির ক্ষেত্রে বীমাকারীর দায়বদ্ধতা এবং পলিসি নবায়নের সময় কী ঘটে তা ব্যাখ্যা করুন।',
+ aEn:['The insurance company is <span class="kw-r">obligated to pay a valid claim</span> and has <strong>no recourse</strong> against the insured party until renewal.',
+      'At renewal, the insurer can <span class="kw-b">increase the premium</span> or <span class="kw-b">refuse to renew</span> the policy.'],
+ aBn:['বীমা কোম্পানি <span class="kw-r">একটি বৈধ দাবি পরিশোধ করতে বাধ্য</span> এবং পলিসি নবায়ন না হওয়া পর্যন্ত বীমাকৃতের বিরুদ্ধে কোনো প্রতিকার নেই।',
+      'নবায়নের সময় বীমাকারী <span class="kw-b">প্রিমিয়াম বাড়াতে</span> বা <span class="kw-b">নবায়ন প্রত্যাখ্যান</span> করতে পারে।']},
+
+{cat:'policy', page:12,
+ qEn:'Define an insurance policy, and list the insurer\'s two main duties.',
+ qBn:'বীমা পলিসি সংজ্ঞায়িত করুন এবং বীমাকারীর দুটি প্রধান দায়িত্ব উল্লেখ করুন।',
+ aEn:['An <span class="kw-r">insurance policy</span> is a contract whereby the insurer promises, for a consideration, to assume <span class="kw-b">financial responsibility for a specific loss or liability</span>.',
+      '<strong>Duty 1:</strong> Defend the contractor in an action brought against it (when the complaint alleges facts included in the policy\'s coverage).',
+      '<strong>Duty 2:</strong> Assure the contractor of loss covered by the policy.'],
+ aBn:['একটি <span class="kw-r">বীমা পলিসি</span> হলো এমন একটি চুক্তি যেখানে বীমাকারী, প্রতিদানের বিনিময়ে, একটি নির্দিষ্ট ক্ষতি বা দায়ের <span class="kw-b">আর্থিক দায়িত্ব গ্রহণের</span> প্রতিশ্রুতি দেয়।',
+      '<strong>দায়িত্ব ১:</strong> ঠিকাদারের বিরুদ্ধে আনা মামলায় তাকে রক্ষা (ডিফেন্ড) করা, যদি অভিযোগ পলিসির কভারেজের মধ্যে পড়ে।',
+      '<strong>দায়িত্ব ২:</strong> পলিসিতে কভারকৃত ক্ষতির নিশ্চয়তা প্রদান করা।']},
+
+{cat:'policy', page:13,
+ qEn:'Why do construction contracts require contractors to assume the owner\'s/A-E\'s legal liability and provide insurance?',
+ qBn:'কেন নির্মাণ চুক্তিতে ঠিকাদারকে মালিক/স্থপতি-প্রকৌশলীর আইনি দায় গ্রহণ করতে ও বীমা প্রদান করতে হয়?',
+ aEn:['Construction work is <span class="kw-r">hazardous by nature</span>; accidents are frequent and often severe.',
+      'Contracts require: the contractor <span class="kw-b">assumes the owner\'s and A/E\'s legal liability</span> for construction accidents.',
+      'Contracts also require the contractor to <span class="kw-b">provide insurance for the owner\'s protection</span>.',
+      'As a result, contractor insurance covers parties <em>other than itself</em> and protects against liabilities not legally its own.'],
+ aBn:['নির্মাণ কাজ স্বভাবতই <span class="kw-r">ঝুঁকিপূর্ণ</span>; দুর্ঘটনা প্রায়ই ঘটে এবং প্রায়শই গুরুতর হয়।',
+      'চুক্তির শর্ত অনুযায়ী ঠিকাদারকে নির্মাণ দুর্ঘটনার জন্য <span class="kw-b">মালিক ও স্থপতি-প্রকৌশলীর আইনি দায়</span> গ্রহণ করতে হয়।',
+      'ঠিকাদারকে <span class="kw-b">মালিকের সুরক্ষার জন্য বীমা প্রদান</span> করতে হয়।',
+      'ফলে, ঠিকাদারের বীমা তার নিজের বাইরের পক্ষগুলোকেও কভার করে এবং আইনগতভাবে তার নয় এমন দায়ের বিরুদ্ধেও সুরক্ষা দেয়।']},
+
+{cat:'policy', page:14,
+ qEn:'What insurance types must a contract typically require the contractor to carry?',
+ qBn:'একটি চুক্তিতে সাধারণত ঠিকাদারকে কোন কোন বীমা রাখতে হয়?',
+ aEn:['<span class="kw-r">Workman\'s compensation insurance</span>',
+      '<span class="kw-r">Employer\'s liability insurance</span>',
+      '<span class="kw-b">Comprehensive general liability insurance</span>'],
+ aBn:['<span class="kw-r">শ্রমিক ক্ষতিপূরণ বীমা (Workman\'s compensation insurance)</span>',
+      '<span class="kw-r">নিয়োগকর্তার দায় বীমা (Employer\'s liability insurance)</span>',
+      '<span class="kw-b">কম্প্রিহেনসিভ জেনারেল লায়াবিলিটি ইন্স্যুরেন্স</span>']},
+
+{cat:'policy', page:14,
+ qEn:'What must the owner or contractor furnish regarding property and liability insurance?',
+ qBn:'সম্পত্তি ও দায় বীমা সংক্রান্ত মালিক বা ঠিকাদারকে কী প্রদান করতে হয়?',
+ aEn:['Contracts normally require either the Owner or the Contractor to furnish:',
+      '<span class="kw-r">Property insurance</span> — to protect the project.',
+      '<span class="kw-b">Liability insurance</span> — to protect the owner.'],
+ aBn:['চুক্তি সাধারণত মালিক বা ঠিকাদারের যেকোনো একজনকে নিম্নলিখিত প্রদান করতে বলে:',
+      '<span class="kw-r">সম্পত্তি বীমা</span> — প্রকল্পকে রক্ষা করতে।',
+      '<span class="kw-b">দায় বীমা</span> — মালিককে রক্ষা করতে।']},
+
+{cat:'policy', page:15,
+ qEn:'Why is it important for a contractor to submit contract documents to its insurer before submitting a bid?',
+ qBn:'বিড জমা দেওয়ার আগে চুক্তির দলিল বীমা কোম্পানিতে জমা দেওয়া ঠিকাদারের জন্য কেন গুরুত্বপূর্ণ?',
+ aEn:['The insurer is the <span class="kw-r">expert at evaluating the risks</span>.',
+      'Special insurance coverage may be required, and the type of construction may present <span class="kw-b">special risks</span>.',
+      'The <span class="kw-b">cost of the required insurance</span> should be included in the contractor\'s bid — so it must be known before bidding.'],
+ aBn:['বীমাকারী <span class="kw-r">ঝুঁকি মূল্যায়নে বিশেষজ্ঞ</span>।',
+      'বিশেষ বীমা কভারেজের প্রয়োজন হতে পারে, এবং নির্মাণের ধরন <span class="kw-b">বিশেষ ঝুঁকি</span> তৈরি করতে পারে।',
+      'প্রয়োজনীয় বীমার <span class="kw-b">খরচ ঠিকাদারের বিড-এ অন্তর্ভুক্ত</span> করতে হয় — তাই বিডের আগেই তা জানা আবশ্যক।']},
+
+{cat:'policy', page:16,
+ qEn:'Are losses from a contractor\'s own intentional actions recoverable under insurance? What about negligence?',
+ qBn:'ঠিকাদারের নিজস্ব ইচ্ছাকৃত কর্মকাণ্ডের কারণে ক্ষতি কি বীমার আওতায় পুনরুদ্ধারযোগ্য? অবহেলার ক্ষেত্রে কী হয়?',
+ aEn:['Losses from the contractor\'s own <span class="kw-r">intentional actions</span> — <strong>NO</strong>, not recoverable.',
+      'Losses from <span class="kw-b">negligence or oversight</span> — <strong>YES</strong>, covered, since these are not intentional acts.'],
+ aBn:['ঠিকাদারের নিজস্ব <span class="kw-r">ইচ্ছাকৃত কর্মকাণ্ডের</span> কারণে ক্ষতি — <strong>না</strong>, পুনরুদ্ধারযোগ্য নয়।',
+      '<span class="kw-b">অবহেলা বা ভুলবশত</span> ক্ষতি — <strong>হ্যাঁ</strong>, কভারড, কারণ এগুলো ইচ্ছাকৃত কাজ নয়।']},
+
+{cat:'policy', page:16,
+ qEn:'Can a contractor recover more than its actual losses through insurance?',
+ qBn:'ঠিকাদার কি বীমার মাধ্যমে প্রকৃত ক্ষতির চেয়ে বেশি অর্থ আদায় করতে পারে?',
+ aEn:['<strong>No</strong> — a contractor <span class="kw-r">cannot profit from losses</span>. Insurance restores the insured to its pre-loss position, not beyond it.'],
+ aBn:['<strong>না</strong> — একজন ঠিকাদার <span class="kw-r">ক্ষতি থেকে মুনাফা করতে পারে না</span>। বীমা কেবল বীমাকৃতকে ক্ষতির পূর্বের অবস্থায় ফিরিয়ে আনে, তার বেশি নয়।']},
+
+{cat:'policy', page:17,
+ qEn:'Can the standard insurance premium be adjusted, and how does safety affect insurance rates?',
+ qBn:'স্ট্যান্ডার্ড বীমা প্রিমিয়াম কি সমন্বয় করা যায়, এবং নিরাপত্তা কীভাবে বীমার হার প্রভাবিত করে?',
+ aEn:['<strong>Yes</strong> — the standard premium charge (<span class="kw-r">Manual Rate</span>) can be adjusted.',
+      'Rule of thumb: <span class="kw-b">Safe work = fewer losses = lower insurance rates.</span>'],
+ aBn:['<strong>হ্যাঁ</strong> — স্ট্যান্ডার্ড প্রিমিয়াম হার (<span class="kw-r">ম্যানুয়াল রেট</span>) সমন্বয় করা যায়।',
+      'সাধারণ নিয়ম: <span class="kw-b">নিরাপদ কাজ = কম ক্ষতি = কম বীমা হার।</span>']},
+
+{cat:'types', page:18,
+ qEn:'What are the two distinct categories of insurance?',
+ qBn:'বীমার দুটি স্বতন্ত্র শ্রেণি কী কী?',
+ aEn:['<span class="kw-r">First-party insurance</span>', '<span class="kw-b">Third-party insurance</span>'],
+ aBn:['<span class="kw-r">প্রথম-পক্ষ বীমা (First-party insurance)</span>', '<span class="kw-b">তৃতীয়-পক্ষ বীমা (Third-party insurance)</span>']},
+
+{cat:'types', page:19,
+ qEn:'Differentiate first-party and third-party insurance, with examples.',
+ qBn:'উদাহরণসহ প্রথম-পক্ষ ও তৃতীয়-পক্ষ বীমার মধ্যে পার্থক্য ব্যাখ্যা করুন।',
+ aEn:['<strong>First-party insurance:</strong> the insured contracts for coverage in the event of injury or loss to <span class="kw-r">itself or its own property</span>. Examples: property insurance, health insurance.',
+      '<strong>Third-party insurance:</strong> the insured contracts for coverage in the event it causes injury or loss to <span class="kw-b">someone else</span> (a third party) or their property.',
+      'Many policies combine both — <em>vehicle insurance</em> is a common example.'],
+ aBn:['<strong>প্রথম-পক্ষ বীমা:</strong> বীমাকৃত পক্ষ <span class="kw-r">নিজের বা নিজের সম্পত্তির</span> ক্ষতির জন্য কভারেজ নেয়। উদাহরণ: সম্পত্তি বীমা, স্বাস্থ্য বীমা।',
+      '<strong>তৃতীয়-পক্ষ বীমা:</strong> বীমাকৃত পক্ষ যদি <span class="kw-b">অন্য কারো</span> (তৃতীয় পক্ষ) ক্ষতি করে, তার জন্য কভারেজ নেয়।',
+      'অনেক পলিসিতে উভয়ই থাকে — <em>যানবাহন বীমা</em> এর একটি সাধারণ উদাহরণ।']},
+
+{cat:'types', page:20,
+ qEn:'What is Commercial General Liability (CGL) insurance, and what three parts make up a typical policy?',
+ qBn:'কমার্শিয়াল জেনারেল লায়াবিলিটি (CGL) বীমা কী, এবং একটি সাধারণ পলিসি কোন তিনটি অংশে গঠিত?',
+ aEn:['A standard policy issued to business organizations, protecting against liability claims for <span class="kw-r">bodily injury (BI)</span> and <span class="kw-r">property damage (PD)</span> arising from premises, operations, products, and completed operations; plus advertising and personal injury (PI) liability.',
+      'If the contractor is found liable, the insurer <span class="kw-b">covers the claim up to the policy limits</span>.',
+      'A typical CGL policy consists of a <strong>declarations form</strong>, a <strong>coverage form</strong>, and any <strong>special endorsements</strong>.'],
+ aBn:['ব্যবসায়িক প্রতিষ্ঠানকে দেওয়া একটি স্ট্যান্ডার্ড পলিসি, যা প্রাঙ্গণ, কার্যক্রম, পণ্য ও সম্পন্ন কাজ থেকে সৃষ্ট <span class="kw-r">বডিলি ইনজুরি (BI)</span> ও <span class="kw-r">প্রপার্টি ড্যামেজ (PD)</span> দাবির বিরুদ্ধে সুরক্ষা দেয়; সাথে বিজ্ঞাপন ও পার্সোনাল ইনজুরি (PI) দায়ও।',
+      'ঠিকাদার দায়ী প্রমাণিত হলে বীমাকারী <span class="kw-b">পলিসির সীমা পর্যন্ত দাবি পরিশোধ</span> করে।',
+      'একটি সাধারণ CGL পলিসিতে থাকে <strong>ডিক্লেয়ারেশনস ফর্ম</strong>, <strong>কভারেজ ফর্ম</strong> এবং যেকোনো <strong>বিশেষ এনডোর্সমেন্ট</strong>।']},
+
+{cat:'types', page:21,
+ qEn:'What information does the CGL Declarations Form contain?',
+ qBn:'CGL ডিক্লেয়ারেশনস ফর্মে কী কী তথ্য থাকে?',
+ aEn:['Identifies the <span class="kw-r">policyholder</span> (the "named insured") and any additional insureds.',
+      'States the <span class="kw-b">policy period and territory</span>.',
+      'Indicates the <span class="kw-b">dollar limits</span> for each type of coverage provided.'],
+ aBn:['<span class="kw-r">পলিসিহোল্ডার</span> ("নেমড ইনসিউরড") এবং যেকোনো অতিরিক্ত বীমাকৃতকে চিহ্নিত করে।',
+      '<span class="kw-b">পলিসির মেয়াদ ও এলাকা</span> উল্লেখ করে।',
+      'প্রতিটি কভারেজের জন্য <span class="kw-b">ডলার সীমা</span> নির্দেশ করে।']},
+
+{cat:'types', page:22,
+ qEn:'What five sections make up the CGL Coverage Form, and what three types of coverage does it include?',
+ qBn:'CGL কভারেজ ফর্মের পাঁচটি অংশ কী কী, এবং এতে কী ধরনের তিন প্রকার কভারেজ থাকে?',
+ aEn:['Five sections: <span class="kw-r">Coverages</span>, Who Is an Insured, Limits of Insurance, Conditions, and Definitions.',
+      '<strong>Coverage A</strong> — <span class="kw-b">Bodily Injury and Property Damage Liability.</span>',
+      '<strong>Coverage B</strong> — <span class="kw-b">Personal and Advertising Injury Liability.</span>',
+      '<strong>Coverage C</strong> — <span class="kw-b">Medical Payments.</span>'],
+ aBn:['পাঁচটি অংশ: <span class="kw-r">কভারেজ</span>, কে বীমাকৃত, বীমার সীমা, শর্তাবলি, ও সংজ্ঞা।',
+      '<strong>কভারেজ A</strong> — <span class="kw-b">বডিলি ইনজুরি ও প্রপার্টি ড্যামেজ দায়।</span>',
+      '<strong>কভারেজ B</strong> — <span class="kw-b">পার্সোনাল ও অ্যাডভার্টাইজিং ইনজুরি দায়।</span>',
+      '<strong>কভারেজ C</strong> — <span class="kw-b">মেডিকেল পেমেন্টস।</span>']},
+
+{cat:'types', page:23,
+ qEn:'How does a CGL policy define "bodily injury" and "property damage"?',
+ qBn:'CGL পলিসিতে "বডিলি ইনজুরি" ও "প্রপার্টি ড্যামেজ" কীভাবে সংজ্ঞায়িত করা হয়েছে?',
+ aEn:['<strong>Bodily injury</strong> resulting from an occurrence is defined as an <span class="kw-r">accident that is neither expected nor intended</span> from the standpoint of the insured.',
+      '<strong>Property damage</strong> is defined as <span class="kw-b">physical injury to tangible property</span>, or loss of use of property that is not physically injured.'],
+ aBn:['<strong>বডিলি ইনজুরি</strong> একটি ঘটনার ফলে হওয়া <span class="kw-r">দুর্ঘটনা যা বীমাকৃতের দৃষ্টিকোণ থেকে প্রত্যাশিত বা ইচ্ছাকৃত নয়</span> হিসেবে সংজ্ঞায়িত।',
+      '<strong>প্রপার্টি ড্যামেজ</strong> হলো <span class="kw-b">দৃশ্যমান সম্পত্তির শারীরিক ক্ষতি</span>, অথবা এমন সম্পত্তির ব্যবহারের ক্ষতি যা শারীরিকভাবে ক্ষতিগ্রস্ত হয়নি।']},
+
+{cat:'types', page:24,
+ qEn:'What does Personal Injury (PI) coverage and Medical Payments coverage protect against under CGL?',
+ qBn:'CGL এর অধীনে পার্সোনাল ইনজুরি (PI) এবং মেডিকেল পেমেন্টস কভারেজ কী থেকে সুরক্ষা দেয়?',
+ aEn:['<strong>Personal Injury (PI):</strong> insures offenses connected with the insured\'s <span class="kw-r">advertising</span> of its goods/services — libel, slander, invasion of privacy, copyright breach.',
+      '<strong>Medical Payments:</strong> generally pays <span class="kw-b">medical costs</span> after an accident, regardless of fault; may also help pay funeral expenses and passenger injuries.'],
+ aBn:['<strong>পার্সোনাল ইনজুরি (PI):</strong> বীমাকৃতের পণ্য/সেবার <span class="kw-r">বিজ্ঞাপনের</span> সাথে সম্পর্কিত অপরাধ কভার করে — মানহানি, অপবাদ, গোপনীয়তা লঙ্ঘন, কপিরাইট লঙ্ঘন।',
+      '<strong>মেডিকেল পেমেন্টস:</strong> দুর্ঘটনার পর <span class="kw-b">চিকিৎসা খরচ</span> পরিশোধ করে, দোষ যারই হোক না কেন; এছাড়াও অন্ত্যেষ্টিক্রিয়া ব্যয় ও যাত্রীর আঘাতেও সহায়তা করতে পারে।']},
+
+{cat:'specialty', page:25,
+ qEn:'What does workers\' compensation insurance cover, and what limitation exists for injured workers regarding A/E claims?',
+ qBn:'শ্রমিক ক্ষতিপূরণ বীমা কী কভার করে, এবং স্থপতি-প্রকৌশলীর বিরুদ্ধে দাবির ক্ষেত্রে আহত শ্রমিকদের কী সীমাবদ্ধতা থাকে?',
+ aEn:['Designed to cover workers who are <span class="kw-r">injured in the course of their employment</span>.',
+      'Injured construction workers may try to prove the A/E or another contractor (other than their employer) was responsible.',
+      'However, <span class="kw-b">workers\' compensation statutes do not provide any protection</span> to the A/E or other contractors.'],
+ aBn:['কর্মরত অবস্থায় <span class="kw-r">আহত শ্রমিকদের</span> কভার করার জন্য ডিজাইন করা হয়েছে।',
+      'আহত নির্মাণ শ্রমিকরা প্রমাণের চেষ্টা করতে পারে যে স্থপতি-প্রকৌশলী বা অন্য কোনো ঠিকাদার (তার নিয়োগকর্তা ছাড়া) দায়ী ছিল।',
+      'তবে, <span class="kw-b">শ্রমিক ক্ষতিপূরণ আইন স্থপতি-প্রকৌশলী বা অন্য ঠিকাদারদের কোনো সুরক্ষা দেয় না</span>।']},
+
+{cat:'specialty', page:26,
+ qEn:'Which type of construction has the least risk associated with property damage — building, marine, or engineered construction?',
+ qBn:'ভবন নির্মাণ, নৌ নির্মাণ, না প্রকৌশলগত নির্মাণ (রাস্তা/বাঁধ) — কোনটির সম্পত্তি ক্ষতির ঝুঁকি সবচেয়ে কম?',
+ aEn:['<strong>Answer: Engineered construction</strong> (highways, dams) — <span class="kw-r">option C</span>.',
+      'The general contractor is responsible for the project during construction, and engineered construction typically carries less property-damage exposure than building or marine construction.'],
+ aBn:['<strong>উত্তর: প্রকৌশলগত নির্মাণ</strong> (হাইওয়ে, বাঁধ) — <span class="kw-r">অপশন C</span>।',
+      'নির্মাণ চলাকালীন প্রধান ঠিকাদার প্রকল্পের জন্য দায়ী থাকে, এবং প্রকৌশলগত নির্মাণে সাধারণত ভবন বা নৌ নির্মাণের চেয়ে সম্পত্তি ক্ষতির ঝুঁকি কম থাকে।']},
+
+{cat:'specialty', page:27,
+ qEn:'What is Builder\'s Risk Insurance, and what does "all risk" mean in this context?',
+ qBn:'বিল্ডার্স রিস্ক ইন্স্যুরেন্স কী, এবং এখানে "অল রিস্ক" বলতে কী বোঝায়?',
+ aEn:['<span class="kw-r">Builder\'s risk</span> is property insurance that protects against <span class="kw-b">fortuitous (accidental) damage</span> to a project while the project is under construction.',
+      'Builder\'s risk policies are typically <strong>"all risk"</strong> policies — meaning they cover <span class="kw-b">all causes of loss that are not expressly excluded.</span>'],
+ aBn:['<span class="kw-r">বিল্ডার্স রিস্ক</span> হলো একটি সম্পত্তি বীমা, যা নির্মাণাধীন অবস্থায় প্রকল্পের <span class="kw-b">দৈবক্রমে (আকস্মিক) ক্ষতির</span> বিরুদ্ধে সুরক্ষা দেয়।',
+      'বিল্ডার্স রিস্ক পলিসি সাধারণত <strong>"অল রিস্ক"</strong> — অর্থাৎ <span class="kw-b">স্পষ্টভাবে বাদ না দেওয়া সকল কারণের ক্ষতি</span> কভার করে।']},
+
+{cat:'specialty', page:28,
+ qEn:'Who typically purchases the Builder\'s Risk Insurance Policy?',
+ qBn:'বিল্ডার্স রিস্ক ইন্স্যুরেন্স পলিসি সাধারণত কে ক্রয় করে?',
+ aEn:['<span class="kw-r">Owners may purchase it</span> — but most require the <span class="kw-b">contractor to provide</span> it instead.',
+      'All general contractors can provide this type of insurance, usually at a <span class="kw-b">higher cost</span> than if the owner buys the insurance directly.'],
+ aBn:['<span class="kw-r">মালিকরা এটি ক্রয় করতে পারে</span> — তবে বেশিরভাগ ক্ষেত্রে <span class="kw-b">ঠিকাদারকে এটি প্রদান করতে</span> বলা হয়।',
+      'সকল প্রধান ঠিকাদার এই বীমা প্রদান করতে পারে, তবে সাধারণত মালিক সরাসরি কিনলে যে খরচ হতো তার চেয়ে <span class="kw-b">বেশি খরচে</span>।']},
+
+{cat:'specialty', page:29,
+ qEn:'What does Builder\'s Risk (1st Party) coverage typically include?',
+ qBn:'বিল্ডার্স রিস্ক (১ম পক্ষ) কভারেজে সাধারণত কী কী অন্তর্ভুক্ত থাকে?',
+ aEn:['<span class="kw-r">1st Party</span> coverage for damage to project works.',
+      'Can include coverage for <span class="kw-b">delay in start-up</span>.',
+      'Covers all parties involved in construction.',
+      'All-risks perils typically include: <strong>Fire, Lightning, Wind/Hail, Flood, Vandalism.</strong>'],
+ aBn:['প্রকল্পের কাজের ক্ষতির জন্য <span class="kw-r">১ম পক্ষ</span> কভারেজ।',
+      '<span class="kw-b">শুরুতে বিলম্বের</span> জন্যও কভারেজ থাকতে পারে।',
+      'নির্মাণে জড়িত সকল পক্ষকে কভার করে।',
+      'অল-রিস্ক ঝুঁকির মধ্যে থাকে: <strong>আগুন, বজ্রপাত, ঝড়/শিলাবৃষ্টি, বন্যা, ভাঙচুর।</strong>']},
+
+{cat:'specialty', page:30,
+ qEn:'What exclusions typically apply to Builder\'s Risk Insurance, and what special features should it include?',
+ qBn:'বিল্ডার্স রিস্ক ইন্স্যুরেন্সে সাধারণত কোন কোন বর্জন প্রযোজ্য হয়, এবং এতে কী বিশেষ বৈশিষ্ট্য থাকা উচিত?',
+ aEn:['Subject to exclusions: <span class="kw-r">war, nuclear, faulty workmanship, error in design.</span>',
+      'Insures for <span class="kw-b">full replacement cost.</span>',
+      'Needs to include <span class="kw-b">transit coverage</span> and <span class="kw-b">off-site storage.</span>',
+      'Should be <strong>non-cancelable</strong> — this is important.'],
+ aBn:['বর্জিত বিষয়: <span class="kw-r">যুদ্ধ, পারমাণবিক ঘটনা, ত্রুটিপূর্ণ কারিগরি, নকশার ত্রুটি।</span>',
+      '<span class="kw-b">সম্পূর্ণ প্রতিস্থাপন খরচের</span> বিমা করে।',
+      '<span class="kw-b">পরিবহন কভারেজ</span> এবং <span class="kw-b">অফ-সাইট সংরক্ষণ</span> অন্তর্ভুক্ত থাকা প্রয়োজন।',
+      'এটি <strong>বাতিলযোগ্য নয়</strong> হওয়া উচিত — যা গুরুত্বপূর্ণ।']},
+
+{cat:'specialty', page:31,
+ qEn:'Define liability insurance.',
+ qBn:'লায়াবিলিটি ইন্স্যুরেন্স সংজ্ঞায়িত করুন।',
+ aEn:['<span class="kw-r">Liability insurance</span> is part of the general insurance system of risk financing to protect the purchaser (the "insured") from the risks of <span class="kw-b">liabilities imposed by lawsuits</span> and similar claims.'],
+ aBn:['<span class="kw-r">লায়াবিলিটি ইন্স্যুরেন্স</span> হলো ঝুঁকি অর্থায়নের সাধারণ বীমা ব্যবস্থার একটি অংশ, যা ক্রেতাকে ("বীমাকৃত") <span class="kw-b">মামলা ও অনুরূপ দাবির কারণে সৃষ্ট দায়ের</span> ঝুঁকি থেকে সুরক্ষা দেয়।']},
+
+{cat:'specialty', page:32,
+ qEn:'What does liability insurance in a construction project typically cover?',
+ qBn:'নির্মাণ প্রকল্পে লায়াবিলিটি ইন্স্যুরেন্স সাধারণত কী কভার করে?',
+ aEn:['<span class="kw-r">Provided by all parties</span> to the construction project.',
+      'Covers <span class="kw-b">bodily injury and property damage.</span>',
+      'The <span class="kw-b">owner should be added</span> as an additional insured to contractors\'/subs\' policies.',
+      'Includes coverage for damage to project; <strong>renewable annually.</strong>'],
+ aBn:['নির্মাণ প্রকল্পের <span class="kw-r">সকল পক্ষ কর্তৃক প্রদত্ত।</span>',
+      '<span class="kw-b">বডিলি ইনজুরি ও প্রপার্টি ড্যামেজ</span> কভার করে।',
+      'ঠিকাদার/সাব-কন্ট্রাক্টরের পলিসিতে <span class="kw-b">মালিককে অতিরিক্ত বীমাকৃত</span> হিসেবে যোগ করা উচিত।',
+      'প্রকল্পের ক্ষতির কভারেজও অন্তর্ভুক্ত থাকে; <strong>বার্ষিক নবায়নযোগ্য।</strong>']},
+
+{cat:'specialty', page:33,
+ qEn:'What are the limitations and exclusions of standard liability insurance?',
+ qBn:'স্ট্যান্ডার্ড লায়াবিলিটি ইন্স্যুরেন্সের সীমাবদ্ধতা ও বর্জনগুলো কী?',
+ aEn:['<span class="kw-r">Limits are shared</span> amongst all of the contractor\'s projects.',
+      '<span class="kw-b">No dedicated completed operations</span> coverage.',
+      'Excludes: <strong>intentional acts, automobile, workers\' compensation, gradual pollution.</strong>'],
+ aBn:['ঠিকাদারের <span class="kw-r">সকল প্রকল্পের মধ্যে সীমা ভাগ করা</span> হয়।',
+      '<span class="kw-b">নির্দিষ্ট কমপ্লিটেড অপারেশনস কভারেজ থাকে না।</span>',
+      'বাদ থাকে: <strong>ইচ্ছাকৃত কাজ, অটোমোবাইল, শ্রমিক ক্ষতিপূরণ, ধীরগতির দূষণ।</strong>']},
+
+{cat:'specialty', page:34,
+ qEn:'What is Professional Liability (E&O) Insurance, and what does it cover?',
+ qBn:'প্রফেশনাল লায়াবিলিটি (E&O) ইন্স্যুরেন্স কী এবং এটি কী কভার করে?',
+ aEn:['Also known as <span class="kw-r">errors and omissions (E&amp;O) insurance.</span>',
+      'Covers damages caused by the A/E\'s <span class="kw-b">failure to perform</span> in accordance with the <span class="kw-b">standard of care</span> applicable to its profession.'],
+ aBn:['একে <span class="kw-r">এরর্স অ্যান্ড ওমিশনস (E&amp;O) ইন্স্যুরেন্স</span> বলা হয়।',
+      'স্থপতি-প্রকৌশলী তাদের পেশার প্রযোজ্য <span class="kw-b">যত্নের মান</span> অনুযায়ী কাজ করতে <span class="kw-b">ব্যর্থ হলে</span> সৃষ্ট ক্ষতি কভার করে।']},
+
+{cat:'specialty', page:35,
+ qEn:'Who typically buys professional liability insurance, and why can\'t the owner be added as an additional insured?',
+ qBn:'প্রফেশনাল লায়াবিলিটি ইন্স্যুরেন্স সাধারণত কে ক্রয় করে, এবং মালিককে কেন অতিরিক্ত বীমাকৃত হিসেবে যোগ করা যায় না?',
+ aEn:['Insures against <span class="kw-r">negligent act, error, or omission</span>; covers financial loss as well as bodily injury/property damage.',
+      'Usually provided by <span class="kw-b">consultants</span> to the project (architect, engineer, etc.).',
+      'No dedicated limits — covers all of the professional\'s work; renewable annually.',
+      '<strong>Owner cannot be added</strong> as an additional insured, since the policy insures the professional\'s personal standard of care, not the project itself.'],
+ aBn:['<span class="kw-r">অবহেলামূলক কাজ, ত্রুটি বা বাদ পড়ার</span> বিরুদ্ধে বীমা করে; আর্থিক ক্ষতির পাশাপাশি বডিলি ইনজুরি/প্রপার্টি ড্যামেজও কভার করে।',
+      'সাধারণত প্রকল্পের <span class="kw-b">পরামর্শকরা</span> (স্থপতি, প্রকৌশলী ইত্যাদি) এটি গ্রহণ করে।',
+      'নির্দিষ্ট সীমা নেই — পেশাজীবীর সকল কাজ কভার করে; বার্ষিক নবায়নযোগ্য।',
+      '<strong>মালিককে অতিরিক্ত বীমাকৃত হিসেবে যোগ করা যায় না</strong>, কারণ এই পলিসি পেশাজীবীর ব্যক্তিগত যত্নের মান বীমা করে, প্রকল্পকে নয়।']},
+
+{cat:'programs', page:40,
+ qEn:'What is an Owner-Controlled Insurance Program (OCIP)?',
+ qBn:'ওনার-কন্ট্রোলড ইন্স্যুরেন্স প্রোগ্রাম (OCIP) কী?',
+ aEn:['On large projects, the owner can often <span class="kw-r">save a substantial amount of money</span> by purchasing insurance under an OCIP — also known as <span class="kw-b">wrap-up insurance</span> or <span class="kw-b">project insurance.</span>',
+      'With an OCIP, the owner\'s insurance covers <span class="kw-b">all project participants</span> who enroll in the program under whatever policies are included.'],
+ aBn:['বড় প্রকল্পে, মালিক প্রায়ই OCIP এর অধীনে বীমা কিনে <span class="kw-r">যথেষ্ট অর্থ সাশ্রয়</span> করতে পারেন — একে <span class="kw-b">র‍্যাপ-আপ ইন্স্যুরেন্স</span> বা <span class="kw-b">প্রজেক্ট ইন্স্যুরেন্সও</span> বলা হয়।',
+      'OCIP-তে মালিকের বীমা প্রোগ্রামে নিবন্ধিত <span class="kw-b">সকল প্রকল্প অংশগ্রহণকারীকে</span> কভার করে।']},
+
+{cat:'programs', page:37,
+ qEn:'What does OCIP coverage typically include, and what does it exclude?',
+ qBn:'OCIP কভারেজে সাধারণত কী কী অন্তর্ভুক্ত থাকে, এবং কী বাদ থাকে?',
+ aEn:['Covers all parties: <span class="kw-r">Owner, Contractor, Sub-Contractor, Consultants</span> (excluding suppliers and security guards).',
+      'Coverage for <span class="kw-b">bodily injury and property damage</span>; same exclusions as the general liability policy.',
+      '<strong>Excludes damage to the project itself.</strong>',
+      'Has <span class="kw-b">dedicated limits</span>, covers the entire term of the project, and should be non-cancelable.'],
+ aBn:['সকল পক্ষকে কভার করে: <span class="kw-r">মালিক, ঠিকাদার, সাব-কন্ট্রাক্টর, পরামর্শক</span> (সরবরাহকারী ও নিরাপত্তা রক্ষী বাদে)।',
+      '<span class="kw-b">বডিলি ইনজুরি ও প্রপার্টি ড্যামেজ</span> কভার করে; জেনারেল লায়াবিলিটি পলিসির মতো একই বর্জন প্রযোজ্য।',
+      '<strong>প্রকল্পের নিজস্ব ক্ষতি বাদ থাকে।</strong>',
+      '<span class="kw-b">নির্দিষ্ট সীমা</span> থাকে, পুরো প্রকল্পের মেয়াদ কভার করে, এবং বাতিলযোগ্য নয়।']},
+
+{cat:'programs', page:38,
+ qEn:'What is a Contractor-Controlled Insurance Program (CCIP), and how does it differ from an OCIP?',
+ qBn:'কন্ট্রাক্টর-কন্ট্রোলড ইন্স্যুরেন্স প্রোগ্রাম (CCIP) কী, এবং এটি OCIP থেকে কীভাবে ভিন্ন?',
+ aEn:['A <span class="kw-r">CCIP</span> functions in a similar manner to an OCIP.',
+      'The key difference: even though it is <span class="kw-b">controlled by the contractor</span>, the <span class="kw-b">cost savings still pass to the owner.</span>'],
+ aBn:['একটি <span class="kw-r">CCIP</span> OCIP এর মতোই কাজ করে।',
+      'মূল পার্থক্য: এটি <span class="kw-b">ঠিকাদার দ্বারা নিয়ন্ত্রিত</span> হলেও, <span class="kw-b">খরচ সাশ্রয় শেষ পর্যন্ত মালিকের কাছে পৌঁছায়।</span>']},
+
+{cat:'programs', page:43,
+ qEn:'What are the main benefits of OCIP and CCIP programs?',
+ qBn:'OCIP ও CCIP প্রোগ্রামের প্রধান সুবিধাগুলো কী কী?',
+ aEn:['Main benefit: <span class="kw-r">cost savings</span> — plus improvement in <span class="kw-b">risk control and claims recovery.</span>',
+      'Project participants may benefit as <span class="kw-b">insurance limits may be higher</span> than what they could obtain under separate policies.',
+      'Typically only used on <strong>large projects</strong>, since the administration costs are fairly high.'],
+ aBn:['প্রধান সুবিধা: <span class="kw-r">খরচ সাশ্রয়</span> — এবং <span class="kw-b">ঝুঁকি নিয়ন্ত্রণ ও দাবি আদায়ে</span> উন্নতি।',
+      'প্রকল্প অংশগ্রহণকারীরা উপকৃত হতে পারে কারণ পৃথক পলিসির তুলনায় <span class="kw-b">বীমার সীমা বেশি</span> হতে পারে।',
+      'প্রশাসনিক খরচ বেশি হওয়ায় সাধারণত শুধুমাত্র <strong>বড় প্রকল্পে</strong> ব্যবহৃত হয়।']},
+
+{cat:'programs', page:40,
+ qEn:'Compare General Liability insurance with Wrap-up Liability insurance.',
+ qBn:'জেনারেল লায়াবিলিটি ইন্স্যুরেন্স ও র‍্যাপ-আপ লায়াবিলিটি ইন্স্যুরেন্সের মধ্যে তুলনা করুন।',
+ aEn:['<strong>General Liability:</strong> either the owner\'s or the contractor\'s <span class="kw-r">operational policy</span>; renews annually; insures a <span class="kw-b">single entity</span> and its related firms; single limit covering all the insured\'s operations.',
+      '<strong>Wrap-up Liability:</strong> <span class="kw-r">project-specific</span>, a specialized general liability policy; covers multiple, unrelated insureds but <span class="kw-b">limited to the Project</span>; a "one time" policy with a definitive start and finish spanning the project term, plus a fixed completed-operations period.'],
+ aBn:['<strong>জেনারেল লায়াবিলিটি:</strong> মালিক বা ঠিকাদারের <span class="kw-r">কার্যক্রমগত পলিসি</span>; বার্ষিক নবায়ন হয়; <span class="kw-b">একক প্রতিষ্ঠান</span> ও তার সংশ্লিষ্ট প্রতিষ্ঠানকে বীমা করে; সকল কার্যক্রম কভার করার একক সীমা।',
+      '<strong>র‍্যাপ-আপ লায়াবিলিটি:</strong> <span class="kw-r">প্রকল্প-নির্দিষ্ট</span>, একটি বিশেষায়িত জেনারেল লায়াবিলিটি পলিসি; একাধিক, পরস্পর-সম্পর্কহীন বীমাকৃতদের কভার করে কিন্তু <span class="kw-b">শুধু প্রকল্পের মধ্যে সীমাবদ্ধ</span>; একটি নির্দিষ্ট শুরু ও শেষসহ "এক-বারের" পলিসি, সাথে একটি নির্দিষ্ট কমপ্লিটেড-অপারেশনস মেয়াদ।']},
+
+{cat:'programs', page:41,
+ qEn:'What does automobile insurance cover in a construction context, and what should it include?',
+ qBn:'নির্মাণ প্রেক্ষাপটে অটোমোবাইল ইন্স্যুরেন্স কী কভার করে, এবং এতে কী থাকা উচিত?',
+ aEn:['Covers <span class="kw-r">physical damage to the vehicle</span> as well as <span class="kw-b">3rd-party bodily injury/property damage.</span>',
+      'Should cover all vehicles <span class="kw-b">owned, leased, or licensed.</span>',
+      'Should be provided by all parties to the construction project.',
+      'Should be <strong>endorsed</strong> to give the owner notice of cancellation.'],
+ aBn:['<span class="kw-r">যানবাহনের শারীরিক ক্ষতি</span> এবং <span class="kw-b">তৃতীয়-পক্ষের বডিলি ইনজুরি/প্রপার্টি ড্যামেজ</span> কভার করে।',
+      'মালিকানাধীন, লিজকৃত বা লাইসেন্সপ্রাপ্ত <span class="kw-b">সকল যানবাহন</span> কভার করা উচিত।',
+      'নির্মাণ প্রকল্পের সকল পক্ষ কর্তৃক প্রদান করা উচিত।',
+      'বাতিলের নোটিশ মালিককে দেওয়ার জন্য <strong>এনডোর্স</strong> করা উচিত।']},
+
+{cat:'programs', page:42,
+ qEn:'What insurance program options does an owner have on a construction project?',
+ qBn:'একজন মালিকের কাছে নির্মাণ প্রকল্পে কী কী বীমা প্রোগ্রাম অপশন থাকে?',
+ aEn:['The owner can <span class="kw-r">require the contractor and subcontractors</span> to provide necessary insurance coverage.',
+      'The owner can require the contractor to provide a <span class="kw-b">Single Project Insurance Program (CCIP).</span>',
+      'The owner can <span class="kw-b">provide an insurance program (OCIP)</span> directly.',
+      'Or <strong>a combination</strong> of the above options.'],
+ aBn:['মালিক <span class="kw-r">ঠিকাদার ও সাব-কন্ট্রাক্টরদের</span> প্রয়োজনীয় বীমা কভারেজ প্রদানে বাধ্য করতে পারেন।',
+      'মালিক ঠিকাদারকে <span class="kw-b">একক প্রকল্প বীমা প্রোগ্রাম (CCIP)</span> প্রদান করতে বলতে পারেন।',
+      'মালিক নিজেই <span class="kw-b">একটি বীমা প্রোগ্রাম (OCIP)</span> প্রদান করতে পারেন।',
+      'অথবা উপরের অপশনগুলোর <strong>সংমিশ্রণও</strong> ব্যবহার করা যায়।']},
+
+{cat:'programs', page:43,
+ qEn:'Summarize the five main types of construction insurance and what each covers.',
+ qBn:'নির্মাণ বীমার পাঁচটি প্রধান ধরন এবং প্রতিটি কী কভার করে তা সংক্ষেপে বলুন।',
+ aEn:['<strong>Commercial General Liability</strong> — <span class="kw-r">bodily injury, property damage</span>; ongoing and completed operations &amp; products.',
+      '<strong>Business Automobile Liability</strong> — <span class="kw-b">bodily injury, property damage</span> from vehicles.',
+      '<strong>Workers\' Compensation &amp; Employer\'s Liability</strong> — bodily injury and illness of employees, work related.',
+      '<strong>Professional Liability</strong> (architects, engineers, construction managers) — injury or damages due to <span class="kw-r">errors &amp; omissions.</span>',
+      '<strong>Builder\'s Risk (Property)</strong> — damages or losses to <span class="kw-b">property under construction.</span>'],
+ aBn:['<strong>কমার্শিয়াল জেনারেল লায়াবিলিটি</strong> — <span class="kw-r">বডিলি ইনজুরি, প্রপার্টি ড্যামেজ</span>; চলমান ও সম্পন্ন কাজ ও পণ্য।',
+      '<strong>বিজনেস অটোমোবাইল লায়াবিলিটি</strong> — যানবাহনজনিত <span class="kw-b">বডিলি ইনজুরি, প্রপার্টি ড্যামেজ।</span>',
+      '<strong>শ্রমিক ক্ষতিপূরণ ও নিয়োগকর্তার দায়</strong> — কর্মচারীদের কাজ-সম্পর্কিত আঘাত ও অসুস্থতা।',
+      '<strong>প্রফেশনাল লায়াবিলিটি</strong> (স্থপতি, প্রকৌশলী, কনস্ট্রাকশন ম্যানেজার) — <span class="kw-r">ত্রুটি ও বাদ পড়ার</span> কারণে আঘাত বা ক্ষতি।',
+      '<strong>বিল্ডার্স রিস্ক (সম্পত্তি)</strong> — <span class="kw-b">নির্মাণাধীন সম্পত্তির</span> ক্ষতি বা লোকসান।']}
+];
+
+/* ======================= RENDER ======================= */
+const filtersEl = document.getElementById('filters');
+const sectionsEl = document.getElementById('sections');
+const totalCountEl = document.getElementById('totalCount');
+const noResultsEl = document.getElementById('noResults');
+const searchInput = document.getElementById('searchInput');
+
+totalCountEl.textContent = DATA.length;
+
+let activeCat = 'all';
+let searchTerm = '';
+
+function buildFilters(){
+  const allBtn = document.createElement('button');
+  allBtn.className = 'filter-btn active';
+  allBtn.dataset.cat = 'all';
+  allBtn.innerHTML = `All Clauses <span class="filter-count">(${DATA.length})</span>`;
+  allBtn.addEventListener('click', ()=> setActiveCat('all'));
+  filtersEl.appendChild(allBtn);
+
+  CATEGORIES.forEach(c=>{
+    const count = DATA.filter(d=>d.cat===c.key).length;
+    const btn = document.createElement('button');
+    btn.className = 'filter-btn';
+    btn.dataset.cat = c.key;
+    btn.innerHTML = `${c.label} <span class="filter-count">(${count})</span>`;
+    btn.addEventListener('click', ()=> setActiveCat(c.key));
+    filtersEl.appendChild(btn);
+  });
+}
+
+function setActiveCat(cat){
+  activeCat = cat;
+  [...filtersEl.children].forEach(b=> b.classList.toggle('active', b.dataset.cat===cat));
+  render();
+}
+
+function matchesSearch(item){
+  if(!searchTerm) return true;
+  const hay = (item.qEn+' '+item.qBn+' '+item.aEn.join(' ')+' '+item.aBn.join(' ')).toLowerCase();
+  return hay.includes(searchTerm.toLowerCase());
+}
+
+function render(){
+  sectionsEl.innerHTML = '';
+  let shown = 0;
+  let clauseCounter = 0;
+
+  CATEGORIES.forEach(cat=>{
+    if(activeCat !== 'all' && activeCat !== cat.key) return;
+    const items = DATA.filter(d=> d.cat===cat.key && matchesSearch(d));
+    if(items.length === 0) return;
+
+    const sectionTitle = document.createElement('div');
+    sectionTitle.className = 'section-title';
+    sectionTitle.innerHTML = `<span class="tag">${cat.label}</span><span class="rule"></span><span class="bn">${cat.bn}</span>`;
+    sectionsEl.appendChild(sectionTitle);
+
+    items.forEach(item=>{
+      clauseCounter++;
+      shown++;
+      const globalIndex = DATA.indexOf(item) + 1;
+      const card = document.createElement('div');
+      card.className = 'clause';
+
+      const answerHtml = `
+        <div class="answer-block">
+          <div class="answer-label">Answer</div>
+          <ul>${item.aEn.map(li=>`<li>${li}</li>`).join('')}</ul>
+          <div class="answer-bn">
+            <ul>${item.aBn.map(li=>`<li>${li}</li>`).join('')}</ul>
+          </div>
+        </div>`;
+
+      card.innerHTML = `
+        <button class="clause-head" aria-expanded="false">
+          <div class="clause-index">${String(globalIndex).padStart(2,'0')}</div>
+          <div class="clause-text">
+            <p class="q-en">${item.qEn}</p>
+            <p class="q-bn bn">${item.qBn}</p>
+            <div class="clause-tags">
+              <span class="page-tag">Page ${item.page}</span>
+              <span class="cat-tag">${cat.label}</span>
+            </div>
+          </div>
+          <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="clause-body-wrap">
+          <div class="clause-body">${answerHtml}</div>
+        </div>
+      `;
+      sectionsEl.appendChild(card);
+
+      const head = card.querySelector('.clause-head');
+      const bodyWrap = card.querySelector('.clause-body-wrap');
+      head.addEventListener('click', ()=>{
+        const isOpen = card.classList.contains('open');
+        if(isOpen){
+          card.classList.remove('open');
+          bodyWrap.style.maxHeight = null;
+          head.setAttribute('aria-expanded','false');
+        } else {
+          card.classList.add('open');
+          bodyWrap.style.maxHeight = bodyWrap.scrollHeight + 'px';
+          head.setAttribute('aria-expanded','true');
+        }
+      });
+    });
+  });
+
+  noResultsEl.style.display = shown === 0 ? 'block' : 'none';
+}
+
+buildFilters();
+render();
+
+searchInput.addEventListener('input', (e)=>{
+  searchTerm = e.target.value.trim();
+  render();
+});
+
+/* back to top */
+const totop = document.getElementById('totop');
+window.addEventListener('scroll', ()=>{
+  totop.classList.toggle('show', window.scrollY > 500);
+});
+totop.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
+</script>
+
+</body>
+</html>
