@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>BECM-3107 Notes</title>
+  <style>
+    body { 
+      display: flex; 
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+      height: 100vh; 
+      margin: 0; 
+      background-color: #f0f2f5;
+      overflow: hidden; 
+    }
+    
+    /* SIDEBAR STYLES */
+    .sidebar { 
+      width: 340px; 
+      background: #2b2b2b; 
+      transition: width 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+      white-space: nowrap; 
+      display: flex;
+      flex-direction: column;
+      box-shadow: 2px 0 8px rgba(0,0,0,0.2);
+      z-index: 100;
+    }
+    .sidebar.closed {
+      width: 0; 
+      border-right: none;
+    }
+    .sidebar-inner {
+      padding: 20px 20px;
+      width: 340px; 
+      overflow-y: auto; 
+      height: 100%;
+      box-sizing: border-box;
+    }
+    
+    /* Custom Scrollbar for the sidebar */
+    .sidebar-inner::-webkit-scrollbar {
+      width: 6px;
+    }
+    .sidebar-inner::-webkit-scrollbar-thumb {
+      background: #555; 
+      border-radius: 4px;
+    }
+
+    .sidebar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 5px;
+    }
+    .sidebar h2 {
+      color: #ffffff;
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin: 0;
+      letter-spacing: 0.5px;
+    }
+    .close-btn {
+      background: transparent;
+      color: #aaa;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: color 0.2s, transform 0.2s;
+      padding: 0;
+    }
+    .close-btn:hover {
+      color: #ff4d4d;
+      transform: scale(1.1);
+    }
+
+    /* SECTION HEADERS */
+    .section-title {
+      color: #9e9e9e;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-top: 25px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid #444;
+      padding-bottom: 6px;
+      white-space: normal; 
+      line-height: 1.5;
+      letter-spacing: 0.5px;
+    }
+
+    /* LINK STYLES */
+    .sidebar a { 
+      display: block; 
+      padding: 12px 16px; 
+      text-decoration: none; 
+      color: #e0e0e0; 
+      margin-bottom: 8px; 
+      background: #3a3a3a; 
+      border-radius: 6px; 
+      transition: all 0.2s ease;
+      font-size: 0.9rem;
+      white-space: normal; 
+      line-height: 1.4;
+      border-left: 3px solid transparent;
+    }
+    .sidebar a:hover { 
+      background: #4a4a4a; 
+      border-left: 3px solid #007bff;
+      color: #ffffff;
+      transform: translateX(3px);
+    }
+
+    /* MAIN CONTENT */
+    .main-content {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      position: relative; 
+    }
+    
+    /* FLOATING MENU BUTTON */
+    .open-btn {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: #007bff;
+      color: white;
+      border: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      z-index: 10;
+      /* Hidden by default since the sidebar starts open */
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(0.5);
+    }
+    .open-btn.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: scale(1);
+    }
+    .open-btn:hover {
+      background: #0056b3;
+      transform: scale(1.05);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+    }
+    .open-btn svg {
+      width: 24px;
+      height: 24px;
+      fill: currentColor;
+    }
+
+    iframe { 
+      flex-grow: 1; 
+      border: none; 
+      background: #fff;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SIDEBAR MENU -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-inner">
+      
+      <div class="sidebar-header">
+        <h2>BECM-3107</h2>
+        <button class="close-btn" onclick="toggleSidebar()" title="Close Sidebar">✖</button>
+      </div>
+      
+      <!-- SECTION A -->
+      <div class="section-title">SECTION A | DR. MIZANOOR RAHMAN, P.ENG</div>
+      <a href="01- Construction Contract- Arnob.html" target="viewer">01- Construction Contract</a>
+      <a href="02- Law of Tort Sheet - Arnob.html" target="viewer">02- Law of Tort Sheet</a>
+      <a href="03- LD and Penalties - Arnob.html" target="viewer">03- LD and Penalties</a>
+      <a href="04- Dispute Resolution - Arnob.html" target="viewer">04- Dispute Resolution</a>
+      <a href="05- Contract Administration - Arnob.html" target="viewer">05- Contract Administration</a>
+      <a href="06- Law of Agency - Arnob.html" target="viewer">06- Law of Agency</a>
+      
+      <!-- SECTION B -->
+      <div class="section-title">SECTION B | SANJIDA AFRIN SWORNA</div>
+      <a href="01- Introduction - Arnob.html" target="viewer">01- Introduction</a>
+      <a href="02- Construction_Documents - Arnob.html" target="viewer">02- Construction Documents</a>
+      <a href="03- Construction Contract - Arnob.html" target="viewer">03- Construction Contract</a>
+      <a href="04- Contract Administration.html" target="viewer">04- Contract Administration</a>
+      <a href="05- Changes to the Work - Arnob.html" target="viewer">05- Changes to the Work</a>
+      <a href="06- Termination and Suspention of Contract - Arnob.html" target="viewer">06- Termination and Suspention</a>
+      <a href="07- Surety Bond & Loc - Arnob.html" target="viewer">07- Surety Bond & Loc</a>
+      <a href="09- Indemnity Agreement - Arnob.html" target="viewer">09- Indemnity Agreement</a>
+
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+    
+    <!-- FLOATING ICON BUTTON (Now with an ID) -->
+    <button id="menuBtn" class="open-btn" onclick="toggleSidebar()" title="Open Menu">
+      <svg viewBox="0 0 24 24">
+        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+      </svg>
+    </button>
+    
+    <iframe name="viewer" src="01- Construction Contract- Arnob.html"></iframe>
+    
+  </div>
+
+  <!-- JAVASCRIPT -->
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById("sidebar");
+      const menuBtn = document.getElementById("menuBtn");
+      
+      // Toggles the classes to open/close menu and show/hide the button
+      sidebar.classList.toggle("closed");
+      menuBtn.classList.toggle("visible");
+    }
+  </script>
+
+</body>
+</html>
